@@ -1,0 +1,9 @@
+django
+bcrypt
+psycopg2
+djangorestframework
+dry-rest-permissions
+django-cors-headers
+django-filter
+django-crispy-forms
+markdown
