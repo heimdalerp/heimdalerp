@@ -1,9 +1,11 @@
 django
 bcrypt
 psycopg2
+django-cities
 djangorestframework
-dry-rest-permissions
+djangorestframework-jwt
 django-cors-headers
-django-filter
-django-crispy-forms
-markdown
+django-reversion
+#django-filter
+#django-crispy-forms
+#markdown

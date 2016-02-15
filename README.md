@@ -41,6 +41,8 @@ If you want a clean start (i.e first time using HeimdalERP), do as follows:
     #> CREATE DATABASE heimdalerp OWNER heimdalerp;
     #> \q
 
-You have no applications installed yet.
+e) Initialize your applications data:
 
-e) 
+    $ python3.4 manage.py migrate
+    $ python3.4 manage.py createinitialrevisions
+
