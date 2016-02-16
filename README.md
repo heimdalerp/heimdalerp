@@ -7,42 +7,37 @@ Heimdallr is attested as possessing foreknowledge, keen eyesight and hearing, an
 He guards Bifrost, the bridge which connects the human world with Asgard, the gods' world.
 It is said that he brings the gift of the gods to mankind.
 
-## 1. Install
+## 1. Install from source
 
 ### 1.1 OpenBSD
 
-a) First install its dependencies:
-
+    $ doas su
     # pkg_add py3-pip py3-bcrypt postgresql-server postgresql py3-psycopg2 git
-
-b) Fetch the code. Pay attention to its branches:
-
-    $ git clone https://github.com/mbaragiola/heimdalerp
-
-This fetches master, which is the latest version for development.
-
-c) Install further dependencies with pip3.4:
-
-    # pip3.4 install -r heimdalerp/requirements.pip
-
-d) Setup the database.
-
     # su _postgresql
     $ initdb /var/postgresql/data
     $ exit
     # rcctl enable postgresql
     # rcctl start postgresql
-
-If you want a clean start (i.e first time using HeimdalERP), do as follows:
-
     # su _postgresql
     $ createuser -s heimdalerp
     $ psql
     #> CREATE DATABASE heimdalerp OWNER heimdalerp;
     #> \q
+    $ exit
+    # exit
+    $ mkdir -p $HOME/workspace/heimdalerp/dev/
+    $ cd $HOME/workspace/heimdalerp/dev/
+    $ git clone https://github.com/mbaragiola/heimdalerp
+    $ cd ..
+    $ pyvenv-3.4 .
+    $ . bin/activate
 
-e) Initialize your applications data:
+At this point, typing python, python3 or python3.4 achieves the same.
+But I like to use python3.4 and pip3.4 to emphasize the version:
 
-    $ python3.4 manage.py migrate
-    $ python3.4 manage.py createinitialrevisions
+    (heimdalerp) $ pip3.4 install --upgrade pip
+    (heimdalerp) $ pip3.4 install -r dev/heimdalerp/requirements.pip
+    (heimdalerp) $ python3.4 manage.py migrate
+    (heimdalerp) $ python3.4 manage.py createinitialrevisions
 
+That's it. Congratulations!
