@@ -194,7 +194,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bcrypt',
-    'cities',
+    'cities_light',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',

@@ -39,5 +39,6 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     (heimdalerp) $ pip3.4 install -r dev/heimdalerp/requirements.pip
     (heimdalerp) $ python3.4 manage.py migrate
     (heimdalerp) $ python3.4 manage.py createinitialrevisions
+    (heimdalerp) $ python3.4 manage.py createsuperuser
 
 That's it. Congratulations!

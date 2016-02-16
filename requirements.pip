@@ -1,7 +1,7 @@
 django
 bcrypt
 psycopg2
-django-cities
+django-cities-light
 djangorestframework
 djangorestframework-jwt
 django-cors-headers
