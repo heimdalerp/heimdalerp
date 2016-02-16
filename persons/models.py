@@ -93,7 +93,10 @@ class PhysicalAddress(models.Model):
         blank=True,
         null=True
     )
-    city = models.ForeignKey(City)
+    city = models.ForeignKey(
+        City,
+        verbose_name=_('city')
+    )
     postal_code = models.CharField(
         _("postal code"),
         max_length=20
@@ -114,13 +117,16 @@ class PersonProfile(models.Model):
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
-        null=True
+        null=True,
+        verbose_name=_('phone numbers')
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
-        null=True
+        null=True,
+        verbose_name=_('extra email addresses')
     )
 
     class Meta:
         abstract = True
+
