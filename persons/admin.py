@@ -20,3 +20,4 @@ class PhysicalAddressAdmin(VersionAdmin):
 admin.site.register(models.PhoneNumber, PhoneNumberAdmin)
 admin.site.register(models.ExtraEmailAddress, ExtraEmailAddressAdmin)
 admin.site.register(models.PhysicalAddress, PhysicalAddressAdmin)
+

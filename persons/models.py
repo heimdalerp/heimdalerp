@@ -100,8 +100,8 @@ class PhysicalAddress(models.Model):
     )
 
     class Meta:
-        verbose_name = _("extra email address")
-        verbose_name_plural = _("extra email addresses")
+        verbose_name = _("physical address")
+        verbose_name_plural = _("physical addresses")
         default_permissions = ('view', 'add', 'change', 'delete')
     
 
