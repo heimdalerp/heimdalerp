@@ -53,6 +53,11 @@ class PhoneNumber(models.Model):
 
 
 class ExtraEmailAddress(models.Model):
+    """
+    Employees and clients may have more than one email address.
+    When in doubt, the official should always be the one in 
+    'django.contrib.auth.models.User.email'.
+    """
     email = models.EmailField(
         _("email address")
     )
@@ -67,6 +72,9 @@ class ExtraEmailAddress(models.Model):
 
 
 class PhysicalAddress(models.Model):
+    """
+    Physical address are of high importance due to impositive regulations.
+    """
     address_type = models.CharField(
         _("address type"),
         max_length=1,
@@ -109,6 +117,10 @@ class PhysicalAddress(models.Model):
     
 
 class PersonProfile(models.Model):
+    """
+    This is an abstract class where Employee and Client inherit their
+    main attributes.
+    """
     birth_date = models.DateField(
         _("birth date"),
         blank=True,
