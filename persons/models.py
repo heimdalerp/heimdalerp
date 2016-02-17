@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 
 from cities_light.models import City
 
@@ -25,6 +24,14 @@ PHYSICALADDRESS_TYPES = (
     (PHYSICALADDRESS_TYPE_FISCAL, _("fiscal")),
     (PHYSICALADDRESS_TYPE_HOME, _("home")),
 )
+
+GENRE_TYPE_MALE = 'M'
+GENRE_TYPE_FEMALE = 'F'
+GENRE_TYPES = (
+    (GENRE_TYPE_MALE, _('Male')),
+    (GENRE_TYPE_FEMALE, _('Female'))
+)
+
 
 class PhoneNumber(models.Model):
     number = models.CharField(
@@ -142,38 +149,4 @@ class PersonProfile(models.Model):
 
     class Meta:
         abstract = True
-
-
-GENRE_TYPE_MALE = 'M'
-GENRE_TYPE_FEMALE = 'F'
-GENRE_TYPES = (
-    (GENRE_TYPE_MALE, _('Male'))
-    (GENRE_TYPE_FEMALE, _('Female'))
-)
-
-class EmployeeProfile(PersonProfile):
-    """
-    All Employees must have a User, whereas they'll use the system or not.
-    """
-    user = models.OneToOneField(
-        User
-        verbose_name=_('user')
-    )
-    genre = models.CharField(
-        _('genre'),
-        max_length=1,
-        choices=GENRE_TYPES,
-    )
-    member_since = models.DateField(
-        _('member_since'),
-        blank=True,
-        null=True
-    )
-
-
-class ClientProfile(PersonProfile):
-    """
-    Clients don't have a User.
-    """
-    pass
 
