@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from cities_light.models import City
+from cities_light.models import City, Country
 
 
 PHONENUMBER_TYPE_HOME = 'H'
@@ -100,14 +100,12 @@ class PhysicalAddress(models.Model):
     floor_number = models.CharField(
         _("floor number"),
         max_length=4,
-        blank=True,
-        null=True
+        default=""
     )
     apartment_number = models.CharField(
         _("apartment number"),
         max_length=6,
-        blank=True,
-        null=True
+        default=""
     )
     city = models.ForeignKey(
         City,
@@ -134,16 +132,20 @@ class PersonProfile(models.Model):
         blank=True,
         null=True
     )
+    born_in = models.ForeignKey(
+        Country,
+        verbose_name=_('born in'),
+        blank=True,
+        null=True
+    )
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
-        null=True,
         verbose_name=_('phone numbers')
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
-        null=True,
         verbose_name=_('extra email addresses')
     )
 
