@@ -72,5 +72,5 @@ class DegreeSerializer(HyperlinkedModelSerializer):
 class EmployeeHasDegreeSerializer(HyperlinkedModelSerializer):
 
     class Meta:
-        model = models.Ethnicity
+        model = models.EmployeeHasDegree
 
