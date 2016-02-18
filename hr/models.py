@@ -181,7 +181,8 @@ class Employee(PersonProfile):
     ethnicities = models.ManyToManyField(
         Ethnicity,
         blank=True,
-        related_name=_('ethnicities'),
+        verbose_name=_('ethnicities'),
+        related_name='ethnicities',
         help_text=_('Relevant for countries where one must comply quotas')
     )
     sexual_orientation = models.ForeignKey(
@@ -194,11 +195,13 @@ class Employee(PersonProfile):
     aptitudes = models.ManyToManyField(
         Aptitude,
         verbose_name=_('aptitudes'),
+        related_name='aptitudes',
         blank=True
     )
     achievements = models.ManyToManyField(
         Achievement,
         verbose_name=_('achievements'),
+        related_name='achievements',
         blank=True
     )
 
@@ -328,7 +331,7 @@ class EmployeeHasSanction(models.Model):
 
 class AcademicInstitution(models.Model):
     """
-    Academic Institution for later use in combination with DegreeType.
+    Academic Institution for later use in combination with Degree.
     """
     name = models.CharField(
         _('academic institution'),

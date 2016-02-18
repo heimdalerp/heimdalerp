@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListAPIView
 
 from hr import models, serializers
 
@@ -29,8 +30,59 @@ class SanctionViewSet(ModelViewSet):
 
 
 class EmployeeViewSet(ModelViewSet):
-    queryset = models.Ethnicity.objects.all()
+    queryset = models.Employee.objects.all()
+    serializer_class = serializers.EmployeeSerializer
+
+
+class EthnicitiesByEmployeeList(ListAPIView):
     serializer_class = serializers.EthnicitySerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        employee = models.Employee.objects.filter(pk=pk)
+        return employee.ethnicities.all()
+
+
+class AptitudesByEmployeeList(ListAPIView):
+    serializer_class = serializers.AptitudeSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        employee = models.Employee.objects.filter(pk=pk)
+        return employee.aptitudes.all()
+
+
+class AchievementsByEmployeeList(ListAPIView):
+    serializer_class = serializers.AchievementSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        employee = models.Employee.objects.filter(pk=pk)
+        return employee.achievements.all()
+
+
+class SanctionsByEmployeeList(ListAPIView):
+    serializer_class = serializers.EmployeeHasSanctionSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.EmployeeHasSanction.objects.filter(employee=pk)
+
+
+class LanguagesByEmployeeList(ListAPIView):
+    serializer_class = serializers.EmployeeSpeaksLanguageSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.EmployeeSpeaksLanguage.objects.filter(employee=pk)
+
+
+class DegreesByEmployeeList(ListAPIView):
+    serializer_class = serializers.EmployeeHasDegreeSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.EmployeeHasDegree.objects.filter(employee=pk)
 
 
 class LanguageViewSet(ModelViewSet):
