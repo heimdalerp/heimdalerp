@@ -6,6 +6,8 @@ from rest_framework.serializers import HyperlinkedIdentityField
 from cities_light.contrib.restframework3 import CountrySerializer
 
 from hr import models
+from persons.serializers import PhoneNumberSerializer
+from persons.serializers import ExtraEmailAddressSerializer
 
 
 class UserSerializer(ModelSerializer):
@@ -105,9 +107,8 @@ class SanctionSerializer(HyperlinkedModelSerializer):
 class EmployeeSerializer(HyperlinkedModelSerializer):
     #user = UserSerializer()
     #born_in = CountrySerializer()
-    ## TODO: Decide if it is better to nest the relation or hyperlink it.
-    #phone_numbers = persons_serializers.PhoneNumberSerializer()
-    #extra_emails = persons_serializers.ExtraEmailSerializer()    
+    phone_numbers = PhoneNumberSerializer()
+    extra_emails = ExtraEmailAddressSerializer()    
 
     ethnicities = HyperlinkedIdentityField(
         view_name='api:hr:employee-ethnicities'
@@ -151,12 +152,6 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:hr:employee-detail'
-            },
-            'phone_numbers': {
-                'view_name': 'api:persons:phonenumber-list'
-            },
-            'extra_emails': {
-                'view_name': 'api:persons:extraemail-list'
             }
         }
 
