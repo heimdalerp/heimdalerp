@@ -10,7 +10,7 @@ class EthnicityViewSet(ModelViewSet):
 
 
 class SexualOrientationViewSet(ModelViewSet):
-    queryset = models.Ethnicity.objects.all()
+    queryset = models.SexualOrientation.objects.all()
     serializer_class = serializers.SexualOrientationSerializer
 
 
@@ -32,15 +32,6 @@ class SanctionViewSet(ModelViewSet):
 class EmployeeViewSet(ModelViewSet):
     queryset = models.Employee.objects.all()
     serializer_class = serializers.EmployeeSerializer
-
-
-class EthnicitiesByEmployeeList(ListAPIView):
-    serializer_class = serializers.EthnicitySerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        employee = models.Employee.objects.filter(pk=pk)
-        return employee.ethnicities.all()
 
 
 class AptitudesByEmployeeList(ListAPIView):

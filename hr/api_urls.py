@@ -28,11 +28,6 @@ router.register(r'employeeshavedegrees', views.EmployeeHasDegreeViewSet)
 app_name = 'hr'
 urlpatterns = [
     url(
-        r'^employees/(?P<pk>\d+)/ethnicities/$',
-        views.EthnicitiesByEmployeeList.as_view(),
-        name='employee-ethnicities'
-    ),
-    url(
         r'^employees/(?P<pk>\d+)/aptitudes/$',
         views.AptitudesByEmployeeList.as_view(),
         name='employee-aptitudes'

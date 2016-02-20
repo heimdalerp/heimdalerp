@@ -1,4 +1,6 @@
 from django.conf import settings
+if settings.AUTH_USER_MODEL == 'auth.User':
+    from django.contrib.auth.models import User
 
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import HyperlinkedModelSerializer
@@ -13,7 +15,16 @@ from persons.serializers import ExtraEmailAddressSerializer
 class UserSerializer(ModelSerializer):
 
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        if settings.AUTH_USER_MODEL == 'auth.User':
+            model = User
+            fields = (
+                'id',
+                'first_name',
+                'last_name',
+                'email',
+                'is_active',
+                'groups'
+            )
 
 
 class EthnicitySerializer(HyperlinkedModelSerializer):
@@ -105,14 +116,13 @@ class SanctionSerializer(HyperlinkedModelSerializer):
 
 
 class EmployeeSerializer(HyperlinkedModelSerializer):
-    #user = UserSerializer()
+    user = UserSerializer()
     #born_in = CountrySerializer()
-    phone_numbers = PhoneNumberSerializer()
-    extra_emails = ExtraEmailAddressSerializer()    
+    phone_numbers = PhoneNumberSerializer(many=True)
+    extra_emails = ExtraEmailAddressSerializer(many=True)
+    ethnicities = EthnicitySerializer(many=True)
+    sexual_orientation = SexualOrientationSerializer()
 
-    ethnicities = HyperlinkedIdentityField(
-        view_name='api:hr:employee-ethnicities'
-    )
     aptitudes = HyperlinkedIdentityField(
         view_name='api:hr:employee-aptitudes'
     )
@@ -134,7 +144,7 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            #'user',
+            'user',
             'birth_date',
             #'born_in',
             'phone_numbers',
