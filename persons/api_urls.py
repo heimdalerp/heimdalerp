@@ -7,7 +7,7 @@ from persons import views
 
 router = DefaultRouter()
 router.register(r'phonenumbers', views.PhoneNumberViewSet)
-router.register(r'extraemails', views.ExtraEmailAddressViewSet)
+router.register(r'extraemailaddresses', views.ExtraEmailAddressViewSet)
 router.register(r'physicaladdresses', views.PhysicalAddressViewSet)
 
 app_name = 'persons'
