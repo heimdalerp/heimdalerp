@@ -310,11 +310,15 @@ class EmployeeHasSanction(models.Model):
     )
     others_implicated = models.ManyToManyField(
         Employee,
-        related_name="implicated"
+        related_name='implicated',
+        verbose_name=_('others implicated'),
+        blank=True
     )
     victims = models.ManyToManyField(
         Employee,
-        related_name="victims"
+        related_name='victims',
+        verbose_name=_('victims'),
+        blank=True
     )
 
     def __str__(self):
