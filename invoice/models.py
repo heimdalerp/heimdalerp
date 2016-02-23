@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from persons.models import PersonProfile
+from persons.models import PersonProfile, Company
+from hr.models import Employee
 
 
 class FiscalPosition(models.Model):
@@ -21,39 +22,6 @@ class FiscalPosition(models.Model):
     class Meta:
         verbose_name = _('fiscal position')
         verbose_name_plural = _('fiscal positions')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
-class Company(models.Model):
-    """
-    You need to define at least one to start invoicing, but you can add
-    as many as you need.
-    """
-    name = models.CharField(
-        _('name'),
-        max_length=150,
-        unique=True
-    )
-    initiated_activies = models.DateField(
-        _('initiated activies'),
-        blank=True,
-        null=True
-    )
-    fiscal_position = models.ForeignKey(
-        FiscalPosition,
-        verbose_name=_('fiscal position'),
-        blank=True,
-        null=True,
-        help_text=_('Certain countries require a fiscal position for '
-                    ' its taxpayers.')
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('company')
-        verbose_name_plural = _('ethnicities')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
@@ -85,7 +53,7 @@ class Client(PersonProfile):
         blank=True,
         null=True,
         help_text=_('Certain countries require a fiscal position for '
-                    ' its taxpayers.')
+                    'its taxpayers.')
     )
 
     def __str__(self):
@@ -97,6 +65,41 @@ class Client(PersonProfile):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class CompanyInvoice(Company):
+    """
+    You need to define at least one to start invoicing, but you can add
+    as many as you need.
+    This is an extension of 'persons.models.Company'.
+    """
+    fiscal_position = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position'),
+        blank=True,
+        null=True,
+        help_text=_('Certain countries require a fiscal position for '
+                    'its taxpayers.')
+    )
+    employees = models.ManyToManyField(
+        Employee,
+        related_name='employees',
+        related_query_name='employee',
+        verbose_name=_('employees'),
+        through='CompanyHasEmployee',
+        through_fields=('company', 'employee'),
+        blank=True
+    )
+    clients = models.ManyToManyField(
+        Client,
+        related_name='clients',
+        related_query_name='client',
+        verbose_name=_('clients'),
+        blank=True
+    )
+
+    class Meta:
+        proxy = True
+
+    
 class VAT(models.Model):
     """
     VAT is a type of tax to consumption. Every country has it.
@@ -248,6 +251,20 @@ class Invoice(models.Model):
         max_length=1,
         choices=INVOICE_STATUS_TYPES,
         default=INVOICE_STATUSTYPE_DRAFT
+    )
+    subtotal = models.DecimalField(
+        _('subtotal'),
+        max_digits=12,
+        decimal_places=2,
+        default=0.00,
+        help_text=_('Total without taxes.')
+    )
+    total = models.DecimalField(
+        _('total'),
+        max_digits=12,
+        decimal_places=2,
+        default=0.00,
+        help_text=_('Subtotal plus taxes.')
     )
     notes = models.TextField(
         _('notes'),

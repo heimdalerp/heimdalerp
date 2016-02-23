@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
 
-from persons.models import PersonProfile, GENRE_TYPES
+from persons.models import PersonProfile, GENRE_TYPES, Company
 
 
 class Ethnicity(models.Model):
@@ -160,57 +160,30 @@ class Sanction(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class Employee(PersonProfile):
+class Degree(models.Model):
     """
-    All Employees must have a User, whereas they'll use the system or not.
+    Degrees. Highschool degrees, college degrees, etc.
+    Examples: Computer Science, Civil Engineer, Lawyer.
     """
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_('user')
+    name = models.CharField(
+        _('name'),
+        max_length=30,
+        help_text=_("i.e. Lawyer, Accountant, Civil Engineer"),
+        unique=True
     )
-    genre = models.CharField(
-        _('genre'),
-        max_length=1,
-        choices=GENRE_TYPES,
+    points = models.DecimalField(
+        _('points'),
+        max_digits=5,
+        decimal_places=2,
+        default=0.00
     )
-    member_since = models.DateField(
-        _('member since'),
-        blank=True,
-        null=True
-    )
-    ethnicities = models.ManyToManyField(
-        Ethnicity,
-        blank=True,
-        verbose_name=_('ethnicities'),
-        related_name='ethnicities',
-        help_text=_('Relevant for countries where one must comply quotas')
-    )
-    sexual_orientation = models.ForeignKey(
-        SexualOrientation,
-        blank=True,
-        null=True,
-        verbose_name=_('sexual orientation'),
-        help_text=_('Relevant for countries where one must comply quotas')
-    )
-    aptitudes = models.ManyToManyField(
-        Aptitude,
-        verbose_name=_('aptitudes'),
-        related_name='aptitudes',
-        blank=True
-    )
-    achievements = models.ManyToManyField(
-        Achievement,
-        verbose_name=_('achievements'),
-        related_name='achievements',
-        blank=True
-    )
-
+   
     def __str__(self):
-        return self.user.get_full_name()
+        return self.name
 
     class Meta:
-        verbose_name = _('employee')
-        verbose_name_plural = _('employees')
+        verbose_name = _('degree')
+        verbose_name_plural = _('degrees')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
@@ -239,6 +212,87 @@ class Language(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class Employee(PersonProfile):
+    """
+    All Employees must have a User, whereas they'll use the system or not.
+    """
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('user')
+    )
+    genre = models.CharField(
+        _('genre'),
+        max_length=1,
+        choices=GENRE_TYPES,
+    )
+    ethnicities = models.ManyToManyField(
+        Ethnicity,
+        blank=True,
+        verbose_name=_('ethnicities'),
+        related_name='ethnicities',
+        related_query_name='ethnicity',
+        help_text=_('Relevant for countries where one must comply quotas')
+    )
+    sexual_orientation = models.ForeignKey(
+        SexualOrientation,
+        blank=True,
+        null=True,
+        related_name='sexual_orientations',
+        related_query_name='sexual_orientation',
+        verbose_name=_('sexual orientation'),
+        help_text=_('Relevant for countries where one must comply quotas')
+    )
+    aptitudes = models.ManyToManyField(
+        Aptitude,
+        verbose_name=_('aptitudes'),
+        related_name='aptitudes',
+        related_query_name='aptitude',
+        blank=True
+    )
+    achievements = models.ManyToManyField(
+        Achievement,
+        verbose_name=_('achievements'),
+        related_name='achievements',
+        related_query_name='achievement',
+        blank=True
+    )
+    sanctions = models.ManyToManyField(
+        Sanction,
+        verbose_name=_('sanctions'),
+        related_name='sanctions',
+        related_query_name='sanction',
+        through='EmployeeHasSanction',
+        through_fields=('employee', 'sanction'),
+        blank=True
+    )
+    degree = models.ManyToManyField(
+        Degree,
+        verbose_name=_('degrees'),
+        related_name='degrees',
+        related_query_name='degree',
+        through='EmployeeHasDegree',
+        through_fields=('employee', 'degree'),
+        blank=True
+    )
+    languages = models.ManyToManyField(
+        Language,
+        verbose_name=_('languages'),
+        related_name='languages',
+        related_query_name='language',
+        through='EmployeeSpeaksLanguage',
+        through_fields=('employee', 'language'),
+        blank=True
+    )
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = _('employee')
+        verbose_name_plural = _('employees')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
 LANGUAGE_SPOKENLEVEL_BASIC = 'B'
 LANGUAGE_SPOKENLEVEL_MEDIUM = 'M'
 LANGUAGE_SPOKENLEVEL_ADVANCED = 'A'
@@ -256,10 +310,14 @@ class EmployeeSpeaksLanguage(models.Model):
     """
     employee = models.ForeignKey(
         Employee,
+        related_name='employees',
+        related_query_name='employee',
         verbose_name=_('employee')
     )
     language = models.ForeignKey(
         Language,
+        related_name='languages',
+        related_query_name='language',
         verbose_name=_('language')
     )
     level = models.CharField(
@@ -294,10 +352,14 @@ class EmployeeHasSanction(models.Model):
     """
     employee = models.ForeignKey(
         Employee,
+        related_name='employees',
+        related_query_name='employee',
         verbose_name=_('employee')
     )
     sanction = models.ForeignKey(
         Sanction,
+        related_name='sanctions',
+        related_query_name='sanction',
         verbose_name=_('sanction')
     )
     what_happened = models.TextField(
@@ -310,13 +372,15 @@ class EmployeeHasSanction(models.Model):
     )
     others_implicated = models.ManyToManyField(
         Employee,
-        related_name='implicated',
+        related_name='others_implicated',
+        related_query_name='other_implicated',
         verbose_name=_('others implicated'),
         blank=True
     )
     victims = models.ManyToManyField(
         Employee,
         related_name='victims',
+        related_query_name='victim',
         verbose_name=_('victims'),
         blank=True
     )
@@ -359,47 +423,26 @@ class AcademicInstitution(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class Degree(models.Model):
-    """
-    Degrees. Highschool degrees, college degrees, etc.
-    Examples: Computer Science, Civil Engineer, Lawyer.
-    """
-    name = models.CharField(
-        _('name'),
-        max_length=30,
-        help_text=_("i.e. Lawyer, Accountant, Civil Engineer"),
-        unique=True
-    )
-    points = models.DecimalField(
-        _('points'),
-        max_digits=5,
-        decimal_places=2,
-        default=0.00
-    )
-   
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('degree')
-        verbose_name_plural = _('degrees')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
 class EmployeeHasDegree(models.Model):
     """
     An employee has a certain degree from an academic institution.
     """
     employee = models.ForeignKey(
         Employee,
+        related_name='employees',
+        related_query_name='employee',
         verbose_name=_('employee')
     )
     degree = models.ForeignKey(
         Degree,
+        related_name='degrees',
+        related_query_name='degree',
         verbose_name=_('degree')
     )
     academic_institution = models.ForeignKey(
         AcademicInstitution,
+        related_name='academic_institutions',
+        related_query_name='academic_institution',
         verbose_name=_('academic institution')
     )
     ingress_year = models.PositiveSmallIntegerField(
@@ -422,5 +465,171 @@ class EmployeeHasDegree(models.Model):
     class Meta:
         verbose_name = _('employee has degree')
         verbose_name_plural = _('employees have degrees')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class Role(models.Model):
+    """
+    An employee has one or more roles in one or more companies.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=50,
+        unique=True
+    )
+    points = models.DecimalField(
+        _('points'),
+        max_digits=5,
+        decimal_places=2,
+        default=0.00
+    )
+
+    def __str__(self):
+        return _noop("%(name)s") % {'name': self.name}
+
+    class Meta:
+        verbose_name = _('role')
+        verbose_name_plural = _('roles')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class Area(models.Model):
+    """
+    A company has one o more areas where employees have roles.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=50,
+        unique=True
+    )
+    points = models.DecimalField(
+        _('points'),
+        max_digits=5,
+        decimal_places=2,
+        default=0.00
+    )
+
+    def __str__(self):
+        return _noop("%(name)s") % {'name': self.name}
+
+
+class CompanyHasEmployee(models.Model):
+    """
+    Employees are employed in one or more companies.
+    """
+    company = models.ForeignKey(
+        Company,
+        related_name='companies',
+        related_query_name='company',
+        verbose_name=_('company')
+    )
+    employee = models.ForeignKey(
+        Employee,
+        related_name='employees',
+        related_query_name='employee',
+        verbose_name=_('employee')
+    )
+    areas = models.ManyToManyField(
+        Area,
+        related_name='areas',
+        related_query_name='area',
+        verbose_name=_('areas'),
+        through='AreaHasEmployee',
+        through_fields=('area', 'employee'),
+        blank=True
+    )
+    date_since = models.DateField(
+        _('date since'),
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return "%(employee)s @ %(company)s" % {
+            'employee': self.employee,
+            'company': self.company
+        }
+
+    class Meta:
+        unique_together = (('company', 'employee'),)
+        verbose_name = _('company has employee')
+        verbose_name_plural = _('company has employees')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class AreaHasEmployee(models.Model):
+    """
+    Employees perform roles in areas of the company.
+    """
+    area = models.ForeignKey(
+        Area,
+        verbose_name=_('area'),
+        related_name='areas',
+        related_query_name='area'
+    )
+    employee = models.ForeignKey(
+        Employee,
+        verbose_name=_('employee'),
+        related_name='employees',
+        related_query_name='employee'
+    )
+    date_since = models.DateField(
+        _('date since'),
+        blank=True,
+        null=True
+    )
+    roles = models.ManyToManyField(
+        Role,
+        related_name='roles',
+        related_query_name='role',
+        verbose_name=_('roles'),
+        through='EmployeeHasRole',
+        through_fields=('employee', 'role'),
+        blank=True
+    )
+
+    def __str__(self):
+        return "%(employee)s @ %(area)s" % {
+            'employee': self.employee,
+            'area': self.area
+    }
+
+    class Meta:
+        verbose_name = _('area has employee')
+        verbose_name_plural = _('area has employees')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class EmployeeHasRole(models.Model):
+    """
+    Employees perform roles in areas of the company.
+    """
+    role = models.ForeignKey(
+        Role,
+        related_name='roles',
+        related_query_name='role',
+        verbose_name=_('roles'),
+    )
+    employee = models.ForeignKey(
+        Employee,
+        verbose_name=_('employee'),
+        related_name='employees',
+        related_query_name='employee'
+    )
+    date_since = models.DateField(
+        _('date since'),
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return "%(employee)s is %(role)s" % {
+            'employee': self.employee,
+            'role': self.role
+        }
+
+    class Meta:
+        verbose_name = _('employee has role')
+        verbose_name_plural = _('employee has roles')
         default_permissions = ('view', 'add', 'change', 'delete')
 

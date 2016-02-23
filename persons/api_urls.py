@@ -9,6 +9,7 @@ router = DefaultRouter()
 router.register(r'phonenumbers', views.PhoneNumberViewSet)
 router.register(r'extraemailaddresses', views.ExtraEmailAddressViewSet)
 router.register(r'physicaladdresses', views.PhysicalAddressViewSet)
+router.register(r'companies', views.CompanyViewSet)
 
 app_name = 'persons'
 urlpatterns = [

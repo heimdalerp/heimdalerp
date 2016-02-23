@@ -24,6 +24,11 @@ router.register(
 router.register(r'academicinstitutions', views.AcademicInstitutionViewSet)
 router.register(r'degrees', views.DegreeViewSet)
 router.register(r'employeeshavedegrees', views.EmployeeHasDegreeViewSet)
+router.register(r'roles', views.RoleViewSet)
+router.register(r'areas', views.AreaViewSet)
+router.register(r'companyhaveemployees', views.CompanyHasEmployeeViewSet)
+router.register(r'areahaveemployees', views.AreaHasEmployeeViewSet)
+router.register(r'employeehaveroles', views.EmployeeHasRoleViewSet)
 
 app_name = 'hr'
 urlpatterns = [

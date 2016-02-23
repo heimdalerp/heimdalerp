@@ -306,3 +306,117 @@ class EmployeeHasDegreeSerializer(HyperlinkedModelSerializer):
             }
         }
 
+
+class RoleSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Role
+        fields = (
+            'url',
+            'id',
+            'name',
+            'points'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:hr:role-detail'
+            }
+        }
+
+
+class AreaSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Area
+        fields = (
+            'url',
+            'id',
+            'name',
+            'points'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:hr:area-detail'
+            }
+        }
+
+ 
+class CompanyHasEmployeeSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.CompanyHasEmployee
+        fields = (
+            'url',
+            'id',
+            'company',
+            'employee',
+            'areas',
+            'date_since'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:hr:companyhasemployee-detail'
+            },
+            'company': {
+                'view_name': 'api:persons:company-detail'
+            },
+            'employee': {
+                'view_name': 'api:hr:employee-detail'
+            },
+            'areas': {
+                'view_name': 'api:hr:companyhasemployee-areas'
+            }
+        }
+
+
+class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.AreaHasEmployee
+        fields = (
+            'url',
+            'id',
+            'area',
+            'employee',
+            'roles',
+            'date_since'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:hr:areahasemployee-detail'
+            },
+            'area': {
+                'view_name': 'api:hr:area-detail'
+            },
+            'employee': {
+                'view_name': 'api:hr:employee-detail'
+            },
+            'roles': {
+                'view_name': 'api:hr:areahasemployee-roles'
+            }
+        }
+
+ 
+class EmployeeHasRoleSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.EmployeeHasRole
+        fields = (
+            'url',
+            'id',
+            'role',
+            'employee',
+            'date_since'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:hr:employeehasrole-detail'
+            },
+            'role': {
+                'view_name': 'api:hr:role-detail'
+            },
+            'employee': {
+                'view_name': 'api:hr:employee-detail'
+            }
+        }
+

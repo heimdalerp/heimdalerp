@@ -60,3 +60,20 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
             }
         }
 
+
+class CompanySerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Company
+        fields = (
+            'url',
+            'id',
+            'name',
+            'initiated_activities'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:persons:company-detail'
+            }
+        }
+

@@ -105,3 +105,28 @@ class EmployeeHasDegreeViewSet(ModelViewSet):
     queryset = models.EmployeeHasDegree.objects.all()
     serializer_class = serializers.EmployeeHasDegreeSerializer
 
+
+class RoleViewSet(ModelViewSet):
+    queryset = models.Role.objects.all()
+    serializer_class = serializers.RoleSerializer
+
+
+class AreaViewSet(ModelViewSet):
+    queryset = models.Area.objects.all()
+    serializer_class = serializers.AreaSerializer
+
+
+class CompanyHasEmployeeViewSet(ModelViewSet):
+    queryset = models.CompanyHasEmployee.objects.all()
+    serializer_class = serializers.CompanyHasEmployeeSerializer
+
+
+class AreaHasEmployeeViewSet(ModelViewSet):
+    queryset = models.AreaHasEmployee.objects.all()
+    serializer_class = serializers.AreaHasEmployeeSerializer
+
+
+class EmployeeHasRoleViewSet(ModelViewSet):
+    queryset = models.EmployeeHasRole.objects.all()
+    serializer_class = serializers.EmployeeHasRoleSerializer
+

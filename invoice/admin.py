@@ -9,7 +9,7 @@ class FiscalPositionAdmin(VersionAdmin):
     pass
 
 
-class CompanyAdmin(VersionAdmin):
+class CompanyInvoiceAdmin(VersionAdmin):
     pass
 
 
@@ -34,7 +34,7 @@ class InvoiceAdmin(VersionAdmin):
 
 
 admin.site.register(models.FiscalPosition, FiscalPositionAdmin)
-admin.site.register(models.Company, CompanyAdmin)
+admin.site.register(models.CompanyInvoice, CompanyInvoiceAdmin)
 admin.site.register(models.Client, ClientAdmin)
 admin.site.register(models.VAT, VATAdmin)
 admin.site.register(models.InvoiceProduct, InvoiceProductAdmin)

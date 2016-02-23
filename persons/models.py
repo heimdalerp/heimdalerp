@@ -109,6 +109,7 @@ class PhysicalAddress(models.Model):
     )
     city = models.ForeignKey(
         City,
+        related_name='city',
         verbose_name=_('city')
     )
     postal_code = models.CharField(
@@ -134,6 +135,7 @@ class PersonProfile(models.Model):
     )
     born_in = models.ForeignKey(
         Country,
+        related_name='born_in',
         verbose_name=_('born in'),
         blank=True,
         null=True
@@ -141,14 +143,42 @@ class PersonProfile(models.Model):
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
+        related_name='phone_numbers',
+        related_query_name='phone_number',
         verbose_name=_('phone numbers')
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
+        related_name='extra_emails',
+        related_query_name='extra_email',
         verbose_name=_('extra email addresses')
     )
 
     class Meta:
         abstract = True
+
+
+class Company(models.Model):
+    """
+    The companies using HeimdalERP. 
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=150,
+        unique=True
+    )
+    initiated_activities = models.DateField(
+        _('initiated activities'),
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
+        default_permissions = ('view', 'add', 'change', 'delete')
 
