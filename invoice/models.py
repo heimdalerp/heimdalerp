@@ -1,8 +1,27 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext_noop as _noop
 
 from persons.models import PersonProfile
+
+
+class FiscalPosition(models.Model):
+    """
+    A fiscal position is a classification given by a government to an
+    individual or a company, which categorizes them into a tax-paying class.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=50,
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('fiscal position')
+        verbose_name_plural = _('fiscal positions')
+        default_permissions = ('view', 'add', 'change', 'delete')
 
 
 class Company(models.Model):
@@ -14,6 +33,19 @@ class Company(models.Model):
         _('name'),
         max_length=150,
         unique=True
+    )
+    initiated_activies = models.DateField(
+        _('initiated activies'),
+        blank=True,
+        null=True
+    )
+    fiscal_position = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position'),
+        blank=True,
+        null=True,
+        help_text=_('Certain countries require a fiscal position for '
+                    ' its taxpayers.')
     )
 
     def __str__(self):
@@ -45,7 +77,15 @@ class Client(PersonProfile):
     client_type = models.CharField(
         _('client type'),
         max_length=1,
-        choices=CLIENT_TYPE_COMPANY,
+        choices=CLIENT_TYPES,
+    )
+    fiscal_position = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position'),
+        blank=True,
+        null=True,
+        help_text=_('Certain countries require a fiscal position for '
+                    ' its taxpayers.')
     )
 
     def __str__(self):
@@ -57,9 +97,34 @@ class Client(PersonProfile):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class VAT(models.Model):
+    """
+    VAT is a type of tax to consumption. Every country has it.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=15,
+        unique=True,
+        help_text=_('i.e. 8%')
+    )
+    tax = models.FloatField(
+        _('tax'),
+        help_text=_('A value between 0.00 and 1.00')
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('VAT')
+        verbose_name_plural = _('VATs')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
 class InvoiceProduct(models.Model):
     """
     A basic product. It could also be a service.
+    See other modules like 'sales' for more advanced products.
     """
     company = models.ForeignKey(
         Company,
@@ -77,7 +142,11 @@ class InvoiceProduct(models.Model):
         blank=True,
         null=True,
     )
-
+    vat = models.ForeignKey(
+        VAT,
+        verbose_name=_('VAT')
+    )
+ 
     def __str__(self):
         return "%(product)s x %(quantity)s" % {
             'product': self.product,
@@ -90,7 +159,7 @@ class InvoiceProduct(models.Model):
         verbose_name = _('product')
         verbose_name_plural = _('products')
         default_permissions = ('view', 'add', 'change', 'delete')
- 
+
 
 class InvoiceLine(models.Model):
     """
@@ -98,7 +167,7 @@ class InvoiceLine(models.Model):
     a price and a quantity.
     """
     product = models.ForeignKey(
-        Product,
+        InvoiceProduct,
         verbose_name=_('product')
     )
     product_price_override = models.DecimalField(
@@ -108,6 +177,12 @@ class InvoiceLine(models.Model):
         blank=True,
         null=True,
     )
+    product_vat_override = models.ForeignKey(
+        VAT,
+        verbose_name=_('VAT override'),
+        blank=True,
+        null=True
+    )
     product_discount = models.FloatField(
         _('product discount'),
         default=0.00,
@@ -115,7 +190,7 @@ class InvoiceLine(models.Model):
         help_text=_('A number between 0.00 and 1.00')
     )
     quantity = models.PositiveIntegerField(
-        _('quantity')
+        _('quantity'),
         default=1
     )
 
@@ -161,7 +236,7 @@ class Invoice(models.Model):
     )
     invoice_lines = models.ManyToManyField(
         InvoiceLine,
-        related_name='lines'
+        related_name='lines',
         verbose_name=_('lines')
     )
     invoice_date = models.DateField(

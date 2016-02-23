@@ -10,6 +10,7 @@ from cities_light.contrib.restframework3 import CountrySerializer
 from hr import models
 from persons.serializers import PhoneNumberSerializer
 from persons.serializers import ExtraEmailAddressSerializer
+from persons.serializers import PhysicalAddressSerializer
 
 
 class UserSerializer(ModelSerializer):
@@ -120,6 +121,7 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
     #born_in = CountrySerializer()
     phone_numbers = PhoneNumberSerializer(many=True)
     extra_emails = ExtraEmailAddressSerializer(many=True)
+    physical_addresses = PhysicalAddressSerializer(many=True)
     ethnicities = EthnicitySerializer(many=True)
     sexual_orientation = SexualOrientationSerializer()
 
@@ -149,6 +151,7 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
             #'born_in',
             'phone_numbers',
             'extra_emails',
+            'physical_addresses',
             'genre',
             'member_since',
             'ethnicities',

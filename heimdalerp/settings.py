@@ -204,6 +204,7 @@ INSTALLED_APPS = [
     # HeimdalERP Core Apps
     'persons',
     'hr',
+    'invoice',
 ]
 
 MIDDLEWARE_CLASSES = [
