@@ -50,6 +50,8 @@ class Client(PersonProfile):
     fiscal_position = models.ForeignKey(
         FiscalPosition,
         verbose_name=_('fiscal position'),
+        related_name='clients',
+        related_query_name='client',
         blank=True,
         null=True,
         help_text=_('Certain countries require a fiscal position for '
@@ -65,39 +67,38 @@ class Client(PersonProfile):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class CompanyInvoice(Company):
+class CompanyInvoice(models.Model):
     """
     You need to define at least one to start invoicing, but you can add
     as many as you need.
     This is an extension of 'persons.models.Company'.
     """
+    company = models.OneToOneField(Company)
     fiscal_position = models.ForeignKey(
         FiscalPosition,
         verbose_name=_('fiscal position'),
+        related_name='companies',
+        related_query_name='company',
         blank=True,
         null=True,
         help_text=_('Certain countries require a fiscal position for '
                     'its taxpayers.')
     )
-    employees = models.ManyToManyField(
-        Employee,
-        related_name='employees',
-        related_query_name='employee',
-        verbose_name=_('employees'),
-        through='CompanyHasEmployee',
-        through_fields=('company', 'employee'),
-        blank=True
-    )
     clients = models.ManyToManyField(
         Client,
-        related_name='clients',
-        related_query_name='client',
         verbose_name=_('clients'),
+        related_name='companies',
+        related_query_name='company',
         blank=True
     )
 
+    def __str__(self):
+        return self.company
+
     class Meta:
-        proxy = True
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
+        default_permissions = ('view', 'add', 'change', 'delete')
 
     
 class VAT(models.Model):
@@ -131,7 +132,9 @@ class InvoiceProduct(models.Model):
     """
     company = models.ForeignKey(
         Company,
-        verbose_name=_('company')
+        verbose_name=_('company'),
+        related_name='products',
+        related_query_name='product'
     )
     name = models.CharField(
         _('name'),
@@ -147,7 +150,9 @@ class InvoiceProduct(models.Model):
     )
     vat = models.ForeignKey(
         VAT,
-        verbose_name=_('VAT')
+        verbose_name=_('VAT'),
+        related_name='products',
+        related_query_name='product'
     )
  
     def __str__(self):
@@ -171,7 +176,9 @@ class InvoiceLine(models.Model):
     """
     product = models.ForeignKey(
         InvoiceProduct,
-        verbose_name=_('product')
+        verbose_name=_('product'),
+        related_name='invoice_lines',
+        related_query_name='invoice_line'
     )
     product_price_override = models.DecimalField(
         _('product price'),
@@ -183,6 +190,8 @@ class InvoiceLine(models.Model):
     product_vat_override = models.ForeignKey(
         VAT,
         verbose_name=_('VAT override'),
+        related_name='invoice_lines',
+        related_query_name='invoice_line',
         blank=True,
         null=True
     )
@@ -227,20 +236,24 @@ class Invoice(models.Model):
     company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
+        related_name='invoices',
+        related_query_name='invoice',
         db_index=True
     )
     clients = models.ManyToManyField(
         Client,
-        related_name='clients',
-        verbose_name=_('clients')
+        verbose_name=_('clients'),
+        related_name='invoices',
+        related_query_name='invoice'
     )
     number = models.BigIntegerField(
         _('number')
     )
     invoice_lines = models.ManyToManyField(
         InvoiceLine,
-        related_name='lines',
-        verbose_name=_('lines')
+        verbose_name=_('invoice lines'),
+        related_name='invoices',
+        related_query_name='invoice'
     )
     invoice_date = models.DateField(
         _('date'),

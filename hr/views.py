@@ -76,6 +76,22 @@ class DegreesByEmployeeList(ListAPIView):
         return models.EmployeeHasDegree.objects.filter(employee=pk)
 
 
+class AreasByEmployeeList(ListAPIView):
+    serializer_class = serializers.AreaHasEmployeeSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.AreaHasEmployee.objects.filter(employee=pk)
+
+
+class RolesByEmployeeList(ListAPIView):
+    serializer_class = serializers.EmployeeHasRoleSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.EmployeeHasRole.objects.filter(employee=pk)
+
+
 class LanguageViewSet(ModelViewSet):
     queryset = models.Language.objects.all()
     serializer_class = serializers.EthnicitySerializer
@@ -111,14 +127,33 @@ class RoleViewSet(ModelViewSet):
     serializer_class = serializers.RoleSerializer
 
 
+class EmployeesByRoleList(ListAPIView):
+    serializer_class = serializers.EmployeeHasRoleSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.EmployeeHasRole.objects.filter(role=pk)
+
+
 class AreaViewSet(ModelViewSet):
     queryset = models.Area.objects.all()
     serializer_class = serializers.AreaSerializer
 
 
-class CompanyHasEmployeeViewSet(ModelViewSet):
-    queryset = models.CompanyHasEmployee.objects.all()
-    serializer_class = serializers.CompanyHasEmployeeSerializer
+class AreasByCompanyList(ListAPIView):
+    serializer_class = serializers.AreaSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.Area.objects.filter(company=pk)
+
+
+class EmployeesByAreaList(ListAPIView):
+    serializer_class = serializers.AreaHasEmployeeSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.AreaHasEmployeee.objects.filter(area=pk)
 
 
 class AreaHasEmployeeViewSet(ModelViewSet):

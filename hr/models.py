@@ -229,38 +229,38 @@ class Employee(PersonProfile):
         Ethnicity,
         blank=True,
         verbose_name=_('ethnicities'),
-        related_name='ethnicities',
-        related_query_name='ethnicity',
+        related_name='employees',
+        related_query_name='employee',
         help_text=_('Relevant for countries where one must comply quotas')
     )
     sexual_orientation = models.ForeignKey(
         SexualOrientation,
         blank=True,
         null=True,
-        related_name='sexual_orientations',
-        related_query_name='sexual_orientation',
+        related_name='employees',
+        related_query_name='employee',
         verbose_name=_('sexual orientation'),
         help_text=_('Relevant for countries where one must comply quotas')
     )
     aptitudes = models.ManyToManyField(
         Aptitude,
         verbose_name=_('aptitudes'),
-        related_name='aptitudes',
-        related_query_name='aptitude',
+        related_name='employees',
+        related_query_name='employee',
         blank=True
     )
     achievements = models.ManyToManyField(
         Achievement,
         verbose_name=_('achievements'),
-        related_name='achievements',
-        related_query_name='achievement',
+        related_name='employees',
+        related_query_name='employee',
         blank=True
     )
     sanctions = models.ManyToManyField(
         Sanction,
         verbose_name=_('sanctions'),
-        related_name='sanctions',
-        related_query_name='sanction',
+        related_name='employees',
+        related_query_name='employee',
         through='EmployeeHasSanction',
         through_fields=('employee', 'sanction'),
         blank=True
@@ -268,8 +268,8 @@ class Employee(PersonProfile):
     degree = models.ManyToManyField(
         Degree,
         verbose_name=_('degrees'),
-        related_name='degrees',
-        related_query_name='degree',
+        related_name='employees',
+        related_query_name='employee',
         through='EmployeeHasDegree',
         through_fields=('employee', 'degree'),
         blank=True
@@ -277,10 +277,28 @@ class Employee(PersonProfile):
     languages = models.ManyToManyField(
         Language,
         verbose_name=_('languages'),
-        related_name='languages',
-        related_query_name='language',
+        related_name='employees',
+        related_query_name='employee',
         through='EmployeeSpeaksLanguage',
         through_fields=('employee', 'language'),
+        blank=True
+    )
+    areas = models.ManyToManyField(
+        'Area',
+        verbose_name=_('areas'),
+        related_name='employees',
+        related_query_name='employee',
+        through='AreaHasEmployee',
+        through_fields=('employee', 'area'),
+        blank=True
+    )
+    roles = models.ManyToManyField(
+        'Role',
+        verbose_name=_('roles'),
+        related_name='employees',
+        related_query_name='employee',
+        through='EmployeeHasRole',
+        through_fields=('employee', 'role'),
         blank=True
     )
 
@@ -310,14 +328,14 @@ class EmployeeSpeaksLanguage(models.Model):
     """
     employee = models.ForeignKey(
         Employee,
-        related_name='employees',
-        related_query_name='employee',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('employee')
     )
     language = models.ForeignKey(
         Language,
-        related_name='languages',
-        related_query_name='language',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('language')
     )
     level = models.CharField(
@@ -352,14 +370,14 @@ class EmployeeHasSanction(models.Model):
     """
     employee = models.ForeignKey(
         Employee,
-        related_name='employees',
-        related_query_name='employee',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('employee')
     )
     sanction = models.ForeignKey(
         Sanction,
-        related_name='sanctions',
-        related_query_name='sanction',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('sanction')
     )
     what_happened = models.TextField(
@@ -372,15 +390,15 @@ class EmployeeHasSanction(models.Model):
     )
     others_implicated = models.ManyToManyField(
         Employee,
-        related_name='others_implicated',
-        related_query_name='other_implicated',
+        related_name='implicated_in_sanctions',
+        related_query_name='implicated_in_sanction',
         verbose_name=_('others implicated'),
         blank=True
     )
     victims = models.ManyToManyField(
         Employee,
-        related_name='victims',
-        related_query_name='victim',
+        related_name='sanction_victims',
+        related_query_name='sanction_victim',
         verbose_name=_('victims'),
         blank=True
     )
@@ -429,20 +447,20 @@ class EmployeeHasDegree(models.Model):
     """
     employee = models.ForeignKey(
         Employee,
-        related_name='employees',
-        related_query_name='employee',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('employee')
     )
     degree = models.ForeignKey(
         Degree,
-        related_name='degrees',
-        related_query_name='degree',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('degree')
     )
     academic_institution = models.ForeignKey(
         AcademicInstitution,
-        related_name='academic_institutions',
-        related_query_name='academic_institution',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('academic institution')
     )
     ingress_year = models.PositiveSmallIntegerField(
@@ -497,6 +515,12 @@ class Area(models.Model):
     """
     A company has one o more areas where employees have roles.
     """
+    company = models.ForeignKey(
+        Company,
+        verbose_name=_('company'),
+        related_name='areas',
+        related_query_name='area'
+    )
     name = models.CharField(
         _('name'),
         max_length=50,
@@ -513,30 +537,21 @@ class Area(models.Model):
         return _noop("%(name)s") % {'name': self.name}
 
 
-class CompanyHasEmployee(models.Model):
+class AreaHasEmployee(models.Model):
     """
     Employees are employed in one or more companies.
     """
-    company = models.ForeignKey(
-        Company,
-        related_name='companies',
-        related_query_name='company',
-        verbose_name=_('company')
+    area = models.ForeignKey(
+        Area,
+        related_name='+',
+        related_query_name='+',
+        verbose_name=_('area')
     )
     employee = models.ForeignKey(
         Employee,
-        related_name='employees',
-        related_query_name='employee',
+        related_name='+',
+        related_query_name='+',
         verbose_name=_('employee')
-    )
-    areas = models.ManyToManyField(
-        Area,
-        related_name='areas',
-        related_query_name='area',
-        verbose_name=_('areas'),
-        through='AreaHasEmployee',
-        through_fields=('area', 'employee'),
-        blank=True
     )
     date_since = models.DateField(
         _('date since'),
@@ -551,52 +566,9 @@ class CompanyHasEmployee(models.Model):
         }
 
     class Meta:
-        unique_together = (('company', 'employee'),)
+        unique_together = (('area', 'employee'),)
         verbose_name = _('company has employee')
         verbose_name_plural = _('company has employees')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
-class AreaHasEmployee(models.Model):
-    """
-    Employees perform roles in areas of the company.
-    """
-    area = models.ForeignKey(
-        Area,
-        verbose_name=_('area'),
-        related_name='areas',
-        related_query_name='area'
-    )
-    employee = models.ForeignKey(
-        Employee,
-        verbose_name=_('employee'),
-        related_name='employees',
-        related_query_name='employee'
-    )
-    date_since = models.DateField(
-        _('date since'),
-        blank=True,
-        null=True
-    )
-    roles = models.ManyToManyField(
-        Role,
-        related_name='roles',
-        related_query_name='role',
-        verbose_name=_('roles'),
-        through='EmployeeHasRole',
-        through_fields=('employee', 'role'),
-        blank=True
-    )
-
-    def __str__(self):
-        return "%(employee)s @ %(area)s" % {
-            'employee': self.employee,
-            'area': self.area
-    }
-
-    class Meta:
-        verbose_name = _('area has employee')
-        verbose_name_plural = _('area has employees')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
@@ -604,17 +576,17 @@ class EmployeeHasRole(models.Model):
     """
     Employees perform roles in areas of the company.
     """
-    role = models.ForeignKey(
-        Role,
-        related_name='roles',
-        related_query_name='role',
-        verbose_name=_('roles'),
-    )
     employee = models.ForeignKey(
         Employee,
         verbose_name=_('employee'),
-        related_name='employees',
-        related_query_name='employee'
+        related_name='+',
+        related_query_name='+'
+    )
+    role = models.ForeignKey(
+        Role,
+        related_name='+',
+        related_query_name='+',
+        verbose_name=_('roles'),
     )
     date_since = models.DateField(
         _('date since'),

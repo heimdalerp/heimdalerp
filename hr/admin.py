@@ -61,16 +61,13 @@ class AreaAdmin(VersionAdmin):
     pass
 
 
-class CompanyHasEmployeeAdmin(VersionAdmin):
-    pass
-
-
 class AreaHasEmployeeAdmin(VersionAdmin):
     pass
 
 
 class EmployeeHasRoleAdmin(VersionAdmin):
     pass
+
 
 admin.site.register(models.Ethnicity, EthnicityAdmin)
 admin.site.register(models.SexualOrientation, SexualOrientationAdmin)
@@ -89,7 +86,6 @@ admin.site.register(models.Degree, DegreeAdmin)
 admin.site.register(models.EmployeeHasDegree, EmployeeHasDegreeAdmin)
 admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.Area, AreaAdmin)
-admin.site.register(models.CompanyHasEmployee, CompanyHasEmployeeAdmin)
 admin.site.register(models.AreaHasEmployee, AreaHasEmployeeAdmin)
 admin.site.register(models.EmployeeHasRole, EmployeeHasRoleAdmin)
 

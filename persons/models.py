@@ -109,7 +109,8 @@ class PhysicalAddress(models.Model):
     )
     city = models.ForeignKey(
         City,
-        related_name='city',
+        related_name='physical_addresses',
+        related_query_name='physical_address',
         verbose_name=_('city')
     )
     postal_code = models.CharField(
@@ -135,7 +136,8 @@ class PersonProfile(models.Model):
     )
     born_in = models.ForeignKey(
         Country,
-        related_name='born_in',
+        #related_name='persons',
+        #related_query_name='person',
         verbose_name=_('born in'),
         blank=True,
         null=True
@@ -143,15 +145,15 @@ class PersonProfile(models.Model):
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
-        related_name='phone_numbers',
-        related_query_name='phone_number',
+        #related_name='persons',
+        #related_query_name='person',
         verbose_name=_('phone numbers')
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
-        related_name='extra_emails',
-        related_query_name='extra_email',
+        #related_name='persons',
+        #related_query_name='person',
         verbose_name=_('extra email addresses')
     )
 

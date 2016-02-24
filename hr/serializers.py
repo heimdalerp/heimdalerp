@@ -140,6 +140,12 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
     degrees = HyperlinkedIdentityField(
         view_name='api:hr:employee-degrees'
     )
+    areas = HyperlinkedIdentityField(
+        view_name='api:hr:employee-areas'
+    )
+    roles = HyperlinkedIdentityField(
+        view_name='api:hr:employee-roles'
+    )
 
     class Meta:
         model = models.Employee
@@ -160,7 +166,9 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
             'achievements',
             'languages',
             'sanctions',
-            'degrees'
+            'degrees',
+            'areas',
+            'roles'
         )
         extra_kwargs = {
             'url': {
@@ -308,6 +316,9 @@ class EmployeeHasDegreeSerializer(HyperlinkedModelSerializer):
 
 
 class RoleSerializer(HyperlinkedModelSerializer):
+    employees = HyperlinkedIdentityField(
+        view_name='api:hr:role-employees'
+    )
 
     class Meta:
         model = models.Role
@@ -315,7 +326,8 @@ class RoleSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
-            'points'
+            'points',
+            'employees'
         )
         extra_kwargs = {
             'url': {
@@ -325,50 +337,30 @@ class RoleSerializer(HyperlinkedModelSerializer):
 
 
 class AreaSerializer(HyperlinkedModelSerializer):
+    employees = HyperlinkedIdentityField(
+        view_name='api:hr:area-employees'
+    )
 
     class Meta:
         model = models.Area
         fields = (
             'url',
             'id',
+            'company',
             'name',
-            'points'
+            'points',
+            'employees'
         )
         extra_kwargs = {
             'url': {
                 'view_name': 'api:hr:area-detail'
+            },
+            'company': {
+                'view_name': 'api:persons:company-detail'
             }
         }
 
  
-class CompanyHasEmployeeSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = models.CompanyHasEmployee
-        fields = (
-            'url',
-            'id',
-            'company',
-            'employee',
-            'areas',
-            'date_since'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:hr:companyhasemployee-detail'
-            },
-            'company': {
-                'view_name': 'api:persons:company-detail'
-            },
-            'employee': {
-                'view_name': 'api:hr:employee-detail'
-            },
-            'areas': {
-                'view_name': 'api:hr:companyhasemployee-areas'
-            }
-        }
-
-
 class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
 
     class Meta:
@@ -378,7 +370,6 @@ class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
             'id',
             'area',
             'employee',
-            'roles',
             'date_since'
         )
         extra_kwargs = {
@@ -390,9 +381,6 @@ class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
             },
             'employee': {
                 'view_name': 'api:hr:employee-detail'
-            },
-            'roles': {
-                'view_name': 'api:hr:areahasemployee-roles'
             }
         }
 

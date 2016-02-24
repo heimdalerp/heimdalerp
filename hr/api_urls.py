@@ -26,7 +26,6 @@ router.register(r'degrees', views.DegreeViewSet)
 router.register(r'employeeshavedegrees', views.EmployeeHasDegreeViewSet)
 router.register(r'roles', views.RoleViewSet)
 router.register(r'areas', views.AreaViewSet)
-router.register(r'companyhaveemployees', views.CompanyHasEmployeeViewSet)
 router.register(r'areahaveemployees', views.AreaHasEmployeeViewSet)
 router.register(r'employeehaveroles', views.EmployeeHasRoleViewSet)
 
@@ -56,6 +55,31 @@ urlpatterns = [
         r'^employees/(?P<pk>\d+)/degrees/$',
         views.DegreesByEmployeeList.as_view(),
         name='employee-degrees'
+    ),
+    url(
+        r'^employees/(?P<pk>\d+)/areas/$',
+        views.AreasByEmployeeList.as_view(),
+        name='employee-areas'
+    ),
+    url(
+        r'^employees/(?P<pk>\d+)/roles/$',
+        views.RolesByEmployeeList.as_view(),
+        name='employee-roles'
+    ),
+    url(
+        r'^roles/(?P<pk>\d+)/employees/$',
+        views.EmployeesByRoleList.as_view(),
+        name='role-employees'
+    ),
+    url(
+        r'^companies/(?P<pk>\d+)/areas/$',
+        views.AreasByCompanyList.as_view(),
+        name='company-areas'
+    ),
+    url(
+        r'^areas/(?P<pk>\d+)/employees/$',
+        views.EmployeesByAreaList.as_view(),
+        name='area-employees'
     ),
     url(r'^', include(router.urls)),
 ]
