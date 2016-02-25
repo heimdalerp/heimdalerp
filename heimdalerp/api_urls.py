@@ -3,6 +3,7 @@ from django.conf.urls import url, include
 from cities_light.contrib import restframework3 as geo_urls
 from persons import api_urls as persons_urls
 from hr import api_urls as hr_urls
+from invoice import api_urls as invoice_urls
 
 
 urlpatterns = [
@@ -17,6 +18,10 @@ urlpatterns = [
     url(
         r'^hr/',
         include(hr_urls, namespace='hr')
+    ),
+    url(
+        r'^invoice/',
+        include(invoice_urls, namespace='invoice')
     ),
 ]    
 

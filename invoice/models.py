@@ -125,7 +125,7 @@ class VAT(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class InvoiceProduct(models.Model):
+class Product(models.Model):
     """
     A basic product. It could also be a service.
     See other modules like 'sales' for more advanced products.
@@ -175,7 +175,7 @@ class InvoiceLine(models.Model):
     a price and a quantity.
     """
     product = models.ForeignKey(
-        InvoiceProduct,
+        Product,
         verbose_name=_('product'),
         related_name='invoice_lines',
         related_query_name='invoice_line'

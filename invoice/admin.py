@@ -21,7 +21,7 @@ class VATAdmin(VersionAdmin):
     pass
 
 
-class InvoiceProductAdmin(VersionAdmin):
+class ProductAdmin(VersionAdmin):
     pass
 
 
@@ -37,7 +37,7 @@ admin.site.register(models.FiscalPosition, FiscalPositionAdmin)
 admin.site.register(models.CompanyInvoice, CompanyInvoiceAdmin)
 admin.site.register(models.Client, ClientAdmin)
 admin.site.register(models.VAT, VATAdmin)
-admin.site.register(models.InvoiceProduct, InvoiceProductAdmin)
+admin.site.register(models.Product, ProductAdmin)
 admin.site.register(models.InvoiceLine, InvoiceLineAdmin)
 admin.site.register(models.Invoice, InvoiceAdmin)
 

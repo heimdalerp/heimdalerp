@@ -4,16 +4,26 @@ from rest_framework.serializers import HyperlinkedIdentityField
 from persons.serializers import PhoneNumberSerializer
 from persons.serializers import ExtraEmailAddressSerializer
 from persons.serializers import PhysicalAddressSerializer
+from persons.serializers import CompanySerializer
 from invoice import models
 
+
 class FiscalPositionSerializer(HyperlinkedModelSerializer):
+    companies = HyperlinkedIdentityField(
+        view_name='api:invoice:fiscalposition-companies'
+    )
+    clients = HyperlinkedIdentityField(
+        view_name='api:invoice:fiscalposition-clients'
+    )
 
     class Meta:
         model = models.FiscalPosition
         fields = (
             'url',
             'id',
-            'name'
+            'name',
+            'companies',
+            'clients'
         )
         extra_kwargs = {
             'url': {
@@ -24,6 +34,12 @@ class FiscalPositionSerializer(HyperlinkedModelSerializer):
 
 class ClientSerializer(HyperlinkedModelSerializer):
     fiscal_position = FiscalPositionSerializer()
+    invoices = HyperlinkedIdentityField(
+        view_name='api:invoice:client-invoices'
+    )
+    companies = HyperlinkedIdentityField(
+        view_name='api:invoice:client-companies'
+    )
 
     class Meta:
         model = models.Client
@@ -32,7 +48,9 @@ class ClientSerializer(HyperlinkedModelSerializer):
             'id',
             'name',
             'client_type',
-            'fiscal_position'
+            'fiscal_position',
+            'invoices',
+            'companies'
         )
         extra_kwargs = {
             'url': {
@@ -41,28 +59,29 @@ class ClientSerializer(HyperlinkedModelSerializer):
         }
 
 
-class CompanySerializer(HyperlinkedModelSerializer):
+class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
+    company = CompanySerializer()
     fiscal_position = FiscalPositionSerializer()
-    employees = HyperlinkedIdentityField(
-        view_name='api:invoice:company-employees'
-    )
     clients = HyperlinkedIdentityField(
         view_name='api:invoice:company-clients'
+    )
+    products = HyperlinkedIdentityField(
+        view_name='api:invoice:company-products'
     )
     invoices = HyperlinkedIdentityField(
         view_name='api:invoice:company-invoices'
     )
 
     class Meta:
-        model = models.Company
+        model = models.CompanyInvoice
         fields = (
             'url',
-            'id',
-            'name',
+            'company',
             'initiated_activities',
             'fiscal_position',
-            'employees',
-            'clients'
+            'clients',
+            'products',
+            'invoices'
         )
         extra_kwargs = {
             'url': {
@@ -71,7 +90,10 @@ class CompanySerializer(HyperlinkedModelSerializer):
         }
 
 
-class VAT(HyperlinkedModelSerializer):
+class VATSerializer(HyperlinkedModelSerializer):
+    products = HyperlinkedIdentityField(
+        view_name='api:invoice:vat-products'
+    )
 
     class Meta:
         model = models.VAT
@@ -79,7 +101,8 @@ class VAT(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
-            'tax'
+            'tax',
+            'products'
         )
         extra_kwargs = {
             'url': {
@@ -88,22 +111,26 @@ class VAT(HyperlinkedModelSerializer):
         }
 
 
-class InvoiceProduct(HyperlinkedModelSerializer):
+class ProductSerializer(HyperlinkedModelSerializer):
     vat = VATSerializer()
+    invoice_lines = HyperlinkedIdentityField(
+        view_name='api:invoice:product-invoicelines'
+    )
 
     class Meta:
-        model = models.InvoiceProduct
+        model = models.Product
         fields = (
             'url',
             'id',
             'company',
             'name',
             'suggested_price',
-            'vat'
+            'vat',
+            'invoice_lines'
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice:invoiceproduct-detail'
+                'view_name': 'api:invoice:product-detail'
             },
             'company': {
                 'view_name': 'api:invoice:company-detail'
@@ -111,7 +138,7 @@ class InvoiceProduct(HyperlinkedModelSerializer):
         }
 
 
-class InvoiceLine(HyperlinkedModelSerializer):
+class InvoiceLineSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.InvoiceLine
@@ -134,7 +161,7 @@ class InvoiceLine(HyperlinkedModelSerializer):
         }
 
 
-class Invoice(HyperlinkedModelSerializer):
+class InvoiceSerializer(HyperlinkedModelSerializer):
     invoice_lines = InvoiceLineSerializer(many=True)
 
     class Meta:
@@ -163,5 +190,4 @@ class Invoice(HyperlinkedModelSerializer):
                 'many': True
             }
         }
-
 

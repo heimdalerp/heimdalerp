@@ -9,9 +9,9 @@ class FiscalPositionViewSet(ModelViewSet):
     serializer_class = serializers.FiscalPositionSerializer
 
 
-class CompanyViewSet(ModelViewSet):
-    queryset = models.Company.objects.all()
-    serializer_class = serializers.CompanySerializer
+class CompanyInvoiceViewSet(ModelViewSet):
+    queryset = models.CompanyInvoice.objects.all()
+    serializer_class = serializers.CompanyInvoiceSerializer
 
 
 class CompaniesByFiscalPositionList(ListAPIView):
@@ -33,7 +33,7 @@ class CompaniesByClientList(ListAPIView):
 
 
 class ClientViewSet(ModelViewSet):
-    queryset = models.Company.objects.all()
+    queryset = models.CompanyInvoice.objects.all()
     serializer_class = serializers.ClientSerializer
 
 
@@ -60,9 +60,9 @@ class VATViewSet(ModelViewSet):
     serializer_class = serializers.VATSerializer
 
 
-class InvoiceProductViewSet(ModelViewSet):
-    queryset = models.InvoiceProduct.objects.all()
-    serializer_class = serializers.InvoiceProductSerializer
+class ProductViewSet(ModelViewSet):
+    queryset = models.Product.objects.all()
+    serializer_class = serializers.ProductSerializer
 
 
 class ProductsByCompanyList(ListAPIView):
@@ -89,11 +89,11 @@ class InvoiceLineViewSet(ModelViewSet):
 
 
 class InvoiceLinesByProductList(ListAPIView):
-    serializer_class = serializers.InvoiceProductSerializer
+    serializer_class = serializers.ProductSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        product = models.InvoiceProduct.objects.filter(pk=pk)
+        product = models.Product.objects.filter(pk=pk)
         return product.invoice_lines.all() 
 
 
