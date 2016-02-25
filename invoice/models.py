@@ -252,7 +252,7 @@ class Invoice(models.Model):
     invoice_lines = models.ManyToManyField(
         InvoiceLine,
         verbose_name=_('invoice lines'),
-        related_name='invoices',
+        related_name='+',
         related_query_name='invoice'
     )
     invoice_date = models.DateField(
