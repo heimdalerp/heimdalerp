@@ -136,8 +136,6 @@ class PersonProfile(models.Model):
     )
     born_in = models.ForeignKey(
         Country,
-        #related_name='persons',
-        #related_query_name='person',
         verbose_name=_('born in'),
         blank=True,
         null=True
@@ -145,15 +143,11 @@ class PersonProfile(models.Model):
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
-        #related_name='persons',
-        #related_query_name='person',
         verbose_name=_('phone numbers')
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
-        #related_name='persons',
-        #related_query_name='person',
         verbose_name=_('extra email addresses')
     )
 
