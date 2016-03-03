@@ -205,6 +205,7 @@ INSTALLED_APPS = [
     'persons',
     'hr',
     'invoice',
+    'invoice_ar',
 ]
 
 MIDDLEWARE_CLASSES = [
