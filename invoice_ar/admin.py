@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from reversion.admin import VersionAdmin
 
-from invoice import models
+from invoice_ar import models
 
 
 class ClientARAdmin(VersionAdmin):
@@ -14,5 +14,5 @@ class CompanyInvoiceARAdmin(VersionAdmin):
 
 
 admin.site.register(models.ClientAR, ClientARAdmin)
-admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceAR)
+admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)
 
