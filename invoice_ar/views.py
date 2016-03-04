@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 
-from invoice import models, serializers
+from invoice_ar import models, serializers
 
 
 class ClientARViewSet(ModelViewSet):
@@ -10,5 +10,5 @@ class ClientARViewSet(ModelViewSet):
 
 class CompanyInvoiceARViewSet(ModelViewSet):
     queryset = models.CompanyInvoiceAR.objects.all()
-    serializer_class = serializers.CompanyInvoiceAR.objects.all()
+    serializer_class = serializers.CompanyInvoiceARSerializer
 
