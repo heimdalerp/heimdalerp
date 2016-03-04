@@ -5,6 +5,8 @@ from persons import api_urls as persons_urls
 from hr import api_urls as hr_urls
 from invoice import api_urls as invoice_urls
 
+from invoice_ar import api_urls as invoicear_urls
+
 
 urlpatterns = [
     url(
@@ -22,6 +24,10 @@ urlpatterns = [
     url(
         r'^invoice/',
         include(invoice_urls, namespace='invoice')
+    ),
+    url(
+        r'^invoice_ar/',
+        include(invoicear_urls, namespace='invoice_ar')
     ),
 ]    
 
