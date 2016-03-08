@@ -154,7 +154,6 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
             'extra_emails',
             'physical_addresses',
             'genre',
-            'member_since',
             'ethnicities',
             'sexual_orientation',
             'aptitudes',
