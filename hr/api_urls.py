@@ -1,9 +1,7 @@
-from django.conf.urls import url, include
-
+from django.conf.urls import include, url
 from rest_framework.routers import DefaultRouter
 
 from hr import views
-
 
 router = DefaultRouter()
 router.register(r'ethnicities', views.EthnicityViewSet)

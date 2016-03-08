@@ -1,12 +1,10 @@
-from django.conf.urls import url, include
-
 from cities_light.contrib import restframework3 as geo_urls
-from persons import api_urls as persons_urls
+from django.conf.urls import include, url
+
 from hr import api_urls as hr_urls
 from invoice import api_urls as invoice_urls
-
 from invoice_ar import api_urls as invoicear_urls
-
+from persons import api_urls as persons_urls
 
 urlpatterns = [
     url(

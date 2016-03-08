@@ -1,8 +1,6 @@
+from cities_light.models import City, Country
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from cities_light.models import City, Country
-
 
 PHONENUMBER_TYPE_HOME = 'H'
 PHONENUMBER_TYPE_WORK = 'W'

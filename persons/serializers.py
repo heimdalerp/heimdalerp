@@ -1,5 +1,5 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
 from cities_light.contrib.restframework3 import CitySerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 
 from persons import models
 

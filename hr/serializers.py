@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User
-
-from rest_framework.serializers import ModelSerializer
-from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer,
+                                        ModelSerializer)
 
 from hr import models
-from persons.serializers import PhoneNumberSerializer
-from persons.serializers import ExtraEmailAddressSerializer
-from persons.serializers import PhysicalAddressSerializer
+from persons.serializers import (ExtraEmailAddressSerializer,
+                                 PhoneNumberSerializer,
+                                 PhysicalAddressSerializer)
 
 
 class UserSerializer(ModelSerializer):

@@ -1,8 +1,8 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer)
 
-from persons.serializers import CompanySerializer
 from invoice import models
+from persons.serializers import CompanySerializer
 
 
 class FiscalPositionSerializer(HyperlinkedModelSerializer):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from persons.models import PersonProfile, Company
+from persons.models import Company, PersonProfile
 
 
 class FiscalPosition(models.Model):
