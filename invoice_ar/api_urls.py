@@ -13,4 +13,3 @@ app_name = 'invoice_ar'
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]
-        

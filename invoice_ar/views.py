@@ -11,4 +11,3 @@ class ClientARViewSet(ModelViewSet):
 class CompanyInvoiceARViewSet(ModelViewSet):
     queryset = models.CompanyInvoiceAR.objects.all()
     serializer_class = serializers.CompanyInvoiceARSerializer
-

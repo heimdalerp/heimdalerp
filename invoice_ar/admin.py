@@ -15,4 +15,3 @@ class CompanyInvoiceARAdmin(VersionAdmin):
 
 admin.site.register(models.ClientAR, ClientARAdmin)
 admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)
-

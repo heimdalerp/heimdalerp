@@ -22,7 +22,7 @@ class ClientARSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:invoice_ar:clientar-detail'
             }
-        } 
+        }
 
 
 class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
@@ -42,4 +42,3 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice_ar:companyinvoicear-detail'
             }
         }
-

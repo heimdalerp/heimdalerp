@@ -18,7 +18,7 @@ class ClientAR(models.Model):
         unique=True,
         help_text=_('Documento Nacional de Identidad means National '
                     'Identity Document. Everyone in Argentina has one. '
-        )
+                    )
     )
     cuit = models.CharField(
         _('CUIT'),
@@ -29,8 +29,8 @@ class ClientAR(models.Model):
         help_text=_("Clave Única de Identificación Tributaria means "
                     "Unique Code of Tributary Identification. Everybody "
                     "who isn't an employee under somebody's payroll has "
-                    "one." 
-        )
+                    "one."
+                    )
     )
     cuil = models.CharField(
         _('CUIL'),
@@ -41,8 +41,8 @@ class ClientAR(models.Model):
         help_text=_("Clave Única de Identificación Laboral means "
                     "Unique Code of Labor Identification. Everybody "
                     "who is an employee under somebody's payroll has "
-                    "one." 
-        )
+                    "one."
+                    )
     )
 
     def __str__(self):
@@ -69,8 +69,8 @@ class CompanyInvoiceAR(models.Model):
         help_text=_("Clave Única de Identificación Tributaria means "
                     "Unique Code of Tributary Identification. Everybody "
                     "who isn't an employee under somebody's payroll has "
-                    "one. Even companies, NGOs, Fundations, etc." 
-        )
+                    "one. Even companies, NGOs, Fundations, etc."
+                    )
     )
     iibb = models.CharField(
         _('IIBB'),
@@ -78,8 +78,8 @@ class CompanyInvoiceAR(models.Model):
         default="",
         blank=True,
         help_text=_("Ingresos Brutos means Brute Income. It is a unique "
-                    "code given by fiscal regulators of provinces' "
-        )
+                    "code given by fiscal regulators of provinces'."
+                    )
     )
 
     def __str__(self):
@@ -89,4 +89,3 @@ class CompanyInvoiceAR(models.Model):
         verbose_name = _('company')
         verbose_name_plural = _('companies')
         default_permissions = ('view', 'add', 'change', 'delete')
-
