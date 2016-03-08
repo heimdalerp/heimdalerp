@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from persons.models import PersonProfile, Company
-from hr.models import Employee
 
 
 class FiscalPosition(models.Model):
@@ -31,6 +30,7 @@ CLIENT_TYPES = (
     (CLIENT_TYPE_COMPANY, _('Company')),
     (CLIENT_TYPE_INDIVIDUAL, _('Individual')),
 )
+
 
 class Client(PersonProfile):
     """
@@ -100,7 +100,7 @@ class CompanyInvoice(models.Model):
         verbose_name_plural = _('companies')
         default_permissions = ('view', 'add', 'change', 'delete')
 
-    
+
 class VAT(models.Model):
     """
     VAT is a type of tax to consumption. Every country has it.
@@ -154,7 +154,7 @@ class Product(models.Model):
         related_name='products',
         related_query_name='product'
     )
- 
+
     def __str__(self):
         return "%(product)s x %(quantity)s" % {
             'product': self.product,
@@ -162,8 +162,8 @@ class Product(models.Model):
         }
 
     class Meta:
-        unique_together = (('company', 'name'),)
-        index_together = [['company', 'name'],]
+        unique_together = (('company', 'name'), )
+        index_together = [['company', 'name'], ]
         verbose_name = _('product')
         verbose_name_plural = _('products')
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -216,7 +216,7 @@ class InvoiceLine(models.Model):
         verbose_name = _('invoice line')
         verbose_name_plural = _('invoice lines')
         default_permissions = ('view', 'add', 'change', 'delete')
-    
+
 
 INVOICE_STATUSTYPE_DRAFT = 'D'
 INVOICE_STATUSTYPE_SENT = 'S'
@@ -228,6 +228,7 @@ INVOICE_STATUS_TYPES = (
     (INVOICE_STATUSTYPE_PAID, _('Paid')),
     (INVOICE_STATUSTYPE_CANCELED, _('Canceled'))
 )
+
 
 class Invoice(models.Model):
     """
@@ -289,10 +290,9 @@ class Invoice(models.Model):
         return "%(company)s : %(number)s" % {
             'company': self.company,
             'number': self.number
-        }    
+        }
 
     class Meta:
         verbose_name = _('invoice')
         verbose_name_plural = _('invoices')
         default_permissions = ('view', 'add', 'change', 'delete')
-

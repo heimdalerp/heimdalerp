@@ -20,7 +20,7 @@ class CompaniesByFiscalPositionList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         fiscal_position = models.FiscalPosition.objects.filter(pk=pk)
-        return fiscal_position.companies.all() 
+        return fiscal_position.companies.all()
 
 
 class CompaniesByClientList(ListAPIView):
@@ -29,7 +29,7 @@ class CompaniesByClientList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         client = models.Client.objects.filter(pk=pk)
-        return client.companies.all() 
+        return client.companies.all()
 
 
 class ClientViewSet(ModelViewSet):
@@ -43,7 +43,7 @@ class ClientsByFiscalPositionList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         fiscal_position = models.FiscalPosition.objects.filter(pk=pk)
-        return fiscal_position.clients.all() 
+        return fiscal_position.clients.all()
 
 
 class ClientsByCompanyList(ListAPIView):
@@ -52,7 +52,7 @@ class ClientsByCompanyList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.clients.all() 
+        return company.clients.all()
 
 
 class VATViewSet(ModelViewSet):
@@ -71,7 +71,7 @@ class ProductsByCompanyList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.products.all() 
+        return company.products.all()
 
 
 class ProductsByVATList(ListAPIView):
@@ -80,7 +80,7 @@ class ProductsByVATList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         vat = models.VAT.objects.filter(pk=pk)
-        return vat.products.all() 
+        return vat.products.all()
 
 
 class InvoiceLineViewSet(ModelViewSet):
@@ -94,7 +94,7 @@ class InvoiceLinesByProductList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         product = models.Product.objects.filter(pk=pk)
-        return product.invoice_lines.all() 
+        return product.invoice_lines.all()
 
 
 class InvoiceViewSet(ModelViewSet):
@@ -108,7 +108,7 @@ class InvoicesByCompanyList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.invoices.all() 
+        return company.invoices.all()
 
 
 class InvoicesByClientList(ListAPIView):
@@ -117,5 +117,4 @@ class InvoicesByClientList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         client = models.Client.objects.filter(pk=pk)
-        return client.invoices.all() 
-
+        return client.invoices.all()

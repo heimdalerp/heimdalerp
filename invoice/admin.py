@@ -40,4 +40,3 @@ admin.site.register(models.VAT, VATAdmin)
 admin.site.register(models.Product, ProductAdmin)
 admin.site.register(models.InvoiceLine, InvoiceLineAdmin)
 admin.site.register(models.Invoice, InvoiceAdmin)
-

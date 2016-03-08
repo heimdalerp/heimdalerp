@@ -1,9 +1,6 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 from rest_framework.serializers import HyperlinkedIdentityField
 
-from persons.serializers import PhoneNumberSerializer
-from persons.serializers import ExtraEmailAddressSerializer
-from persons.serializers import PhysicalAddressSerializer
 from persons.serializers import CompanySerializer
 from invoice import models
 
@@ -190,4 +187,3 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'many': True
             }
         }
-
