@@ -1,11 +1,8 @@
-from django.conf import settings
-if settings.AUTH_USER_MODEL == 'auth.User':
-    from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import HyperlinkedModelSerializer
 from rest_framework.serializers import HyperlinkedIdentityField
-from cities_light.contrib.restframework3 import CountrySerializer
 
 from hr import models
 from persons.serializers import PhoneNumberSerializer
@@ -16,7 +13,6 @@ from persons.serializers import PhysicalAddressSerializer
 class UserSerializer(ModelSerializer):
 
     class Meta:
-        if settings.AUTH_USER_MODEL == 'auth.User':
             model = User
             fields = (
                 'id',
@@ -118,7 +114,7 @@ class SanctionSerializer(HyperlinkedModelSerializer):
 
 class EmployeeSerializer(HyperlinkedModelSerializer):
     user = UserSerializer()
-    #born_in = CountrySerializer()
+    # born_in = CountrySerializer()
     phone_numbers = PhoneNumberSerializer(many=True)
     extra_emails = ExtraEmailAddressSerializer(many=True)
     physical_addresses = PhysicalAddressSerializer(many=True)
@@ -154,7 +150,7 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
             'id',
             'user',
             'birth_date',
-            #'born_in',
+            # 'born_in',
             'phone_numbers',
             'extra_emails',
             'physical_addresses',
@@ -360,7 +356,7 @@ class AreaSerializer(HyperlinkedModelSerializer):
             }
         }
 
- 
+
 class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
 
     class Meta:
@@ -384,7 +380,7 @@ class AreaHasEmployeeSerializer(HyperlinkedModelSerializer):
             }
         }
 
- 
+
 class EmployeeHasRoleSerializer(HyperlinkedModelSerializer):
 
     class Meta:
@@ -407,4 +403,3 @@ class EmployeeHasRoleSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:hr:employee-detail'
             }
         }
-

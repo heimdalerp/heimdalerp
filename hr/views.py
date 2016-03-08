@@ -164,4 +164,3 @@ class AreaHasEmployeeViewSet(ModelViewSet):
 class EmployeeHasRoleViewSet(ModelViewSet):
     queryset = models.EmployeeHasRole.objects.all()
     serializer_class = serializers.EmployeeHasRoleSerializer
-

@@ -8,7 +8,7 @@ from persons.models import PersonProfile, GENRE_TYPES, Company
 
 class Ethnicity(models.Model):
     """
-    Ethnicity types. Relevant for countries were one must comply with a 
+    Ethnicity types. Relevant for countries were one must comply with a
     minimum quota of diversity.
     """
     name = models.CharField(
@@ -23,7 +23,7 @@ class Ethnicity(models.Model):
         decimal_places=2,
         default=0.00
     )
-    
+
     def __str__(self):
         return _noop('%(name)s') % {'name': self.name}
 
@@ -35,7 +35,7 @@ class Ethnicity(models.Model):
 
 class SexualOrientation(models.Model):
     """
-    Sexual orientation types. Relevant for countries were one must comply 
+    Sexual orientation types. Relevant for countries were one must comply
     with a minimum quota of social inclusion.
     """
     name = models.CharField(
@@ -63,7 +63,7 @@ class SexualOrientation(models.Model):
 class Aptitude(models.Model):
     """
     An aptitude, contrary to an achievement is an ability, skill, knowledge
-    experience and or capacity that an employee has. These are generic. 
+    experience and or capacity that an employee has. These are generic.
     For example, Steve has knowledge and experience with project management.
     """
     name = models.CharField(
@@ -94,7 +94,7 @@ class Aptitude(models.Model):
 
 class Achievement(models.Model):
     """
-    An achievement is a one-time accomplished task, shouldn't be something 
+    An achievement is a one-time accomplished task, shouldn't be something
     generic.
     For example, John's design got awarded at Current Year Design Awards.
     Or, Jessica finished her project 3 months earlier than expected.
@@ -128,7 +128,7 @@ class Achievement(models.Model):
 
 class Sanction(models.Model):
     """
-    A sanction is a type of misbehaviour that isn't allowed in employees. 
+    A sanction is a type of misbehaviour that isn't allowed in employees.
     For example: sexual harassment, verbal violence, physical violence, etc.
     """
     name = models.CharField(
@@ -177,7 +177,7 @@ class Degree(models.Model):
         decimal_places=2,
         default=0.00
     )
-   
+
     def __str__(self):
         return self.name
 
@@ -322,6 +322,7 @@ LANGUAGE_SPOKEN_LEVELS = (
     (LANGUAGE_SPOKENLEVEL_NATIVE, _('Native'))
 )
 
+
 class EmployeeSpeaksLanguage(models.Model):
     """
     Employee speaks a language with a certain level.
@@ -356,7 +357,7 @@ class EmployeeSpeaksLanguage(models.Model):
         r = _noop(
             '%(employee)s speaks %(language)s'
         ) % {'employee': self.employee, 'language': self.language}
-        return r 
+        return r
 
     class Meta:
         verbose_name = _('employee speaks language')
@@ -407,7 +408,7 @@ class EmployeeHasSanction(models.Model):
         r = _noop(
             '%(degree)s at %(academia)s'
         ) % {'degree': self.degree, 'academia': self.academic_institution}
-        return r 
+        return r
 
     class Meta:
         verbose_name = _('employee has degree')
@@ -478,7 +479,7 @@ class EmployeeHasDegree(models.Model):
         r = _noop(
             '%(degree)s at %(academia)s'
         ) % {'degree': self.degree, 'academia': self.academic_institution}
-        return r 
+        return r
 
     class Meta:
         verbose_name = _('employee has degree')
@@ -604,4 +605,3 @@ class EmployeeHasRole(models.Model):
         verbose_name = _('employee has role')
         verbose_name_plural = _('employee has roles')
         default_permissions = ('view', 'add', 'change', 'delete')
-

@@ -88,4 +88,3 @@ admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.Area, AreaAdmin)
 admin.site.register(models.AreaHasEmployee, AreaHasEmployeeAdmin)
 admin.site.register(models.EmployeeHasRole, EmployeeHasRoleAdmin)
-
