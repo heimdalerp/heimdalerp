@@ -76,4 +76,3 @@ class CompanySerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:persons:company-detail'
             }
         }
-

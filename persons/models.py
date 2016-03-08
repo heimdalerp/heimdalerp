@@ -63,7 +63,7 @@ class PhoneNumber(models.Model):
 class ExtraEmailAddress(models.Model):
     """
     Employees and clients may have more than one email address.
-    When in doubt, the official should always be the one in 
+    When in doubt, the official should always be the one in
     'django.contrib.auth.models.User.email'.
     """
     email = models.EmailField(
@@ -122,7 +122,7 @@ class PhysicalAddress(models.Model):
         verbose_name = _("physical address")
         verbose_name_plural = _("physical addresses")
         default_permissions = ('view', 'add', 'change', 'delete')
-    
+
 
 class PersonProfile(models.Model):
     """
@@ -157,7 +157,7 @@ class PersonProfile(models.Model):
 
 class Company(models.Model):
     """
-    The companies using HeimdalERP. 
+    The companies using HeimdalERP.
     """
     name = models.CharField(
         _('name'),
@@ -177,4 +177,3 @@ class Company(models.Model):
         verbose_name = _('company')
         verbose_name_plural = _('companies')
         default_permissions = ('view', 'add', 'change', 'delete')
-
