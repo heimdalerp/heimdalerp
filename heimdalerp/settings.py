@@ -33,7 +33,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-AUTH_USER_MODEL = 'auth.User' 
+AUTH_USER_MODEL = 'auth.User'
 LOGIN_REDIRECT_URL = '/accounts/profile/'
 LOGIN_URL = '/accounts/login/'
 PASSWORD_RESET_TIMEOUT_DAYS = 1
@@ -68,15 +68,15 @@ INTERNAL_IPS = []
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        #'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        #'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        #'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        #'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        #'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        # 'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        # 'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        # 'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
         }
 }
 
-CSRF_COOKIE_AGE = 31449600 # one year
+CSRF_COOKIE_AGE = 31449600  # one year
 CSRF_COOKIE_DOMAIN = None
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_NAME = 'csrftoken'
@@ -88,17 +88,17 @@ CSRF_TRUSTED_ORIGINS = []
 SIGNING_BACKEND = 'django.core.signing.TimestampSigner'
 
 SESSION_CACHE_ALIAS = 'default'
-SESSION_COOKIE_AGE = 1209600 # two weeks
+SESSION_COOKIE_AGE = 1209600  # two weeks
 SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_PATH = '/'
 SESSION_COOKIE_SECURE = False
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-#SESSION_ENGINE = 'django.contrib.sessions.backends.file'
-#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-#SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-#SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_FILE_PATH = None
 SESSION_SAVE_EVERY_REQUEST = False
@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
-    
+
 
 DEFAULT_CHARSET = 'utf-8'
 DEFAULT_CONTENT_TYPE = 'text/html'
@@ -158,10 +158,10 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler'
 ]
-FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800 # 50MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = None
 FILE_UPLOAD_PERMISSIONS = None
-FILE_UPLOAD_TEMP_DIR = None # defaults to '/tmp' on UNIX-like OSs
+FILE_UPLOAD_TEMP_DIR = None  # defaults to '/tmp' on UNIX-like OSs
 
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 SERVER_EMAIL = "root@localhost"
@@ -177,7 +177,7 @@ EMAIL_SSL_CERTFILE = None
 EMAIL_SSL_KEYFILE = None
 EMAIL_TIMEOUT = None
 
-FIRST_DAY_OF_WEEK = 0 # Sunday
+FIRST_DAY_OF_WEEK = 0  # Sunday
 
 FIXTURE_DIRS = []
 FORCE_SCRIPT_NAME = None
@@ -240,8 +240,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'heimdalerp.wsgi.application'
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -265,7 +263,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_ROOT = '' # '/var/www/heimdalerp/static/'
+STATIC_ROOT = ''  # '/var/www/heimdalerp/static/'
 STATIC_URL = '/static/'
 STATICFILE_DIRS = []
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -274,9 +272,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 ]
 
-MEDIA_ROOT = '' # '/var/www/heimdalerp/media/'
-MEDIA_URL = '/media/' # It could also be: 'http://media.example.com/'
+MEDIA_ROOT = ''  # '/var/www/heimdalerp/media/'
+MEDIA_URL = '/media/'  # It could also be: 'http://media.example.com/'
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 TEST_NON_SERIALIZED_APPS = []
-

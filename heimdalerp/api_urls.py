@@ -29,5 +29,4 @@ urlpatterns = [
         r'^invoice_ar/',
         include(invoicear_urls, namespace='invoice_ar')
     ),
-]    
-
+]
