@@ -27,7 +27,7 @@ It is said that he brings the gift of the gods to mankind.
     # exit
     $ mkdir -p $HOME/workspace/heimdalerp/dev/
     $ cd $HOME/workspace/heimdalerp/dev/
-    $ git clone https://github.com/mbaragiola/heimdalerp
+    $ git clone https://github.com/heimdalerp/heimdalerp
     $ cd ..
     $ pyvenv-3.4 .
     $ . bin/activate
@@ -55,7 +55,7 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     # exit
     $ mkdir -p $HOME/workspace/heimdalerp/dev/
     $ cd $HOME/workspace/heimdalerp/dev/
-    $ git clone https://github.com/mbaragiola/heimdalerp
+    $ git clone https://github.com/heimdalerp/heimdalerp
     $ cd ..
     $ pyvenv .
     $ . bin/activate
