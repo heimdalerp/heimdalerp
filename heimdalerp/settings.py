@@ -26,6 +26,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = False
+AFIP_DEBUG = True  # django-afip
 SILENCED_SYSTEM_CHECKS = []
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
@@ -211,6 +212,7 @@ INSTALLED_APPS = [
     'persons',
     'hr',
     'invoice',
+    'sales',
     'invoice_ar',
     'django_afip',
 ]

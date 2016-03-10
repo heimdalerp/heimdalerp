@@ -156,10 +156,7 @@ class Product(models.Model):
     )
 
     def __str__(self):
-        return "%(product)s x %(quantity)s" % {
-            'product': self.product,
-            'quantity': self.quantity
-        }
+        return "%(name)s" % {'name': self.name}
 
     class Meta:
         unique_together = (('company', 'name'), )
@@ -171,7 +168,7 @@ class Product(models.Model):
 
 class InvoiceLine(models.Model):
     """
-    An invoice of composed of lines or entries, which have a product,
+    An invoice is composed of lines or entries, which have a product,
     a price and a quantity.
     """
     product = models.ForeignKey(

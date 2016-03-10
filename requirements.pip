@@ -7,5 +7,5 @@ djangorestframework-jwt
 django-cors-headers
 django-reversion
 django-filter
-#django-crispy-forms
-#markdown
+django-crispy-forms
+markdown
