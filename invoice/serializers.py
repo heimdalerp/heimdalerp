@@ -153,7 +153,7 @@ class InvoiceLineSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice:invoiceline-detail'
             },
             'product': {
-                'view_name': 'api:invoice:invoiceproduct-detail'
+                'view_name': 'api:invoice:product-detail'
             }
         }
 

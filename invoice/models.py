@@ -257,7 +257,7 @@ class Invoice(models.Model):
         _('date'),
         help_text=_('Not necessarily today.')
     )
-    invoice_status = models.CharField(
+    status = models.CharField(
         _('status'),
         max_length=1,
         choices=INVOICE_STATUS_TYPES,

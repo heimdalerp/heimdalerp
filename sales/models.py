@@ -72,7 +72,7 @@ class QuotationLine(models.Model):
     a price and a quantity.
     """
     product = models.ForeignKey(
-        ProductSales,
+        Product,
         verbose_name=_('product'),
         related_name='quotation_lines',
         related_query_name='quotation_line'
@@ -113,6 +113,18 @@ class QuotationLine(models.Model):
         verbose_name = _('quotation line')
         verbose_name_plural = _('quotation lines')
         default_permissions = ('view', 'add', 'change', 'delete')
+
+
+QUOTATION_STATUSTYPE_DRAFT = 'D'
+QUOTATION_STATUSTYPE_SAVED = 'SA'
+QUOTATION_STATUSTYPE_SOLD = 'SO'
+QUOTATION_STATUSTYPE_CANCELED = 'C'
+QUOTATION_STATUS_TYPES = (
+    (QUOTATION_STATUSTYPE_DRAFT, _('Draft')),
+    (QUOTATION_STATUSTYPE_SAVED, _('Saved')),
+    (QUOTATION_STATUSTYPE_SOLD, _('Sold')),
+    (QUOTATION_STATUSTYPE_CANCELED, _('Canceled')),
+)
 
 
 class Quotation(models.Model):
@@ -161,6 +173,12 @@ class Quotation(models.Model):
         _('notes'),
         blank=True,
         default=""
+    )
+    status = models.CharField(
+        _('status'),
+        max_length=2,
+        choices=QUOTATION_STATUS_TYPES,
+        default=QUOTATION_STATUSTYPE_DRAFT
     )
 
     def __str__(self):
@@ -224,6 +242,18 @@ class SaleLine(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+SALE_STATUSTYPE_DRAFT = 'D'
+SALE_STATUSTYPE_SAVED = 'S'
+SALE_STATUSTYPE_INVOICED = 'I'
+SALE_STATUSTYPE_CANCELED = 'C'
+SALE_STATUS_TYPES = (
+    (SALE_STATUSTYPE_DRAFT, _('Draft')),
+    (SALE_STATUSTYPE_SAVED, _('Saved')),
+    (SALE_STATUSTYPE_INVOICED, _('Invoiced')),
+    (SALE_STATUSTYPE_CANCELED, _('Canceled')),
+)
+
+
 class Sale(models.Model):
     """
     A sale is a previous step to an invoice.
@@ -275,6 +305,12 @@ class Sale(models.Model):
         _('notes'),
         blank=True,
         default=""
+    )
+    status = models.CharField(
+        _('status'),
+        max_length=1,
+        choices=SALE_STATUS_TYPES,
+        default=SALE_STATUSTYPE_DRAFT
     )
 
     def __str__(self):
