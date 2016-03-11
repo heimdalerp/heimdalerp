@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from invoice.models import VAT, Client, Product
 from persons.models import Company
-from hr.models import Employee
-from invoice.models import Client, Product, VAT
 
 
 class ProductCategory(models.Model):
@@ -48,7 +47,7 @@ class ProductSales(models.Model):
         max_length=500,
         blank=True,
         default=""
-    ) 
+    )
     categories = models.ManyToManyField(
         ProductCategory,
         verbose_name=_('categories'),
@@ -144,7 +143,7 @@ class Quotation(models.Model):
         verbose_name=_('clients'),
         related_name='quotations',
         related_query_name='quotation'
-    ) 
+    )
     quotation_lines = models.ManyToManyField(
         QuotationLine,
         verbose_name=_('quotation lines'),
@@ -276,7 +275,7 @@ class Sale(models.Model):
         verbose_name=_('clients'),
         related_name='sales',
         related_query_name='sale'
-    ) 
+    )
     sale_lines = models.ManyToManyField(
         SaleLine,
         verbose_name=_('sales lines'),

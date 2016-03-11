@@ -1,8 +1,7 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer)
 
 from invoice.serializers import ProductSerializer
-
 from sales import models
 
 
@@ -24,7 +23,7 @@ class ProductCategorySerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:persons:company-detail'
             }
         }
- 
+
 
 class ProductSalesSerializer(HyperlinkedModelSerializer):
     product = ProductSerializer()

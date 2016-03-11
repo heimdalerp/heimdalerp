@@ -3,7 +3,6 @@ from rest_framework.routers import DefaultRouter
 
 from sales import views
 
-
 router = DefaultRouter()
 router.register(r'productcategories', views.ProductCategoryViewSet)
 router.register(r'products', views.ProductSalesViewSet)
