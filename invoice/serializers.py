@@ -173,7 +173,8 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'invoice_date',
             'notes',
             'subtotal',
-            'total'
+            'total',
+            'status'
         )
         extra_kwargs = {
             'url': {

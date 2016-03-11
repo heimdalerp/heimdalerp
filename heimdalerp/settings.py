@@ -212,9 +212,9 @@ INSTALLED_APPS = [
     'persons',
     'hr',
     'invoice',
-    'sales',
     'invoice_ar',
     'django_afip',
+    'sales',
 ]
 
 MIDDLEWARE_CLASSES = [

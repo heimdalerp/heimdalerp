@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion.admin import VersionAdmin
 
-from invoice import models
+from sales import models
 
 
 class ProductCategoryAdmin(VersionAdmin):
