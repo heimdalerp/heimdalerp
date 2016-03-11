@@ -4,7 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from sales import models, serializers
 
 
-class ProductCategory(ModelViewSet):
+class ProductCategoryViewSet(ModelViewSet):
     queryset = models.ProductCategory.objects.all()
     serializer_class = serializers.ProductCategorySerializer
 
@@ -18,26 +18,26 @@ class CategoriesByProductList(ListAPIView):
         return product.categories.all()
 
 
-class ProductSales(ModelViewSet):
+class ProductSalesViewSet(ModelViewSet):
     queryset = models.ProductSales.objects.all()
     serializer_class = serializers.ProductSalesSerializer
 
 
-class QuotationLine(ModelViewSet):
+class QuotationLineViewSet(ModelViewSet):
     queryset = models.QuotationLine.objects.all()
     serializer_class = serializers.QuotationLineSerializer
 
 
-class Quotation(ModelViewSet):
+class QuotationViewSet(ModelViewSet):
     queryset = models.Quotation.objects.all()
     serializer_class = serializers.QuotationSerializer
 
 
-class SaleLine(ModelViewSet):
+class SaleLineViewSet(ModelViewSet):
     queryset = models.SaleLine.objects.all()
     serializer_class = serializers.SaleLineSerializer
 
 
-class Sale(ModelViewSet):
+class SaleViewSet(ModelViewSet):
     queryset = models.Sale.objects.all()
-    serializer_class = serializer.SaleSerializer
+    serializer_class = serializers.SaleSerializer

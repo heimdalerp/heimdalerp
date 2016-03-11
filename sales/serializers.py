@@ -38,7 +38,7 @@ class ProductSalesSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'product',
-            'description'
+            'description',
             'categories'
         )
         extra_kwargs = {
@@ -63,7 +63,7 @@ class QuotationLineSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:sales:quotationline-detail'
-            }
+            },
             'product': {
                 'view_name': 'api:invoice:product-detail'
             }
@@ -89,10 +89,10 @@ class QuotationSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:sales:quotation-detail'
-            }
+            },
             'company': {
                 'view_name': 'api:persons:company-detail'
-            }
+            },
             'clients': {
                 'view_name': 'api:invoice:client-detail',
                 'many': True
@@ -115,7 +115,7 @@ class SaleLineSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:sales:saleline-detail'
-            }
+            },
             'product': {
                 'view_name': 'api:invoice:product-detail'
             }
@@ -142,10 +142,10 @@ class SaleSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:sales:sale-detail'
-            }
+            },
             'company': {
                 'view_name': 'api:persons:company-detail'
-            }
+            },
             'clients': {
                 'view_name': 'api:invoice:client-detail',
                 'many': True
