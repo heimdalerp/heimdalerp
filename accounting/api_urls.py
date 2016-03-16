@@ -18,7 +18,7 @@ urlpatterns = [
     ),
     url(
         r'^ledgers/(?P<pk>\d+)/accounts/$',
-        views.AccountsByLederList.as_view(),
+        views.AccountsByLedgerList.as_view(),
         name='ledger-accounts'
     ),
     url(
