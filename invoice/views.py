@@ -15,7 +15,7 @@ class CompanyInvoiceViewSet(ModelViewSet):
 
 
 class CompaniesByFiscalPositionList(ListAPIView):
-    serializer_class = serializers.FiscalPositionSerializer
+    serializer_class = serializers.CompanyInvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -24,7 +24,7 @@ class CompaniesByFiscalPositionList(ListAPIView):
 
 
 class CompaniesByClientList(ListAPIView):
-    serializer_class = serializers.ClientSerializer
+    serializer_class = serializers.CompanyInvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -38,7 +38,7 @@ class ClientViewSet(ModelViewSet):
 
 
 class ClientsByFiscalPositionList(ListAPIView):
-    serializer_class = serializers.FiscalPositionSerializer
+    serializer_class = serializers.ClientSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -47,7 +47,7 @@ class ClientsByFiscalPositionList(ListAPIView):
 
 
 class ClientsByCompanyList(ListAPIView):
-    serializer_class = serializers.CompanyInvoiceSerializer
+    serializer_class = serializers.ClientSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -66,7 +66,7 @@ class ProductViewSet(ModelViewSet):
 
 
 class ProductsByCompanyList(ListAPIView):
-    serializer_class = serializers.CompanyInvoiceSerializer
+    serializer_class = serializers.ProductSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -89,7 +89,7 @@ class InvoiceLineViewSet(ModelViewSet):
 
 
 class InvoiceLinesByProductList(ListAPIView):
-    serializer_class = serializers.ProductSerializer
+    serializer_class = serializers.InvoiceLineSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -103,7 +103,7 @@ class InvoiceViewSet(ModelViewSet):
 
 
 class InvoicesByCompanyList(ListAPIView):
-    serializer_class = serializers.CompanyInvoiceSerializer
+    serializer_class = serializers.InvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -112,7 +112,7 @@ class InvoicesByCompanyList(ListAPIView):
 
 
 class InvoicesByClientList(ListAPIView):
-    serializer_class = serializers.ClientSerializer
+    serializer_class = serializers.InvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
