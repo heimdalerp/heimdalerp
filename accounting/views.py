@@ -1,5 +1,4 @@
 from django.db.models import Q
-
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -65,5 +64,5 @@ class TransactionsByAccountList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         return models.Transaction.objects.filter(
-            Q(debit_account) | Q(credit_account)
+            Q(debit_account=pk) | Q(credit_account=pk)
         )

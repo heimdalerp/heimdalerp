@@ -101,7 +101,7 @@ class AccountSubtype(models.Model):
         * Real Accounts: DEBIT WHAT COMES IN, CREDIT WHAT GOES OUT.
             - Tangible (cash, machinery, stock, furniture, etc).
             - Intangile (goodwill, patents, trademarks, copyrights, etc).
-        * Nominal Accounts: 
+        * Nominal Accounts:
           DEBIT ALL EXPENSES AND LOSSES, CREDIT ALL INCOMES AND GAINS.
           Wages, rent, comission, interest received, etc.
     """
@@ -117,7 +117,7 @@ class AccountSubtype(models.Model):
         max_length=1,
         choices=ACCOUNT_TYPES,
         db_index=True
-    )    
+    )
     name = models.CharField(
         _('name'),
         max_length=50
@@ -175,7 +175,7 @@ class Transaction(models.Model):
     )
 
     def __str__(self):
-        return _('Transaction #%(id)s') % {'id': self.pk} 
+        return _('Transaction #%(id)s') % {'id': self.pk}
 
     class Meta:
         verbose_name = _('transaction')
