@@ -217,6 +217,7 @@ INSTALLED_APPS = [
     'invoice_ar',
     'django_afip',
     'sales',
+    'accounting',
 ]
 
 MIDDLEWARE_CLASSES = [
