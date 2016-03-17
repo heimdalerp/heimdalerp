@@ -70,7 +70,7 @@ class AccountSubtypeSerializer(HyperlinkedModelSerializer):
 class TransactionSerializer(HyperlinkedModelSerializer):
         class Meta:
             model = models.Transaction
-            fields = (
+            read_only_fields = (
                 'url',
                 'id',
                 'amount',
