@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from accounting import models, serializers
 
@@ -52,8 +52,7 @@ class AccountSubtypesByCompanyList(ListAPIView):
         return models.AccountSubtype.objects.filter(company=pk)
 
 
-# TODO: Perhaps this should be a read-only serializer.
-class TransactionViewSet(ModelViewSet):
+class TransactionViewSet(ReadOnlyModelViewSet):
     queryset = models.Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer
 
