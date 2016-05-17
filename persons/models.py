@@ -67,6 +67,12 @@ class ExtraEmailAddress(models.Model):
     email = models.EmailField(
         _("email address")
     )
+    description = models.CharField(
+        _("description"),
+        max_length=50,
+        default="",
+        blank=True
+    )
 
     def __str__(self):
         return self.email
