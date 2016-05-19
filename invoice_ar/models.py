@@ -1,15 +1,15 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from invoice.models import Client, CompanyInvoice
+from invoice.models import ContactInvoice, CompanyInvoice
 
 
-class ClientAR(models.Model):
+class ContactInvoiceAR(models.Model):
     """
-    This class extends the Client class defined in 'invoice'.
+    This class extends the Contact class defined in 'invoice'.
     It adds basics fields required by law in Argentina.
     """
-    client = models.OneToOneField(Client)
+    contact = models.OneToOneField(ContactInvoice)
     dni = models.CharField(
         _('DNI'),
         max_length=10,
@@ -46,11 +46,11 @@ class ClientAR(models.Model):
     )
 
     def __str__(self):
-        return self.client
+        return self.contact
 
     class Meta:
-        verbose_name = _('client')
-        verbose_name_plural = _('clients')
+        verbose_name = _('contact')
+        verbose_name_plural = _('contacts')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 

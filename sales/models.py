@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from invoice.models import VAT, Client, Product
+from invoice.models import VAT, Contact, Product
 from persons.models import Company
 
 
@@ -138,9 +138,9 @@ class Quotation(models.Model):
         related_query_name='quotation',
         db_index=True
     )
-    clients = models.ManyToManyField(
-        Client,
-        verbose_name=_('clients'),
+    contacts = models.ManyToManyField(
+        Contact,
+        verbose_name=_('contacts'),
         related_name='quotations',
         related_query_name='quotation'
     )
@@ -270,9 +270,9 @@ class Sale(models.Model):
         related_query_name='sale',
         db_index=True
     )
-    clients = models.ManyToManyField(
-        Client,
-        verbose_name=_('clients'),
+    contacts = models.ManyToManyField(
+        Contact,
+        verbose_name=_('contacts'),
         related_name='sales',
         related_query_name='sale'
     )

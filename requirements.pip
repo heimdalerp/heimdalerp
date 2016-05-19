@@ -1,3 +1,5 @@
+wheel
+setuptools
 django
 bcrypt
 psycopg2

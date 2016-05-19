@@ -1,25 +1,26 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 
-from invoice.serializers import ClientSerializer, CompanyInvoiceSerializer
+from invoice.serializers import (ContactInvoiceSerializer,
+                                 CompanyInvoiceSerializer)
 from invoice_ar import models
 
 
-class ClientARSerializer(HyperlinkedModelSerializer):
-    client = ClientSerializer()
+class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
+    contact = ContactInvoiceSerializer()
 
     class Meta:
-        model = models.ClientAR
+        model = models.ContactInvoiceAR
         fields = (
             'url',
             'id',
-            'client',
+            'contact',
             'dni',
             'cuit',
             'cuil'
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice_ar:clientar-detail'
+                'view_name': 'api:invoice_ar:contactar-detail'
             }
         }
 

@@ -6,7 +6,6 @@ from invoice import views
 router = DefaultRouter()
 router.register(r'fiscalpositions', views.FiscalPositionViewSet)
 router.register(r'companies', views.CompanyInvoiceViewSet)
-router.register(r'clients', views.ClientViewSet)
 router.register(r'vats', views.VATViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'invoicelines', views.InvoiceLineViewSet)
@@ -15,9 +14,9 @@ router.register(r'invoices', views.InvoiceViewSet)
 app_name = 'invoice'
 urlpatterns = [
     url(
-        r'^companies/(?P<pk>\d+)/clients/$',
-        views.ClientsByCompanyList.as_view(),
-        name='company-clients'
+        r'^companies/(?P<pk>\d+)/contacts/$',
+        views.ContactsByCompanyList.as_view(),
+        name='company-contacts'
     ),
     url(
         r'^companies/(?P<pk>\d+)/products/$',
@@ -30,14 +29,9 @@ urlpatterns = [
         name='company-invoices'
     ),
     url(
-        r'^clients/(?P<pk>\d+)/invoices/$',
-        views.InvoicesByClientList.as_view(),
-        name='client-invoices'
-    ),
-    url(
-        r'^clients/(?P<pk>\d+)/companies/$',
-        views.CompaniesByClientList.as_view(),
-        name='client-companies'
+        r'^contacts/(?P<pk>\d+)/invoices/$',
+        views.InvoicesByContactList.as_view(),
+        name='contact-invoices'
     ),
     url(
         r'^products/(?P<pk>\d+)/invoicelines/$',
@@ -55,9 +49,9 @@ urlpatterns = [
         name='fiscalposition-companies'
     ),
     url(
-        r'^fiscalpositions/(?P<pk>\d+)/clients/$',
-        views.ClientsByFiscalPositionList.as_view(),
-        name='fiscalposition-clients'
+        r'^fiscalpositions/(?P<pk>\d+)/contacts/$',
+        views.ContactsByFiscalPositionList.as_view(),
+        name='fiscalposition-contacts'
     ),
     url(r'^', include(router.urls)),
 ]

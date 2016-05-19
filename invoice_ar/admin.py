@@ -4,7 +4,7 @@ from reversion.admin import VersionAdmin
 from invoice_ar import models
 
 
-class ClientARAdmin(VersionAdmin):
+class ContactInvoiceARAdmin(VersionAdmin):
     pass
 
 
@@ -12,5 +12,5 @@ class CompanyInvoiceARAdmin(VersionAdmin):
     pass
 
 
-admin.site.register(models.ClientAR, ClientARAdmin)
+admin.site.register(models.ContactInvoiceAR, ContactInvoiceARAdmin)
 admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)

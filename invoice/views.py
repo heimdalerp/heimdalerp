@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
 from invoice import models, serializers
+from contact.models import Contact
 
 
 class FiscalPositionViewSet(ModelViewSet):
@@ -14,6 +15,15 @@ class CompanyInvoiceViewSet(ModelViewSet):
     serializer_class = serializers.CompanyInvoiceSerializer
 
 
+class ContactsByCompanyList(ListAPIView):
+    serializer_class = serializers.ContactInvoiceSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        company = models.CompanyInvoice.objects.filter(pk=pk)
+        return company.contacts.all() 
+
+
 class CompaniesByFiscalPositionList(ListAPIView):
     serializer_class = serializers.CompanyInvoiceSerializer
 
@@ -23,36 +33,13 @@ class CompaniesByFiscalPositionList(ListAPIView):
         return fiscal_position.companies.all()
 
 
-class CompaniesByClientList(ListAPIView):
-    serializer_class = serializers.CompanyInvoiceSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        client = models.Client.objects.filter(pk=pk)
-        return client.companies.all()
-
-
-class ClientViewSet(ModelViewSet):
-    queryset = models.CompanyInvoice.objects.all()
-    serializer_class = serializers.ClientSerializer
-
-
-class ClientsByFiscalPositionList(ListAPIView):
-    serializer_class = serializers.ClientSerializer
+class ContactsByFiscalPositionList(ListAPIView):
+    serializer_class = serializers.ContactInvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
         fiscal_position = models.FiscalPosition.objects.filter(pk=pk)
-        return fiscal_position.clients.all()
-
-
-class ClientsByCompanyList(ListAPIView):
-    serializer_class = serializers.ClientSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.clients.all()
+        return fiscal_position.contacts.all()
 
 
 class VATViewSet(ModelViewSet):
@@ -111,10 +98,10 @@ class InvoicesByCompanyList(ListAPIView):
         return company.invoices.all()
 
 
-class InvoicesByClientList(ListAPIView):
+class InvoicesByContactList(ListAPIView):
     serializer_class = serializers.InvoiceSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        client = models.Client.objects.filter(pk=pk)
-        return client.invoices.all()
+        contact = Contact.objects.filter(pk=pk)
+        return contact.invoices.all()

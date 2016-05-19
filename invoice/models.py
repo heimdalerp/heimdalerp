@@ -1,7 +1,9 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 
-from persons.models import Company, PersonProfile
+from persons.models import Company
+from contact.models import Contact
 
 
 class FiscalPosition(models.Model):
@@ -14,6 +16,14 @@ class FiscalPosition(models.Model):
         max_length=50,
         unique=True
     )
+    alphanumerical_code = models.SlugField(
+        _('alphanumerical code'),
+        max_length=15,
+        default="",
+        blank=True,
+        help_text=_("Some local oficial electronic systems handle "
+                    "specific codes for fiscal position types.")
+    )
 
     def __str__(self):
         return self.name
@@ -24,56 +34,16 @@ class FiscalPosition(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-CLIENT_TYPE_COMPANY = 'C'
-CLIENT_TYPE_INDIVIDUAL = 'I'
-CLIENT_TYPES = (
-    (CLIENT_TYPE_COMPANY, _('Company')),
-    (CLIENT_TYPE_INDIVIDUAL, _('Individual')),
-)
-
-
-class Client(PersonProfile):
-    """
-    These are the clients (companies or individuals) which you'll invoice
-    from your company.
-    """
-    name = models.CharField(
-        _('name'),
-        max_length=150,
-        unique=True
-    )
-    client_type = models.CharField(
-        _('client type'),
-        max_length=1,
-        choices=CLIENT_TYPES,
-    )
-    fiscal_position = models.ForeignKey(
-        FiscalPosition,
-        verbose_name=_('fiscal position'),
-        related_name='clients',
-        related_query_name='client',
-        blank=True,
-        null=True,
-        help_text=_('Certain countries require a fiscal position for '
-                    'its taxpayers.')
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('client')
-        verbose_name_plural = _('clients')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
 class CompanyInvoice(models.Model):
     """
     You need to define at least one to start invoicing, but you can add
     as many as you need.
     This is an extension of 'persons.models.Company'.
     """
-    company = models.OneToOneField(Company)
+    company = models.OneToOneField(
+        Company,
+        verbose_name=_('company')
+    )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
         verbose_name=_('fiscal position'),
@@ -81,12 +51,12 @@ class CompanyInvoice(models.Model):
         related_query_name='company',
         blank=True,
         null=True,
-        help_text=_('Certain countries require a fiscal position for '
-                    'its taxpayers.')
+        help_text=_("Certain countries require a fiscal position for "
+                    "its taxpayers.")
     )
-    clients = models.ManyToManyField(
-        Client,
-        verbose_name=_('clients'),
+    contacts = models.ManyToManyField(
+        Contact,
+        verbose_name=_('contacts'),
         related_name='companies',
         related_query_name='company',
         blank=True
@@ -101,6 +71,31 @@ class CompanyInvoice(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class ContactInvoice(models.Model):
+    """
+    Contact extension by Invoice.
+    """
+    contact = models.OneToOneField(
+        Contact,
+        verbose_name=_('contact')
+    )
+    fiscal_position = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position'),
+        related_name='contacts',
+        related_query_name='contact',
+        blank=True,
+        null=True,
+        help_text=_("Certain countries require a fiscal position for "
+                    "its taxpayers.")
+    )
+
+    class Meta:
+        verbose_name = _('contact')
+        verbose_name_plural = _('contacts')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
 class VAT(models.Model):
     """
     VAT is a type of tax to consumption. Every country has it.
@@ -109,11 +104,12 @@ class VAT(models.Model):
         _('name'),
         max_length=15,
         unique=True,
-        help_text=_('i.e. 8%')
+        help_text=_("i.e. 8%")
     )
     tax = models.FloatField(
         _('tax'),
-        help_text=_('A value between 0.00 and 1.00')
+        help_text=_("A value between 0.00 and 1.00"),
+        validators=[MinValueValidator(0.00), MaxValueValidator(1.00)]
     )
 
     def __str__(self):
@@ -139,7 +135,7 @@ class Product(models.Model):
     name = models.CharField(
         _('name'),
         max_length=150,
-        help_text=_('It could also be a service.')
+        help_text=_("It could also be a service.")
     )
     suggested_price = models.DecimalField(
         _('suggested price'),
@@ -196,7 +192,7 @@ class InvoiceLine(models.Model):
         _('product discount'),
         default=0.00,
         blank=True,
-        help_text=_('A number between 0.00 and 1.00')
+        help_text=_("A number between 0.00 and 1.00")
     )
     quantity = models.PositiveIntegerField(
         _('quantity'),
@@ -238,9 +234,9 @@ class Invoice(models.Model):
         related_query_name='invoice',
         db_index=True
     )
-    clients = models.ManyToManyField(
-        Client,
-        verbose_name=_('clients'),
+    contacts = models.ManyToManyField(
+        Contact,
+        verbose_name=_('contacts'),
         related_name='invoices',
         related_query_name='invoice'
     )
@@ -255,7 +251,7 @@ class Invoice(models.Model):
     )
     invoice_date = models.DateField(
         _('date'),
-        help_text=_('Not necessarily today.')
+        help_text=_("Not necessarily today.")
     )
     status = models.CharField(
         _('status'),
@@ -268,14 +264,14 @@ class Invoice(models.Model):
         max_digits=12,
         decimal_places=2,
         default=0.00,
-        help_text=_('Total without taxes.')
+        help_text=_("Total without taxes.")
     )
     total = models.DecimalField(
         _('total'),
         max_digits=12,
         decimal_places=2,
         default=0.00,
-        help_text=_('Subtotal plus taxes.')
+        help_text=_("Subtotal plus taxes.")
     )
     notes = models.TextField(
         _('notes'),

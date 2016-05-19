@@ -213,9 +213,9 @@ INSTALLED_APPS = [
     # HeimdalERP Core Apps
     'persons',
     'hr',
+    'contact',
     'invoice',
     'invoice_ar',
-    'django_afip',
     'sales',
     'accounting',
 ]
