@@ -3,11 +3,12 @@ from rest_framework.serializers import HyperlinkedModelSerializer
 from contact import models
 from persons.serializers import (PhoneNumberSerializer,
                                  ExtraEmailAddressSerializer)
-
+from geo.serializers import CountrySerializer
 
 class ContactSerializer(HyperlinkedModelSerializer):
     phone_numbers = PhoneNumberSerializer(many=True)
     extra_emails = ExtraEmailAddressSerializer(many=True)
+    born_in = CountrySerializer()
 
     class Meta:
         model = models.Contact
@@ -26,5 +27,3 @@ class ContactSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:contact:contact-detail'
             }
         }
-
-
