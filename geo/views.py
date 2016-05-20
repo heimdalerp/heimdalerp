@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.generics import ListAPIView
 
-from cities_light.models import City, Region, Country
+from cities_light.models import Country, Region, City
 
 from geo import serializers
 
@@ -30,6 +31,14 @@ class RegionModelViewSet(CitiesLightListModelViewSet):
     queryset = Region.objects.all()
 
 
+class RegionsByCountryList(ListAPIView):
+    serializer_class = serializers.RegionSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Region.objects.filter(country=pk)
+
+
 class CityModelViewSet(CitiesLightListModelViewSet):
     """
     ListRetrieveView for City.
@@ -48,3 +57,19 @@ class CityModelViewSet(CitiesLightListModelViewSet):
                 search_names__icontains=self.request.GET['q'])
 
         return queryset
+
+
+class CitiesByCountryList(ListAPIView):
+    serializer_class = serializers.CitySerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return City.objects.filter(country=pk)
+
+
+class CitiesByRegionList(ListAPIView):
+    serializer_class = serializers.CitySerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return City.objects.filter(region=pk)

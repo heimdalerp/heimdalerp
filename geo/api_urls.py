@@ -10,5 +10,20 @@ router.register(r'countries', views.CountryModelViewSet)
 
 app_name = 'geo'
 urlpatterns = [
+    url(
+        r'^countries/(?P<pk>\d+)/regions/$',
+        views.RegionsByCountryList.as_view(),
+        name='country-regions'
+    ),
+    url(
+        r'^countries/(?P<pk>\d+)/cities/$',
+        views.CitiesByCountryList.as_view(),
+        name='country-cities'
+    ),
+    url(
+        r'^regions/(?P<pk>\d+)/cities/$',
+        views.CitiesByRegionList.as_view(),
+        name='region-cities'
+    ),
     url(r'^', include(router.urls)),
 ]
