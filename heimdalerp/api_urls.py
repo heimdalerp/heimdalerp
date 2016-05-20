@@ -1,8 +1,8 @@
-from cities_light.contrib import restframework3 as geo_urls
 from django.conf.urls import include, url
 
 from contact import api_urls as contact_urls
 from hr import api_urls as hr_urls
+from geo import api_urls as geo_urls
 from invoice import api_urls as invoice_urls
 from invoice_ar import api_urls as invoicear_urls
 from persons import api_urls as persons_urls
