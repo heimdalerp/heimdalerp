@@ -1,0 +1,753 @@
+# HeimdalERP Spanish Translation File.
+# Copyright (C) 2016
+# This file is distributed under the same license as the heimdalerp package.
+# Mariano Baragiola <mbaragiola@irona.com.ar>, 2016.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1b\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-21 11:14-0300\n"
+"PO-Revision-Date: 2016-05-21 11:14-0300\n"
+"Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
+"Language-Team: Spanish\n"
+"Language: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounting/models.py:15 accounting/models.py:110 hr/models.py:521
+#: invoice/models.py:45 invoice/models.py:69 invoice/models.py:131
+#: invoice/models.py:232 invoice_ar/models.py:89 persons/models.py:181
+#: sales/models.py:14 sales/models.py:136 sales/models.py:268
+msgid "company"
+msgstr "compañía"
+
+#: accounting/models.py:21 accounting/models.py:55 accounting/models.py:122
+#: contact/models.py:20 hr/models.py:15 hr/models.py:42 hr/models.py:70
+#: hr/models.py:135 hr/models.py:169 hr/models.py:195 hr/models.py:495
+#: hr/models.py:526 invoice/models.py:15 invoice/models.py:104
+#: invoice/models.py:136 persons/models.py:167 sales/models.py:19
+msgid "name"
+msgstr "nombre"
+
+#: accounting/models.py:33 accounting/models.py:45
+msgid "ledger"
+msgstr "libro mayor"
+
+#: accounting/models.py:51
+msgid "code"
+msgstr "código"
+
+#: accounting/models.py:60 accounting/models.py:135
+msgid "account subtype"
+msgstr "subtipo de cuenta"
+
+#: accounting/models.py:65
+msgid "balance"
+msgstr "balance"
+
+#: accounting/models.py:79
+msgid "account"
+msgstr "cuenta"
+
+#: accounting/models.py:80
+msgid "accounts"
+msgstr "cuentas"
+
+#: accounting/models.py:88
+msgid "Personal"
+msgstr "Personal"
+
+#: accounting/models.py:89
+msgid "Real"
+msgstr "Real"
+
+#: accounting/models.py:90
+msgid "Nominal"
+msgstr "Nominal"
+
+#: accounting/models.py:116
+msgid "main type"
+msgstr "tipo principal"
+
+#: accounting/models.py:136
+msgid "account subtypes"
+msgstr "subtipos de cuenta"
+
+#: accounting/models.py:146
+msgid "timestamp"
+msgstr "fecha y hora"
+
+#: accounting/models.py:150
+msgid "amount"
+msgstr "cantidad"
+
+#: accounting/models.py:156
+msgid "debit account"
+msgstr "cuenta de débito"
+
+#: accounting/models.py:161
+msgid "account balance"
+msgstr "balance de cuenta"
+
+#: accounting/models.py:167
+msgid "credit account"
+msgstr "cuenta de crédito"
+
+#: accounting/models.py:172
+msgid "credit account balance"
+msgstr "balance de cuenta de crédito"
+
+#: accounting/models.py:178
+#, python-format
+msgid "Transaction #%(id)s"
+msgstr "Transacción #%(id)s"
+
+#: accounting/models.py:181
+msgid "transaction"
+msgstr "transacción"
+
+#: accounting/models.py:182
+msgid "transactions"
+msgstr "transacciones"
+
+#: contact/models.py:9
+msgid "Company"
+msgstr "Compañía"
+
+#: contact/models.py:10
+msgid "Individual"
+msgstr "Individuo"
+
+#: contact/models.py:25
+msgid "contact type"
+msgstr "tipo de contacto"
+
+#: contact/models.py:34 invoice/models.py:80 invoice/models.py:94
+#: invoice_ar/models.py:52
+msgid "contact"
+msgstr "contacto"
+
+#: contact/models.py:35 invoice/models.py:59 invoice/models.py:95
+#: invoice/models.py:239 invoice_ar/models.py:53 sales/models.py:143
+#: sales/models.py:275
+msgid "contacts"
+msgstr "contactos"
+
+#: heimdalerp/templates/admin/base_site.html:3
+msgid "HeimdalERP site admin"
+msgstr "sitio de administración de HeimdalERP"
+
+#: heimdalerp/templates/admin/base_site.html:6
+msgid "HeimdalERP administration"
+msgstr "administración de HeimdalERP"
+
+#: hr/models.py:17
+msgid "i.e. Italic, Hispanic, Black, Arabic, White, Latin"
+msgstr "ej: Italiano, Hispano, Negro, Árabe, Blanco, Latino"
+
+#: hr/models.py:21 hr/models.py:48 hr/models.py:80 hr/models.py:114
+#: hr/models.py:146 hr/models.py:175 hr/models.py:200 hr/models.py:349
+#: hr/models.py:430 hr/models.py:500 hr/models.py:531
+msgid "points"
+msgstr "puntos"
+
+#: hr/models.py:31
+msgid "ethnicity"
+msgstr "etnicidad"
+
+#: hr/models.py:32 hr/models.py:231
+msgid "ethnicities"
+msgstr "etnicidades"
+
+#: hr/models.py:44
+msgid "i.e. Straight, Homosexual, Pansexual, Transexual"
+msgstr "ej: Heterosexual, Homosexual, Pansexual, Transexual"
+
+#: hr/models.py:58 hr/models.py:242
+msgid "sexual orientation"
+msgstr "orientación sexual"
+
+#: hr/models.py:59
+msgid "sexual orientations"
+msgstr "orientaciones sexuales"
+
+#: hr/models.py:75 hr/models.py:103 hr/models.py:140 persons/models.py:71
+#: sales/models.py:23 sales/models.py:46
+msgid "description"
+msgstr "descripción"
+
+#: hr/models.py:90
+msgid "aptitude"
+msgstr "aptitud"
+
+#: hr/models.py:91 hr/models.py:247
+msgid "aptitudes"
+msgstr "aptitudes"
+
+#: hr/models.py:104
+msgid ""
+"A single-time achievement; i.e. Jessica finished her project 3 months earlier"
+msgstr "Logro por única vez; ej: Jésica terminó su proyecto 3 meses antes"
+
+#: hr/models.py:108 hr/models.py:389
+msgid "when it happened"
+msgstr "cuándo pasó"
+
+#: hr/models.py:109
+msgid "Not necessarily the current date."
+msgstr "No necesariamente la fecha actual."
+
+#: hr/models.py:124
+msgid "achievement"
+msgstr "logro"
+
+#: hr/models.py:125 hr/models.py:254
+msgid "achievements"
+msgstr "logros"
+
+#: hr/models.py:142
+msgid "A brief explanation of what consists of."
+msgstr "Una breve explicación de qué consiste."
+
+#: hr/models.py:150
+msgid ""
+"Enter points greater than zero here, but they'll be sustracted rather than "
+"added from the total."
+msgstr "Poner puntos mayores que cero aquí, serán restados en vez de sumados."
+
+#: hr/models.py:158
+msgid "sanction type"
+msgstr "tipo de sanción"
+
+#: hr/models.py:159
+msgid "sanction types"
+msgstr "tipos de sanciones"
+
+#: hr/models.py:171
+msgid "i.e. Lawyer, Accountant, Civil Engineer"
+msgstr "ej: Abogado, Contador, Ingeniero Civil"
+
+#: hr/models.py:185 hr/models.py:459
+msgid "degree"
+msgstr "título"
+
+#: hr/models.py:186 hr/models.py:270
+msgid "degrees"
+msgstr "títulos"
+
+#: hr/models.py:210 hr/models.py:340
+msgid "language"
+msgstr "idioma"
+
+#: hr/models.py:211 hr/models.py:279
+msgid "languages"
+msgstr "idiomas"
+
+#: hr/models.py:221
+msgid "user"
+msgstr "usuario"
+
+#: hr/models.py:224
+msgid "genre"
+msgstr "género"
+
+#: hr/models.py:234 hr/models.py:243
+msgid "Relevant for countries where one must comply quotas"
+msgstr "Relevante en países donde uno debe satisfacer cuotas mínimas."
+
+#: hr/models.py:261
+msgid "sanctions"
+msgstr "sanciones"
+
+#: hr/models.py:288
+msgid "areas"
+msgstr "áreas"
+
+#: hr/models.py:297 hr/models.py:511 hr/models.py:590
+msgid "roles"
+msgstr "roles"
+
+#: hr/models.py:309 hr/models.py:334 hr/models.py:376 hr/models.py:453
+#: hr/models.py:555 hr/models.py:582
+msgid "employee"
+msgstr "empleado"
+
+#: hr/models.py:310
+msgid "employees"
+msgstr "empleados"
+
+#: hr/models.py:319
+msgid "Basic"
+msgstr "Básico"
+
+#: hr/models.py:320
+msgid "Medium"
+msgstr "Medio"
+
+#: hr/models.py:321
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: hr/models.py:322
+msgid "Native"
+msgstr "Nativo"
+
+#: hr/models.py:343
+msgid "level"
+msgstr "nivel"
+
+#: hr/models.py:353
+msgid "Points should be proportional to the level spoken."
+msgstr "Los puntos deberían ser proporcionales al nivel de habla."
+
+#: hr/models.py:363
+msgid "employee speaks language"
+msgstr "empleado habla idioma"
+
+#: hr/models.py:364
+msgid "employee speaks languages"
+msgstr "empleado habla idiomas"
+
+#: hr/models.py:382
+msgid "sanction"
+msgstr "sanción"
+
+#: hr/models.py:385
+msgid "what happened"
+msgstr "qué pasó"
+
+#: hr/models.py:390
+msgid "Not necessarily the current date"
+msgstr "No necesariamente la fecha actual"
+
+#: hr/models.py:396
+msgid "others implicated"
+msgstr "otros implicados"
+
+#: hr/models.py:403
+msgid "victims"
+msgstr "víctimas"
+
+#: hr/models.py:414 hr/models.py:485
+msgid "employee has degree"
+msgstr "empleado tiene título"
+
+#: hr/models.py:415 hr/models.py:486
+msgid "employees have degrees"
+msgstr "empleados tienen títulos"
+
+#: hr/models.py:424 hr/models.py:440 hr/models.py:465
+msgid "academic institution"
+msgstr "institución académica"
+
+#: hr/models.py:426
+msgid "i.e. Cambridge University"
+msgstr "ej: Universidad de Cambridge"
+
+#: hr/models.py:441
+msgid "academic institutions"
+msgstr "instituciones académicas"
+
+#: hr/models.py:468
+msgid "ingress year"
+msgstr "año de ingreso"
+
+#: hr/models.py:473
+msgid "egress year"
+msgstr "año de egreso"
+
+#: hr/models.py:510
+msgid "role"
+msgstr "rol"
+
+#: hr/models.py:549
+msgid "area"
+msgstr "área"
+
+#: hr/models.py:558 hr/models.py:593
+msgid "date since"
+msgstr "fecha desde"
+
+#: hr/models.py:571
+msgid "company has employee"
+msgstr "compañía tiene empleado"
+
+#: hr/models.py:572
+msgid "company has employees"
+msgstr "compañía tiene empleados"
+
+#: hr/models.py:605
+msgid "employee has role"
+msgstr "empleado tiene rol"
+
+#: hr/models.py:606
+msgid "employee has roles"
+msgstr "empleado tiene roles"
+
+#: invoice/models.py:20
+msgid "alphanumerical code"
+msgstr "código alfanumérico"
+
+#: invoice/models.py:24
+msgid ""
+"Some local oficial electronic systems handle specific codes for fiscal "
+"position types."
+msgstr "Algunos sistemas electrónicos locales manejan códigos específicos para posiciones fiscales"
+
+#: invoice/models.py:32 invoice/models.py:49 invoice/models.py:84
+msgid "fiscal position"
+msgstr "posición fiscal"
+
+#: invoice/models.py:33
+msgid "fiscal positions"
+msgstr "posiciones fiscales"
+
+#: invoice/models.py:54 invoice/models.py:89
+msgid "Certain countries require a fiscal position for its taxpayers."
+msgstr "Algunos países requieren posiciones fiscales para quienes paguen impuestos."
+
+#: invoice/models.py:70 invoice_ar/models.py:90 persons/models.py:182
+msgid "companies"
+msgstr "compañías"
+
+#: invoice/models.py:107
+msgid "i.e. 8%"
+msgstr "ej: 8%"
+
+#: invoice/models.py:110
+msgid "tax"
+msgstr "impuesto"
+
+#: invoice/models.py:111
+msgid "A value between 0.00 and 1.00"
+msgstr "Un valor entre 0.00 y 1.00"
+
+#: invoice/models.py:119 invoice/models.py:149
+msgid "VAT"
+msgstr "IVA"
+
+#: invoice/models.py:120
+msgid "VATs"
+msgstr "IVAs"
+
+#: invoice/models.py:138
+msgid "It could also be a service."
+msgstr "Podría también ser un servicio."
+
+#: invoice/models.py:141
+msgid "suggested price"
+msgstr "precio sugerido"
+
+#: invoice/models.py:160 invoice/models.py:172 sales/models.py:63
+#: sales/models.py:75 sales/models.py:202
+msgid "product"
+msgstr "producto"
+
+#: invoice/models.py:161 sales/models.py:64
+msgid "products"
+msgstr "productos"
+
+#: invoice/models.py:177 sales/models.py:80 sales/models.py:207
+msgid "product price"
+msgstr "precio producto"
+
+#: invoice/models.py:185 sales/models.py:88 sales/models.py:215
+msgid "VAT override"
+msgstr "Pisar el IVA definido"
+
+#: invoice/models.py:192 sales/models.py:95 sales/models.py:222
+msgid "product discount"
+msgstr "descuento de producto"
+
+#: invoice/models.py:195 sales/models.py:98 sales/models.py:225
+msgid "A number between 0.00 and 1.00"
+msgstr "Un número entre 0.00 y 1.00"
+
+#: invoice/models.py:198 sales/models.py:101 sales/models.py:228
+msgid "quantity"
+msgstr "cantidad"
+
+#: invoice/models.py:209
+msgid "invoice line"
+msgstr "línea de factura"
+
+#: invoice/models.py:210 invoice/models.py:248
+msgid "invoice lines"
+msgstr "líneas de facturas"
+
+#: invoice/models.py:219 sales/models.py:122 sales/models.py:249
+msgid "Draft"
+msgstr "Borrador"
+
+#: invoice/models.py:220
+msgid "Sent"
+msgstr "Enviada"
+
+#: invoice/models.py:221
+msgid "Paid"
+msgstr "Pagada"
+
+#: invoice/models.py:222 sales/models.py:125 sales/models.py:252
+msgid "Canceled"
+msgstr "Cancelada"
+
+#: invoice/models.py:244 persons/models.py:36
+msgid "number"
+msgstr "número"
+
+#: invoice/models.py:253 sales/models.py:154 sales/models.py:286
+msgid "date"
+msgstr "fecha"
+
+#: invoice/models.py:254 sales/models.py:155 sales/models.py:287
+msgid "Not necessarily today."
+msgstr "No necesariamente hoy."
+
+#: invoice/models.py:257 sales/models.py:177 sales/models.py:309
+msgid "status"
+msgstr "estado"
+
+#: invoice/models.py:263 sales/models.py:158 sales/models.py:290
+msgid "subtotal"
+msgstr "subtotal"
+
+#: invoice/models.py:267 sales/models.py:162 sales/models.py:294
+msgid "Total without taxes."
+msgstr "Total sin impuestos."
+
+#: invoice/models.py:270 sales/models.py:165 sales/models.py:297
+msgid "total"
+msgstr "total"
+
+#: invoice/models.py:274 sales/models.py:169 sales/models.py:301
+msgid "Subtotal plus taxes."
+msgstr "Subtotal con impuestos."
+
+#: invoice/models.py:277 sales/models.py:172 sales/models.py:304
+msgid "notes"
+msgstr "notas"
+
+#: invoice/models.py:289
+msgid "invoice"
+msgstr "factura"
+
+#: invoice/models.py:290
+msgid "invoices"
+msgstr "facturas"
+
+#: invoice_ar/models.py:14
+msgid "DNI"
+msgstr "DNI"
+
+#: invoice_ar/models.py:19
+msgid ""
+"Documento Nacional de Identidad means National Identity Document. Everyone "
+"in Argentina has one. "
+msgstr "Documento Nacional de Identidad. Todos en Argentina tienen uno."
+
+#: invoice_ar/models.py:24 invoice_ar/models.py:64
+msgid "CUIT"
+msgstr "CUIT"
+
+#: invoice_ar/models.py:29
+msgid ""
+"Clave Única de Identificación Tributaria means Unique Code of Tributary "
+"Identification. Everybody who isn't an employee under somebody's payroll has "
+"one."
+msgstr "Clave Única de Identificación Tributaria. Todo aquél independiente que facture tiene una."
+
+#: invoice_ar/models.py:36
+msgid "CUIL"
+msgstr "CUIL"
+
+#: invoice_ar/models.py:41
+msgid ""
+"Clave Única de Identificación Laboral means Unique Code of Labor "
+"Identification. Everybody who is an employee under somebody's payroll has "
+"one."
+msgstr "Clave Única de Identificación Laboral. Todo aquél trabajando en relación de dependencia tiene uno."
+
+#: invoice_ar/models.py:69
+msgid ""
+"Clave Única de Identificación Tributaria means Unique Code of Tributary "
+"Identification. Everybody who isn't an employee under somebody's payroll has "
+"one. Even companies, NGOs, Fundations, etc."
+msgstr "Clave Única de Identificación Tributaria. Todo aquél independiente que tiene uno."
+
+#: invoice_ar/models.py:76
+msgid "IIBB"
+msgstr "IIBB"
+
+#: invoice_ar/models.py:80
+msgid ""
+"Ingresos Brutos means Brute Income. It is a unique code given by fiscal "
+"regulators of provinces'."
+msgstr "Ingresos Brutos. Requerido por las provincias."
+
+#: persons/models.py:8 persons/models.py:23
+msgid "home"
+msgstr "hogar"
+
+#: persons/models.py:9
+msgid "work"
+msgstr "trabajo"
+
+#: persons/models.py:15
+msgid "landline phone"
+msgstr "teléfono fijo"
+
+#: persons/models.py:16
+msgid "mobile phone"
+msgstr "teléfono móvil"
+
+#: persons/models.py:22
+msgid "fiscal"
+msgstr "fiscal"
+
+#: persons/models.py:29
+msgid "Male"
+msgstr "Masculino"
+
+#: persons/models.py:30
+msgid "Female"
+msgstr "Femenino"
+
+#: persons/models.py:40
+msgid "phone number type"
+msgstr "tipo de número de teléfono"
+
+#: persons/models.py:46
+msgid "technology type"
+msgstr "tipo de tecnología"
+
+#: persons/models.py:56
+msgid "phone number"
+msgstr "número de teléfono"
+
+#: persons/models.py:57 persons/models.py:150
+msgid "phone numbers"
+msgstr "números de teléfono"
+
+#: persons/models.py:68
+msgid "email address"
+msgstr "dirección de correo electrónico"
+
+#: persons/models.py:81
+msgid "extra email address"
+msgstr "dirección extra de correo electrónico"
+
+#: persons/models.py:82 persons/models.py:155
+msgid "extra email addresses"
+msgstr "direcciones extra de correo electrónico"
+
+#: persons/models.py:91
+msgid "address type"
+msgstr "tipo de dirección"
+
+#: persons/models.py:97
+msgid "street name"
+msgstr "nombre de calle"
+
+#: persons/models.py:101
+msgid "street number"
+msgstr "altura"
+
+#: persons/models.py:105
+msgid "floor number"
+msgstr "número de piso"
+
+#: persons/models.py:110
+msgid "apartment number"
+msgstr "número de apartamento"
+
+#: persons/models.py:118
+msgid "city"
+msgstr "ciudad"
+
+#: persons/models.py:121
+msgid "postal code"
+msgstr "código postal"
+
+#: persons/models.py:126
+msgid "physical address"
+msgstr "dirección física"
+
+#: persons/models.py:127
+msgid "physical addresses"
+msgstr "direcciones físicas"
+
+#: persons/models.py:137
+msgid "birth date"
+msgstr "fecha de nacimiento"
+
+#: persons/models.py:143
+msgid "born in"
+msgstr "nacido en"
+
+#: persons/models.py:172
+msgid "initiated activities"
+msgstr "inicio de actividades"
+
+#: sales/models.py:35
+msgid "product category"
+msgstr "categoría de producto"
+
+#: sales/models.py:36
+msgid "product categories"
+msgstr "categorías de producto"
+
+#: sales/models.py:53
+msgid "categories"
+msgstr "categorías"
+
+#: sales/models.py:112
+msgid "quotation line"
+msgstr "línea de presupuesto"
+
+#: sales/models.py:113 sales/models.py:149
+msgid "quotation lines"
+msgstr "líneas de presupuesto"
+
+#: sales/models.py:123 sales/models.py:250
+msgid "Saved"
+msgstr "Guardado"
+
+#: sales/models.py:124
+msgid "Sold"
+msgstr "Vendido"
+
+#: sales/models.py:190 sales/models.py:262
+msgid "quotation"
+msgstr "presupuesto"
+
+#: sales/models.py:191
+msgid "quotations"
+msgstr "presupuestos"
+
+#: sales/models.py:239
+msgid "sale line"
+msgstr "línea de venta"
+
+#: sales/models.py:240
+msgid "sale lines"
+msgstr "líneas de ventas"
+
+#: sales/models.py:251
+msgid "Invoiced"
+msgstr "Facturado"
+
+#: sales/models.py:281
+msgid "sales lines"
+msgstr "líneas de ventas"
+
+#: sales/models.py:322
+msgid "sale"
+msgstr "venta"
+
+#: sales/models.py:323
+msgid "sales"
+msgstr "ventas"

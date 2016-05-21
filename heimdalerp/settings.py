@@ -262,7 +262,9 @@ LANGUAGE_COOKIE_DOMAIN = None
 LANGUAGE_COOKIE_NAME = 'django_language'
 LANGUAGE_COOKIE_PATH = '/'
 
-LOCALE_PATHS = []
+LOCALE_PATHS = [
+    'locale'
+]
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
