@@ -70,7 +70,6 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'company',
-            'initiated_activities',
             'fiscal_position',
             'contacts',
             'products',
