@@ -78,7 +78,7 @@ class QuotationSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'company',
-            'clients',
+            'contacts',
             'quotation_lines',
             'quotation_date',
             'notes',
@@ -92,8 +92,8 @@ class QuotationSerializer(HyperlinkedModelSerializer):
             'company': {
                 'view_name': 'api:persons:company-detail'
             },
-            'clients': {
-                'view_name': 'api:invoice:client-detail',
+            'contacts': {
+                'view_name': 'api:invoice:contact-detail',
                 'many': True
             }
         }
@@ -130,7 +130,7 @@ class SaleSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'company',
-            'clients',
+            'contacts',
             'sale_lines',
             'sale_date',
             'notes',
@@ -145,8 +145,8 @@ class SaleSerializer(HyperlinkedModelSerializer):
             'company': {
                 'view_name': 'api:persons:company-detail'
             },
-            'clients': {
-                'view_name': 'api:invoice:client-detail',
+            'contacts': {
+                'view_name': 'api:invoice:contact-detail',
                 'many': True
             }
         }
