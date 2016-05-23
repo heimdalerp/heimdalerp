@@ -1,5 +1,6 @@
 from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer)
+                                        HyperlinkedModelSerializer,
+                                        PrimaryKeyRelatedField)
 
 from invoice import models
 from persons.serializers import CompanySerializer
@@ -32,7 +33,9 @@ class FiscalPositionSerializer(HyperlinkedModelSerializer):
 
 class ContactInvoiceSerializer(HyperlinkedModelSerializer):
     contact = ContactSerializer()
-    fiscal_position = FiscalPositionSerializer()
+    fiscal_position = PrimaryKeyRelatedField(
+        queryset=models.FiscalPosition.objects.all()
+    )
     invoices = HyperlinkedIdentityField(
         view_name='api:invoice:contact-invoices'
     )
@@ -55,7 +58,9 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     company = CompanySerializer()
-    fiscal_position = FiscalPositionSerializer()
+    fiscal_position = PrimaryKeyRelatedField(
+        queryset=models.FiscalPosition.objects.all()
+    )
     contacts = HyperlinkedIdentityField(
         view_name='api:invoice:company-contacts'
     )
