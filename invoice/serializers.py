@@ -110,7 +110,9 @@ class VATSerializer(HyperlinkedModelSerializer):
 
 
 class ProductSerializer(HyperlinkedModelSerializer):
-    vat = VATSerializer()
+    vat = PrimaryKeyRelatedField(
+        queryset=models.VAT.objects.all()
+    )
     invoice_lines = HyperlinkedIdentityField(
         view_name='api:invoice:product-invoicelines'
     )
