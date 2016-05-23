@@ -257,7 +257,7 @@ WSGI_APPLICATION = 'heimdalerp.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'es-AR'
+LANGUAGE_CODE = 'es'
 LANGUAGE_COOKIE_AGE = None
 LANGUAGE_COOKIE_DOMAIN = None
 LANGUAGE_COOKIE_NAME = 'django_language'
@@ -265,6 +265,11 @@ LANGUAGE_COOKIE_PATH = '/'
 
 LOCALE_PATHS = [
     'locale'
+]
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('es', _('Spanish')),
 ]
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
