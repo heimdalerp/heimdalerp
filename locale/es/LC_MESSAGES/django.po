@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-21 11:14-0300\n"
-"PO-Revision-Date: 2016-05-21 11:14-0300\n"
+"PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
 "Language: Spanish\n"
@@ -20,8 +20,9 @@ msgstr ""
 
 #: accounting/models.py:15 accounting/models.py:110 hr/models.py:521
 #: invoice/models.py:45 invoice/models.py:69 invoice/models.py:131
-#: invoice/models.py:232 invoice_ar/models.py:89 persons/models.py:181
-#: sales/models.py:14 sales/models.py:136 sales/models.py:268
+#: invoice/models.py:232 invoice_ar/models.py:55 invoice_ar/models.py:83
+#: persons/models.py:181 sales/models.py:14 sales/models.py:136
+#: sales/models.py:268
 msgid "company"
 msgstr "compañía"
 
@@ -127,12 +128,12 @@ msgid "contact type"
 msgstr "tipo de contacto"
 
 #: contact/models.py:34 invoice/models.py:80 invoice/models.py:94
-#: invoice_ar/models.py:52
+#: invoice_ar/models.py:23 invoice_ar/models.py:43
 msgid "contact"
 msgstr "contacto"
 
 #: contact/models.py:35 invoice/models.py:59 invoice/models.py:95
-#: invoice/models.py:239 invoice_ar/models.py:53 sales/models.py:143
+#: invoice/models.py:239 invoice_ar/models.py:44 sales/models.py:143
 #: sales/models.py:275
 msgid "contacts"
 msgstr "contactos"
@@ -396,7 +397,9 @@ msgstr "código alfanumérico"
 msgid ""
 "Some local oficial electronic systems handle specific codes for fiscal "
 "position types."
-msgstr "Algunos sistemas electrónicos locales manejan códigos específicos para posiciones fiscales"
+msgstr ""
+"Algunos sistemas electrónicos locales manejan códigos específicos para "
+"posiciones fiscales"
 
 #: invoice/models.py:32 invoice/models.py:49 invoice/models.py:84
 msgid "fiscal position"
@@ -408,9 +411,10 @@ msgstr "posiciones fiscales"
 
 #: invoice/models.py:54 invoice/models.py:89
 msgid "Certain countries require a fiscal position for its taxpayers."
-msgstr "Algunos países requieren posiciones fiscales para quienes paguen impuestos."
+msgstr ""
+"Algunos países requieren posiciones fiscales para quienes paguen impuestos."
 
-#: invoice/models.py:70 invoice_ar/models.py:90 persons/models.py:182
+#: invoice/models.py:70 invoice_ar/models.py:84 persons/models.py:182
 msgid "companies"
 msgstr "compañías"
 
@@ -539,50 +543,44 @@ msgstr "factura"
 msgid "invoices"
 msgstr "facturas"
 
-#: invoice_ar/models.py:14
+#: invoice_ar/models.py:10
 msgid "DNI"
 msgstr "DNI"
 
-#: invoice_ar/models.py:19
-msgid ""
-"Documento Nacional de Identidad means National Identity Document. Everyone "
-"in Argentina has one. "
-msgstr "Documento Nacional de Identidad. Todos en Argentina tienen uno."
-
-#: invoice_ar/models.py:24 invoice_ar/models.py:64
+#: invoice_ar/models.py:11 invoice_ar/models.py:58
 msgid "CUIT"
 msgstr "CUIT"
 
-#: invoice_ar/models.py:29
-msgid ""
-"Clave Única de Identificación Tributaria means Unique Code of Tributary "
-"Identification. Everybody who isn't an employee under somebody's payroll has "
-"one."
-msgstr "Clave Única de Identificación Tributaria. Todo aquél independiente que facture tiene una."
-
-#: invoice_ar/models.py:36
+#: invoice_ar/models.py:12
 msgid "CUIL"
 msgstr "CUIL"
 
-#: invoice_ar/models.py:41
-msgid ""
-"Clave Única de Identificación Laboral means Unique Code of Labor "
-"Identification. Everybody who is an employee under somebody's payroll has "
-"one."
-msgstr "Clave Única de Identificación Laboral. Todo aquél trabajando en relación de dependencia tiene uno."
+#: invoice_ar/models.py:26
+#, fuzzy
+#| msgid "main type"
+msgid "id type"
+msgstr "tipo principal"
 
-#: invoice_ar/models.py:69
+#: invoice_ar/models.py:33
+#, fuzzy
+#| msgid "number"
+msgid "id number"
+msgstr "número"
+
+#: invoice_ar/models.py:63
 msgid ""
 "Clave Única de Identificación Tributaria means Unique Code of Tributary "
 "Identification. Everybody who isn't an employee under somebody's payroll has "
 "one. Even companies, NGOs, Fundations, etc."
-msgstr "Clave Única de Identificación Tributaria. Todo aquél independiente que tiene uno."
+msgstr ""
+"Clave Única de Identificación Tributaria. Todo aquél independiente que tiene "
+"uno."
 
-#: invoice_ar/models.py:76
+#: invoice_ar/models.py:70
 msgid "IIBB"
 msgstr "IIBB"
 
-#: invoice_ar/models.py:80
+#: invoice_ar/models.py:74
 msgid ""
 "Ingresos Brutos means Brute Income. It is a unique code given by fiscal "
 "regulators of provinces'."
@@ -751,3 +749,24 @@ msgstr "venta"
 #: sales/models.py:323
 msgid "sales"
 msgstr "ventas"
+
+#~ msgid ""
+#~ "Documento Nacional de Identidad means National Identity Document. "
+#~ "Everyone in Argentina has one. "
+#~ msgstr "Documento Nacional de Identidad. Todos en Argentina tienen uno."
+
+#~ msgid ""
+#~ "Clave Única de Identificación Tributaria means Unique Code of Tributary "
+#~ "Identification. Everybody who isn't an employee under somebody's payroll "
+#~ "has one."
+#~ msgstr ""
+#~ "Clave Única de Identificación Tributaria. Todo aquél independiente que "
+#~ "facture tiene una."
+
+#~ msgid ""
+#~ "Clave Única de Identificación Laboral means Unique Code of Labor "
+#~ "Identification. Everybody who is an employee under somebody's payroll has "
+#~ "one."
+#~ msgstr ""
+#~ "Clave Única de Identificación Laboral. Todo aquél trabajando en relación "
+#~ "de dependencia tiene uno."
