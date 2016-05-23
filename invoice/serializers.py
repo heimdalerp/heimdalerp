@@ -43,6 +43,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'contact',
+            'fiscal_position',
             'invoices'
         )
         extra_kwargs = {

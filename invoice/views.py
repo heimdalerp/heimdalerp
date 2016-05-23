@@ -15,6 +15,11 @@ class CompanyInvoiceViewSet(ModelViewSet):
     serializer_class = serializers.CompanyInvoiceSerializer
 
 
+class ContactInvoiceViewSet(ModelViewSet):
+    queryset = models.ContactInvoice.objects.all()
+    serializer_class = serializers.ContactInvoiceSerializer
+
+
 class ContactsByCompanyList(ListAPIView):
     serializer_class = serializers.ContactInvoiceSerializer
 

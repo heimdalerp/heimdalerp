@@ -5,6 +5,7 @@ from invoice import views
 
 router = DefaultRouter()
 router.register(r'fiscalpositions', views.FiscalPositionViewSet)
+router.register(r'contacts', views.ContactInvoiceViewSet)
 router.register(r'companies', views.CompanyInvoiceViewSet)
 router.register(r'vats', views.VATViewSet)
 router.register(r'products', views.ProductViewSet)
