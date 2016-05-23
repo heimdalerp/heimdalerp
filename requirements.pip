@@ -11,3 +11,4 @@ django-reversion
 django-filter
 django-crispy-forms
 markdown
+drfdocs
