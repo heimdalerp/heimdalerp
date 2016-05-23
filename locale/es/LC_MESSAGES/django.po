@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-21 11:14-0300\n"
+"POT-Creation-Date: 2016-05-23 19:03-0300\n"
 "PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
@@ -137,6 +137,14 @@ msgstr "contacto"
 #: sales/models.py:275
 msgid "contacts"
 msgstr "contactos"
+
+#: heimdalerp/settings.py:271
+msgid "English"
+msgstr "Inglés"
+
+#: heimdalerp/settings.py:272
+msgid "Spanish"
+msgstr "Español"
 
 #: heimdalerp/templates/admin/base_site.html:3
 msgid "HeimdalERP site admin"
