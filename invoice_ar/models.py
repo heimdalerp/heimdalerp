@@ -3,46 +3,37 @@ from django.utils.translation import ugettext_lazy as _
 
 from invoice.models import ContactInvoice, CompanyInvoice
 
+ID_TYPE_DNI = 'D'
+ID_TYPE_CUIT = 'T'
+ID_TYPE_CUIL = 'L'
+ID_TYPES = (
+    (ID_TYPE_DNI, _('DNI')),
+    (ID_TYPE_CUIT, _('CUIT')),
+    (ID_TYPE_CUIL, _('CUIL')),
+)
+
 
 class ContactInvoiceAR(models.Model):
     """
     This class extends the Contact class defined in 'invoice'.
     It adds basics fields required by law in Argentina.
     """
-    contact = models.OneToOneField(ContactInvoice)
-    dni = models.CharField(
-        _('DNI'),
-        max_length=10,
-        default="",
-        blank=True,
-        unique=True,
-        help_text=_('Documento Nacional de Identidad means National '
-                    'Identity Document. Everyone in Argentina has one. '
-                    )
+    contact = models.OneToOneField(
+        ContactInvoice,
+        verbose_name=_('contact')
     )
-    cuit = models.CharField(
-        _('CUIT'),
+    id_type = models.CharField(
+        _('id type'),
+        max_length=1,
+        choices=ID_TYPES,
+        blank=True,
+        null=True
+    )
+    id_number = models.CharField(
+        _('id number'),
         max_length=14,
         default="",
-        blank=True,
-        unique=True,
-        help_text=_("Clave Única de Identificación Tributaria means "
-                    "Unique Code of Tributary Identification. Everybody "
-                    "who isn't an employee under somebody's payroll has "
-                    "one."
-                    )
-    )
-    cuil = models.CharField(
-        _('CUIL'),
-        max_length=14,
-        default="",
-        blank=True,
-        unique=True,
-        help_text=_("Clave Única de Identificación Laboral means "
-                    "Unique Code of Labor Identification. Everybody "
-                    "who is an employee under somebody's payroll has "
-                    "one."
-                    )
+        blank=True
     )
 
     def __str__(self):
@@ -59,7 +50,10 @@ class CompanyInvoiceAR(models.Model):
     This class extends the Company class defined in 'invoice'.
     It adds basics fields required by law in Argentina.
     """
-    company = models.OneToOneField(CompanyInvoice)
+    company = models.OneToOneField(
+        CompanyInvoice,
+        verbose_name=_('company')
+    )
     cuit = models.CharField(
         _('CUIT'),
         max_length=14,

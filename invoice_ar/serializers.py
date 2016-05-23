@@ -14,9 +14,8 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'contact',
-            'dni',
-            'cuit',
-            'cuil'
+            'id_type',
+            'id_number'
         )
         extra_kwargs = {
             'url': {
