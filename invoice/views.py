@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
-from invoice import models, serializers
 from contact.models import Contact
+from invoice import models, serializers
 
 
 class FiscalPositionViewSet(ModelViewSet):

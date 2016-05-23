@@ -5,6 +5,7 @@ from persons.serializers import (PhoneNumberSerializer,
                                  ExtraEmailAddressSerializer)
 from geo.serializers import CountrySerializer
 
+
 class ContactSerializer(HyperlinkedModelSerializer):
     phone_numbers = PhoneNumberSerializer(many=True)
     extra_emails = ExtraEmailAddressSerializer(many=True)

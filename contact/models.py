@@ -26,7 +26,7 @@ class Contact(PersonProfile):
         max_length=1,
         choices=CONTACT_TYPES,
     )
-    
+
     def __str__(self):
         return self.name
 

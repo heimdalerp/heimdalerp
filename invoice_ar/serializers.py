@@ -1,7 +1,7 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 
-from invoice.serializers import (ContactInvoiceSerializer,
-                                 CompanyInvoiceSerializer)
+from invoice.serializers import (CompanyInvoiceSerializer,
+                                 ContactInvoiceSerializer)
 from invoice_ar import models
 
 

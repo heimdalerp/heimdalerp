@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from invoice.models import ContactInvoice, CompanyInvoice
+from invoice.models import CompanyInvoice, ContactInvoice
 
 ID_TYPE_DNI = 'D'
 ID_TYPE_CUIT = 'T'

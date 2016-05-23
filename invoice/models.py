@@ -1,9 +1,9 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 
-from persons.models import Company
 from contact.models import Contact
+from persons.models import Company
 
 
 class FiscalPosition(models.Model):

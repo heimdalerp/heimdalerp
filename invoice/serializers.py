@@ -2,9 +2,9 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         PrimaryKeyRelatedField)
 
+from contact.serializers import ContactSerializer
 from invoice import models
 from persons.serializers import CompanySerializer
-from contact.serializers import ContactSerializer
 
 
 class FiscalPositionSerializer(HyperlinkedModelSerializer):

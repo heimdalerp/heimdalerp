@@ -1,8 +1,7 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
-from rest_framework.serializers import HyperlinkedRelatedField
-
 from cities_light.loading import get_cities_models
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer,
+                                        HyperlinkedRelatedField)
 
 Country, Region, City = get_cities_models()
 
@@ -30,13 +29,13 @@ class RegionSerializer(HyperlinkedModelSerializer):
         view_name='api:geo:region-detail'
     )
     country = HyperlinkedRelatedField(
-        view_name='api:geo:country-detail', 
+        view_name='api:geo:country-detail',
         read_only=True
     )
     cities = HyperlinkedIdentityField(
         view_name='api:geo:region-cities'
     )
- 
+
     class Meta:
         model = Region
         exclude = ('slug',)

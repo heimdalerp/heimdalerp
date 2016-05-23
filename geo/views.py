@@ -1,7 +1,6 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from cities_light.models import City, Country, Region
 from rest_framework.generics import ListAPIView
-
-from cities_light.models import Country, Region, City
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from geo import serializers
 
