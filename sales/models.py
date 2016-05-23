@@ -282,7 +282,7 @@ class Sale(models.Model):
         related_name='+',
         related_query_name='sale'
     )
-    quotation_date = models.DateField(
+    sale_date = models.DateField(
         _('date'),
         help_text=_('Not necessarily today.')
     )
