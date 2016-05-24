@@ -26,7 +26,7 @@ class ProductCategorySerializer(HyperlinkedModelSerializer):
 
 
 class ProductSalesSerializer(HyperlinkedModelSerializer):
-    product = ProductSerializer()
+    invoice_product = ProductSerializer()
     categories = HyperlinkedIdentityField(
         view_name='api:sales:productsales-categories'
     )
@@ -36,7 +36,7 @@ class ProductSalesSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'product',
+            'invoice_product',
             'description',
             'categories'
         )

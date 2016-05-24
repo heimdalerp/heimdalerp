@@ -41,7 +41,10 @@ class ProductSales(models.Model):
     """
     An extension of Product defined in 'invoice'.
     """
-    product = models.OneToOneField(Product)
+    invoice_product = models.OneToOneField(
+        Product,
+        verbose_name=_('product')
+    )
     description = models.TextField(
         _('description'),
         max_length=500,
