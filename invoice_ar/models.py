@@ -18,7 +18,7 @@ class ContactInvoiceAR(models.Model):
     This class extends the Contact class defined in 'invoice'.
     It adds basics fields required by law in Argentina.
     """
-    contact = models.OneToOneField(
+    invoice_contact = models.OneToOneField(
         ContactInvoice,
         verbose_name=_('contact')
     )
@@ -50,7 +50,7 @@ class CompanyInvoiceAR(models.Model):
     This class extends the Company class defined in 'invoice'.
     It adds basics fields required by law in Argentina.
     """
-    company = models.OneToOneField(
+    invoice_company = models.OneToOneField(
         CompanyInvoice,
         verbose_name=_('company')
     )

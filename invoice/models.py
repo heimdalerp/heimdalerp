@@ -40,7 +40,7 @@ class CompanyInvoice(models.Model):
     as many as you need.
     This is an extension of 'persons.models.Company'.
     """
-    company = models.OneToOneField(
+    persons_company = models.OneToOneField(
         Company,
         verbose_name=_('company')
     )
@@ -75,7 +75,7 @@ class ContactInvoice(models.Model):
     """
     Contact extension by Invoice.
     """
-    contact = models.OneToOneField(
+    contact_contact = models.OneToOneField(
         Contact,
         verbose_name=_('contact')
     )

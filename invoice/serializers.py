@@ -32,7 +32,7 @@ class FiscalPositionSerializer(HyperlinkedModelSerializer):
 
 
 class ContactInvoiceSerializer(HyperlinkedModelSerializer):
-    contact = ContactSerializer()
+    contact_contact = ContactSerializer()
     fiscal_position = PrimaryKeyRelatedField(
         queryset=models.FiscalPosition.objects.all()
     )
@@ -45,7 +45,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'contact',
+            'contact_contact',
             'fiscal_position',
             'invoices'
         )
@@ -57,7 +57,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
 
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
-    company = CompanySerializer()
+    persons_company = CompanySerializer()
     fiscal_position = PrimaryKeyRelatedField(
         queryset=models.FiscalPosition.objects.all()
     )
@@ -75,7 +75,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         model = models.CompanyInvoice
         fields = (
             'url',
-            'company',
+            'invoice_company',
             'fiscal_position',
             'contacts',
             'products',

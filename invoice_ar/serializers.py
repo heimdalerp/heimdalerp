@@ -6,14 +6,14 @@ from invoice_ar import models
 
 
 class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
-    contact = ContactInvoiceSerializer()
+    invoice_contact = ContactInvoiceSerializer()
 
     class Meta:
         model = models.ContactInvoiceAR
         fields = (
             'url',
             'id',
-            'contact',
+            'invoice_contact',
             'id_type',
             'id_number'
         )
@@ -25,14 +25,14 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
 
 
 class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
-    company = CompanyInvoiceSerializer()
+    invoice_company = CompanyInvoiceSerializer()
 
     class Meta:
         model = models.CompanyInvoiceAR
         fields = (
             'url',
             'id',
-            'company',
+            'invoice_company',
             'cuit',
             'iibb'
         )
