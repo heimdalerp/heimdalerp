@@ -34,8 +34,8 @@ class RegionsByCountryList(ListAPIView):
     serializer_class = serializers.RegionSerializer
 
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        return Region.objects.filter(country=pk)
+        geoname_id = self.kwargs['geoname_id']
+        return Region.objects.filter(country__geoname_id=geoname_id)
 
 
 class CityModelViewSet(CitiesLightListModelViewSet):
@@ -62,13 +62,13 @@ class CitiesByCountryList(ListAPIView):
     serializer_class = serializers.CitySerializer
 
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        return City.objects.filter(country=pk)
+        geoname_id = self.kwargs['geoname_id']
+        return City.objects.filter(country__geoname_id=geoname_id)
 
 
 class CitiesByRegionList(ListAPIView):
     serializer_class = serializers.CitySerializer
 
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        return City.objects.filter(region=pk)
+        geoname_id = self.kwargs['geoname_id']
+        return City.objects.filter(region__geoname_id=geoname_id)

@@ -11,17 +11,17 @@ router.register(r'countries', views.CountryModelViewSet)
 app_name = 'geo'
 urlpatterns = [
     url(
-        r'^countries/(?P<pk>\d+)/regions/$',
+        r'^countries/(?P<geoname_id>\d+)/regions/$',
         views.RegionsByCountryList.as_view(),
         name='country-regions'
     ),
     url(
-        r'^countries/(?P<pk>\d+)/cities/$',
+        r'^countries/(?P<geoname_id>\d+)/cities/$',
         views.CitiesByCountryList.as_view(),
         name='country-cities'
     ),
     url(
-        r'^regions/(?P<pk>\d+)/cities/$',
+        r'^regions/(?P<geoname_id>\d+)/cities/$',
         views.CitiesByRegionList.as_view(),
         name='region-cities'
     ),

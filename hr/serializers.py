@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         ModelSerializer,
-                                        PrimaryKeyRelatedField)
+                                        SlugRelatedField)
 
 from hr import models
 from persons.serializers import PhysicalAddressSerializer
@@ -113,7 +113,8 @@ class SanctionSerializer(HyperlinkedModelSerializer):
 
 class EmployeeSerializer(HyperlinkedModelSerializer):
     user = UserSerializer()
-    born_in = PrimaryKeyRelatedField(
+    born_in = SlugRelatedField(
+        slug_field='geoname_id',
         queryset=Country.objects.all()
     )
     home_address = PhysicalAddressSerializer()

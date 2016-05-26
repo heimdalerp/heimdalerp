@@ -1,6 +1,6 @@
 from cities_light.models import Country
 from rest_framework.serializers import (HyperlinkedModelSerializer,
-                                        PrimaryKeyRelatedField)
+                                        SlugRelatedField)
 
 from contact import models
 from persons.models import PhysicalAddress
@@ -8,7 +8,8 @@ from persons.serializers import PhysicalAddressSerializer
 
 
 class ContactSerializer(HyperlinkedModelSerializer):
-    born_in = PrimaryKeyRelatedField(
+    born_in = SlugRelatedField(
+        slug_field='geoname_id',
         queryset=Country.objects.all()
     )
     home_address = PhysicalAddressSerializer()
