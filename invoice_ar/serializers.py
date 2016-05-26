@@ -19,7 +19,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice_ar:contactar-detail'
+                'view_name': 'api:invoice_ar:contactinvoicear-detail'
             }
         }
 

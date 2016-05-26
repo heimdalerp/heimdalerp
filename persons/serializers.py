@@ -69,7 +69,8 @@ class CompanySerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
-            'initiated_activities'
+            'initiated_activities',
+            'physical_address'
         )
         extra_kwargs = {
             'url': {

@@ -147,12 +147,23 @@ class PersonProfile(models.Model):
     phone_numbers = models.ManyToManyField(
         PhoneNumber,
         blank=True,
-        verbose_name=_('phone numbers')
+        verbose_name=_('phone numbers'),
+        related_name='+',
+        related_query_name='+'
     )
     extra_emails = models.ManyToManyField(
         ExtraEmailAddress,
         blank=True,
-        verbose_name=_('extra email addresses')
+        verbose_name=_('extra email addresses'),
+        related_name='+',
+        related_query_name='+'
+    )
+    physical_addresses = models.ManyToManyField(
+        PhysicalAddress,
+        blank=True,
+        verbose_name=_('physical addresses'),
+        related_name='+',
+        related_query_name='+'
     )
 
     class Meta:
@@ -172,6 +183,12 @@ class Company(models.Model):
         _('initiated activities'),
         blank=True,
         null=True
+    )
+    physical_address = models.ForeignKey(
+        PhysicalAddress,
+        verbose_name=_('physical address'),
+        related_name='+',
+        related_query_name='+'
     )
 
     def __str__(self):

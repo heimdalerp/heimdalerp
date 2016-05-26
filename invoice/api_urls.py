@@ -17,27 +17,27 @@ urlpatterns = [
     url(
         r'^companies/(?P<pk>\d+)/contacts/$',
         views.ContactsByCompanyList.as_view(),
-        name='company-contacts'
+        name='companyinvoice-contacts'
     ),
     url(
         r'^companies/(?P<pk>\d+)/products/$',
         views.ProductsByCompanyList.as_view(),
-        name='company-products'
+        name='companyinvoice-products'
     ),
     url(
         r'^companies/(?P<pk>\d+)/invoices/$',
         views.InvoicesByCompanyList.as_view(),
-        name='company-invoices'
+        name='companyinvoice-invoices'
     ),
     url(
         r'^contacts/(?P<pk>\d+)/invoices/$',
         views.InvoicesByContactList.as_view(),
-        name='contact-invoices'
+        name='contactinvoice-invoices'
     ),
     url(
         r'^products/(?P<pk>\d+)/invoicelines/$',
         views.InvoiceLinesByProductList.as_view(),
-        name='product-invoicelines'
+        name='productinvoice-invoicelines'
     ),
     url(
         r'^vats/(?P<pk>\d+)/products/$',

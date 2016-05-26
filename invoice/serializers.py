@@ -2,6 +2,7 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         PrimaryKeyRelatedField)
 
+from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
 from persons.serializers import CompanySerializer
@@ -41,7 +42,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model = models.Contact
+        model = models.ContactInvoice
         fields = (
             'url',
             'id',
@@ -51,7 +52,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice:contact-detail'
+                'view_name': 'api:invoice:contactinvoice-detail'
             }
         }
 
@@ -62,20 +63,20 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         queryset=models.FiscalPosition.objects.all()
     )
     contacts = HyperlinkedIdentityField(
-        view_name='api:invoice:company-contacts'
+        view_name='api:invoice:companyinvoice-contacts'
     )
     products = HyperlinkedIdentityField(
-        view_name='api:invoice:company-products'
+        view_name='api:invoice:companyinvoice-products'
     )
     invoices = HyperlinkedIdentityField(
-        view_name='api:invoice:company-invoices'
+        view_name='api:invoice:companyinvoice-invoices'
     )
 
     class Meta:
         model = models.CompanyInvoice
         fields = (
             'url',
-            'invoice_company',
+            'persons_company',
             'fiscal_position',
             'contacts',
             'products',
@@ -83,7 +84,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice:company-detail'
+                'view_name': 'api:invoice:companyinvoice-detail'
             }
         }
 
