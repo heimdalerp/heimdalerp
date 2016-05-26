@@ -1,15 +1,18 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from cities_light.models import Country
+from rest_framework.serializers import (HyperlinkedModelSerializer,
+                                        PrimaryKeyRelatedField)
 
 from contact import models
-from persons.serializers import (PhoneNumberSerializer,
-                                 ExtraEmailAddressSerializer)
-from geo.serializers import CountrySerializer
+from persons.serializers import (ExtraEmailAddressSerializer,
+                                 PhoneNumberSerializer)
 
 
 class ContactSerializer(HyperlinkedModelSerializer):
     phone_numbers = PhoneNumberSerializer(many=True)
     extra_emails = ExtraEmailAddressSerializer(many=True)
-    born_in = CountrySerializer()
+    born_in = PrimaryKeyRelatedField(
+        queryset=Country.objects.all()
+    )
 
     class Meta:
         model = models.Contact
