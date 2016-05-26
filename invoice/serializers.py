@@ -4,6 +4,7 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
 
 from contact.serializers import ContactSerializer
 from invoice import models
+from persons.models import PhysicalAddress
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer
 
 
@@ -57,6 +58,24 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    def create(self, validated_data):
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        fiscal_address = PhysicalAddress.objects.create(
+            **fiscal_address_data
+        )
+        validated_data['fiscal_address'] = fiscal_address
+        contact = models.ContactInvoice.objects.create(**validated_data)
+        return contact
+
+    def update(self, instance, validated_data):
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        fiscal_address = PhysicalAddress.objects.update_or_create(
+            **fiscal_address_data
+        )
+        validated_data['fiscal_address'] = fiscal_address
+        instance.update(**validated_data)
+        return instance
+
 
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     persons_company = CompanySerializer()
@@ -90,6 +109,24 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice:companyinvoice-detail'
             }
         }
+
+    def create(self, validated_data):
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        fiscal_address = PhysicalAddress.objects.create(
+            **fiscal_address_data
+        )
+        validated_data['fiscal_address'] = fiscal_address
+        company = models.CompanyInvoice.objects.create(**validated_data)
+        return company
+
+    def update(self, instance, validated_data):
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        fiscal_address = PhysicalAddress.objects.update_or_create(
+            **fiscal_address_data
+        )
+        validated_data['fiscal_address'] = fiscal_address
+        instance.update(**validated_data)
+        return instance
 
 
 class VATSerializer(HyperlinkedModelSerializer):
