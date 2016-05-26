@@ -1,12 +1,12 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
-                                        ModelSerializer)
+                                        ModelSerializer,
+                                        PrimaryKeyRelatedField)
 
+from cities_light.models import Country
 from hr import models
-from persons.serializers import (ExtraEmailAddressSerializer,
-                                 PhoneNumberSerializer,
-                                 PhysicalAddressSerializer)
+from persons.serializers import PhysicalAddressSerializer
 
 
 class UserSerializer(ModelSerializer):
@@ -113,10 +113,10 @@ class SanctionSerializer(HyperlinkedModelSerializer):
 
 class EmployeeSerializer(HyperlinkedModelSerializer):
     user = UserSerializer()
-    # born_in = CountrySerializer()
-    phone_numbers = PhoneNumberSerializer(many=True)
-    extra_emails = ExtraEmailAddressSerializer(many=True)
-    physical_addresses = PhysicalAddressSerializer(many=True)
+    born_in = PrimaryKeyRelatedField(
+        queryset=Country.objects.all()
+    )
+    home_address = PhysicalAddressSerializer()
     ethnicities = EthnicitySerializer(many=True)
     sexual_orientation = SexualOrientationSerializer()
 
@@ -149,10 +149,10 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
             'id',
             'user',
             'birth_date',
-            # 'born_in',
+            'born_in',
             'phone_numbers',
             'extra_emails',
-            'physical_addresses',
+            'home_address',
             'genre',
             'ethnicities',
             'sexual_orientation',

@@ -1,52 +1,20 @@
-from cities_light.contrib.restframework3 import CitySerializer
 from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import PrimaryKeyRelatedField
 
+from cities_light.models import City
 from persons import models
 
 
-class PhoneNumberSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = models.PhoneNumber
-        fields = (
-            'url',
-            'id',
-            'number',
-            'phonenumber_type',
-            'technology_type'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:persons:phonenumber-detail'
-            }
-        }
-
-
-class ExtraEmailAddressSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = models.ExtraEmailAddress
-        fields = (
-            'url',
-            'id',
-            'email'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:persons:extraemailaddress-detail'
-            }
-        }
-
-
 class PhysicalAddressSerializer(HyperlinkedModelSerializer):
-    city = CitySerializer()
+    city = PrimaryKeyRelatedField(
+        queryset=City.objects.all()
+    )
 
     class Meta:
         model = models.PhysicalAddress
         fields = (
             'url',
             'id',
-            'address_type',
             'street_name',
             'street_number',
             'floor_number',
@@ -69,8 +37,7 @@ class CompanySerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
-            'initiated_activities',
-            'physical_address'
+            'initiated_activities'
         )
         extra_kwargs = {
             'url': {

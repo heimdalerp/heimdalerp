@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from contact.models import Contact
-from persons.models import Company
+from persons.models import Company, PhysicalAddress
 
 
 class FiscalPosition(models.Model):
@@ -54,6 +54,14 @@ class CompanyInvoice(models.Model):
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
+    fiscal_address = models.ForeignKey(
+        PhysicalAddress,
+        verbose_name=_('fiscal address'),
+        related_name='+',
+        related_query_name='+',
+        blank=True,
+        null=True
+    )
     contacts = models.ManyToManyField(
         Contact,
         verbose_name=_('contacts'),
@@ -88,6 +96,14 @@ class ContactInvoice(models.Model):
         null=True,
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
+    )
+    fiscal_address = models.ForeignKey(
+        PhysicalAddress,
+        verbose_name=_('fiscal address'),
+        related_name='+',
+        related_query_name='+',
+        blank=True,
+        null=True
     )
 
     class Meta:

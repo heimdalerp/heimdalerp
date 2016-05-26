@@ -2,27 +2,6 @@ from cities_light.models import City, Country
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-PHONENUMBER_TYPE_HOME = 'H'
-PHONENUMBER_TYPE_WORK = 'W'
-PHONENUMBER_TYPES = (
-    (PHONENUMBER_TYPE_HOME, _("home")),
-    (PHONENUMBER_TYPE_WORK, _("work")),
-)
-
-PHONENUMBER_TECHNOLOGYTYPE_LANDLINE = 'L'
-PHONENUMBER_TECHNOLOGYTYPE_MOBILE = 'M'
-PHONENUMBER_TECHNOLOGY_TYPES = (
-    (PHONENUMBER_TECHNOLOGYTYPE_LANDLINE, _("landline phone")),
-    (PHONENUMBER_TECHNOLOGYTYPE_MOBILE, _("mobile phone")),
-)
-
-PHYSICALADDRESS_TYPE_FISCAL = 'F'
-PHYSICALADDRESS_TYPE_HOME = 'H'
-PHYSICALADDRESS_TYPES = (
-    (PHYSICALADDRESS_TYPE_FISCAL, _("fiscal")),
-    (PHYSICALADDRESS_TYPE_HOME, _("home")),
-)
-
 GENRE_TYPE_MALE = 'M'
 GENRE_TYPE_FEMALE = 'F'
 GENRE_TYPES = (
@@ -31,68 +10,10 @@ GENRE_TYPES = (
 )
 
 
-class PhoneNumber(models.Model):
-    number = models.CharField(
-        _("number"),
-        max_length=30
-    )
-    phonenumber_type = models.CharField(
-        _("phone number type"),
-        max_length=1,
-        choices=PHONENUMBER_TYPES,
-        default=PHONENUMBER_TYPE_WORK
-    )
-    technology_type = models.CharField(
-        _("technology type"),
-        max_length=1,
-        choices=PHONENUMBER_TECHNOLOGY_TYPES,
-        default=PHONENUMBER_TECHNOLOGYTYPE_MOBILE
-    )
-
-    def __str__(self):
-        return self.number
-
-    class Meta:
-        verbose_name = _("phone number")
-        verbose_name_plural = _("phone numbers")
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
-class ExtraEmailAddress(models.Model):
-    """
-    Employees and clients may have more than one email address.
-    When in doubt, the official should always be the one in
-    'django.contrib.auth.models.User.email'.
-    """
-    email = models.EmailField(
-        _("email address")
-    )
-    description = models.CharField(
-        _("description"),
-        max_length=50,
-        default="",
-        blank=True
-    )
-
-    def __str__(self):
-        return self.email
-
-    class Meta:
-        verbose_name = _("extra email address")
-        verbose_name_plural = _("extra email addresses")
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
 class PhysicalAddress(models.Model):
     """
     Physical address are of high importance due to impositive regulations.
     """
-    address_type = models.CharField(
-        _("address type"),
-        max_length=1,
-        choices=PHYSICALADDRESS_TYPES,
-        default=PHYSICALADDRESS_TYPE_FISCAL
-    )
     street_name = models.CharField(
         _("street name"),
         max_length=150
@@ -144,24 +65,22 @@ class PersonProfile(models.Model):
         blank=True,
         null=True
     )
-    phone_numbers = models.ManyToManyField(
-        PhoneNumber,
-        blank=True,
-        verbose_name=_('phone numbers'),
-        related_name='+',
-        related_query_name='+'
+    phone_numbers = models.CharField(
+        _('phone numbers'),
+        max_length=300,
+        default="",
+        blank=True
     )
-    extra_emails = models.ManyToManyField(
-        ExtraEmailAddress,
+    extra_emails = models.CharField(
+        _('extra email addresses'),
+        max_length=300,
+        default="",
         blank=True,
-        verbose_name=_('extra email addresses'),
-        related_name='+',
-        related_query_name='+'
     )
-    physical_addresses = models.ManyToManyField(
+    home_address = models.ForeignKey(
         PhysicalAddress,
         blank=True,
-        verbose_name=_('physical addresses'),
+        verbose_name=_('home address'),
         related_name='+',
         related_query_name='+'
     )
@@ -183,12 +102,6 @@ class Company(models.Model):
         _('initiated activities'),
         blank=True,
         null=True
-    )
-    physical_address = models.ForeignKey(
-        PhysicalAddress,
-        verbose_name=_('physical address'),
-        related_name='+',
-        related_query_name='+'
     )
 
     def __str__(self):

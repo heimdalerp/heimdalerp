@@ -4,14 +4,6 @@ from reversion.admin import VersionAdmin
 from persons import models
 
 
-class PhoneNumberAdmin(VersionAdmin):
-    pass
-
-
-class ExtraEmailAddressAdmin(VersionAdmin):
-    pass
-
-
 class PhysicalAddressAdmin(VersionAdmin):
     pass
 
@@ -20,7 +12,5 @@ class CompanyAdmin(VersionAdmin):
     pass
 
 
-admin.site.register(models.PhoneNumber, PhoneNumberAdmin)
-admin.site.register(models.ExtraEmailAddress, ExtraEmailAddressAdmin)
 admin.site.register(models.PhysicalAddress, PhysicalAddressAdmin)
 admin.site.register(models.Company, CompanyAdmin)
