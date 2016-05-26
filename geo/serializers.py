@@ -21,8 +21,14 @@ class CitySerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = City
-        exclude = ('slug',)
-
+        fields = (
+            'url',
+            'id',
+            'geoname_id',
+            'name_ascii',
+            'region',
+            'country'
+        )
 
 class RegionSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(
@@ -33,12 +39,20 @@ class RegionSerializer(HyperlinkedModelSerializer):
         read_only=True
     )
     cities = HyperlinkedIdentityField(
-        view_name='api:geo:region-cities'
+        view_name='api:geo:region-cities',
+        lookup_field='geoname_id'
     )
 
     class Meta:
         model = Region
-        exclude = ('slug',)
+        fields = (
+            'url',
+            'id',
+            'geoname_id',
+            'name_ascii',
+            'country',
+            'cities'
+        )
 
 
 class CountrySerializer(HyperlinkedModelSerializer):
@@ -46,11 +60,21 @@ class CountrySerializer(HyperlinkedModelSerializer):
         view_name='api:geo:country-detail'
     )
     regions = HyperlinkedIdentityField(
-        view_name='api:geo:country-regions'
+        view_name='api:geo:country-regions',
+        lookup_field='geoname_id'
     )
     cities = HyperlinkedIdentityField(
-        view_name='api:geo:country-cities'
+        view_name='api:geo:country-cities',
+        lookup_field='geoname_id'
     )
 
     class Meta:
         model = Country
+        fields = (
+            'url',
+            'id',
+            'geoname_id',
+            'name_ascii',
+            'regions',
+            'cities'
+        )
