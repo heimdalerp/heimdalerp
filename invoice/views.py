@@ -26,7 +26,7 @@ class ContactsByCompanyList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.contacts.all() 
+        return company.contacts.all()
 
 
 class CompaniesByFiscalPositionList(ListAPIView):

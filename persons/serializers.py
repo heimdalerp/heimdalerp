@@ -1,7 +1,7 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import PrimaryKeyRelatedField
-
 from cities_light.models import City
+from rest_framework.serializers import (HyperlinkedModelSerializer,
+                                        PrimaryKeyRelatedField)
+
 from persons import models
 
 

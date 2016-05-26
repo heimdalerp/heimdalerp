@@ -2,7 +2,6 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         PrimaryKeyRelatedField)
 
-from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer

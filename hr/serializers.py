@@ -1,10 +1,10 @@
+from cities_light.models import Country
 from django.contrib.auth.models import User
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         ModelSerializer,
                                         PrimaryKeyRelatedField)
 
-from cities_light.models import Country
 from hr import models
 from persons.serializers import PhysicalAddressSerializer
 
