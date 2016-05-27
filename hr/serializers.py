@@ -115,7 +115,8 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
     user = UserSerializer()
     born_in = SlugRelatedField(
         slug_field='geoname_id',
-        queryset=Country.objects.all()
+        queryset=Country.objects.all(),
+        required=False
     )
     home_address = PhysicalAddressSerializer()
     ethnicities = EthnicitySerializer(many=True)
@@ -168,6 +169,9 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:hr:employee-detail'
+            },
+            'sexual_orientation': {
+                'required': False
             }
         }
 

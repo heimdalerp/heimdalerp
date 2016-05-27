@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
@@ -217,7 +217,7 @@ class Employee(PersonProfile):
     All Employees must have a User, whereas they'll use the system or not.
     """
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         verbose_name=_('user')
     )
     genre = models.CharField(
@@ -227,19 +227,19 @@ class Employee(PersonProfile):
     )
     ethnicities = models.ManyToManyField(
         Ethnicity,
-        blank=True,
         verbose_name=_('ethnicities'),
         related_name='employees',
         related_query_name='employee',
+        blank=True,
         help_text=_('Relevant for countries where one must comply quotas')
     )
     sexual_orientation = models.ForeignKey(
         SexualOrientation,
-        blank=True,
-        null=True,
         related_name='employees',
         related_query_name='employee',
         verbose_name=_('sexual orientation'),
+        blank=True,
+        null=True,
         help_text=_('Relevant for countries where one must comply quotas')
     )
     aptitudes = models.ManyToManyField(
