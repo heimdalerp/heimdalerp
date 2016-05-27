@@ -247,9 +247,12 @@ INSTALLED_APPS = [
     'hr',
     'contact',
     'invoice',
-    'invoice_ar',
     'sales',
     'accounting',
+
+    # HeimdalERP Custom Apps
+    'rest_framework_proxy',
+    'invoice_ar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -330,3 +333,12 @@ MEDIA_URL = '/media/'  # It could also be: 'http://media.example.com/'
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 TEST_NON_SERIALIZED_APPS = []
+
+#
+# CUSTOM MODULES SETTINGS
+#
+
+# invoice_ar
+REST_PROXY = {
+    'HOST': 'https://soa.afip.gob.ar'
+}  
