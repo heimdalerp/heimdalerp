@@ -23,11 +23,15 @@ class CitiesLightListModelViewSet(ReadOnlyModelViewSet):
 class CountryModelViewSet(CitiesLightListModelViewSet):
     serializer_class = serializers.CountrySerializer
     queryset = Country.objects.all()
+    lookup_field = 'geoname_id'
+    lookup_value_regex = '[0-9]+'
 
 
 class RegionModelViewSet(CitiesLightListModelViewSet):
     serializer_class = serializers.RegionSerializer
     queryset = Region.objects.all()
+    lookup_field = 'geoname_id'
+    lookup_value_regex = '[0-9]+'
 
 
 class RegionsByCountryList(ListAPIView):
@@ -44,6 +48,8 @@ class CityModelViewSet(CitiesLightListModelViewSet):
     """
     serializer_class = serializers.CitySerializer
     queryset = City.objects.all()
+    lookup_field = 'geoname_id'
+    lookup_value_regex = '[0-9]+'
 
     def get_queryset(self):
         """

@@ -8,14 +8,17 @@ Country, Region, City = get_cities_models()
 
 class CitySerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(
-        view_name='api:geo:city-detail'
+        view_name='api:geo:city-detail',
+        lookup_field='geoname_id'
     )
     country = HyperlinkedRelatedField(
         view_name='api:geo:country-detail',
+        lookup_field='geoname_id',
         read_only=True
     )
     region = HyperlinkedRelatedField(
         view_name='api:geo:region-detail',
+        lookup_field='geoname_id',
         read_only=True
     )
 
@@ -32,10 +35,12 @@ class CitySerializer(HyperlinkedModelSerializer):
 
 class RegionSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(
-        view_name='api:geo:region-detail'
+        view_name='api:geo:region-detail',
+        lookup_field='geoname_id'
     )
     country = HyperlinkedRelatedField(
         view_name='api:geo:country-detail',
+        lookup_field='geoname_id',
         read_only=True
     )
     cities = HyperlinkedIdentityField(
@@ -57,7 +62,8 @@ class RegionSerializer(HyperlinkedModelSerializer):
 
 class CountrySerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(
-        view_name='api:geo:country-detail'
+        view_name='api:geo:country-detail',
+        lookup_field='geoname_id'
     )
     regions = HyperlinkedIdentityField(
         view_name='api:geo:country-regions',
