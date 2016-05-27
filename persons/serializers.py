@@ -7,7 +7,8 @@ from persons import models
 
 class PhysicalAddressSerializer(HyperlinkedModelSerializer):
     city = PrimaryKeyRelatedField(
-        queryset=City.objects.all()
+        queryset=City.objects.all(),
+        required=False
     )
 
     class Meta:
@@ -15,8 +16,7 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'street_name',
-            'street_number',
+            'street_address',
             'floor_number',
             'apartment_number',
             'city',

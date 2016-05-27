@@ -10,7 +10,8 @@ from persons.serializers import PhysicalAddressSerializer
 class ContactSerializer(HyperlinkedModelSerializer):
     born_in = SlugRelatedField(
         slug_field='geoname_id',
-        queryset=Country.objects.all()
+        queryset=Country.objects.all(),
+        required=False
     )
     home_address = PhysicalAddressSerializer()
 
@@ -30,6 +31,9 @@ class ContactSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:contact:contact-detail'
+            },
+            'home_address': {
+                'required': False
             }
         }
 

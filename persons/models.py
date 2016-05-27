@@ -14,33 +14,38 @@ class PhysicalAddress(models.Model):
     """
     Physical address are of high importance due to impositive regulations.
     """
-    street_name = models.CharField(
-        _("street name"),
-        max_length=150
-    )
-    street_number = models.CharField(
-        _("street number"),
-        max_length=10
+    street_address = models.CharField(
+        _("street address"),
+        max_length=150,
+        default="",
+        blank=True
     )
     floor_number = models.CharField(
         _("floor number"),
         max_length=4,
-        default=""
+        default="",
+        blank=True
     )
     apartment_number = models.CharField(
         _("apartment number"),
         max_length=6,
-        default=""
+        default="",
+        blank=True
     )
     city = models.ForeignKey(
         City,
         related_name='physical_addresses',
         related_query_name='physical_address',
-        verbose_name=_('city')
+        verbose_name=_('city'),
+        to_field='geoname_id',
+        blank=True,
+        null=True
     )
     postal_code = models.CharField(
         _("postal code"),
-        max_length=20
+        max_length=20,
+        default="",
+        blank=True
     )
 
     class Meta:
@@ -62,6 +67,7 @@ class PersonProfile(models.Model):
     born_in = models.ForeignKey(
         Country,
         verbose_name=_('born in'),
+        to_field='geoname_id',
         blank=True,
         null=True
     )
@@ -79,10 +85,11 @@ class PersonProfile(models.Model):
     )
     home_address = models.ForeignKey(
         PhysicalAddress,
-        blank=True,
         verbose_name=_('home address'),
         related_name='+',
-        related_query_name='+'
+        related_query_name='+',
+        blank=True,
+        null=True
     )
 
     class Meta:
