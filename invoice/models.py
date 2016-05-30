@@ -71,7 +71,7 @@ class CompanyInvoice(models.Model):
     )
 
     def __str__(self):
-        return self.company
+        return self.persons_company.name
 
     class Meta:
         verbose_name = _('company')
@@ -105,6 +105,9 @@ class ContactInvoice(models.Model):
         blank=True,
         null=True
     )
+
+    def __str__(self):
+        return self.contact_contact.name
 
     class Meta:
         verbose_name = _('contact')
@@ -297,7 +300,7 @@ class Invoice(models.Model):
 
     def __str__(self):
         return "%(company)s : %(number)s" % {
-            'company': self.company,
+            'company': self.company.name,
             'number': self.number
         }
 

@@ -37,7 +37,7 @@ class ContactInvoiceAR(models.Model):
     )
 
     def __str__(self):
-        return self.contact
+        return self.invoice_contact.contact_contact.name
 
     class Meta:
         verbose_name = _('contact')
@@ -77,7 +77,7 @@ class CompanyInvoiceAR(models.Model):
     )
 
     def __str__(self):
-        return self.company
+        return self.invoice_company.persons_company.name
 
     class Meta:
         verbose_name = _('company')
