@@ -29,8 +29,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
     def create(self, validated_data):
         invoice_contact_data = validated_data['invoice_contact']
         contact_contact_data = invoice_contact_data.pop('contact_contact')
-        if 'home_address' in contact_contact_data:
-            home_address_data = contact_contact_data['home_address']
+        home_address_data = contact_contact_data.get('home_address', None)
+        if home_address_data is not None and (
+            home_address_data['home_address'] is not ''
+        ):
             home_address = PhysicalAddress.objects.create(
                 **home_address_data
             )
@@ -58,8 +60,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
     def update(self, instance, validated_data):
         invoice_contact_data = validated_data.pop('invoice_contact_data')
         contact_contact_data = invoice_contact_data.pop('contact_contact')
-        if 'home_address' in contact_contact_data:
-            home_address_data = contact_contact_data['home_address']
+        home_address_data = contact_contact_data.get('home_address', None)
+        if home_address_data is not None and (
+            home_address_data['home_address'] is not ''
+        ):
             home_address = PhysicalAddress.objects.update_or_create(
                 **home_address_data
             )
