@@ -78,8 +78,10 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             **fiscal_address_data
         )
         validated_data['fiscal_address'] = fiscal_address
-        contact = models.ContactInvoice.objects.create(**validated_data)
-        return contact
+        invoice_contact = models.ContactInvoice.objects.create(
+            **validated_data
+        )
+        return invoice_contact
 
     def update(self, instance, validated_data):
         contact_contact_data = validated_data.pop('contact_contact')
