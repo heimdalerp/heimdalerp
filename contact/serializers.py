@@ -46,7 +46,7 @@ class ContactSerializer(HyperlinkedModelSerializer):
             **home_address_data
         )
         validated_data['home_address'] = home_address
-        
+
         contact = models.Contact.objects.create(**validated_data)
         return contact
 
@@ -56,5 +56,21 @@ class ContactSerializer(HyperlinkedModelSerializer):
             **home_address_data
         )
         validated_data['home_address'] = home_address
-        instance.update(**validated_data)
+
+        instance.birth_date = validated_data.get(
+            'birth_date', instance.birth_date
+        )
+        instance.born_in = validated_data.get('born_in', instance.born_in)
+        instance.phone_numbers = validated_data.get(
+            'phone_numbers', instance.phone_numbers
+        )
+        instance.extra_emails = validated_data.get(
+            'extra_emails', instance.extra_emails
+        )
+        instance.name = validated_data.get('name', instance.name)
+        instance.contact_type = validated_data.get(
+            'contact_type', instance.contact_type
+        )
+
+        instance.save()
         return instance

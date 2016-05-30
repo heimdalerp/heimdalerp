@@ -100,7 +100,12 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             **fiscal_address_data
         )
         validated_data['fiscal_address'] = fiscal_address
-        instance.update(**validated_data)
+
+        instance.fiscal_position = validated_data.get(
+            'fiscal_position', instance.fiscal_position
+        )
+
+        instance.save()
         return instance
 
 

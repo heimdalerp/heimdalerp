@@ -77,7 +77,13 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             **invoice_contact_data
         )
         validated_data['invoice_contact'] = invoice_contact
-        instance.update(**validated_data)
+
+        instance.id_type = validated_data.get('id_type', instance.id_type)
+        instance.id_number = validated_data.get(
+            'id_number', instance.id_number
+        )
+
+        instance.save()
         return instance
 
 
