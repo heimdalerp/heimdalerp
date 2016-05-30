@@ -41,17 +41,26 @@ class ContactSerializer(HyperlinkedModelSerializer):
         }
 
     def create(self, validated_data):
-        home_address_data = validated_data.pop('home_address')
-        home_address = PhysicalAddress.objects.create(**home_address_data)
-        validated_data['home_address'] = home_address
+        home_address_data = validated_data.get('home_address', None)
+        if home_address_data is not None and (
+            home_address_data['street_address'] is not ''
+        ):
+            home_address = PhysicalAddress.objects.create(
+                **home_address_data
+            )
+            validated_data['home_address'] = home_address
+        
         contact = models.Contact.objects.create(**validated_data)
         return contact
 
     def update(self, instance, validated_data):
-        home_address_data = validated_data.pop('home_address')
-        home_address = PhysicalAddress.objects.update_or_create(
-            **home_address_data
-        )
-        validated_data['home_address'] = home_address
+        home_address_data = validated_data.get('home_address', None)
+        if home_address_data is not None and (
+            home_address_data['street_address'] is not ''
+        ):
+            home_address = PhysicalAddress.objects.update_or_create(
+                **home_address_data
+            )
+            validated_data['home_address'] = home_address
         instance.update(**validated_data)
         return instance
