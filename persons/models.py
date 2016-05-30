@@ -85,6 +85,7 @@ class PersonProfile(models.Model):
     )
     home_address = models.ForeignKey(
         PhysicalAddress,
+        on_delete=models.CASCADE,
         verbose_name=_('home address'),
         related_name='+',
         related_query_name='+',

@@ -56,6 +56,7 @@ class CompanyInvoice(models.Model):
     )
     fiscal_address = models.ForeignKey(
         PhysicalAddress,
+        on_delete=models.CASCADE,
         verbose_name=_('fiscal address'),
         related_name='+',
         related_query_name='+',
