@@ -48,6 +48,9 @@ class PhysicalAddress(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.street_name
+
     class Meta:
         verbose_name = _("physical address")
         verbose_name_plural = _("physical addresses")
