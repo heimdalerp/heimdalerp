@@ -1,14 +1,15 @@
 from cities_light.models import City
 from rest_framework.serializers import (HyperlinkedModelSerializer,
-                                        PrimaryKeyRelatedField)
+                                        SlugRelatedField)
 
 from persons import models
 
 
 class PhysicalAddressSerializer(HyperlinkedModelSerializer):
-    city = PrimaryKeyRelatedField(
+    city = SlugRelatedField(
+        slug_field='geoname_id',
         queryset=City.objects.all(),
-        required=False
+        allow_null=True
     )
 
     class Meta:
@@ -25,6 +26,9 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:persons:physicaladdress-detail'
+            },
+            'city': {
+                'required': False
             }
         }
 
