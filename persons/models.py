@@ -49,7 +49,7 @@ class PhysicalAddress(models.Model):
     )
 
     def __str__(self):
-        return self.street_name
+        return self.street_address
 
     class Meta:
         verbose_name = _("physical address")
