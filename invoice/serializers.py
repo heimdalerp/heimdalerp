@@ -63,12 +63,12 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
         home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data['id'], **home_address_data
+            pk=home_address_data.get('id', 0), **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
         contact_contact = Contact.objects.update_or_create(
-            pk=contact_contact_data['id'], **contact_contact_data
+            pk=contact_contact_data.get('id', 0), **contact_contact_data
         )
         validated_data['contact_contact'] = contact_contact
 
@@ -86,18 +86,18 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
         home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data['id'], **home_address_data
+            pk=home_address_data.get('id', 0), **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
         contact_contact, created = Contact.objects.update_or_create(
-            pk=contact_contact_data['id'], **contact_contact_data
+            pk=contact_contact_data.get('id', 0), **contact_contact_data
         )
         validated_data['contact_contact'] = contact_contact
 
         fiscal_address_data = validated_data.pop('fiscal_address')
         fiscal_address = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data['id'], **fiscal_address_data
+            pk=fiscal_address_data.get('id', 0), **fiscal_address_data
         )
         validated_data['fiscal_address'] = fiscal_address
 
@@ -154,7 +154,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     def update(self, instance, validated_data):
         fiscal_address_data = validated_data.pop('fiscal_address')
         fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data['id'], **fiscal_address_data
+            pk=fiscal_address_data.get('id', 0), **fiscal_address_data
         )
         validated_data['fiscal_address'] = fiscal_address
         instance.update(**validated_data)

@@ -31,22 +31,22 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         contact_contact_data = invoice_contact_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
         home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data['id'], **home_address_data
+            pk=home_address_data.get('id', 0), **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
         contact_contact, created = Contact.objects.update_or_create(
-            pk=contact_contact_data['id'], **contact_contact_data
+            pk=contact_contact_data.get('id', 0), **contact_contact_data
         )
         invoice_contact_data['contact_contact'] = contact_contact
 
         fiscal_address_data = invoice_contact_data.pop('fiscal_address')
         fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data['id'], **fiscal_address_data
+            pk=fiscal_address_data.get('id', 0), **fiscal_address_data
         )
         invoice_contact_data['fiscal_address'] = fiscal_address
         invoice_contact, created = ContactInvoice.objects.update_or_create(
-            pk=invoice_contact_data['id'], **invoice_contact_data
+            pk=invoice_contact_data.get('id', 0), **invoice_contact_data
         )
         validated_data['invoice_contact'] = invoice_contact
         
@@ -60,22 +60,22 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         contact_contact_data = invoice_contact_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
         home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data['id'], **home_address_data
+            pk=home_address_data.get('id', 0), **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
         contact_contact, created = Contact.objects.update_or_create(
-            pk=contact_contact_data['id'], **contact_contact_data
+            pk=contact_contact_data.get('id', 0), **contact_contact_data
         )
         invoice_contact_data['contact_contact'] = contact_contact
 
         fiscal_address_data = invoice_contact_data.pop('fiscal_address')
         fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data['id'], **fiscal_address_data
+            pk=fiscal_address_data.get('id', 0), **fiscal_address_data
         )
         invoice_contact_data['fiscal_address'] = fiscal_address
         invoice_contact, created = ContactInvoice.objects.update_or_create(
-            pk=invoice_contact_data['id'], **invoice_contact_data
+            pk=invoice_contact_data.get('id', 0), **invoice_contact_data
         )
         validated_data['invoice_contact'] = invoice_contact
 
