@@ -65,12 +65,12 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         home_address = PhysicalAddress.objects.update_or_create(
             **home_address_data
         )
-        contact_contact_data['home_address'] = home_address
+        contact_contact_data['home_address'] = home_address[0]
 
         contact_contact = Contact.objects.update_or_create(
             **contact_contact_data
         )
-        validated_data['contact_contact'] = contact_contact
+        validated_data['contact_contact'] = contact_contact[0]
 
         fiscal_address_data = validated_data.pop('fiscal_address')
         fiscal_address = PhysicalAddress.objects.create(
@@ -88,18 +88,18 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         home_address = PhysicalAddress.objects.update_or_create(
             **home_address_data
         )
-        contact_contact_data['home_address'] = home_address
+        contact_contact_data['home_address'] = home_address[0]
 
         contact_contact = Contact.objects.update_or_create(
             **contact_contact_data
         )
-        validated_data['contact_contact'] = contact_contact
+        validated_data['contact_contact'] = contact_contact[0]
 
         fiscal_address_data = validated_data.pop('fiscal_address')
         fiscal_address = PhysicalAddress.objects.update_or_create(
             **fiscal_address_data
         )
-        validated_data['fiscal_address'] = fiscal_address
+        validated_data['fiscal_address'] = fiscal_address[0]
 
         instance.fiscal_position = validated_data.get(
             'fiscal_position', instance.fiscal_position
