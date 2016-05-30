@@ -52,8 +52,8 @@ class ContactSerializer(HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         home_address_data = validated_data.pop('home_address')
-        home_address = PhysicalAddress.objects.update_or_create(
-            **home_address_data
+        home_address, created = PhysicalAddress.objects.update_or_create(
+            pk=home_address_data['id'], **home_address_data
         )
         validated_data['home_address'] = home_address
 
