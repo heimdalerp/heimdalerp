@@ -67,7 +67,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         )
         contact_contact_data['home_address'] = home_address
 
-        contact_contact = Contact.objects.update_or_create(
+        contact_contact, created = Contact.objects.update_or_create(
             pk=contact_contact_data.get('id', 0), **contact_contact_data
         )
         validated_data['contact_contact'] = contact_contact
