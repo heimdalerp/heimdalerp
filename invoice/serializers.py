@@ -2,6 +2,7 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         PrimaryKeyRelatedField)
 
+from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
 from persons.models import PhysicalAddress
@@ -39,7 +40,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
     )
     fiscal_address = PhysicalAddressSerializer()
     invoices = HyperlinkedIdentityField(
-        view_name='api:invoice:contact-invoices'
+        view_name='api:invoice:contactinvoice-invoices'
     )
 
     class Meta:
@@ -60,6 +61,13 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         contact_contact_data = validated_data.pop('contact_contact')
+        if 'home_address' in contact_contact_data:
+            home_address_data = contact_contact_data['home_address']
+            home_address = PhysicalAddress.objects.create(
+                **home_address_data
+            )
+            contact_contact_data['home_address'] = home_address
+
         contact_contact = Contact.objects.create(
             **contact_contact_data
         )
@@ -75,6 +83,13 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         contact_contact_data = validated_data.pop('contact_contact')
+        if 'home_address' in contact_contact_data:
+            home_address_data = contact_contact_data['home_address']
+            home_address = PhysicalAddress.objects.update_or_create(
+                **home_address_data
+            )
+            contact_contact_data['home_address'] = home_address
+
         contact_contact = Contact.objects.update_or_create(
             **contact_contact_data
         )
@@ -186,7 +201,7 @@ class ProductSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice:product-detail'
             },
             'company': {
-                'view_name': 'api:invoice:company-detail'
+                'view_name': 'api:invoice:companyinvoice-detail'
             }
         }
 
@@ -237,10 +252,10 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice:invoice-detail'
             },
             'company': {
-                'view_name': 'api:invoice:company-detail'
+                'view_name': 'api:invoice:companyinvoice-detail'
             },
             'contacts': {
-                'view_name': 'api:invoice:contact-detail',
+                'view_name': 'api:invoice:contactinvoice-detail',
                 'many': True
             }
         }
