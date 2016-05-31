@@ -59,7 +59,6 @@ class CompanyInvoiceAR(models.Model):
         max_length=14,
         default="",
         blank=True,
-        unique=True,
         help_text=_("Clave Única de Identificación Tributaria means "
                     "Unique Code of Tributary Identification. Everybody "
                     "who isn't an employee under somebody's payroll has "

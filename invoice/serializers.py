@@ -5,7 +5,7 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
 from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
-from persons.models import PhysicalAddress
+from persons.models import Company, PhysicalAddress
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer
 
 
@@ -174,7 +174,8 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     persons_company = CompanySerializer()
     fiscal_position = PrimaryKeyRelatedField(
-        queryset=models.FiscalPosition.objects.all()
+        queryset=models.FiscalPosition.objects.all(),
+        allow_null=True
     )
     fiscal_address = PhysicalAddressSerializer()
     contacts = HyperlinkedIdentityField(
@@ -201,10 +202,20 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:invoice:companyinvoice-detail'
+            },
+            'fiscal_address': {
+                'required': False
             }
         }
 
     def create(self, validated_data):
+        persons_company_data = validated_data.pop('persons_company')
+        persons_company, created = Company.objects.update_or_create(
+            pk=persons_company_data.get('id'),
+            defaults=persons_company_data
+        )
+        validated_data['persons_company'] = persons_company
+
         fiscal_address_data = validated_data.pop('fiscal_address')
         fiscal_address = PhysicalAddress.objects.create(
             **fiscal_address_data
@@ -214,12 +225,43 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         return company
 
     def update(self, instance, validated_data):
-        fiscal_address_data = validated_data.pop('fiscal_address')
-        fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data.get('id', 0), **fiscal_address_data
+        persons_company_data = validated_data.pop('persons_company')
+        instance.persons_company.name = persons_company_data.get(
+            'name',
+            instance.persons_company.name
         )
-        validated_data['fiscal_address'] = fiscal_address
-        instance.update(**validated_data)
+        instance.persons_company.initiated_activities = (
+            persons_company_data.get(
+                'initiated_activities',
+                instance.persons_company.initiated_activities
+            )
+        )
+        instance.persons_company.save()
+
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        instance.fiscal_address.street_address = fiscal_address_data.get(
+            'street_address', instance.fiscal_address.street_address
+        )
+        instance.fiscal_address.floor_number = fiscal_address_data.get(
+            'floor_number', instance.fiscal_address.floor_number
+        )
+        instance.fiscal_address.apartment_number = fiscal_address_data.get(
+            'apartment_number', instance.fiscal_address.apartment_number
+        )
+        instance.fiscal_address.city = fiscal_address_data.get(
+            'city', instance.fiscal_address.city
+        )
+        instance.fiscal_address.postal_code = fiscal_address_data.get(
+            'postal_code', instance.fiscal_address.postal_code
+        )
+        instance.fiscal_address.save()
+
+        instance.fiscal_position = validated_data.get(
+            'fiscal_position',
+            instance.fiscal_position
+        )
+
+        instance.save()
         return instance
 
 

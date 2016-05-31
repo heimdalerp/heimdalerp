@@ -3,9 +3,9 @@ from rest_framework.serializers import HyperlinkedModelSerializer
 from contact.models import Contact
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer)
-from invoice.models import ContactInvoice
+from invoice.models import CompanyInvoice, ContactInvoice
 from invoice_ar import models
-from persons.models import PhysicalAddress
+from persons.models import Company, PhysicalAddress
 
 
 class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
@@ -184,3 +184,89 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice_ar:companyinvoicear-detail'
             }
         }
+
+    def create(self, validated_data):
+        invoice_company_data = validated_data.pop('invoice_company')
+        persons_company_data = invoice_company_data.pop('persons_company')
+        persons_company, created = Company.objects.update_or_create(
+            pk=persons_company_data.get('id'),
+            defaults=persons_company_data
+        )
+        invoice_company_data['persons_company'] = persons_company
+
+        fiscal_address_data = invoice_company_data.pop('fiscal_address')
+        fiscal_address, created = PhysicalAddress.objects.update_or_create(
+            pk=fiscal_address_data.get('id'),
+            defaults=fiscal_address_data
+        )
+        invoice_company_data['fiscal_address'] = fiscal_address
+
+        invoice_company, created = CompanyInvoice.objects.update_or_create(
+            pk=invoice_company_data.get('id'),
+            defaults=invoice_company_data
+        )
+
+        company = models.CompanyInvoiceAR.objects.create(**validated_data)
+        return company
+
+    def update(self, instance, validated_data):
+        invoice_company_data = validated_data.pop('invoice_company')
+        persons_company_data = invoice_company_data.pop('persons_company')
+
+        invoice_company = instance.invoice_company
+        persons_company = instance.invoice_company.persons_company
+
+        persons_company.name = persons_company_data.get(
+            'name',
+            persons_company.name
+        )
+        persons_company.initiated_activities = (
+            persons_company_data.get(
+                'initiated_activities',
+                persons_company.initiated_activities
+            )
+        )
+        persons_company.save()
+
+        invoice_company.fiscal_address.street_address = (
+            fiscal_address_data.get(
+                'street_address',
+                invoice_company.fiscal_address.street_address
+            )
+        )
+        invoice_company.fiscal_address.floor_number = (
+            fiscal_address_data.get(
+                'floor_number',
+                invoice_company.fiscal_address.floor_number
+            )
+        )
+        invoice_company.fiscal_address.apartment_number = (
+            fiscal_address_data.get(
+                'apartment_number',
+                invoice_company.fiscal_address.apartment_number
+            )
+        )
+        invoice_company.fiscal_address.city = (
+            fiscal_address_data.get(
+                'city',
+                invoice_company.fiscal_address.city
+            )
+        )
+        invoice_company.fiscal_address.postal_code = (
+            fiscal_address_data.get(
+                'postal_code',
+                invoice_company.fiscal_address.postal_code
+            )
+        )
+        invoice_company.fiscal_address.save()
+
+        invoice_company.fiscal_position = validated_data.get(
+            'fiscal_position',
+            instance.fiscal_position
+        )
+        invoice_company.save()
+
+        instance.cuit = validated_data.get('cuit', instance.cuit)
+        instance.iibb = validated_data.get('iibb', instance.iibb)
+        instance.save()
+        return instance
