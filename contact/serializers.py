@@ -52,10 +52,22 @@ class ContactSerializer(HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         home_address_data = validated_data.pop('home_address')
-        home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data.get('id', 0), **home_address_data
+        instance.home_address.street_address = home_address_data.get(
+            'street_address', instance.home_address.street_address
         )
-        validated_data['home_address'] = home_address
+        instance.home_address.floor_number = home_address_data.get(
+            'floor_number', instance.home_address.floor_number
+        )
+        instance.home_address.apartment_number = home_address_data.get(
+            'apartment_number', instance.home_address.apartment_number
+        )
+        instance.home_address.city = home_address_data.get(
+            'city', instance.home_address.city
+        )
+        instance.home_address.postal_code = home_address_data.get(
+            'postal_code', instance.home_address.postal_code
+        )
+        instance.home_address.save()
 
         instance.birth_date = validated_data.get(
             'birth_date', instance.birth_date
