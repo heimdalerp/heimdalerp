@@ -205,6 +205,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             pk=invoice_company_data.get('id'),
             defaults=invoice_company_data
         )
+        validated_data['invoice_company'] = invoice_company
 
         company = models.CompanyInvoiceAR.objects.create(**validated_data)
         return company
@@ -212,6 +213,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
     def update(self, instance, validated_data):
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
+        fiscal_address_data = invoice_company_data.pop('fiscal_address')
 
         invoice_company = instance.invoice_company
         persons_company = instance.invoice_company.persons_company
