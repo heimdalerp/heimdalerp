@@ -19,7 +19,7 @@ It is said that he brings the gift of the gods to mankind.
     # rcctl enable postgresql
     # rcctl start postgresql
     # su _postgresql
-    $ createuser -s heimdalerp
+    $ createuser heimdalerp
     $ psql
     #> CREATE DATABASE heimdalerp OWNER heimdalerp;
     #> \q
@@ -47,7 +47,7 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     $ sudo su
     # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 git
     # su postgres
-    $ createuser -s heimdalerp
+    $ createuser heimdalerp
     $ psql
     #> CREATE DATABASE heimdalerp OWNER heimdalerp;
     #> \q
