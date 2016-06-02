@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from invoice.models import CompanyInvoice, ContactInvoice
+from persons.models import PhysicalAddress
 
 ID_TYPE_DNI = 'D'
 ID_TYPE_CUIT = 'T'
@@ -82,3 +83,61 @@ class CompanyInvoiceAR(models.Model):
         verbose_name = _('company')
         verbose_name_plural = _('companies')
         default_permissions = ('view', 'add', 'change', 'delete')
+
+
+POINTOFSALE_TYPE_CONTROLADORFISCAL = 'C'
+POINTOFSALE_TYPE_FACTUWEB = 'F'
+POINTOFSALE_TYPE_WEBSERVICE = 'W'
+POINTOFSALE_TYPE_ENLINEA = 'L'
+POINTOFSALE_TYPES = (
+    (POINTOFSALE_TYPE_CONTROLADORFISCAL, _('Fiscal Controller')),
+    (POINTOFSALE_TYPE_FACTUWEB, _('Pre-printed')),
+    (POINTOFSALE_TYPE_WEBSERVICE, _('Webservice')),
+    (POINTOFSALE_TYPE_ENLINEA, _('Online')),
+)
+
+
+class PointOfSale(models.Model):
+    """
+    AFIP requires the following attributes related to a previously 
+    registered in their website point of sale.
+    """
+    def _limit_fiscal_address(self):
+        return {'company': self.invoicear_company.invoice_company}
+
+    invoicear_company = models.ForeignKey(
+        CompanyInvoiceAR,
+        verbose_name=_('company'),
+        related_name='point_of_sales',
+        related_query_name='point_of_sale'
+    )
+    afip_id = models.PositiveSmallIntegerField(
+        _('AFIP id')
+    )
+    point_of_sale_type = models.CharField(
+        _('point of sale type'),
+        max_length=1,
+        choices=POINTOFSALE_TYPES,
+        default=POINTOFSALE_TYPE_WEBSERVICE
+    )
+    fiscal_address = models.ForeignKey(
+        PhysicalAddress,
+        verbose_name=_('fiscal address'),
+        related_name='point_of_sales',
+        related_query_name='point_of_sale',
+        on_delete=models.PROTECT,
+        limit_choices_to=_limit_fiscal_address
+    )
+    is_inactive = models.BooleanField(
+        _('is inactive'),
+        default=False
+    )
+
+    def __str__(self):
+        return 
+
+    class Meta:
+        unique_together = ('invoicear_company', 'afip_id')
+        verbose_name = _('point of sale')
+        verbose_name_plural = _('point of sales')
+        default_permissions = ('view', 'add', 'change', 'delete')   

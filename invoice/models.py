@@ -46,6 +46,7 @@ class CompanyInvoice(models.Model):
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
+        on_delete=models.PROTECT,
         verbose_name=_('fiscal position'),
         related_name='companies',
         related_query_name='company',
@@ -54,14 +55,12 @@ class CompanyInvoice(models.Model):
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
-    fiscal_address = models.ForeignKey(
+    fiscal_addresses = models.ManyToManyField(
         PhysicalAddress,
-        on_delete=models.CASCADE,
-        verbose_name=_('fiscal address'),
+        verbose_name=_('fiscal addresses'),
         related_name='+',
-        related_query_name='+',
-        blank=True,
-        null=True
+        related_query_name='company',
+        blank=True
     )
     contacts = models.ManyToManyField(
         Contact,
