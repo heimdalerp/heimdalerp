@@ -29,5 +29,5 @@ class InvoiceARViewSet(ModelViewSet):
 
 
 class InvoiceARHasVATSubtotalViewSet(ModelViewSet):
-    queryset = models.InvoiceARHasVATSubtotalViewSet.objects.all()
+    queryset = models.InvoiceARHasVATSubtotal.objects.all()
     serializer_class = serializers.InvoiceARHasVATSubtotalSerializer

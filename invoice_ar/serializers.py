@@ -318,7 +318,7 @@ class InvoiceTypeSerializer(HyperlinkedModelSerializer):
         }
 
 
-class VATSubtotalSerializer(HyperlinkedModelSerializer):
+class InvoiceARHasVATSubtotalSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.InvoiceARHasVATSubtotal
@@ -340,7 +340,7 @@ class VATSubtotalSerializer(HyperlinkedModelSerializer):
 
 class InvoiceARSerializer(HyperlinkedModelSerializer):
     invoice_lines = InvoiceLineSerializer(many=True)
-    vat_subtotals = VATSubtotalSerializer(many=True)
+    vat_subtotals = InvoiceARHasVATSubtotalSerializer(many=True)
 
     class Meta:
         model = models.InvoiceAR

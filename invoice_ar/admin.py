@@ -24,7 +24,7 @@ class InvoiceARAdmin(VersionAdmin):
     pass
 
 
-class InvoiceARHasVATSubtypeAdmin(VersionAdmin):
+class InvoiceARHasVATSubtotalAdmin(VersionAdmin):
     pass
 
 
@@ -33,4 +33,7 @@ admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)
 admin.site.register(models.PointOfSale, PointOfSaleAdmin)
 admin.site.register(models.InvoiceType, InvoiceTypeAdmin)
 admin.site.register(models.InvoiceAR, InvoiceARAdmin)
-admin.site.register(InvoiceARHasVATSubtype, InvoiceARHasVATSubtype)
+admin.site.register(
+    models.InvoiceARHasVATSubtotal,
+    InvoiceARHasVATSubtotalAdmin
+)

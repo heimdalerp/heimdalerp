@@ -209,7 +209,7 @@ class InvoiceAR(Invoice):
         default=0.00
     )
     vat_subtotals = models.ManyToManyField(
-        'InvoiceARHasSubtotalVAT',
+        'InvoiceARHasVATSubtotal',
         verbose_name=_('VAT subtotals'),
         related_name='+',
         related_query_name='invoicear'
@@ -224,7 +224,7 @@ class InvoiceAR(Invoice):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class InvoiceARHasSubtotalVAT(models.Model):
+class InvoiceARHasVATSubtotal(models.Model):
     """
     AFIP requires to compute each VAT's subtotal and store it.
     """
