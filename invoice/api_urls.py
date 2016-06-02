@@ -15,6 +15,11 @@ router.register(r'invoices', views.InvoiceViewSet)
 app_name = 'invoice'
 urlpatterns = [
     url(
+        r'^companies/(?P<pk>\d+)/fiscaladdresses/$',
+        views.FiscalAddressesByCompanyList.as_view(),
+        name='companyinvoice-fiscaladdresses'
+    ),
+    url(
         r'^companies/(?P<pk>\d+)/contacts/$',
         views.ContactsByCompanyList.as_view(),
         name='companyinvoice-contacts'

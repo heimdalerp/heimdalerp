@@ -177,7 +177,9 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         queryset=models.FiscalPosition.objects.all(),
         allow_null=True
     )
-    fiscal_address = PhysicalAddressSerializer()
+    fiscal_addresses = HyperlinkedIdentityField(
+        view_name='api:invoice:companyinvoice-fiscaladdresses'
+    )
     contacts = HyperlinkedIdentityField(
         view_name='api:invoice:companyinvoice-contacts'
     )
@@ -194,7 +196,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'url',
             'persons_company',
             'fiscal_position',
-            'fiscal_address',
+            'fiscal_addresses',
             'contacts',
             'products',
             'invoices'
@@ -203,7 +205,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:invoice:companyinvoice-detail'
             },
-            'fiscal_address': {
+            'fiscal_addresses': {
                 'required': False
             }
         }
@@ -216,11 +218,6 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         )
         validated_data['persons_company'] = persons_company
 
-        fiscal_address_data = validated_data.pop('fiscal_address')
-        fiscal_address = PhysicalAddress.objects.create(
-            **fiscal_address_data
-        )
-        validated_data['fiscal_address'] = fiscal_address
         company = models.CompanyInvoice.objects.create(**validated_data)
         return company
 
@@ -237,24 +234,6 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             )
         )
         instance.persons_company.save()
-
-        fiscal_address_data = validated_data.pop('fiscal_address')
-        instance.fiscal_address.street_address = fiscal_address_data.get(
-            'street_address', instance.fiscal_address.street_address
-        )
-        instance.fiscal_address.floor_number = fiscal_address_data.get(
-            'floor_number', instance.fiscal_address.floor_number
-        )
-        instance.fiscal_address.apartment_number = fiscal_address_data.get(
-            'apartment_number', instance.fiscal_address.apartment_number
-        )
-        instance.fiscal_address.city = fiscal_address_data.get(
-            'city', instance.fiscal_address.city
-        )
-        instance.fiscal_address.postal_code = fiscal_address_data.get(
-            'postal_code', instance.fiscal_address.postal_code
-        )
-        instance.fiscal_address.save()
 
         instance.fiscal_position = validated_data.get(
             'fiscal_position',
