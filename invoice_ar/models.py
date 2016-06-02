@@ -1,7 +1,10 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from invoice.models import CompanyInvoice, ContactInvoice
+from invoice.models import (CompanyInvoice,
+                            ContactInvoice,
+                            Invoice,
+                            VAT)
 from persons.models import PhysicalAddress
 
 ID_TYPE_DNI = 'D'
@@ -36,6 +39,7 @@ class ContactInvoiceAR(models.Model):
         default="",
         blank=True
     )
+
 
     def __str__(self):
         return self.invoice_contact.contact_contact.name
@@ -140,4 +144,107 @@ class PointOfSale(models.Model):
         unique_together = ('invoicear_company', 'afip_id')
         verbose_name = _('point of sale')
         verbose_name_plural = _('point of sales')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class InvoiceType(models.Model):
+    """
+    AFIP's defined invoice types.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=10,
+        unique=True
+    )
+    afip_code = models.SmallIntegerField(
+        _('AFIP code'),
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('invoice type')
+        verbose_name_plural = _('invoice types')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+SERVICE_TYPE_PRODUCT = 'P'
+SERVICE_TYPE_SERVICE = 'S'
+SERVICE_TYPE_PRODUCTANDSERVICE = 'PS'
+SERVICE_TYPES = (
+    (SERVICE_TYPE_PRODUCT, _('Product')),
+    (SERVICE_TYPE_SERVICE, _('Service')),
+    (SERVICE_TYPE_PRODUCTANDSERVICE, _('Product and service')),
+)
+
+
+class InvoiceAR(Invoice):
+    """
+    Invoice extension for Argentina.
+    """
+    point_of_sale = models.ForeignKey(
+        PointOfSale,
+        verbose_name=_('point of sale'),
+        related_name='invoices_ar',
+        related_query_name='invoice_ar',
+        on_delete=models.PROTECT
+    )
+    due_date = models.DateField(
+        _('due date')
+    )
+    service_start = models.DateField(
+        _('service start')
+    )
+    service_type = models.CharField(
+        _('service type'),
+        max_length=2,
+        choices=SERVICE_TYPES
+    )
+    vat_total = models.DecimalField(
+        _('VAT total'),
+        max_digits=15,
+        decimal_places=2,
+        default=0.00
+    )
+    vat_subtotals = models.ManyToManyField(
+        'InvoiceARHasSubtotalVAT',
+        verbose_name=_('VAT subtotals'),
+        related_name='+',
+        related_query_name='invoicear'
+    )
+
+    def __str__(self):
+        return str(self.number)
+
+    class Meta:
+        verbose_name = _('invoice')
+        verbose_name_plural = _('invoice')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class InvoiceARHasSubtotalVAT(models.Model):
+    """
+    AFIP requires to compute each VAT's subtotal and store it.
+    """
+    vat = models.ForeignKey(
+        VAT,
+        verbose_name=_('VAT'),
+        related_name='+',
+        related_query_name='+'
+    )
+    subtotal = models.DecimalField(
+        _('subtotal'),
+        max_digits=15,
+        decimal_places=2,
+        default=0.00
+    )
+
+    def __str__(self):
+        return str(self.subtotal)
+
+    class Meta:
+        verbose_name = _('VAT subtotal')
+        verbose_name_plural = _('VAT subtotals')
         default_permissions = ('view', 'add', 'change', 'delete')   

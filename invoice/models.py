@@ -246,8 +246,8 @@ class Invoice(models.Model):
     """
     The invoices themselves.
     """
-    company = models.ForeignKey(
-        Company,
+    invoice_company = models.ForeignKey(
+        CompanyInvoice,
         verbose_name=_('company'),
         related_name='invoices',
         related_query_name='invoice',
@@ -299,8 +299,8 @@ class Invoice(models.Model):
     )
 
     def __str__(self):
-        return "%(company)s : %(number)s" % {
-            'company': self.company.name,
+        return "%(invoice_company)s : %(number)s" % {
+            'invoice_company': self.invoice_company.persons_company.name,
             'number': self.number
         }
 
