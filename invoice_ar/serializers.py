@@ -1,8 +1,9 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
-
+                                        
 from contact.models import Contact
 from invoice.serializers import (CompanyInvoiceSerializer,
-                                 ContactInvoiceSerializer)
+                                 ContactInvoiceSerializer,
+                                 InvoiceLineSerializer)
 from invoice.models import CompanyInvoice, ContactInvoice
 from invoice_ar import models
 from persons.models import Company, PhysicalAddress
@@ -272,3 +273,108 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         instance.iibb = validated_data.get('iibb', instance.iibb)
         instance.save()
         return instance
+
+
+class PointOfSaleSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.PointOfSale
+        fields = (
+            'url',
+            'id',
+            'invoicear_company',
+            'afip_id',
+            'point_of_sale_type',
+            'fiscal_address',
+            'is_inactive'
+        ) 
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoicear:pointofsale-detail'
+            },
+            'invoicear_company': {
+                'view_name': 'api:invoicear:companyinvoicear-detail'
+            },
+            'fiscal_address': {
+                'view_name': 'api:persons:physicaladdress-detail'
+            }
+        }
+
+
+class InvoiceTypeSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.InvoiceType
+        fields = (
+            'url',
+            'id',
+            'name',
+            'afip_code'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoicear:invoicetype-detail'
+            }
+        }
+
+
+class VATSubtotalSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.InvoiceARHasVATSubtotal
+        fields = (
+            'url',
+            'id',
+            'vat',
+            'subtotal'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoicear:invoicearhasvatsubtotal-detail'
+            },
+            'vat': {
+                'view_name': 'api:invoice:vat-detail'
+            }
+        }
+
+
+class InvoiceARSerializer(HyperlinkedModelSerializer):
+    invoice_lines = InvoiceLineSerializer(many=True)
+    vat_subtotals = VATSubtotalSerializer(many=True)
+
+    class Meta:
+        model = models.InvoiceAR
+        fields = (
+            'url',
+            'id',
+            'invoice_company',
+            'contacts',
+            'number',
+            'invoice_lines',
+            'invoice_date',
+            'status',
+            'subtotal',
+            'total',
+            'notes',
+            'point_of_sale',
+            'due_date',
+            'service_start',
+            'service_type',
+            'vat_total',
+            'vat_subtotals'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoicear:invoicear-detail'
+            },
+            'invoice_company': {
+                'view_name': 'api:invoice:companyinvoice-detail'
+            },
+            'contacts': {
+                'view_name': 'api:invoice:contactinvoice-detail',
+                'many': True
+            },
+            'point_of_sale': {
+                'view_name': 'api:invoicear:pointofsale-detail'
+            }
+        }
