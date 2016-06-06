@@ -42,7 +42,8 @@ class CompanyInvoice(models.Model):
     """
     persons_company = models.OneToOneField(
         Company,
-        verbose_name=_('company')
+        verbose_name=_('company'),
+        primary_key=True
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
@@ -85,7 +86,8 @@ class ContactInvoice(models.Model):
     """
     contact_contact = models.OneToOneField(
         Contact,
-        verbose_name=_('contact')
+        verbose_name=_('contact'),
+        primary_key=True
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,

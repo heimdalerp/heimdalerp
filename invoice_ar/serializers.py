@@ -16,7 +16,6 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         model = models.ContactInvoiceAR
         fields = (
             'url',
-            'id',
             'invoice_contact',
             'id_type',
             'id_number'
@@ -175,7 +174,6 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         model = models.CompanyInvoiceAR
         fields = (
             'url',
-            'id',
             'invoice_company',
             'cuit',
             'iibb'

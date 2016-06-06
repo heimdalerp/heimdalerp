@@ -1,6 +1,5 @@
 from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer,
-                                        PrimaryKeyRelatedField)
+                                        HyperlinkedModelSerializer)
 
 from contact.models import Contact
 from contact.serializers import ContactSerializer
@@ -35,9 +34,6 @@ class FiscalPositionSerializer(HyperlinkedModelSerializer):
 
 class ContactInvoiceSerializer(HyperlinkedModelSerializer):
     contact_contact = ContactSerializer()
-    fiscal_position = PrimaryKeyRelatedField(
-        queryset=models.FiscalPosition.objects.all()
-    )
     fiscal_address = PhysicalAddressSerializer()
     invoices = HyperlinkedIdentityField(
         view_name='api:invoice:contactinvoice-invoices'
@@ -47,7 +43,6 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         model = models.ContactInvoice
         fields = (
             'url',
-            'id',
             'contact_contact',
             'fiscal_position',
             'fiscal_address',
@@ -56,6 +51,9 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:invoice:contactinvoice-detail'
+            },
+            'fiscal_position': {
+                'view_name': 'api:invoice:fiscalposition-detail'
             }
         }
 
@@ -173,10 +171,6 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     persons_company = CompanySerializer()
-    fiscal_position = PrimaryKeyRelatedField(
-        queryset=models.FiscalPosition.objects.all(),
-        allow_null=True
-    )
     fiscal_addresses = HyperlinkedIdentityField(
         view_name='api:invoice:companyinvoice-fiscaladdresses'
     )
@@ -204,6 +198,10 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:invoice:companyinvoice-detail'
+            },
+            'fiscal_position': {
+                'view_name': 'api:invoice:fiscalposition-detail',
+                'allow_null': True
             },
             'fiscal_addresses': {
                 'required': False
@@ -266,9 +264,6 @@ class VATSerializer(HyperlinkedModelSerializer):
 
 
 class ProductSerializer(HyperlinkedModelSerializer):
-    vat = PrimaryKeyRelatedField(
-        queryset=models.VAT.objects.all()
-    )
     invoice_lines = HyperlinkedIdentityField(
         view_name='api:invoice:product-invoicelines'
     )
@@ -290,6 +285,9 @@ class ProductSerializer(HyperlinkedModelSerializer):
             },
             'company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
+            },
+            'vat': {
+                'view_name': 'api:invoice:vat-detail'
             }
         }
 
