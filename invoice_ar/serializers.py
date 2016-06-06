@@ -314,6 +314,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'subtotal',
             'total',
             'notes',
+            'transaction',
             'point_of_sale',
             'due_date',
             'service_start',
@@ -331,6 +332,11 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'contacts': {
                 'view_name': 'api:invoice:contactinvoice-detail',
                 'many': True
+            },
+            'transaction': {
+                'view_name': 'api:accounting:transaction-detail',
+                'required': False,
+                'allow_null': True
             },
             'point_of_sale': {
                 'view_name': 'api:invoicear:pointofsale-detail'

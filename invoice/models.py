@@ -2,6 +2,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from accounting.models import Transaction
 from contact.models import Contact
 from persons.models import Company, PhysicalAddress
 
@@ -298,6 +299,14 @@ class Invoice(models.Model):
         _('notes'),
         blank=True,
         default=""
+    )
+    transaction = models.ForeignKey(
+        Transaction,
+        verbose_name=_('transaction'),
+        related_name='+',
+        related_query_name='+',
+        blank=True,
+        null=True
     )
 
     def __str__(self):

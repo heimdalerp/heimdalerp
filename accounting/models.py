@@ -205,6 +205,17 @@ class Payment(models.Model):
         max_digits=15,
         decimal_places=2
     )
+    transaction = models.ForeignKey(
+        Transaction,
+        verbose_name=_('transaction'),
+        related_name='+',
+        related_query_name='+',
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return self.contact.name + ' : ' + str(amount) 
 
     class Meta:
         verbose_name = _('payment')

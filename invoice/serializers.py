@@ -331,7 +331,8 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'notes',
             'subtotal',
             'total',
-            'status'
+            'status',
+            'transaction'
         )
         extra_kwargs = {
             'url': {
@@ -343,5 +344,10 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'contacts': {
                 'view_name': 'api:invoice:contactinvoice-detail',
                 'many': True
+            },
+            'transaction': {
+                'view_name': 'api:accounting:transaction-detail',
+                'required': False,
+                'allow_null': True
             }
         }
