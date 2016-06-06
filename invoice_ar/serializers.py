@@ -16,6 +16,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         model = models.ContactInvoiceAR
         fields = (
             'url',
+            'id',
             'invoice_contact',
             'id_type',
             'id_number'
@@ -174,6 +175,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         model = models.CompanyInvoiceAR
         fields = (
             'url',
+            'id',
             'invoice_company',
             'cuit',
             'iibb'
@@ -188,13 +190,13 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
         persons_company, created = Company.objects.update_or_create(
-            pk=persons_company_data.get('id'),
+            pk=persons_company_data.get('pk'),
             defaults=persons_company_data
         )
         invoice_company_data['persons_company'] = persons_company
 
         invoice_company, created = CompanyInvoice.objects.update_or_create(
-            pk=invoice_company_data.get('id'),
+            pk=invoice_company_data.get('pk'),
             defaults=invoice_company_data
         )
         validated_data['invoice_company'] = invoice_company

@@ -43,6 +43,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         model = models.ContactInvoice
         fields = (
             'url',
+            'id',
             'contact_contact',
             'fiscal_position',
             'fiscal_address',
@@ -188,6 +189,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         model = models.CompanyInvoice
         fields = (
             'url',
+            'id',
             'persons_company',
             'fiscal_position',
             'fiscal_addresses',

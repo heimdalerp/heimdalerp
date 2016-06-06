@@ -24,8 +24,7 @@ class ContactInvoiceAR(models.Model):
     """
     invoice_contact = models.OneToOneField(
         ContactInvoice,
-        verbose_name=_('contact'),
-        primary_key=True
+        verbose_name=_('contact')
     )
     id_type = models.CharField(
         _('id type'),
@@ -58,8 +57,7 @@ class CompanyInvoiceAR(models.Model):
     """
     invoice_company = models.OneToOneField(
         CompanyInvoice,
-        verbose_name=_('company'),
-        primary_key=True
+        verbose_name=_('company')
     )
     cuit = models.CharField(
         _('CUIT'),
