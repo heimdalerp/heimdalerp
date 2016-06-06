@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
 
+from contact.models import Contact
 from persons.models import Company
 
 
@@ -180,4 +181,32 @@ class Transaction(models.Model):
     class Meta:
         verbose_name = _('transaction')
         verbose_name_plural = _('transactions')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class Payment(models.Model):
+    """
+    Payments are made by Contacts, most of the time to pay an invoice.
+    """
+    contact = models.ForeignKey(
+        Contact,
+        verbose_name=_('contact'),
+        related_name='payments',
+        related_query_name='payment'
+    )
+    account = models.ForeignKey(
+        Account,
+        verbose_name=_('account'),
+        related_name='accounts',
+        related_query_name='account'
+    )
+    amount = models.DecimalField(
+        _('amount'),
+        max_digits=15,
+        decimal_places=2
+    )
+
+    class Meta:
+        verbose_name = _('payment')
+        verbose_name_plural = _('payments')
         default_permissions = ('view', 'add', 'change', 'delete')

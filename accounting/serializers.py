@@ -4,6 +4,7 @@ from accounting import models
 
 
 class LedgerSerializer(HyperlinkedModelSerializer):
+
     class Meta:
         model = models.Ledger
         fields = (
@@ -23,6 +24,7 @@ class LedgerSerializer(HyperlinkedModelSerializer):
 
 
 class AccountSerializer(HyperlinkedModelSerializer):
+
     class Meta:
         model = models.Account
         fields = (
@@ -48,6 +50,7 @@ class AccountSerializer(HyperlinkedModelSerializer):
 
 
 class AccountSubtypeSerializer(HyperlinkedModelSerializer):
+
         class Meta:
             model = models.AccountSubtype
             fields = (
@@ -68,6 +71,7 @@ class AccountSubtypeSerializer(HyperlinkedModelSerializer):
 
 
 class TransactionSerializer(HyperlinkedModelSerializer):
+
         class Meta:
             model = models.Transaction
             read_only_fields = (
@@ -90,3 +94,27 @@ class TransactionSerializer(HyperlinkedModelSerializer):
                     'view_name': 'api:accounting:account-detail'
                 }
             }
+
+
+class PaymentSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Payment
+        fields = (
+            'url',
+            'id',
+            'contact',
+            'account',
+            'amount'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:accounting:payment-detail'
+            },
+            'invoice_contact': {
+                'view_name': 'api:contact:contact-detail'
+            },
+            'account': {
+                'view_name': 'api:accounting:account-detail'
+            }
+        }

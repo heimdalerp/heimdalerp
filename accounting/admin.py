@@ -20,7 +20,11 @@ class TransactionAdmin(VersionAdmin):
     pass
 
 
+class PaymentAdmin(VersionAdmin):
+    pass
+
 admin.site.register(models.Ledger, LedgerAdmin)
 admin.site.register(models.Account, AccountAdmin)
 admin.site.register(models.AccountSubtype, AccountSubtypeAdmin)
 admin.site.register(models.Transaction, TransactionAdmin)
+admin.site.register(models.Payment, PaymentAdmin)
