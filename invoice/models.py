@@ -95,8 +95,6 @@ class ContactInvoice(models.Model):
         verbose_name=_('fiscal position'),
         related_name='contacts',
         related_query_name='contact',
-        blank=True,
-        null=True,
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
@@ -104,9 +102,7 @@ class ContactInvoice(models.Model):
         PhysicalAddress,
         verbose_name=_('fiscal address'),
         related_name='+',
-        related_query_name='+',
-        blank=True,
-        null=True
+        related_query_name='+'
     )
 
     def __str__(self):
