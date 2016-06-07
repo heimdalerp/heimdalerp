@@ -1,0 +1,26 @@
+[
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 1,
+ "fields": {
+  "name": "Producto",
+  "code": "1"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 2,
+ "fields": {
+  "name": "Servicios",
+  "code": "2"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 3,
+ "fields": {
+  "name": "Productos y Servicios",
+  "code": "3"
+ }
+}
+]
