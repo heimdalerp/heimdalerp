@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r'contacts', views.ContactInvoiceARViewSet)
 router.register(r'companies', views.CompanyInvoiceARViewSet)
 router.register(r'pointofsales', views.PointOfSaleViewSet)
+router.register(r'concepttypes', views.ConceptTypeViewSet)
 router.register(r'invoices', views.InvoiceARViewSet)
 router.register(
     r'invoiceshavevatsubtotals',
@@ -25,6 +26,11 @@ urlpatterns = [
         r'^afipws/dni/(?P<dni>[0-9]+)/$',
         ProxyView.as_view(source='sr-padron/v2/personas/%(dni)s'),
         name='afipws-dni'
+    ),
+    url(
+        r'^concepttypes/(?P<pk>\d+)/invoices/$',
+        views.InvoicesByConceptTypeList.as_view(),
+        name='concepttype-invoices'
     ),
     url(r'^', include(router.urls)),
 ]

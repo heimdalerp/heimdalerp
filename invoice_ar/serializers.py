@@ -1,5 +1,6 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-                                        
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer)
+
 from contact.models import Contact
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
@@ -250,10 +251,10 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
         ) 
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoicear:pointofsale-detail'
+                'view_name': 'api:invoice_ar:pointofsale-detail'
             },
             'invoicear_company': {
-                'view_name': 'api:invoicear:companyinvoicear-detail'
+                'view_name': 'api:invoice_ar:companyinvoicear-detail'
             },
             'fiscal_address': {
                 'view_name': 'api:persons:physicaladdress-detail'
@@ -273,10 +274,31 @@ class InvoiceARHasVATSubtotalSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoicear:invoicearhasvatsubtotal-detail'
+                'view_name': 'api:invoice_ar:invoicearhasvatsubtotal-detail'
             },
             'vat': {
                 'view_name': 'api:invoice:vat-detail'
+            }
+        }
+
+
+class ConceptTypeSerializer(HyperlinkedModelSerializer):
+    invoices = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:concepttype-invoices'
+    )
+
+    class Meta:
+        model = models.ConceptType
+        fields = (
+            'url',
+            'id',
+            'name',
+            'code',
+            'invoices'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoice_ar:concepttype-detail'
             }
         }
 
@@ -304,13 +326,13 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'point_of_sale',
             'due_date',
             'service_start',
-            'service_type',
+            'concept_type',
             'vat_total',
             'vat_subtotals'
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoicear:invoicear-detail'
+                'view_name': 'api:invoice_ar:invoicear-detail'
             },
             'invoice_company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
@@ -328,6 +350,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'allow_null': True
             },
             'point_of_sale': {
-                'view_name': 'api:invoicear:pointofsale-detail'
+                'view_name': 'api:invoice_ar:pointofsale-detail'
+            },
+            'concept_type': {
+                'view_name': 'api:invoice_ar:concepttype-detail'
             }
         }

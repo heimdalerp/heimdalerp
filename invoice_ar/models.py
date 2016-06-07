@@ -147,14 +147,28 @@ class PointOfSale(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-SERVICE_TYPE_PRODUCT = 'P'
-SERVICE_TYPE_SERVICE = 'S'
-SERVICE_TYPE_PRODUCTANDSERVICE = 'PS'
-SERVICE_TYPES = (
-    (SERVICE_TYPE_PRODUCT, _('Product')),
-    (SERVICE_TYPE_SERVICE, _('Service')),
-    (SERVICE_TYPE_PRODUCTANDSERVICE, _('Product and service')),
-)
+class ConceptType(models.Model):
+    """
+    Required by AFIP for every invoice made.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=50,
+        unique=True
+    )
+    code = models.SlugField(
+        _('code'),
+        max_length=15,
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('concept type')
+        verbose_name_plural = _('concept types')
+        default_permissions = ('view', 'add', 'change', 'delete')
 
 
 class InvoiceAR(Invoice):
@@ -174,10 +188,11 @@ class InvoiceAR(Invoice):
     service_start = models.DateField(
         _('service start')
     )
-    service_type = models.CharField(
-        _('service type'),
-        max_length=2,
-        choices=SERVICE_TYPES
+    concept_type = models.ForeignKey(
+        ConceptType,
+        verbose_name=_('concept type'),
+        related_name='invoices',
+        related_query_name='invoice'
     )
     vat_total = models.DecimalField(
         _('VAT total'),

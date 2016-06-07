@@ -17,13 +17,13 @@ class FiscalPosition(models.Model):
         max_length=50,
         unique=True
     )
-    alphanumerical_code = models.SlugField(
-        _('alphanumerical code'),
+    code = models.SlugField(
+        _('code'),
         max_length=15,
         default="",
         blank=True,
-        help_text=_("Some local oficial electronic systems handle "
-                    "specific codes for fiscal position types.")
+        help_text=_("Some local official electronic systems handle "
+                    "specific codes.")
     )
 
     def __str__(self):
@@ -121,6 +121,14 @@ class VAT(models.Model):
         max_length=15,
         unique=True,
         help_text=_("i.e. 8%")
+    )
+    code = models.SlugField(
+        _('code'),
+        max_length=15,
+        default="",
+        blank=True,
+        help_text=_("Some local official electronic systems handle "
+                    "specific codes.")
     )
     tax = models.FloatField(
         _('tax'),
@@ -233,10 +241,15 @@ class InvoiceType(models.Model):
     """
     name = models.CharField(
         _('name'),
-        max_length=10
+        max_length=150
     )
-    code = models.SmallIntegerField(
-        _('code')
+    code = models.SlugField(
+        _('code'),
+        max_length=15,
+        default="",
+        blank=True,
+        help_text=_("Some local official electronic systems handle "
+                    "specific codes.")
     )
 
     def __str__(self):

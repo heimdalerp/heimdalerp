@@ -21,15 +21,6 @@ class ContactInvoiceViewSet(ModelViewSet):
     serializer_class = serializers.ContactInvoiceSerializer
 
 
-class FiscalAddressesByCompanyList(ListAPIView):
-    serializer_class = PhysicalAddressSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        company = models.CompanyInvoice.objects.filter(pk=pk)
-        return company.fiscaladresses.all()
-
-
 class ContactsByCompanyList(ListAPIView):
     serializer_class = serializers.ContactInvoiceSerializer
 
