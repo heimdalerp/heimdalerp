@@ -28,6 +28,10 @@ class InvoiceLineAdmin(VersionAdmin):
     pass
 
 
+class InvoiceTypeAdmin(VersionAdmin):
+    pass
+
+
 class InvoiceAdmin(VersionAdmin):
     pass
 
@@ -38,4 +42,5 @@ admin.site.register(models.ContactInvoice, ContactInvoiceAdmin)
 admin.site.register(models.VAT, VATAdmin)
 admin.site.register(models.Product, ProductAdmin)
 admin.site.register(models.InvoiceLine, InvoiceLineAdmin)
+admin.site.register(models.InvoiceType, InvoiceTypeAdmin)
 admin.site.register(models.Invoice, InvoiceAdmin)

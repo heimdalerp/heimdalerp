@@ -10,6 +10,7 @@ router.register(r'companies', views.CompanyInvoiceViewSet)
 router.register(r'vats', views.VATViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'invoicelines', views.InvoiceLineViewSet)
+router.register(r'invoicetypes', views.InvoiceTypeViewSet)
 router.register(r'invoices', views.InvoiceViewSet)
 
 app_name = 'invoice'
@@ -58,6 +59,11 @@ urlpatterns = [
         r'^fiscalpositions/(?P<pk>\d+)/contacts/$',
         views.ContactsByFiscalPositionList.as_view(),
         name='fiscalposition-contacts'
+    ),
+    url(
+        r'^invoicetypes/(?P<pk>\d+)/invoices/$',
+        views.InvoicesByInvoiceTypeList.as_view(),
+        name='invoicetype-invoices'
     ),
     url(r'^', include(router.urls)),
 ]

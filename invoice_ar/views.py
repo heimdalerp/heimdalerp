@@ -18,11 +18,6 @@ class PointOfSaleViewSet(ModelViewSet):
     serializer_class = serializers.PointOfSaleSerializer
 
 
-class InvoiceTypeViewSet(ModelViewSet):
-    queryset = models.InvoiceType.objects.all()
-    serializer_class = serializers.InvoiceTypeSerializer
-
-
 class InvoiceARViewSet(ModelViewSet):
     queryset = models.InvoiceAR.objects.all()
     serializer_class = serializers.InvoiceARSerializer

@@ -8,7 +8,6 @@ router = DefaultRouter()
 router.register(r'contacts', views.ContactInvoiceARViewSet)
 router.register(r'companies', views.CompanyInvoiceARViewSet)
 router.register(r'pointofsales', views.PointOfSaleViewSet)
-router.register(r'invoicetypes', views.InvoiceTypeViewSet)
 router.register(r'invoices', views.InvoiceARViewSet)
 router.register(
     r'invoiceshavevatsubtotals',

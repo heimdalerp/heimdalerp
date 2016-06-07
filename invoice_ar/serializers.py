@@ -261,23 +261,6 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
         }
 
 
-class InvoiceTypeSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = models.InvoiceType
-        fields = (
-            'url',
-            'id',
-            'name',
-            'afip_code'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:invoicear:invoicetype-detail'
-            }
-        }
-
-
 class InvoiceARHasVATSubtotalSerializer(HyperlinkedModelSerializer):
 
     class Meta:
@@ -311,6 +294,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'contacts',
             'number',
             'invoice_lines',
+            'invoice_type',
             'invoice_date',
             'status',
             'subtotal',
@@ -330,6 +314,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             },
             'invoice_company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
+            },
+            'invoice_type': {
+                'view_name': 'api:invoice:invoicetype-detail'
             },
             'contacts': {
                 'view_name': 'api:invoice:contactinvoice-detail',

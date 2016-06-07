@@ -227,6 +227,27 @@ class InvoiceLine(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class InvoiceType(models.Model):
+    """
+    Government defined invoice types.
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=10
+    )
+    code = models.SmallIntegerField(
+        _('code')
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('invoice type')
+        verbose_name_plural = _('invoice types')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
 INVOICE_STATUSTYPE_DRAFT = 'D'
 INVOICE_STATUSTYPE_SENT = 'S'
 INVOICE_STATUSTYPE_PAID = 'P'
@@ -264,6 +285,14 @@ class Invoice(models.Model):
         verbose_name=_('invoice lines'),
         related_name='+',
         related_query_name='invoice'
+    )
+    invoice_type = models.ForeignKey(
+        InvoiceType,
+        verbose_name=_('invoice type'),
+        related_name='invoices',
+        related_query_name='invoice',
+        blank=True,
+        null=True
     )
     invoice_date = models.DateField(
         _('date'),

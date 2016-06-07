@@ -22,6 +22,7 @@ class FiscalPositionSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
+            'alphanumerical_code',
             'companies',
             'contacts'
         )
@@ -317,6 +318,23 @@ class InvoiceLineSerializer(HyperlinkedModelSerializer):
         }
 
 
+class InvoiceTypeSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.InvoiceType
+        fields = (
+            'url',
+            'id',
+            'name',
+            'code'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoice:invoicetype-detail'
+            }
+        }
+
+
 class InvoiceSerializer(HyperlinkedModelSerializer):
     invoice_lines = InvoiceLineSerializer(many=True)
 
@@ -329,6 +347,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'contacts',
             'number',
             'invoice_lines',
+            'invoice_type',
             'invoice_date',
             'notes',
             'subtotal',
@@ -340,6 +359,11 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:invoice:invoice-detail'
             },
+            'invoice_type': {
+                'view_name': 'api:invoice:invoicetype-detail',
+                'required': False,
+                'allow_null': True
+            }, 
             'company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
             },

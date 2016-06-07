@@ -16,10 +16,6 @@ class PointOfSaleAdmin(VersionAdmin):
     pass
 
 
-class InvoiceTypeAdmin(VersionAdmin):
-    pass
-
-
 class InvoiceARAdmin(VersionAdmin):
     pass
 
@@ -31,7 +27,6 @@ class InvoiceARHasVATSubtotalAdmin(VersionAdmin):
 admin.site.register(models.ContactInvoiceAR, ContactInvoiceARAdmin)
 admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)
 admin.site.register(models.PointOfSale, PointOfSaleAdmin)
-admin.site.register(models.InvoiceType, InvoiceTypeAdmin)
 admin.site.register(models.InvoiceAR, InvoiceARAdmin)
 admin.site.register(
     models.InvoiceARHasVATSubtotal,

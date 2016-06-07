@@ -147,29 +147,6 @@ class PointOfSale(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-class InvoiceType(models.Model):
-    """
-    AFIP's defined invoice types.
-    """
-    name = models.CharField(
-        _('name'),
-        max_length=10,
-        unique=True
-    )
-    afip_code = models.SmallIntegerField(
-        _('AFIP code'),
-        unique=True
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('invoice type')
-        verbose_name_plural = _('invoice types')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
 SERVICE_TYPE_PRODUCT = 'P'
 SERVICE_TYPE_SERVICE = 'S'
 SERVICE_TYPE_PRODUCTANDSERVICE = 'PS'

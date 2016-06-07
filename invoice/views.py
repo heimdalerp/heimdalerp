@@ -99,9 +99,22 @@ class InvoiceLinesByProductList(ListAPIView):
         return product.invoice_lines.all()
 
 
+class InvoiceTypeViewSet(ModelViewSet):
+    queryset = models.InvoiceType.objects.all()
+    serializer_class = serializers.InvoiceTypeSerializer
+
+
 class InvoiceViewSet(ModelViewSet):
     queryset = models.Invoice.objects.all()
     serializer_class = serializers.InvoiceSerializer
+
+
+class InvoicesByInvoiceTypeList(ListAPIView):
+    serializer_class = serializers.InvoiceSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.Invoice.objects.filter(invoice_type=pk)
 
 
 class InvoicesByCompanyList(ListAPIView):
