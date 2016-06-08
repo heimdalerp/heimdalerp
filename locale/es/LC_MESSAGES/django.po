@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-06 18:36-0300\n"
+"POT-Creation-Date: 2016-06-08 09:59-0300\n"
 "PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
@@ -19,9 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: accounting/models.py:16 accounting/models.py:111 hr/models.py:521
-#: invoice/models.py:46 invoice/models.py:79 invoice/models.py:153
-#: invoice/models.py:254 invoice_ar/models.py:61 invoice_ar/models.py:89
-#: invoice_ar/models.py:116 persons/models.py:122 sales/models.py:14
+#: invoice/models.py:46 invoice/models.py:78 invoice/models.py:155
+#: invoice/models.py:282 invoice_ar/models.py:56 invoice_ar/models.py:83
+#: invoice_ar/models.py:110 persons/models.py:122 sales/models.py:14
 #: sales/models.py:139 sales/models.py:271
 msgid "company"
 msgstr "compañía"
@@ -29,9 +29,9 @@ msgstr "compañía"
 #: accounting/models.py:22 accounting/models.py:56 accounting/models.py:123
 #: contact/models.py:20 hr/models.py:15 hr/models.py:42 hr/models.py:70
 #: hr/models.py:135 hr/models.py:169 hr/models.py:195 hr/models.py:495
-#: hr/models.py:526 invoice/models.py:16 invoice/models.py:126
-#: invoice/models.py:158 invoice_ar/models.py:157 persons/models.py:108
-#: sales/models.py:19
+#: hr/models.py:526 invoice/models.py:16 invoice/models.py:120
+#: invoice/models.py:160 invoice/models.py:243 invoice_ar/models.py:151
+#: persons/models.py:108 sales/models.py:19
 msgid "name"
 msgstr "nombre"
 
@@ -39,7 +39,8 @@ msgstr "nombre"
 msgid "ledger"
 msgstr "libro mayor"
 
-#: accounting/models.py:52
+#: accounting/models.py:52 invoice/models.py:21 invoice/models.py:126
+#: invoice/models.py:247 invoice_ar/models.py:156
 msgid "code"
 msgstr "código"
 
@@ -108,7 +109,7 @@ msgstr "balance de cuenta de crédito"
 msgid "Transaction #%(id)s"
 msgstr "Transacción #%(id)s"
 
-#: accounting/models.py:182 accounting/models.py:210 invoice/models.py:305
+#: accounting/models.py:182 accounting/models.py:210 invoice/models.py:341
 msgid "transaction"
 msgstr "transacción"
 
@@ -116,8 +117,8 @@ msgstr "transacción"
 msgid "transactions"
 msgstr "transacciones"
 
-#: accounting/models.py:193 contact/models.py:34 invoice/models.py:90
-#: invoice/models.py:116 invoice_ar/models.py:27 invoice_ar/models.py:49
+#: accounting/models.py:193 contact/models.py:34 invoice/models.py:89
+#: invoice/models.py:110 invoice_ar/models.py:24 invoice_ar/models.py:44
 msgid "contact"
 msgstr "contacto"
 
@@ -141,8 +142,8 @@ msgstr "Individuo"
 msgid "contact type"
 msgstr "tipo de contacto"
 
-#: contact/models.py:35 invoice/models.py:69 invoice/models.py:117
-#: invoice/models.py:261 invoice_ar/models.py:50 sales/models.py:146
+#: contact/models.py:35 invoice/models.py:68 invoice/models.py:111
+#: invoice/models.py:289 invoice_ar/models.py:45 sales/models.py:146
 #: sales/models.py:278
 msgid "contacts"
 msgstr "contactos"
@@ -406,19 +407,12 @@ msgstr "empleado tiene rol"
 msgid "employee has roles"
 msgstr "empleado tiene roles"
 
-#: invoice/models.py:21
-msgid "alphanumerical code"
-msgstr "código alfanumérico"
-
-#: invoice/models.py:25
-msgid ""
-"Some local oficial electronic systems handle specific codes for fiscal "
-"position types."
+#: invoice/models.py:25 invoice/models.py:130 invoice/models.py:251
+msgid "Some local official electronic systems handle specific codes."
 msgstr ""
-"Algunos sistemas electrónicos locales manejan códigos específicos para "
-"posiciones fiscales"
+"Algunos sistemas electrónicos locales manejan códigos específicos."
 
-#: invoice/models.py:33 invoice/models.py:52 invoice/models.py:95
+#: invoice/models.py:33 invoice/models.py:51 invoice/models.py:93
 msgid "fiscal position"
 msgstr "posición fiscal"
 
@@ -426,170 +420,178 @@ msgstr "posición fiscal"
 msgid "fiscal positions"
 msgstr "posiciones fiscales"
 
-#: invoice/models.py:57 invoice/models.py:100
+#: invoice/models.py:56 invoice/models.py:96
 msgid "Certain countries require a fiscal position for its taxpayers."
 msgstr ""
 "Algunos países requieren posiciones fiscales para quienes paguen impuestos."
 
-#: invoice/models.py:62
+#: invoice/models.py:61
 msgid "fiscal addresses"
 msgstr "domicilio fiscal"
 
-#: invoice/models.py:80 invoice_ar/models.py:90 persons/models.py:123
+#: invoice/models.py:79 invoice_ar/models.py:84 persons/models.py:123
 msgid "companies"
 msgstr "compañías"
 
-#: invoice/models.py:105 invoice_ar/models.py:131
+#: invoice/models.py:101 invoice_ar/models.py:125
 msgid "fiscal address"
 msgstr "domicilio fiscal"
 
-#: invoice/models.py:129
+#: invoice/models.py:123
 msgid "i.e. 8%"
 msgstr "ej: 8%"
 
-#: invoice/models.py:132
+#: invoice/models.py:134
 msgid "tax"
 msgstr "impuesto"
 
-#: invoice/models.py:133
+#: invoice/models.py:135
 msgid "A value between 0.00 and 1.00"
 msgstr "Un valor entre 0.00 y 1.00"
 
-#: invoice/models.py:141 invoice/models.py:171 invoice_ar/models.py:235
+#: invoice/models.py:143 invoice/models.py:173 invoice_ar/models.py:221
 msgid "VAT"
 msgstr "IVA"
 
-#: invoice/models.py:142
+#: invoice/models.py:144
 msgid "VATs"
 msgstr "IVAs"
 
-#: invoice/models.py:160
+#: invoice/models.py:162
 msgid "It could also be a service."
 msgstr "Podría también ser un servicio."
 
-#: invoice/models.py:163
+#: invoice/models.py:165
 msgid "suggested price"
 msgstr "precio sugerido"
 
-#: invoice/models.py:182 invoice/models.py:194 sales/models.py:46
+#: invoice/models.py:184 invoice/models.py:196 sales/models.py:46
 #: sales/models.py:66 sales/models.py:78 sales/models.py:205
 msgid "product"
 msgstr "producto"
 
-#: invoice/models.py:183 sales/models.py:67
+#: invoice/models.py:185 sales/models.py:67
 msgid "products"
 msgstr "productos"
 
-#: invoice/models.py:199 sales/models.py:83 sales/models.py:210
+#: invoice/models.py:201 sales/models.py:83 sales/models.py:210
 msgid "product price"
 msgstr "precio producto"
 
-#: invoice/models.py:207 sales/models.py:91 sales/models.py:218
+#: invoice/models.py:209 sales/models.py:91 sales/models.py:218
 msgid "VAT override"
 msgstr "Pisar el IVA definido"
 
-#: invoice/models.py:214 sales/models.py:98 sales/models.py:225
+#: invoice/models.py:216 sales/models.py:98 sales/models.py:225
 msgid "product discount"
 msgstr "descuento de producto"
 
-#: invoice/models.py:217 sales/models.py:101 sales/models.py:228
+#: invoice/models.py:219 sales/models.py:101 sales/models.py:228
 msgid "A number between 0.00 and 1.00"
 msgstr "Un número entre 0.00 y 1.00"
 
-#: invoice/models.py:220 sales/models.py:104 sales/models.py:231
+#: invoice/models.py:222 sales/models.py:104 sales/models.py:231
 msgid "quantity"
 msgstr "cantidad"
 
-#: invoice/models.py:231
+#: invoice/models.py:233
 msgid "invoice line"
 msgstr "línea de factura"
 
-#: invoice/models.py:232 invoice/models.py:270
+#: invoice/models.py:234 invoice/models.py:298
 msgid "invoice lines"
 msgstr "líneas de facturas"
 
-#: invoice/models.py:241 sales/models.py:125 sales/models.py:252
+#: invoice/models.py:259 invoice/models.py:304
+msgid "invoice type"
+msgstr "tipo de factura"
+
+#: invoice/models.py:260
+msgid "invoice types"
+msgstr "tipos de facturas"
+
+#: invoice/models.py:269 sales/models.py:125 sales/models.py:252
 msgid "Draft"
 msgstr "Borrador"
 
-#: invoice/models.py:242
+#: invoice/models.py:270
 msgid "Sent"
 msgstr "Enviada"
 
-#: invoice/models.py:243
+#: invoice/models.py:271
 msgid "Paid"
 msgstr "Pagada"
 
-#: invoice/models.py:244 sales/models.py:128 sales/models.py:255
+#: invoice/models.py:272 sales/models.py:128 sales/models.py:255
 msgid "Canceled"
 msgstr "Cancelada"
 
-#: invoice/models.py:266
+#: invoice/models.py:294
 msgid "number"
 msgstr "número"
 
-#: invoice/models.py:275 sales/models.py:157 sales/models.py:289
+#: invoice/models.py:311 sales/models.py:157 sales/models.py:289
 msgid "date"
 msgstr "fecha"
 
-#: invoice/models.py:276 sales/models.py:158 sales/models.py:290
+#: invoice/models.py:312 sales/models.py:158 sales/models.py:290
 msgid "Not necessarily today."
 msgstr "No necesariamente hoy."
 
-#: invoice/models.py:279 sales/models.py:180 sales/models.py:312
+#: invoice/models.py:315 sales/models.py:180 sales/models.py:312
 msgid "status"
 msgstr "estado"
 
-#: invoice/models.py:285 invoice_ar/models.py:240 sales/models.py:161
+#: invoice/models.py:321 invoice_ar/models.py:226 sales/models.py:161
 #: sales/models.py:293
 msgid "subtotal"
 msgstr "subtotal"
 
-#: invoice/models.py:289 sales/models.py:165 sales/models.py:297
+#: invoice/models.py:325 sales/models.py:165 sales/models.py:297
 msgid "Total without taxes."
 msgstr "Total sin impuestos."
 
-#: invoice/models.py:292 sales/models.py:168 sales/models.py:300
+#: invoice/models.py:328 sales/models.py:168 sales/models.py:300
 msgid "total"
 msgstr "total"
 
-#: invoice/models.py:296 sales/models.py:172 sales/models.py:304
+#: invoice/models.py:332 sales/models.py:172 sales/models.py:304
 msgid "Subtotal plus taxes."
 msgstr "Subtotal con impuestos."
 
-#: invoice/models.py:299 sales/models.py:175 sales/models.py:307
+#: invoice/models.py:335 sales/models.py:175 sales/models.py:307
 msgid "notes"
 msgstr "notas"
 
-#: invoice/models.py:319 invoice_ar/models.py:224 invoice_ar/models.py:225
+#: invoice/models.py:355 invoice_ar/models.py:210 invoice_ar/models.py:211
 msgid "invoice"
 msgstr "factura"
 
-#: invoice/models.py:320
+#: invoice/models.py:356
 msgid "invoices"
 msgstr "facturas"
 
-#: invoice_ar/models.py:14
+#: invoice_ar/models.py:11
 msgid "DNI"
 msgstr "DNI"
 
-#: invoice_ar/models.py:15 invoice_ar/models.py:65
+#: invoice_ar/models.py:12 invoice_ar/models.py:59
 msgid "CUIT"
 msgstr "CUIT"
 
-#: invoice_ar/models.py:16
+#: invoice_ar/models.py:13
 msgid "CUIL"
 msgstr "CUIL"
 
-#: invoice_ar/models.py:31
+#: invoice_ar/models.py:27
 msgid "id type"
 msgstr "Tipo de identificación"
 
-#: invoice_ar/models.py:38
+#: invoice_ar/models.py:34
 msgid "id number"
 msgstr "Número de identificación"
 
-#: invoice_ar/models.py:69
+#: invoice_ar/models.py:63
 msgid ""
 "Clave Única de Identificación Tributaria means Unique Code of Tributary "
 "Identification. Everybody who isn't an employee under somebody's payroll has "
@@ -598,97 +600,77 @@ msgstr ""
 "Clave Única de Identificación Tributaria. Todo aquél independiente que tiene "
 "uno."
 
-#: invoice_ar/models.py:76
+#: invoice_ar/models.py:70
 msgid "IIBB"
 msgstr "IIBB"
 
-#: invoice_ar/models.py:80
+#: invoice_ar/models.py:74
 msgid ""
 "Ingresos Brutos means Brute Income. It is a unique code given by fiscal "
 "regulators of provinces'."
 msgstr "Ingresos Brutos. Requerido por las provincias."
 
-#: invoice_ar/models.py:99
+#: invoice_ar/models.py:93
 msgid "Fiscal Controller"
 msgstr "Controlador Fiscal"
 
-#: invoice_ar/models.py:100
+#: invoice_ar/models.py:94
 msgid "Pre-printed"
 msgstr "Pre-impresas"
 
-#: invoice_ar/models.py:101
+#: invoice_ar/models.py:95
 msgid "Webservice"
 msgstr "Servicio Web"
 
-#: invoice_ar/models.py:102
+#: invoice_ar/models.py:96
 msgid "Online"
 msgstr "En línea"
 
-#: invoice_ar/models.py:121
+#: invoice_ar/models.py:115
 msgid "AFIP id"
 msgstr "Identificador de AFIP"
 
-#: invoice_ar/models.py:124
+#: invoice_ar/models.py:118
 msgid "point of sale type"
-msgstr "tipo de punto de venta" 
+msgstr "tipo de punto de venta"
 
-#: invoice_ar/models.py:138
+#: invoice_ar/models.py:132
 msgid "is inactive"
 msgstr "es inactivo"
 
-#: invoice_ar/models.py:147 invoice_ar/models.py:191
+#: invoice_ar/models.py:141 invoice_ar/models.py:176
 msgid "point of sale"
 msgstr "punto de venta"
 
-#: invoice_ar/models.py:148
+#: invoice_ar/models.py:142
 msgid "point of sales"
 msgstr "puntos de venta"
 
-#: invoice_ar/models.py:162
-msgid "AFIP code"
-msgstr "código de AFIP"
+#: invoice_ar/models.py:165 invoice_ar/models.py:189
+msgid "concept type"
+msgstr "tipo de concepto"
 
-#: invoice_ar/models.py:170
-msgid "invoice type"
-msgstr "tipo de factura"
+#: invoice_ar/models.py:166
+msgid "concept types"
+msgstr "tipos de conceptos"
 
-#: invoice_ar/models.py:171
-msgid "invoice types"
-msgstr "tipos de facturas"
-
-#: invoice_ar/models.py:179
-msgid "Product"
-msgstr "Producto"
-
-#: invoice_ar/models.py:180
-msgid "Service"
-msgstr "Servicio"
-
-#: invoice_ar/models.py:181
-msgid "Product and service"
-msgstr "Producto y servicio"
-
-#: invoice_ar/models.py:197
+#: invoice_ar/models.py:182
 msgid "due date"
 msgstr "fecha de vencimiento"
 
-#: invoice_ar/models.py:200
+#: invoice_ar/models.py:185
 msgid "service start"
 msgstr "inicio servicio"
 
-#: invoice_ar/models.py:203
-msgid "service type"
-msgstr "tipo de servicio"
-
-#: invoice_ar/models.py:208
+#: invoice_ar/models.py:194
 msgid "VAT total"
 msgstr "total IVA"
 
-#: invoice_ar/models.py:215 invoice_ar/models.py:251
+#: invoice_ar/models.py:201 invoice_ar/models.py:237
 msgid "VAT subtotals"
 msgstr "subtotales IVA"
 
-#: invoice_ar/models.py:250
+#: invoice_ar/models.py:236
 msgid "VAT subtotal"
 msgstr "subtotal IVA"
 
@@ -811,6 +793,24 @@ msgstr "venta"
 #: sales/models.py:326
 msgid "sales"
 msgstr "ventas"
+
+#~ msgid "alphanumerical code"
+#~ msgstr "código alfanumérico"
+
+#~ msgid "AFIP code"
+#~ msgstr "código de AFIP"
+
+#~ msgid "Product"
+#~ msgstr "Producto"
+
+#~ msgid "Service"
+#~ msgstr "Servicio"
+
+#~ msgid "Product and service"
+#~ msgstr "Producto y servicio"
+
+#~ msgid "service type"
+#~ msgstr "tipo de servicio"
 
 #~ msgid "street number"
 #~ msgstr "altura"
