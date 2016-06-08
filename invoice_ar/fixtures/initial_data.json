@@ -1,5 +1,29 @@
 [
 {
+ "model": "invoice.fiscalposition",
+ "pk": 1,
+ "fields": {
+  "name": "IVA Exento",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 2,
+ "fields": {
+  "name": "IVA Responsable Inscripto",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 3,
+ "fields": {
+  "name": "Consumidor Final",
+  "code": ""
+ }
+},
+{
  "model": "invoice.invoicetype",
  "pk": 1,
  "fields": {
@@ -11,7 +35,7 @@
  "model": "invoice.invoicetype",
  "pk": 2,
  "fields": {
-  "name": "Nota de D\u00e9bito A",
+  "name": "Nota de Débito A",
   "code": "2"
  }
 },
@@ -19,7 +43,7 @@
  "model": "invoice.invoicetype",
  "pk": 3,
  "fields": {
-  "name": "Nota de Cr\u00e9dito A",
+  "name": "Nota de Crédito A",
   "code": "3"
  }
 },
@@ -35,7 +59,7 @@
  "model": "invoice.invoicetype",
  "pk": 5,
  "fields": {
-  "name": "Nota de D\u00e9bito B",
+  "name": "Nota de Débito B",
   "code": "7"
  }
 },
@@ -43,7 +67,7 @@
  "model": "invoice.invoicetype",
  "pk": 6,
  "fields": {
-  "name": "Nota de Cr\u00e9dito B",
+  "name": "Nota de Crédito B",
   "code": "8"
  }
 },
@@ -83,7 +107,7 @@
  "model": "invoice.invoicetype",
  "pk": 11,
  "fields": {
-  "name": "Liquidaci\u00f3n A",
+  "name": "Liquidación A",
   "code": "63"
  }
 },
@@ -91,7 +115,7 @@
  "model": "invoice.invoicetype",
  "pk": 12,
  "fields": {
-  "name": "Liquidaci\u00f3n B",
+  "name": "Liquidación B",
   "code": "64"
  }
 },
@@ -107,7 +131,7 @@
  "model": "invoice.invoicetype",
  "pk": 14,
  "fields": {
-  "name": "Nota de D\u00e9bito C",
+  "name": "Nota de Débito C",
   "code": "12"
  }
 },
@@ -115,7 +139,7 @@
  "model": "invoice.invoicetype",
  "pk": 15,
  "fields": {
-  "name": "Nota de Cr\u00e9dito C",
+  "name": "Nota de Crédito C",
   "code": "13"
  }
 },
@@ -147,7 +171,7 @@
  "model": "invoice.invoicetype",
  "pk": 19,
  "fields": {
-  "name": "Nota de D\u00e9bito M",
+  "name": "Nota de Débito M",
   "code": "52"
  }
 },
@@ -155,7 +179,7 @@
  "model": "invoice.invoicetype",
  "pk": 20,
  "fields": {
-  "name": "Nota de Cr\u00e9dito M",
+  "name": "Nota de Crédito M",
   "code": "53"
  }
 },
@@ -165,6 +189,30 @@
  "fields": {
   "name": "Recibo M",
   "code": "54"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 1,
+ "fields": {
+  "name": "Producto",
+  "code": "1"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 2,
+ "fields": {
+  "name": "Servicios",
+  "code": "2"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 3,
+ "fields": {
+  "name": "Productos y Servicios",
+  "code": "3"
  }
 }
 ]
