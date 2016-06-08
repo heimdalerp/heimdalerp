@@ -93,4 +93,4 @@ class PaymentsByCompanyList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return models.Payment.objects.filter(contact__company='pk')
+        return models.Payment.objects.filter(contact__company=pk)

@@ -215,7 +215,7 @@ class Payment(models.Model):
     )
 
     def __str__(self):
-        return self.contact.name + ' : ' + str(amount) 
+        return self.contact.name + ' : ' + str(self.amount)
 
     class Meta:
         verbose_name = _('payment')

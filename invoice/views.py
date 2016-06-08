@@ -3,7 +3,6 @@ from rest_framework.viewsets import ModelViewSet
 
 from contact.models import Contact
 from invoice import models, serializers
-from persons.serializers import PhysicalAddressSerializer
 
 
 class FiscalPositionViewSet(ModelViewSet):

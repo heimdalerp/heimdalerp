@@ -2,10 +2,10 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
 from contact.models import Contact
+from invoice.models import CompanyInvoice, ContactInvoice
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)
-from invoice.models import CompanyInvoice, ContactInvoice
 from invoice_ar import models
 from persons.models import Company, PhysicalAddress
 
@@ -55,7 +55,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             defaults=invoice_contact_data
         )
         validated_data['invoice_contact'] = invoice_contact
-        
+
         invoicear_contact = models.ContactInvoiceAR.objects.create(
             **validated_data
         )
@@ -248,7 +248,7 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
             'point_of_sale_type',
             'fiscal_address',
             'is_inactive'
-        ) 
+        )
         extra_kwargs = {
             'url': {
                 'view_name': 'api:invoice_ar:pointofsale-detail'

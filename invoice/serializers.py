@@ -364,7 +364,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice:invoicetype-detail',
                 'required': False,
                 'allow_null': True
-            }, 
+            },
             'company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
             },

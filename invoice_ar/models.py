@@ -1,10 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from invoice.models import (CompanyInvoice,
-                            ContactInvoice,
-                            Invoice,
-                            VAT)
+from invoice.models import VAT, CompanyInvoice, ContactInvoice, Invoice
 from persons.models import PhysicalAddress
 
 ID_TYPE_DNI = 'D'
@@ -39,7 +36,6 @@ class ContactInvoiceAR(models.Model):
         default="",
         blank=True
     )
-
 
     def __str__(self):
         return self.invoice_contact.contact_contact.name
@@ -103,7 +99,7 @@ POINTOFSALE_TYPES = (
 
 class PointOfSale(models.Model):
     """
-    AFIP requires the following attributes related to a previously 
+    AFIP requires the following attributes related to a previously
     registered in their website point of sale.
     """
     def _limit_fiscal_address(self):
@@ -138,7 +134,7 @@ class PointOfSale(models.Model):
     )
 
     def __str__(self):
-        return 
+        return str(self.afip_id) + ' @ ' + str(self.invoicear_company)
 
     class Meta:
         unique_together = ('invoicear_company', 'afip_id')
@@ -239,4 +235,4 @@ class InvoiceARHasVATSubtotal(models.Model):
     class Meta:
         verbose_name = _('VAT subtotal')
         verbose_name_plural = _('VAT subtotals')
-        default_permissions = ('view', 'add', 'change', 'delete')   
+        default_permissions = ('view', 'add', 'change', 'delete')

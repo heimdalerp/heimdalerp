@@ -33,6 +33,7 @@ class CitySerializer(HyperlinkedModelSerializer):
             'country'
         )
 
+
 class RegionSerializer(HyperlinkedModelSerializer):
     url = HyperlinkedIdentityField(
         view_name='api:geo:region-detail',
