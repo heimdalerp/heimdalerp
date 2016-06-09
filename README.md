@@ -9,10 +9,10 @@ It is said that he brings the gift of the gods to mankind.
 
 ## 1. Install from source
 
-### 1.1 OpenBSD 5.8-stable
+### 1.1 OpenBSD 5.9-stable
 
     $ doas su
-    # pkg_add py3-pip py3-bcrypt postgresql-server postgresql py3-psycopg2 git
+    # pkg_add py3-pip py3-bcrypt postgresql-server postgresql py3-psycopg2 git apache-httpd
     # su _postgresql
     $ initdb /var/postgresql/data
     $ exit
@@ -42,10 +42,10 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     (heimdalerp) $ python3.4 manage.py cities_light
     (heimdalerp) $ python3.4 manage.py createinitialrevisions
 
-### 1.2 Debian 8 / Ubuntu 16.04
+### 1.2 Debian 8 / Ubuntu 16.04 LTS
 
     $ sudo su
-    # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 git
+    # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 git apache2 libapache2-mod-wsgi
     # su postgres
     $ createuser heimdalerp
     $ psql
