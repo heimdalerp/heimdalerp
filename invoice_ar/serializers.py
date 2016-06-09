@@ -12,6 +12,9 @@ from persons.models import Company, PhysicalAddress
 
 class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
     invoice_contact = ContactInvoiceSerializer()
+    invoices = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:contactinvoicear-invoices'
+    )
 
     class Meta:
         model = models.ContactInvoiceAR
@@ -20,7 +23,8 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             'id',
             'invoice_contact',
             'id_type',
-            'id_number'
+            'id_number',
+            'invoices'
         )
         extra_kwargs = {
             'url': {

@@ -32,5 +32,10 @@ urlpatterns = [
         views.InvoicesByConceptTypeList.as_view(),
         name='concepttype-invoices'
     ),
+    url(
+        r'^contacts/(?P<pk>\d+)/invoices/$',
+        views.InvoicesByContactList.as_view(),
+        name='contactinvoicear-invoices'
+    ),
     url(r'^', include(router.urls)),
 ]

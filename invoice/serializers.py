@@ -201,10 +201,13 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             },
             'fiscal_position': {
                 'view_name': 'api:invoice:fiscalposition-detail',
+                'required': False,
                 'allow_null': True
             },
-            'fiscal_addresses': {
-                'required': False
+            'fiscal_address': {
+                'view_name': 'api:persons:physicaladdress-detial',
+                'required': False,
+                'allow_null': True
             }
         }
 
