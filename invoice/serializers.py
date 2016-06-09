@@ -288,6 +288,7 @@ class VATSerializer(HyperlinkedModelSerializer):
             'id',
             'name',
             'tax',
+            'code',
             'products'
         )
         extra_kwargs = {

@@ -214,5 +214,59 @@
   "name": "Productos y Servicios",
   "code": "3"
  }
+},
+{
+ "model": "invoice.vat",
+ "pk": 1,
+ "fields": {
+  "name": "0% AR",
+  "code": "3",
+  "tax": 0.0
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 2,
+ "fields": {
+  "name": "10,5% AR",
+  "code": "4",
+  "tax": 0.105
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 3,
+ "fields": {
+  "name": "21% AR",
+  "code": "5",
+  "tax": 0.21
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 4,
+ "fields": {
+  "name": "27% AR",
+  "code": "6",
+  "tax": 0.27
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 5,
+ "fields": {
+  "name": "5% AR",
+  "code": "8",
+  "tax": 0.05
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 6,
+ "fields": {
+  "name": "9% AR",
+  "code": "9",
+  "tax": 0.025
+ }
 }
 ]
