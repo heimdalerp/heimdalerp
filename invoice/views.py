@@ -122,6 +122,14 @@ class InvoicesByCompanyList(ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['pk']
         queryset = models.Invoice.objects.filter(invoice_company=pk)
+
+        year = self.request.query_params.get('year')
+        month = self.request.query_params.get('month')
+        if year is not None:
+            queryset = queryset.filter(invoice_date__year=year)
+        if month is not None:
+            queryset = queryset.filter(invoice_date__month=month)
+
         return queryset 
 
 
@@ -130,5 +138,13 @@ class InvoicesByContactList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        contact = Contact.objects.filter(pk=pk)
-        return contact.invoices.all()
+        queryset = models.Invoice.objects.filter(contacts__pk=pk)
+
+        year = self.request.query_params.get('year')
+        month = self.request.query_params.get('month')
+        if year is not None:
+            queryset = queryset.filter(invoice_date__year=year)
+        if month is not None:
+            queryset = queryset.filter(invoice_date__month=month)
+
+        return queryset
