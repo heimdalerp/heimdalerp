@@ -163,6 +163,15 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             )
         )
         invoice_contact.fiscal_address.save()
+        invoice_contact.fiscal_position = invoice_contact_data.get(
+            'fiscal_position',
+            invoice_contact.fiscal_position
+        )
+        invoice_contact.legal_name = invoice_contact_data.get(
+            'legal_name',
+            invoice_contact.legal_name
+        )
+        invoice_contact.save()
 
         instance.id_type = validated_data.get('id_type', instance.id_type)
         instance.id_number = validated_data.get(
@@ -200,6 +209,13 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         invoice_company_data['persons_company'] = persons_company
 
+        fiscal_address_data = invoice_company_data.pop('fiscal_address')
+        fiscal_address, created = PhysicalAddress.objects.update_or_create(
+            pk=fiscal_address_data.get('id'),
+            defaults=fiscal_address_data
+        )
+        invoice_company_data['fiscal_address'] = fiscal_address
+
         invoice_company, created = CompanyInvoice.objects.update_or_create(
             pk=invoice_company_data.get('pk'),
             defaults=invoice_company_data
@@ -216,10 +232,15 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         invoice_company = instance.invoice_company
         persons_company = instance.invoice_company.persons_company
 
-        persons_company.name = persons_company_data.get(
-            'name',
-            persons_company.name
+        persons_company.fantasy_name = persons_company_data.get(
+            'fantasy_name',
+            persons_company.fantasy_name
         )
+        persons_company.legal_name = persons_company_data.get(
+            'legal_name',
+            persons_company.legal_name
+        )
+
         persons_company.initiated_activities = (
             persons_company_data.get(
                 'initiated_activities',
@@ -228,9 +249,42 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         persons_company.save()
 
+        fiscal_address_data = invoice_company_data.pop('fiscal_address')
+        invoice_company.fiscal_address.street_address = (
+            fiscal_address_data.get(
+                'street_address',
+                invoice_company.fiscal_address.street_address
+            )
+        )
+        invoice_company.fiscal_address.floor_number = (
+            fiscal_address_data.get(
+                'floor_number',
+                invoice_company.fiscal_address.floor_number
+            )
+        )
+        invoice_company.fiscal_address.apartment_number = (
+            fiscal_address_data.get(
+                'apartment_number',
+                invoice_company.fiscal_address.apartment_number
+            )
+        )
+        invoice_company.fiscal_address.city = (
+            fiscal_address_data.get(
+                'city',
+                invoice_company.fiscal_address.city
+            )
+        )
+        invoice_company.fiscal_address.postal_code = (
+            fiscal_address_data.get(
+                'postal_code',
+                invoice_company.fiscal_address.postal_code
+            )
+        )
+        invoice_company.fiscal_address.save()
+
         invoice_company.fiscal_position = validated_data.get(
             'fiscal_position',
-            instance.fiscal_position
+            invoice_company.fiscal_position
         )
         invoice_company.save()
 

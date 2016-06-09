@@ -95,6 +95,10 @@ class ContactInvoice(models.Model):
         Contact,
         verbose_name=_('contact')
     )
+    legal_name = models.CharField(
+        _('legal name'),
+        max_length=200
+    )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
         verbose_name=_('fiscal position'),

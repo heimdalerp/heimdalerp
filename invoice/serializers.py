@@ -46,6 +46,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'contact_contact',
+            'legal_name',
             'fiscal_position',
             'fiscal_address',
             'invoices'
@@ -166,6 +167,9 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         instance.fiscal_position = validated_data.get(
             'fiscal_position', instance.fiscal_position
         )
+        instance.legal_name = validated_data.get(
+            'legal_name', instance.legal_name
+        )
 
         instance.save()
         return instance
@@ -173,6 +177,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     persons_company = CompanySerializer()
+    fiscal_address = PhysicalAddressSerializer()
     contacts = HyperlinkedIdentityField(
         view_name='api:invoice:companyinvoice-contacts'
     )
@@ -205,9 +210,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
                 'allow_null': True
             },
             'fiscal_address': {
-                'view_name': 'api:persons:physicaladdress-detial',
-                'required': False,
-                'allow_null': True
+                'required': False
             }
         }
 
@@ -224,9 +227,13 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         persons_company_data = validated_data.pop('persons_company')
-        instance.persons_company.name = persons_company_data.get(
-            'name',
-            instance.persons_company.name
+        instance.persons_company.fantasy_name = persons_company_data.get(
+            'fantasy_name',
+            instance.persons_company.fantasy_name
+        )
+        instance.persons_company.legal_name = persons_company_data.get(
+            'legal_name',
+            instance.persons_company.legal_name
         )
         instance.persons_company.initiated_activities = (
             persons_company_data.get(
