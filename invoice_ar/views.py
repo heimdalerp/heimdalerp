@@ -29,7 +29,8 @@ class InvoicesByConceptTypeList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return models.InvoiceAR.objects.filter(concept_type=pk)
+        queryset = models.InvoiceAR.objects.filter(concept_type=pk)
+        return queryset
 
 
 class InvoiceARViewSet(ModelViewSet):

@@ -56,12 +56,13 @@ class CompanyInvoice(models.Model):
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
-    fiscal_addresses = models.ManyToManyField(
+    fiscal_address = models.ForeignKey(
         PhysicalAddress,
-        verbose_name=_('fiscal addresses'),
+        verbose_name=_('fiscal address'),
         related_name='+',
-        related_query_name='company',
-        blank=True
+        related_query_name='+',
+        blank=True,
+        null=True
     )
     contacts = models.ManyToManyField(
         Contact,
