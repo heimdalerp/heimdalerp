@@ -295,11 +295,12 @@ class Invoice(models.Model):
         related_query_name='invoice',
         db_index=True
     )
-    contacts = models.ManyToManyField(
-        Contact,
-        verbose_name=_('contacts'),
+    invoice_contact = models.ForeignKey(
+        ContactInvoice,
+        verbose_name=_('contact'),
         related_name='invoices',
-        related_query_name='invoice'
+        related_query_name='invoice',
+        db_index=True
     )
     number = models.BigIntegerField(
         _('number')
@@ -351,9 +352,7 @@ class Invoice(models.Model):
         Transaction,
         verbose_name=_('transaction'),
         related_name='+',
-        related_query_name='+',
-        blank=True,
-        null=True
+        related_query_name='+'
     )
 
     def __str__(self):

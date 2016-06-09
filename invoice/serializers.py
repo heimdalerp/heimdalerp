@@ -379,8 +379,8 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
-            'contacts',
+            'invoice_company',
+            'invoice_contact',
             'number',
             'invoice_lines',
             'invoice_type',
@@ -400,16 +400,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'required': False,
                 'allow_null': True
             },
-            'company': {
+            'invoice_company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
             },
-            'contacts': {
-                'view_name': 'api:invoice:contactinvoice-detail',
-                'many': True
+            'invoice_contact': {
+                'view_name': 'api:invoice:contactinvoice-detail'
             },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
-                'required': False,
-                'allow_null': True
+                'read_only': True
             }
         }

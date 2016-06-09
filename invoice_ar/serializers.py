@@ -184,6 +184,9 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
 
 class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
     invoice_company = CompanyInvoiceSerializer()
+    invoices = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:companyinvoicear-invoices'
+    )
 
     class Meta:
         model = models.CompanyInvoiceAR
@@ -192,7 +195,8 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'id',
             'invoice_company',
             'cuit',
-            'iibb'
+            'iibb',
+            'invoices'
         )
         extra_kwargs = {
             'url': {
@@ -370,8 +374,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'invoice_company',
-            'contacts',
+            'invoicear_company',
+            'invoicear_contact',
             'number',
             'invoice_lines',
             'invoice_type',
@@ -392,20 +396,18 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:invoice_ar:invoicear-detail'
             },
-            'invoice_company': {
-                'view_name': 'api:invoice:companyinvoice-detail'
+            'invoicear_company': {
+                'view_name': 'api:invoice_ar:companyinvoice-detail'
             },
             'invoice_type': {
                 'view_name': 'api:invoice:invoicetype-detail'
             },
-            'contacts': {
-                'view_name': 'api:invoice:contactinvoice-detail',
-                'many': True
+            'invoicear_contact': {
+                'view_name': 'api:invoice_ar:contactinvoice-detail'
             },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
-                'required': False,
-                'allow_null': True
+                'read_only': True
             },
             'point_of_sale': {
                 'view_name': 'api:invoice_ar:pointofsale-detail'

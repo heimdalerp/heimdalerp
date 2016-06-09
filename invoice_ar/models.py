@@ -171,6 +171,20 @@ class InvoiceAR(Invoice):
     """
     Invoice extension for Argentina.
     """
+    invoicear_company = models.ForeignKey(
+        CompanyInvoiceAR,
+        verbose_name=_('company AR'),
+        related_name='invoices',
+        related_query_name='invoice',
+        db_index=True
+    )
+    invoicear_contact = models.ForeignKey(
+        ContactInvoiceAR,
+        verbose_name=_('contact AR'),
+        related_name='invoices',
+        related_query_name='invoice',
+        db_index=True
+    )
     point_of_sale = models.ForeignKey(
         PointOfSale,
         verbose_name=_('point of sale'),

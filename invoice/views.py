@@ -138,7 +138,7 @@ class InvoicesByContactList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        queryset = models.Invoice.objects.filter(contacts__pk=pk)
+        queryset = models.Invoice.objects.filter(invoice_contact=pk)
 
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
