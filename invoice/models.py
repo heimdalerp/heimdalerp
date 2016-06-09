@@ -45,6 +45,12 @@ class CompanyInvoice(models.Model):
         Company,
         verbose_name=_('company')
     )
+    legal_name = models.CharField(
+        _('legal name'),
+        max_length=200,
+        default="",
+        blank=True
+    )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
         on_delete=models.PROTECT,
@@ -73,7 +79,7 @@ class CompanyInvoice(models.Model):
     )
 
     def __str__(self):
-        return self.persons_company.name
+        return str(self.persons_company)
 
     class Meta:
         verbose_name = _('company')
@@ -348,8 +354,8 @@ class Invoice(models.Model):
 
     def __str__(self):
         return "%(invoice_company)s : %(number)s" % {
-            'invoice_company': self.invoice_company.persons_company.name,
-            'number': self.number
+            'invoice_company': str(self.invoice_company),
+            'number': str(self.number)
         }
 
     class Meta:

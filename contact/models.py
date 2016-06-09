@@ -18,8 +18,7 @@ class Contact(PersonProfile):
     """
     name = models.CharField(
         _('name'),
-        max_length=150,
-        db_index=True
+        max_length=150
     )
     contact_type = models.CharField(
         _('contact type'),

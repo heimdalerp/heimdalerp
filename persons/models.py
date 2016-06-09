@@ -104,10 +104,22 @@ class Company(models.Model):
     """
     The companies using HeimdalERP.
     """
-    name = models.CharField(
-        _('name'),
+    fantasy_name = models.CharField(
+        _('fantasy name'),
         max_length=150,
         unique=True
+    )
+    legal_name = models.CharField(
+        _('legal name'),
+        max_length=300,
+        default="",
+        blank=True
+    )
+    slogan = models.CharField(
+        _('slogan'),
+        max_length=200,
+        default="",
+        blank=True
     )
     initiated_activities = models.DateField(
         _('initiated activities'),
@@ -116,7 +128,7 @@ class Company(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.fantasy_name
 
     class Meta:
         verbose_name = _('company')

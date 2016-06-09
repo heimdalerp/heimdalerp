@@ -77,7 +77,7 @@ class CompanyInvoiceAR(models.Model):
     )
 
     def __str__(self):
-        return self.invoice_company.persons_company.name
+        return str(self.invoice_company)
 
     class Meta:
         verbose_name = _('company')
