@@ -71,7 +71,7 @@ class CompanyInvoiceAR(models.Model):
         max_length=15,
         default="",
         blank=True,
-        help_text=_("Ingresos Brutos means Brute Income. It is a unique "
+        help_text=_("Ingresos Brutos means gross revenue. It is a unique "
                     "code given by fiscal regulators of provinces'."
                     )
     )
