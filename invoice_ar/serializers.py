@@ -2,7 +2,9 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
 from contact.models import Contact
-from invoice.models import CompanyInvoice, ContactInvoice
+from invoice.models import (CompanyInvoice,
+                            ContactInvoice,
+                            INVOICE_STATUSTYPE_DRAFT)
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)
@@ -405,6 +407,15 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'invoicear_contact': {
                 'view_name': 'api:invoice_ar:contactinvoice-detail'
             },
+            'status': {
+                'read_only': True
+            },
+            'subtotal': {
+                'read_only': True
+            },
+            'total': {
+                'read_only': True
+            },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
                 'read_only': True
@@ -414,5 +425,30 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             },
             'concept_type': {
                 'view_name': 'api:invoice_ar:concepttype-detail'
+            },
+            'vat_total': {
+                'read_only': True
+            },
+            'vat_subtotals': {
+                'view_name':
+                    'api:invoice_ar:invoicearhasvatsubtotal-detail',
+                'many': True,
+                'read_only': True
             }
         }
+
+    def create(self, validated_data):
+        invoice_company = (
+            validated_data.get('invoicear_company').invoice_company
+        )
+        invoice_contact = (
+            validated_data.get('invoicear_contact').invoice_contact
+        )
+
+        invoicear = models.InvoiceAR.create(
+            status=INVOICE_STATUSTYPE_DRAFT,
+            invoice_company=invoice_company,
+            invoice_contact=invoice_contact,
+            **validated_data
+        )
+        return invoicear

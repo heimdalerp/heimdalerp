@@ -161,19 +161,22 @@ class Product(models.Model):
     A basic product. It could also be a service.
     See other modules like 'sales' for more advanced products.
     """
-    company = models.ForeignKey(
-        Company,
+    invoice_company = models.ForeignKey(
+        CompanyInvoice,
         verbose_name=_('company'),
         related_name='products',
-        related_query_name='product'
+        related_query_name='product',
+        on_delete=models.PROTECT,
+        db_index=True
     )
     name = models.CharField(
         _('name'),
         max_length=150,
-        help_text=_("It could also be a service.")
+        help_text=_("It could also be a service."),
+        db_index=True
     )
-    suggested_price = models.DecimalField(
-        _('suggested price'),
+    current_price = models.DecimalField(
+        _('current price'),
         max_digits=12,
         decimal_places=2,
         blank=True,
@@ -183,15 +186,16 @@ class Product(models.Model):
         VAT,
         verbose_name=_('VAT'),
         related_name='products',
-        related_query_name='product'
+        related_query_name='product',
+        on_delete=models.PROTECT,
+        db_index=True
     )
 
     def __str__(self):
         return "%(name)s" % {'name': self.name}
 
     class Meta:
-        unique_together = (('company', 'name'), )
-        index_together = [['company', 'name'], ]
+        unique_together = ('invoice_company', 'name')
         verbose_name = _('product')
         verbose_name_plural = _('products')
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -206,25 +210,18 @@ class InvoiceLine(models.Model):
         Product,
         verbose_name=_('product'),
         related_name='invoice_lines',
-        related_query_name='invoice_line'
+        related_query_name='invoice_line',
+        on_delete=models.PROTECT
     )
-    product_price_override = models.DecimalField(
-        _('product price'),
+    price_sold = models.DecimalField(
+        _('price sold'),
         max_digits=12,
         decimal_places=2,
         blank=True,
         null=True,
     )
-    product_vat_override = models.ForeignKey(
-        VAT,
-        verbose_name=_('VAT override'),
-        related_name='invoice_lines',
-        related_query_name='invoice_line',
-        blank=True,
-        null=True
-    )
-    product_discount = models.FloatField(
-        _('product discount'),
+    discount = models.FloatField(
+        _('discount'),
         default=0.00,
         blank=True,
         help_text=_("A number between 0.00 and 1.00")
@@ -293,6 +290,7 @@ class Invoice(models.Model):
         verbose_name=_('company'),
         related_name='invoices',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         db_index=True
     )
     invoice_contact = models.ForeignKey(
@@ -300,10 +298,12 @@ class Invoice(models.Model):
         verbose_name=_('contact'),
         related_name='invoices',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         db_index=True
     )
     number = models.BigIntegerField(
-        _('number')
+        _('number'),
+        default=0
     )
     invoice_lines = models.ManyToManyField(
         InvoiceLine,
@@ -316,6 +316,7 @@ class Invoice(models.Model):
         verbose_name=_('invoice type'),
         related_name='invoices',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )
@@ -352,7 +353,9 @@ class Invoice(models.Model):
         Transaction,
         verbose_name=_('transaction'),
         related_name='+',
-        related_query_name='+'
+        related_query_name='invoice',
+        blank=True,
+        null=True
     )
 
     def __str__(self):
@@ -362,6 +365,7 @@ class Invoice(models.Model):
         }
 
     class Meta:
+        unique_together = ('invoice_company', 'invoice_type', 'number')
         verbose_name = _('invoice')
         verbose_name_plural = _('invoices')
         default_permissions = ('view', 'add', 'change', 'delete')

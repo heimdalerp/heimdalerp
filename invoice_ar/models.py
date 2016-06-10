@@ -176,6 +176,7 @@ class InvoiceAR(Invoice):
         verbose_name=_('company AR'),
         related_name='invoices',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         db_index=True
     )
     invoicear_contact = models.ForeignKey(
@@ -183,6 +184,7 @@ class InvoiceAR(Invoice):
         verbose_name=_('contact AR'),
         related_name='invoices',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         db_index=True
     )
     point_of_sale = models.ForeignKey(
@@ -190,7 +192,8 @@ class InvoiceAR(Invoice):
         verbose_name=_('point of sale'),
         related_name='invoices_ar',
         related_query_name='invoice_ar',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     due_date = models.DateField(
         _('due date')
@@ -202,7 +205,9 @@ class InvoiceAR(Invoice):
         ConceptType,
         verbose_name=_('concept type'),
         related_name='invoices',
-        related_query_name='invoice'
+        related_query_name='invoice',
+        on_delete=models.PROTECT,
+        db_index=True
     )
     vat_total = models.DecimalField(
         _('VAT total'),

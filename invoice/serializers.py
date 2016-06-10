@@ -1,6 +1,7 @@
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
+from decimal import Decimal
 from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
@@ -308,9 +309,9 @@ class ProductSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'invoice_company',
             'name',
-            'suggested_price',
+            'current_price',
             'vat',
             'invoice_lines'
         )
@@ -318,7 +319,7 @@ class ProductSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:invoice:product-detail'
             },
-            'company': {
+            'invoice_company': {
                 'view_name': 'api:invoice:companyinvoice-detail'
             },
             'vat': {
@@ -335,9 +336,8 @@ class InvoiceLineSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'product',
-            'product_price_override',
-            'product_vat_override',
-            'product_discount',
+            'price_sold',
+            'discount',
             'quantity'
         )
         extra_kwargs = {
@@ -406,8 +406,45 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'invoice_contact': {
                 'view_name': 'api:invoice:contactinvoice-detail'
             },
+            'subtotal': {
+                'read_only': True
+            },
+            'total': {
+                'read_only': True
+            },
+            'status': {
+                'read_only': True
+            },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
                 'read_only': True
             }
         }
+
+    def create(self, validated_data):
+        number = validated_data.get('number')
+        if number is None or number == 0:
+            max_invoice = models.Invoice.objects.all.aggregate(
+                models.Max('number')
+            )
+            number = max_invoice.number + 1
+            validated_data['number'] = number
+
+        subtotal = Decimal('0.00')
+        total = Decimal('0.00')
+        for l in validated_data.get('invoice_lines'):
+            if l.discount > 0.00:
+                price_discount = l.price_sold - (l.price_sold * l.discount)
+                subtotal += price_discount 
+                total += price_discount + (price_discount*l.product.vat.tax)
+            else:
+                subtotal += l.price_sold
+                total += l.price_sold + (l.price_sold*l.product.vat.tax)
+
+        invoice = models.Invoice.create(
+            status=models.INVOICE_STATUSTYPE_DRAFT,
+            subtotal=subtotal,
+            total=total,
+            **validated_data
+        )
+        return invoice
