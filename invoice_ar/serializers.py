@@ -2,9 +2,8 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
 from contact.models import Contact
-from invoice.models import (CompanyInvoice,
-                            ContactInvoice,
-                            INVOICE_STATUSTYPE_DRAFT)
+from invoice.models import (INVOICE_STATUSTYPE_DRAFT, CompanyInvoice,
+                            ContactInvoice)
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)

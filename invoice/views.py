@@ -1,7 +1,6 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
-from contact.models import Contact
 from invoice import models, serializers
 
 
@@ -130,7 +129,7 @@ class InvoicesByCompanyList(ListAPIView):
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
 
-        return queryset 
+        return queryset
 
 
 class InvoicesByContactList(ListAPIView):

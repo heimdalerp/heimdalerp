@@ -1,7 +1,8 @@
+from decimal import Decimal
+
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
-from decimal import Decimal
 from contact.models import Contact
 from contact.serializers import ContactSerializer
 from invoice import models
@@ -435,7 +436,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
         for l in validated_data.get('invoice_lines'):
             if l.discount > 0.00:
                 price_discount = l.price_sold - (l.price_sold * l.discount)
-                subtotal += price_discount 
+                subtotal += price_discount
                 total += price_discount + (price_discount*l.product.vat.tax)
             else:
                 subtotal += l.price_sold
