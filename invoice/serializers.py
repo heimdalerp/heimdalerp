@@ -473,9 +473,8 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
 
         invoice_lines_data = validated_data.pop('invoice_lines')
 
-        invoice = models.Invoice.create(
+        invoice = models.Invoice.objects.create(
             status=models.INVOICE_STATUSTYPE_DRAFT,
-            number=number,
             **validated_data
         )
 
