@@ -11,7 +11,7 @@ class ProductCategorySerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'persons_company',
             'name',
             'description'
         )
@@ -19,7 +19,7 @@ class ProductCategorySerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:sales:productcategory-detail'
             },
-            'company': {
+            'persons_company': {
                 'view_name': 'api:persons:company-detail'
             }
         }
@@ -77,7 +77,7 @@ class QuotationSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'persons_company',
             'contacts',
             'quotation_lines',
             'quotation_date',
@@ -89,11 +89,11 @@ class QuotationSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:sales:quotation-detail'
             },
-            'company': {
+            'persons_company': {
                 'view_name': 'api:persons:company-detail'
             },
             'contacts': {
-                'view_name': 'api:invoice:contact-detail',
+                'view_name': 'api:contact:contact-detail',
                 'many': True
             }
         }
@@ -129,7 +129,7 @@ class SaleSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'persons_company',
             'contacts',
             'sale_lines',
             'sale_date',
@@ -142,11 +142,11 @@ class SaleSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:sales:sale-detail'
             },
-            'company': {
+            'persons_company': {
                 'view_name': 'api:persons:company-detail'
             },
             'contacts': {
-                'view_name': 'api:invoice:contact-detail',
+                'view_name': 'api:contact:contact-detail',
                 'many': True
             }
         }

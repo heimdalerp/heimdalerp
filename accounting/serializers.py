@@ -10,14 +10,14 @@ class LedgerSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'persons_company',
             'name'
         )
         extra_kwargs = {
             'url': {
                 'view_name': 'api:accounting:ledger-detail'
             },
-            'company': {
+            'persons_company': {
                 'view_name': 'api:persons:company-detail'
             }
         }
@@ -56,7 +56,7 @@ class AccountSubtypeSerializer(HyperlinkedModelSerializer):
             fields = (
                 'url',
                 'id',
-                'company',
+                'persons_company',
                 'main_type',
                 'name'
             )
@@ -64,7 +64,7 @@ class AccountSubtypeSerializer(HyperlinkedModelSerializer):
                 'url': {
                     'view_name': 'api:accounting:accountsubtype-detail'
                 },
-                'company': {
+                'persons_company': {
                     'view_name': 'api:persons:company-detail'
                 }
             }
@@ -103,7 +103,7 @@ class PaymentSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'contact',
+            'contact_contact',
             'account',
             'amount'
         )
@@ -111,7 +111,7 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:accounting:payment-detail'
             },
-            'invoice_contact': {
+            'contact_contact': {
                 'view_name': 'api:contact:contact-detail'
             },
             'account': {

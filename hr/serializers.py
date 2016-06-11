@@ -345,7 +345,7 @@ class AreaSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
-            'company',
+            'persons_company',
             'name',
             'points',
             'employees'
@@ -354,7 +354,7 @@ class AreaSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:hr:area-detail'
             },
-            'company': {
+            'persons_company': {
                 'view_name': 'api:persons:company-detail'
             }
         }
