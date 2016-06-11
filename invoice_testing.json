@@ -1,0 +1,486 @@
+[
+{
+ "model": "persons.physicaladdress",
+ "pk": 1,
+ "fields": {
+  "street_address": "Javier de la Rosa 19",
+  "floor_number": "1",
+  "apartment_number": "34",
+  "city": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 2,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "city": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 3,
+ "fields": {
+  "street_address": "Hola 123",
+  "floor_number": "1",
+  "apartment_number": "1",
+  "city": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 4,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "city": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 5,
+ "fields": {
+  "street_address": "Hola 1234",
+  "floor_number": "2",
+  "apartment_number": "2",
+  "city": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 6,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "city": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 7,
+ "fields": {
+  "street_address": "Hola 555",
+  "floor_number": "3",
+  "apartment_number": "3",
+  "city": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.company",
+ "pk": 1,
+ "fields": {
+  "fantasy_name": "IRONA",
+  "legal_name": "Baragiola-Zanitti SH",
+  "slogan": "Make Your Company Great Again",
+  "initiated_activities": "2016-01-01"
+ }
+},
+{
+ "model": "accounting.ledger",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "name": "Libro Mayor"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 1,
+ "fields": {
+  "ledger": 1,
+  "code": "001",
+  "name": "Facturaci\u00f3n - D\u00e9bito",
+  "account_subtype": 1,
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 2,
+ "fields": {
+  "ledger": 1,
+  "code": "002",
+  "name": "Facturaci\u00f3n - Cr\u00e9dito",
+  "account_subtype": 1,
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.accountsubtype",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "main_type": "P",
+  "name": "Invoicing"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 1,
+ "fields": {
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 2,
+  "name": "Cliente 1",
+  "contact_type": "C"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 2,
+ "fields": {
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 4,
+  "name": "Cliente 2",
+  "contact_type": "C"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 3,
+ "fields": {
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 6,
+  "name": "Cliente 3",
+  "contact_type": "C"
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 1,
+ "fields": {
+  "name": "IVA Exento",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 2,
+ "fields": {
+  "name": "IVA Responsable Inscripto",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 3,
+ "fields": {
+  "name": "Consumidor Final",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.companyinvoice",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "legal_name": "",
+  "fiscal_position": 3,
+  "fiscal_address": 1,
+  "default_invoice_debit_account": 1,
+  "default_invoice_credit_account": 2,
+  "contacts": []
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 1,
+ "fields": {
+  "contact_contact": 1,
+  "legal_name": "Cliente 1",
+  "fiscal_position": 2,
+  "fiscal_address": 3
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 2,
+ "fields": {
+  "contact_contact": 2,
+  "legal_name": "Cliente 2",
+  "fiscal_position": 2,
+  "fiscal_address": 5
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 3,
+ "fields": {
+  "contact_contact": 3,
+  "legal_name": "Cliente 3",
+  "fiscal_position": 3,
+  "fiscal_address": 7
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 1,
+ "fields": {
+  "name": "0% AR",
+  "code": "3",
+  "tax": 0.0
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 2,
+ "fields": {
+  "name": "10,5% AR",
+  "code": "4",
+  "tax": 0.105
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 3,
+ "fields": {
+  "name": "21% AR",
+  "code": "5",
+  "tax": 0.21
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 4,
+ "fields": {
+  "name": "27% AR",
+  "code": "6",
+  "tax": 0.27
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 5,
+ "fields": {
+  "name": "5% AR",
+  "code": "8",
+  "tax": 0.05
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 6,
+ "fields": {
+  "name": "9% AR",
+  "code": "9",
+  "tax": 0.025
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Men\u00fa",
+  "current_price": "50.00",
+  "vat": 3
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 2,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Men\u00fa Especial",
+  "current_price": "70.00",
+  "vat": 2
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 3,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Leche Entera",
+  "current_price": "10.00",
+  "vat": 1
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 1,
+ "fields": {
+  "name": "Factura A",
+  "code": "1"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 2,
+ "fields": {
+  "name": "Nota de D\u00e9bito A",
+  "code": "2"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 3,
+ "fields": {
+  "name": "Nota de Cr\u00e9dito A",
+  "code": "3"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 4,
+ "fields": {
+  "name": "Factura B",
+  "code": "6"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 5,
+ "fields": {
+  "name": "Nota de D\u00e9bito B",
+  "code": "7"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 6,
+ "fields": {
+  "name": "Nota de Cr\u00e9dito B",
+  "code": "8"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 7,
+ "fields": {
+  "name": "Recibos A",
+  "code": "4"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 8,
+ "fields": {
+  "name": "Notas de Venta al contado A",
+  "code": "5"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 9,
+ "fields": {
+  "name": "Recibo B",
+  "code": "9"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 10,
+ "fields": {
+  "name": "Notas de Venta al contado B",
+  "code": "10"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 11,
+ "fields": {
+  "name": "Liquidaci\u00f3n A",
+  "code": "63"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 12,
+ "fields": {
+  "name": "Liquidaci\u00f3n B",
+  "code": "64"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 13,
+ "fields": {
+  "name": "Factura C",
+  "code": "11"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 14,
+ "fields": {
+  "name": "Nota de D\u00e9bito C",
+  "code": "12"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 15,
+ "fields": {
+  "name": "Nota de Cr\u00e9dito C",
+  "code": "13"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 16,
+ "fields": {
+  "name": "Recibo C",
+  "code": "15"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 17,
+ "fields": {
+  "name": "Comprobante de Compra de Bienes Usados a Consumidor Final",
+  "code": "49"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 18,
+ "fields": {
+  "name": "Factura M",
+  "code": "51"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 19,
+ "fields": {
+  "name": "Nota de D\u00e9bito M",
+  "code": "52"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 20,
+ "fields": {
+  "name": "Nota de Cr\u00e9dito M",
+  "code": "53"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 21,
+ "fields": {
+  "name": "Recibo M",
+  "code": "54"
+ }
+}
+]
