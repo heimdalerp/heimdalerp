@@ -200,6 +200,8 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'fiscal_address',
             'contacts',
             'products',
+            'default_invoice_debit_account',
+            'default_invoice_credit_account',
             'invoices'
         )
         extra_kwargs = {
@@ -213,6 +215,16 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             },
             'fiscal_address': {
                 'required': False
+            },
+            'default_invoice_debit_account': {
+                'view_name': 'api:accounting:account-detail',
+                'required': False,
+                'allow_null': True
+            },
+            'default_invoice_credit_account': {
+                'view_name': 'api:accounting:account-detail',
+                'required': False,
+                'allow_null': True
             }
         }
 
@@ -272,6 +284,14 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         instance.fiscal_position = validated_data.get(
             'fiscal_position',
             instance.fiscal_position
+        )
+        instance.default_invoice_debit_account = validated_data.get(
+            'default_invoice_debit_account',
+            instance.default_invoice_debit_account
+        )
+        instance.default_invoice_credit_account = validated_data.get(
+            'default_invoice_credit_account',
+            instance.default_invoice_credit_account
         )
 
         instance.save()
@@ -390,6 +410,8 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'subtotal',
             'total',
             'status',
+            'invoice_debit_account',
+            'invoice_credit_account',
             'transaction'
         )
         extra_kwargs = {
@@ -415,6 +437,16 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             },
             'status': {
                 'read_only': True
+            },
+            'invoice_debit_account': {
+                'view_name': 'api:accounting:account-detail',
+                'required': False,
+                'allow_null': True
+            },
+            'invoice_credit_account': {
+                'view_name': 'api:accounting:account-detail',
+                'required': False,
+                'allow_null': True
             },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
