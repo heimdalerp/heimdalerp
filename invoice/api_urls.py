@@ -38,7 +38,7 @@ urlpatterns = [
     url(
         r'^products/(?P<pk>\d+)/invoicelines/$',
         views.InvoiceLinesByProductList.as_view(),
-        name='productinvoice-invoicelines'
+        name='product-invoicelines'
     ),
     url(
         r'^vats/(?P<pk>\d+)/products/$',

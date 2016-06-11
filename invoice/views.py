@@ -84,8 +84,7 @@ class InvoiceLinesByProductList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        product = models.Product.objects.filter(pk=pk)
-        return product.invoice_lines.all()
+        return models.InvoiceLine.objects.filter(product=pk)
 
 
 class InvoiceTypeViewSet(ModelViewSet):

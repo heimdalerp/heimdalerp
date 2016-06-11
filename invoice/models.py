@@ -41,11 +41,6 @@ class CompanyInvoice(models.Model):
     as many as you need.
     This is an extension of 'persons.models.Company'.
     """
-    def _limit_account(self):
-        return {
-            'ledger__persons_company': self.persons_company
-        }
-
     persons_company = models.OneToOneField(
         Company,
         verbose_name=_('company')
@@ -88,7 +83,6 @@ class CompanyInvoice(models.Model):
         verbose_name=_('default invoice debit account'),
         related_name='+',
         related_query_name='+',
-        limit_choices_to=_limit_account,
         null=True,
         blank=True
     )
@@ -97,7 +91,6 @@ class CompanyInvoice(models.Model):
         verbose_name=_('default invoice credit account'),
         related_name='+',
         related_query_name='+',
-        limit_choices_to=_limit_account,
         null=True,
         blank=True
     )
@@ -311,12 +304,6 @@ class Invoice(models.Model):
     """
     The invoices themselves.
     """
-    def _limit_account(self):
-        return {
-            'ledger__persons_company': self.invoice_company.persons_company
-        }
-
-
     invoice_company = models.ForeignKey(
         CompanyInvoice,
         verbose_name=_('company'),
@@ -388,14 +375,12 @@ class Invoice(models.Model):
         verbose_name=_('invoice debit account'),
         related_name='invoices_debit',
         related_query_name='invoice_debit',
-        limit_choices_to=_limit_account
     )
     invoice_credit_account = models.ForeignKey(
         Account,
         verbose_name=_('invoice credit account'),
         related_name='invoices_credit',
         related_query_name='invoice_credit',
-        limit_choices_to=_limit_account
     )
     transaction = models.ForeignKey(
         Transaction,
