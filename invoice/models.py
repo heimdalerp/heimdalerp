@@ -335,13 +335,15 @@ class Invoice(models.Model):
     )
     number = models.BigIntegerField(
         _('number'),
-        default=0
+        default=0,
+        blank=True
     )
     invoice_lines = models.ManyToManyField(
         InvoiceLine,
         verbose_name=_('invoice lines'),
         related_name='+',
-        related_query_name='invoice'
+        related_query_name='invoice',
+        blank=True
     )
     invoice_type = models.ForeignKey(
         InvoiceType,
@@ -412,7 +414,6 @@ class Invoice(models.Model):
         }
 
     class Meta:
-        unique_together = ('invoice_company', 'invoice_type', 'number')
         verbose_name = _('invoice')
         verbose_name_plural = _('invoices')
         default_permissions = ('view', 'add', 'change', 'delete')

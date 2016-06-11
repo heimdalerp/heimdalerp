@@ -129,7 +129,7 @@ class AccountSubtype(models.Model):
     )
 
     def __str__(self):
-        return _noop('%(main_type)s::(%name)s') % {
+        return _noop('%(main_type)s::%(name)s') % {
             'main_type': self.main_type,
             'name': self.name
         }

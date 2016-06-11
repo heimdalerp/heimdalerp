@@ -429,6 +429,9 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'invoice_contact': {
                 'view_name': 'api:invoice:contactinvoice-detail'
             },
+            'number': {
+                'required': False
+            },
             'subtotal': {
                 'read_only': True
             },
@@ -455,6 +458,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
         }
 
     def create(self, validated_data):
+        '''
         number = validated_data.get('number')
         if number is None or number == 0:
             max_invoice = models.Invoice.objects.all.aggregate(
@@ -462,22 +466,88 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             )
             number = max_invoice.number + 1
             validated_data['number'] = number
+        '''
+        number = validated_data.get('number')
+        if number is None or number == 0:
+            validated_data['number'] = 0
 
-        subtotal = Decimal('0.00')
-        total = Decimal('0.00')
-        for l in validated_data.get('invoice_lines'):
-            if l.discount > 0.00:
-                price_discount = l.price_sold - (l.price_sold * l.discount)
-                subtotal += price_discount
-                total += price_discount + (price_discount*l.product.vat.tax)
-            else:
-                subtotal += l.price_sold
-                total += l.price_sold + (l.price_sold*l.product.vat.tax)
+        invoice_lines_data = validated_data.pop('invoice_lines')
 
         invoice = models.Invoice.create(
             status=models.INVOICE_STATUSTYPE_DRAFT,
-            subtotal=subtotal,
-            total=total,
+            number=number,
             **validated_data
         )
+
+        if invoice_lines_data is not None:
+            subtotal = Decimal('0.00')
+            total = Decimal('0.00')
+            for l_data in invoice_lines_data:
+                l = models.InvoiceLine.create(**l_data)
+                if l.discount > 0.00:
+                    price_aux = (
+                        l.price_sold - (l.price_sold * l.discount)
+                    )
+                    subtotal += price_aux
+                    total += (
+                        price_aux + (price_aux*l.product.vat.tax)
+                    )
+                else:
+                    subtotal += l.price_sold
+                    total += (
+                        l.price_sold + (l.price_sold*l.product.vat.tax)
+                    )
+                invoice.invoice_lines.add(l)
+            invoice.subtotal = subtotal
+            invoice.total = total
+            invoice.save()
+
         return invoice
+
+    def update(self, instance, validated_data):
+        if instance.status is models.INVOICE_STATUSTYPE_DRAFT:
+            instance.invoice_company = validated_data.get(
+                'invoice_company',
+                instance.invoice_company
+            )
+            instance.invoice_contact = validated_data.get(
+                'invoice_contact',
+                instance.invoice_contact
+            )
+            instance.invoice_date = validated_data.get(
+                'invoice_date',
+                instance.invoice_date
+            )
+
+            invoice_lines_data = validated_data.get('invoice_lines')
+            if invoice_lines_data is not None:
+                subtotal = Decimal('0.00')
+                total = Decimal('0.00')
+                for l_data in invoice_lines_data:
+                    l, created = (
+                        models.InvoiceLine.objects.update_or_create(
+                            pk=l_data.get('id'),
+                            defaults=l_data
+                        )
+                    )
+                    if created:
+                        instance.invoice_lines.add(l)
+                    if l.discount > 0.00:
+                        price_aux = (
+                            l.price_sold - (l.price_sold * l.discount)
+                        )
+                        subtotal += price_aux
+                        total += (
+                            price_aux + (price_aux*l.product.vat.tax)
+                        )
+                else:
+                    subtotal += l.price_sold
+                    total += (
+                        l.price_sold + (l.price_sold*l.product.vat.tax)
+                    )
+                instance.subtotal = subtotal
+                instance.total = total
+
+                instance.save()
+
+        return instance
