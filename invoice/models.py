@@ -67,6 +67,7 @@ class CompanyInvoice(models.Model):
         verbose_name=_('fiscal address'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.CASCADE,
         blank=True,
         null=True
     )
@@ -104,6 +105,7 @@ class ContactInvoice(models.Model):
         verbose_name=_('fiscal position'),
         related_name='contacts',
         related_query_name='contact',
+        on_delete=models.PROTECT,
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
@@ -111,7 +113,8 @@ class ContactInvoice(models.Model):
         PhysicalAddress,
         verbose_name=_('fiscal address'),
         related_name='+',
-        related_query_name='+'
+        related_query_name='+',
+        on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -354,6 +357,7 @@ class Invoice(models.Model):
         verbose_name=_('transaction'),
         related_name='+',
         related_query_name='invoice',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )

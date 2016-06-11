@@ -238,6 +238,7 @@ class Employee(PersonProfile):
         related_name='employees',
         related_query_name='employee',
         verbose_name=_('sexual orientation'),
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
         help_text=_('Relevant for countries where one must comply quotas')
@@ -331,13 +332,15 @@ class EmployeeSpeaksLanguage(models.Model):
         Employee,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('employee')
+        verbose_name=_('employee'),
+        on_delete=models.PROTECT
     )
     language = models.ForeignKey(
         Language,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('language')
+        verbose_name=_('language'),
+        on_delete=models.PROTECT
     )
     level = models.CharField(
         _('level'),
@@ -356,7 +359,7 @@ class EmployeeSpeaksLanguage(models.Model):
     def __str__(self):
         r = _noop(
             '%(employee)s speaks %(language)s'
-        ) % {'employee': self.employee, 'language': self.language}
+        ) % {'employee': str(self.employee), 'language': str(self.language)}
         return r
 
     class Meta:
@@ -373,13 +376,15 @@ class EmployeeHasSanction(models.Model):
         Employee,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('employee')
+        verbose_name=_('employee'),
+        on_delete=models.PROTECT
     )
     sanction = models.ForeignKey(
         Sanction,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('sanction')
+        verbose_name=_('sanction'),
+        on_delete=models.PROTECT
     )
     what_happened = models.TextField(
         _('what happened'),
@@ -407,7 +412,10 @@ class EmployeeHasSanction(models.Model):
     def __str__(self):
         r = _noop(
             '%(degree)s at %(academia)s'
-        ) % {'degree': self.degree, 'academia': self.academic_institution}
+        ) % {
+            'degree': str(self.degree),
+            'academia': str(self.academic_institution)
+        }
         return r
 
     class Meta:
@@ -450,19 +458,22 @@ class EmployeeHasDegree(models.Model):
         Employee,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('employee')
+        verbose_name=_('employee'),
+        on_delete=models.PROTECT
     )
     degree = models.ForeignKey(
         Degree,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('degree')
+        verbose_name=_('degree'),
+        on_delete=models.PROTECT
     )
     academic_institution = models.ForeignKey(
         AcademicInstitution,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('academic institution')
+        verbose_name=_('academic institution'),
+        on_delete=models.PROTECT
     )
     ingress_year = models.PositiveSmallIntegerField(
         _('ingress year'),
@@ -478,7 +489,10 @@ class EmployeeHasDegree(models.Model):
     def __str__(self):
         r = _noop(
             '%(degree)s at %(academia)s'
-        ) % {'degree': self.degree, 'academia': self.academic_institution}
+        ) % {
+            'degree': str(self.degree),
+            'academia': str(self.academic_institution)
+        }
         return r
 
     class Meta:
@@ -516,11 +530,12 @@ class Area(models.Model):
     """
     A company has one o more areas where employees have roles.
     """
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='areas',
-        related_query_name='area'
+        related_query_name='area',
+        on_delete=models.PROTECT
     )
     name = models.CharField(
         _('name'),
@@ -546,13 +561,15 @@ class AreaHasEmployee(models.Model):
         Area,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('area')
+        verbose_name=_('area'),
+        on_delete=models.PROTECT
     )
     employee = models.ForeignKey(
         Employee,
         related_name='+',
         related_query_name='+',
-        verbose_name=_('employee')
+        verbose_name=_('employee'),
+        on_delete=models.PROTECT
     )
     date_since = models.DateField(
         _('date since'),
@@ -561,9 +578,9 @@ class AreaHasEmployee(models.Model):
     )
 
     def __str__(self):
-        return "%(employee)s @ %(company)s" % {
-            'employee': self.employee,
-            'company': self.company
+        return "%(employee)s @ %(persons_company)s" % {
+            'employee': str(self.employee),
+            'persons_company': str(self.persons_company)
         }
 
     class Meta:
@@ -581,13 +598,15 @@ class EmployeeHasRole(models.Model):
         Employee,
         verbose_name=_('employee'),
         related_name='+',
-        related_query_name='+'
+        related_query_name='+',
+        on_delete=models.PROTECT
     )
     role = models.ForeignKey(
         Role,
         related_name='+',
         related_query_name='+',
         verbose_name=_('roles'),
+        on_delete=models.PROTECT
     )
     date_since = models.DateField(
         _('date since'),
@@ -597,8 +616,8 @@ class EmployeeHasRole(models.Model):
 
     def __str__(self):
         return "%(employee)s is %(role)s" % {
-            'employee': self.employee,
-            'role': self.role
+            'employee': str(self.employee),
+            'role': str(self.role)
         }
 
     class Meta:

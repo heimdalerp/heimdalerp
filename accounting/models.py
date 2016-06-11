@@ -11,11 +11,12 @@ class Ledger(models.Model):
     Ledger is the collection of all accounts used by a company.
     Here the grouping of accounts is performed.
     """
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='ledgers',
         related_query_name='ledger',
+        on_delete=models.PROTECT,
         db_index=True
     )
     name = models.CharField(
@@ -24,13 +25,13 @@ class Ledger(models.Model):
     )
 
     def __str__(self):
-        return _noop('%(company)s::%(name)s') % {
-            'company': self.company,
+        return _noop('%(persons_company)s::%(name)s') % {
+            'persons_company': self.persons_company,
             'name': self.name
         }
 
     class Meta:
-        unique_together = ('company', 'name')
+        unique_together = ('persons_company', 'name')
         verbose_name = _('ledger')
         verbose_name_plural = ('ledgers')
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -46,6 +47,7 @@ class Account(models.Model):
         verbose_name=_('ledger'),
         related_name='accounts',
         related_query_name='account',
+        on_delete=models.PROTECT,
         db_index=True
     )
     code = models.SlugField(
@@ -60,7 +62,8 @@ class Account(models.Model):
         'AccountSubtype',
         verbose_name=_('account subtype'),
         related_name='accounts',
-        related_query_name='account'
+        related_query_name='account',
+        on_delete=models.PROTECT
     )
     balance = models.DecimalField(
         _('balance'),
@@ -106,11 +109,12 @@ class AccountSubtype(models.Model):
           DEBIT ALL EXPENSES AND LOSSES, CREDIT ALL INCOMES AND GAINS.
           Wages, rent, comission, interest received, etc.
     """
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='account_subtypes',
         related_query_name='account_subtype',
+        on_delete=models.PROTECT,
         db_index=True
     )
     main_type = models.CharField(
@@ -131,8 +135,8 @@ class AccountSubtype(models.Model):
         }
 
     class Meta:
-        unique_together = ('company', 'name')
-        index_together = ['company', 'name']
+        unique_together = ('persons_company', 'name')
+        index_together = ['persons_company', 'name']
         verbose_name = _('account subtype')
         verbose_name_plural = _('account subtypes')
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -156,7 +160,8 @@ class Transaction(models.Model):
         Account,
         verbose_name=_('debit account'),
         related_name='debit_transactions',
-        related_query_name='debit_transaction'
+        related_query_name='debit_transaction',
+        on_delete=models.PROTECT
     )
     debit_account_balance = models.DecimalField(
         _('account balance'),
@@ -167,7 +172,8 @@ class Transaction(models.Model):
         Account,
         verbose_name=_('credit account'),
         related_name='credit_transactions',
-        related_query_name='credit_transaction'
+        related_query_name='credit_transaction',
+        on_delete=models.PROTECT
     )
     credit_account_balance = models.DecimalField(
         _('credit account balance'),
@@ -188,17 +194,19 @@ class Payment(models.Model):
     """
     Payments are made by Contacts, most of the time to pay an invoice.
     """
-    contact = models.ForeignKey(
+    contact_contact = models.ForeignKey(
         Contact,
         verbose_name=_('contact'),
         related_name='payments',
-        related_query_name='payment'
+        related_query_name='payment',
+        on_delete=models.PROTECT
     )
     account = models.ForeignKey(
         Account,
         verbose_name=_('account'),
         related_name='accounts',
-        related_query_name='account'
+        related_query_name='account',
+        on_delete=models.PROTECT
     )
     amount = models.DecimalField(
         _('amount'),
@@ -210,12 +218,13 @@ class Payment(models.Model):
         verbose_name=_('transaction'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )
 
     def __str__(self):
-        return self.contact.name + ' : ' + str(self.amount)
+        return str(self.contact) + ' : ' + str(self.amount)
 
     class Meta:
         verbose_name = _('payment')

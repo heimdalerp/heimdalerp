@@ -9,11 +9,12 @@ class ProductCategory(models.Model):
     """
     A product may have one or more categories.
     """
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='product_categories',
-        related_query_name='product_category'
+        related_query_name='product_category',
+        on_delete=models.PROTECT
     )
     name = models.CharField(
         _('name'),
@@ -30,8 +31,8 @@ class ProductCategory(models.Model):
         return "%(name)s" % {'name': self.name}
 
     class Meta:
-        unique_together = (('company', 'name'), )
-        index_together = [['company', 'name'], ]
+        unique_together = ('persons_company', 'name')
+        index_together = ('persons_company', 'name')
         verbose_name = _('product category')
         verbose_name_plural = _('product categories')
         default_permissions = ('view', 'add', 'change', 'delete')
@@ -77,7 +78,8 @@ class QuotationLine(models.Model):
         Product,
         verbose_name=_('product'),
         related_name='quotation_lines',
-        related_query_name='quotation_line'
+        related_query_name='quotation_line',
+        on_delete=models.PROTECT
     )
     product_price_override = models.DecimalField(
         _('product price'),
@@ -91,6 +93,7 @@ class QuotationLine(models.Model):
         verbose_name=_('VAT override'),
         related_name='quotation_lines',
         related_query_name='quotation_line',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )
@@ -134,11 +137,12 @@ class Quotation(models.Model):
     A quotation is a previous step to a sale.
     It should be fairly similar to a sale and to an invoice.
     """
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='quotations',
         related_query_name='quotation',
+        on_delete=models.PROTECT,
         db_index=True
     )
     contacts = models.ManyToManyField(
@@ -184,8 +188,8 @@ class Quotation(models.Model):
     )
 
     def __str__(self):
-        return "%(company)s : %(pk)s" % {
-            'company': self.company,
+        return "%(persons_company)s : %(pk)s" % {
+            'persons_company': str(self.persons_company),
             'pk': self.pk
         }
 
@@ -204,7 +208,8 @@ class SaleLine(models.Model):
         ProductSales,
         verbose_name=_('product'),
         related_name='sale_lines',
-        related_query_name='sale_line'
+        related_query_name='sale_line',
+        on_delete=models.PROTECT
     )
     product_price_override = models.DecimalField(
         _('product price'),
@@ -218,6 +223,7 @@ class SaleLine(models.Model):
         verbose_name=_('VAT override'),
         related_name='sale_lines',
         related_query_name='sale_line',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )
@@ -266,11 +272,12 @@ class Sale(models.Model):
         blank=True,
         null=True
     )
-    company = models.ForeignKey(
+    persons_company = models.ForeignKey(
         Company,
         verbose_name=_('company'),
         related_name='sales',
         related_query_name='sale',
+        on_delete=models.PROTECT,
         db_index=True
     )
     contacts = models.ManyToManyField(
@@ -316,8 +323,8 @@ class Sale(models.Model):
     )
 
     def __str__(self):
-        return "%(company)s : %(pk)s" % {
-            'company': self.company,
+        return "%(persons_company)s : %(pk)s" % {
+            'persons_company': str(self.persons_company),
             'pk': self.pk
         }
 
