@@ -4,36 +4,31 @@ from reversion.admin import VersionAdmin
 from invoice_ar import models
 
 
+@admin.register(models.ContactInvoiceAR)
 class ContactInvoiceARAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.CompanyInvoiceAR)
 class CompanyInvoiceARAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.PointOfSale)
 class PointOfSaleAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.ConceptType)
 class ConceptTypeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.InvoiceAR)
 class InvoiceARAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.InvoiceARHasVATSubtotal)
 class InvoiceARHasVATSubtotalAdmin(VersionAdmin):
     pass
-
-
-admin.site.register(models.ContactInvoiceAR, ContactInvoiceARAdmin)
-admin.site.register(models.CompanyInvoiceAR, CompanyInvoiceARAdmin)
-admin.site.register(models.PointOfSale, PointOfSaleAdmin)
-admin.site.register(models.ConceptType, ConceptTypeAdmin)
-admin.site.register(models.InvoiceAR, InvoiceARAdmin)
-admin.site.register(
-    models.InvoiceARHasVATSubtotal,
-    InvoiceARHasVATSubtotalAdmin
-)

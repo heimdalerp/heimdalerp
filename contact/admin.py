@@ -4,8 +4,6 @@ from reversion.admin import VersionAdmin
 from contact import models
 
 
+@admin.register(models.Contact)
 class ContactAdmin(VersionAdmin):
     pass
-
-
-admin.site.register(models.Contact, ContactAdmin)

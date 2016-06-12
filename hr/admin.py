@@ -4,86 +4,81 @@ from reversion.admin import VersionAdmin
 from hr import models
 
 
+@admin.register(models.Ethnicity)
 class EthnicityAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.SexualOrientation)
 class SexualOrientationAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Aptitude)
 class AptitudeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Achievement)
 class AchievementAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Sanction)
 class SanctionAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Employee)
 class EmployeeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Language)
 class LanguageAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.EmployeeSpeaksLanguage)
 class EmployeeSpeaksLanguageAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.EmployeeHasSanction)
 class EmployeeHasSanctionAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.AcademicInstitution)
 class AcademicInstitutionAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Degree)
 class DegreeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.EmployeeHasDegree)
 class EmployeeHasDegreeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Role)
 class RoleAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Area)
 class AreaAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.AreaHasEmployee)
 class AreaHasEmployeeAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.EmployeeHasRole)
 class EmployeeHasRoleAdmin(VersionAdmin):
     pass
-
-
-admin.site.register(models.Ethnicity, EthnicityAdmin)
-admin.site.register(models.SexualOrientation, SexualOrientationAdmin)
-admin.site.register(models.Aptitude, AptitudeAdmin)
-admin.site.register(models.Achievement, AchievementAdmin)
-admin.site.register(models.Sanction, SanctionAdmin)
-admin.site.register(models.Employee, EmployeeAdmin)
-admin.site.register(models.Language, LanguageAdmin)
-admin.site.register(
-    models.EmployeeSpeaksLanguage,
-    EmployeeSpeaksLanguageAdmin
-)
-admin.site.register(models.EmployeeHasSanction, EmployeeHasSanctionAdmin)
-admin.site.register(models.AcademicInstitution, AcademicInstitutionAdmin)
-admin.site.register(models.Degree, DegreeAdmin)
-admin.site.register(models.EmployeeHasDegree, EmployeeHasDegreeAdmin)
-admin.site.register(models.Role, RoleAdmin)
-admin.site.register(models.Area, AreaAdmin)
-admin.site.register(models.AreaHasEmployee, AreaHasEmployeeAdmin)
-admin.site.register(models.EmployeeHasRole, EmployeeHasRoleAdmin)

@@ -4,33 +4,31 @@ from reversion.admin import VersionAdmin
 from sales import models
 
 
+@admin.register(models.ProductCategory)
 class ProductCategoryAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.ProductSales)
 class ProductSalesAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.QuotationLine)
 class QuotationLineAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Quotation)
 class QuotationAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.SaleLine)
 class SaleLineAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Sale)
 class SaleAdmin(VersionAdmin):
     pass
-
-
-admin.site.register(models.ProductCategory, ProductCategoryAdmin)
-admin.site.register(models.ProductSales, ProductSalesAdmin)
-admin.site.register(models.QuotationLine, QuotationLineAdmin)
-admin.site.register(models.Quotation, QuotationAdmin)
-admin.site.register(models.SaleLine, SaleLineAdmin)
-admin.site.register(models.Sale, SaleAdmin)

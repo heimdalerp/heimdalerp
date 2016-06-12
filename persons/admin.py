@@ -4,13 +4,11 @@ from reversion.admin import VersionAdmin
 from persons import models
 
 
+@admin.register(models.PhysicalAddress)
 class PhysicalAddressAdmin(VersionAdmin):
     pass
 
 
+@admin.register(models.Company)
 class CompanyAdmin(VersionAdmin):
     pass
-
-
-admin.site.register(models.PhysicalAddress, PhysicalAddressAdmin)
-admin.site.register(models.Company, CompanyAdmin)
