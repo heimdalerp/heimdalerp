@@ -247,6 +247,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         persons_company_data = validated_data.pop('persons_company')
+
         instance.persons_company.fantasy_name = persons_company_data.get(
             'fantasy_name',
             instance.persons_company.fantasy_name
@@ -467,6 +468,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             number = max_invoice.number + 1
             validated_data['number'] = number
         '''
+        validated_data['status'] = models.INVOICE_STATUSTYPE_DRAFT
         number = validated_data.get('number')
         if number is None or number == 0:
             validated_data['number'] = 0
@@ -484,7 +486,6 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
         invoice_lines_data = validated_data.pop('invoice_lines')
 
         invoice = models.Invoice.objects.create(
-            status=models.INVOICE_STATUSTYPE_DRAFT,
             **validated_data
         )
 
