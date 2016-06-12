@@ -6,7 +6,6 @@ from accounting import views
 router = DefaultRouter()
 router.register(r'ledgers', views.LedgerViewSet)
 router.register(r'accounts', views.AccountViewSet)
-router.register(r'accountsubtypes', views.AccountSubtypeViewSet)
 router.register(r'transactions', views.TransactionViewSet)
 router.register(r'payments', views.PaymentViewSet)
 
@@ -36,11 +35,6 @@ urlpatterns = [
         r'^ledgers/(?P<pk>\d+)/accounts/$',
         views.AccountsByLedgerList.as_view(),
         name='ledger-accounts'
-    ),
-    url(
-        r'^accountsubtypes/(?P<pk>\d+)/accounts/$',
-        views.AccountsByAccountSubtypeList.as_view(),
-        name='accountsubtype-accounts'
     ),
     url(
         r'^accounts/(?P<pk>\d+)/transactions/$',

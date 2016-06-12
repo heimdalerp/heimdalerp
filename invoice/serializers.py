@@ -51,6 +51,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             'legal_name',
             'fiscal_position',
             'fiscal_address',
+            'invoice_account',
             'invoices'
         )
         extra_kwargs = {
@@ -59,6 +60,10 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             },
             'fiscal_position': {
                 'view_name': 'api:invoice:fiscalposition-detail'
+            },
+            'invoice_account': {
+                'view_name': 'api:accounting:account-detail',
+                'read_only': True
             }
         }
 

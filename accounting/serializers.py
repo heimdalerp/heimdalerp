@@ -49,27 +49,6 @@ class AccountSerializer(HyperlinkedModelSerializer):
         }
 
 
-class AccountSubtypeSerializer(HyperlinkedModelSerializer):
-
-        class Meta:
-            model = models.AccountSubtype
-            fields = (
-                'url',
-                'id',
-                'persons_company',
-                'main_type',
-                'name'
-            )
-            extra_kwargs = {
-                'url': {
-                    'view_name': 'api:accounting:accountsubtype-detail'
-                },
-                'persons_company': {
-                    'view_name': 'api:persons:company-detail'
-                }
-            }
-
-
 class TransactionSerializer(HyperlinkedModelSerializer):
 
         class Meta:

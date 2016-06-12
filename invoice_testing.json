@@ -101,7 +101,6 @@
   "ledger": 1,
   "code": "001",
   "name": "Facturaci\u00f3n - D\u00e9bito",
-  "account_subtype": 1,
   "balance": "0.00"
  }
 },
@@ -112,17 +111,7 @@
   "ledger": 1,
   "code": "002",
   "name": "Facturaci\u00f3n - Cr\u00e9dito",
-  "account_subtype": 1,
   "balance": "0.00"
- }
-},
-{
- "model": "accounting.accountsubtype",
- "pk": 1,
- "fields": {
-  "persons_company": 1,
-  "main_type": "P",
-  "name": "Invoicing"
  }
 },
 {

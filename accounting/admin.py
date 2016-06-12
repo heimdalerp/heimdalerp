@@ -14,11 +14,6 @@ class AccountAdmin(VersionAdmin):
     pass
 
 
-@admin.register(models.AccountSubtype)
-class AccountSubtypeAdmin(VersionAdmin):
-    pass
-
-
 @admin.register(models.Transaction)
 class TransactionAdmin(VersionAdmin):
     pass

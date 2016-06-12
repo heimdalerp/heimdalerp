@@ -1,6 +1,10 @@
+from django.db import transaction
+
+from rest_framework.decorators import detail_route
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
+from accounting.models import Transaction, Account
 from invoice import models, serializers
 
 
@@ -95,6 +99,32 @@ class InvoiceTypeViewSet(ModelViewSet):
 class InvoiceViewSet(ModelViewSet):
     queryset = models.Invoice.objects.all()
     serializer_class = serializers.InvoiceSerializer
+
+    @detail_route(methods=['post'])
+    @transaction.atomic
+    def accept(self, request, pk=None):
+        invoice = models.Invoice.objects.get(pk=pk) 
+        if invoice.status == models.INVOICE_STATUSTYPE_DRAFT:
+            debit_account = invoice.invoice_debit_account
+            credit_account = invoice.invoice_credit_account
+            transaction = Transaction.objects.create(
+                amount=invoice.total,
+                debit_account=debit_account,
+                debit_account_balance=debit_account.balance-invoice.total,
+                credit_account=credit_account,
+                credit_account_balance=credit_account.balance+invoice.total,
+            )
+            invoice.transaction = transaction
+            invoice.status = models.INVOICE_STATUSTYPE_ACCEPTED
+            invoice.save()
+
+    @detail_route(methods=['post'])
+    @transaction.atomic
+    def send(self, request, pk=None):
+        invoice = models.Invoice.objects.get(pk=pk) 
+        if invoice.status == models.INVOICE_STATUSTYPE_ACCEPTED:
+            invoice.status = models.INVOICE_STATUSTYPE_SENT
+            invoice.save()
 
 
 class InvoicesByInvoiceTypeList(ListAPIView):

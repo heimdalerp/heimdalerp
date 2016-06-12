@@ -31,27 +31,6 @@ class AccountsByLedgerList(ListAPIView):
         return models.Account.objects.filter(ledger=pk)
 
 
-class AccountsByAccountSubtypeList(ListAPIView):
-    serializer_class = serializers.AccountSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return models.Account.objects.filter(account_subtype=pk)
-
-
-class AccountSubtypeViewSet(ModelViewSet):
-    queryset = models.AccountSubtype.objects.all()
-    serializer_class = serializers.AccountSubtypeSerializer
-
-
-class AccountSubtypesByCompanyList(ListAPIView):
-    serializer_class = serializers.AccountSubtypeSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return models.AccountSubtype.objects.filter(company=pk)
-
-
 class TransactionViewSet(ReadOnlyModelViewSet):
     queryset = models.Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer

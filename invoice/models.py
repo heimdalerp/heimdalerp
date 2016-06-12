@@ -132,9 +132,18 @@ class ContactInvoice(models.Model):
         related_query_name='+',
         on_delete=models.CASCADE
     )
+    invoice_account = models.ForeignKey(
+        Account,
+        verbose_name=_('invoice account'),
+        related_name='+',
+        related_query_name='contact_invoice',
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
-        return self.contact_contact.name
+        return str(self.contact_contact)
 
     class Meta:
         verbose_name = _('contact')
@@ -289,11 +298,13 @@ class InvoiceType(models.Model):
 
 
 INVOICE_STATUSTYPE_DRAFT = 'D'
+INVOICE_STATUSTYPE_ACCEPTED = 'A'
 INVOICE_STATUSTYPE_SENT = 'S'
 INVOICE_STATUSTYPE_PAID = 'P'
 INVOICE_STATUSTYPE_CANCELED = 'C'
 INVOICE_STATUS_TYPES = (
     (INVOICE_STATUSTYPE_DRAFT, _('Draft')),
+    (INVOICE_STATUSTYPE_ACCEPTED, _('Accepted')),
     (INVOICE_STATUSTYPE_SENT, _('Sent')),
     (INVOICE_STATUSTYPE_PAID, _('Paid')),
     (INVOICE_STATUSTYPE_CANCELED, _('Canceled'))
