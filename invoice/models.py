@@ -153,10 +153,15 @@ class VAT(models.Model):
         help_text=_("Some local official electronic systems handle "
                     "specific codes.")
     )
-    tax = models.FloatField(
+    tax = models.DecimalField(
         _('tax'),
+        max_digits=5,
+        decimal_places=2,
         help_text=_("A value between 0.00 and 1.00"),
-        validators=[MinValueValidator(0.00), MaxValueValidator(1.00)]
+        validators=[
+            MinValueValidator(0.00),
+            MaxValueValidator(1.00)
+        ]
     )
 
     def __str__(self):
@@ -232,11 +237,17 @@ class InvoiceLine(models.Model):
         blank=True,
         null=True,
     )
-    discount = models.FloatField(
+    discount = models.DecimalField(
         _('discount'),
+        max_digits=5,
+        decimal_places=2,
         default=0.00,
         blank=True,
-        help_text=_("A number between 0.00 and 1.00")
+        help_text=_("A number between 0.00 and 1.00"),
+        validators=[
+            MinValueValidator(0.00),
+            MaxValueValidator(1.00)
+        ]
     )
     quantity = models.PositiveIntegerField(
         _('quantity'),
