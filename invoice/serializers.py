@@ -1,4 +1,5 @@
 from decimal import Decimal
+from django.db import transaction
 
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
@@ -454,6 +455,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         '''
         number = validated_data.get('number')
@@ -494,14 +496,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                     price_aux = (
                         l.price_sold - (l.price_sold * l.discount)
                     )
-                    price_aux *= l.product.quantity
+                    price_aux *= l.quantity
                     subtotal += price_aux
                     total += (
                         price_aux + (price_aux*l.product.vat.tax)
                     )
                 else:
-                    subtotal += l.price_sold*l.product.quantity
-                    total += l.product.quantity*(
+                    subtotal += l.price_sold*l.quantity
+                    total += l.quantity*(
                         l.price_sold + (l.price_sold*l.product.vat.tax)
                     )
                 invoice.invoice_lines.add(l)
@@ -511,6 +513,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
 
         return invoice
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         if instance.status is models.INVOICE_STATUSTYPE_DRAFT:
             instance.invoice_company = validated_data.get(
@@ -555,14 +558,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                         price_aux = (
                             l.price_sold - (l.price_sold * l.discount)
                         )
-                        price_aux *= l.product.quantity
+                        price_aux *= l.quantity
                         subtotal += price_aux
                         total += (
                             price_aux + (price_aux*l.product.vat.tax)
                         )
                 else:
-                    subtotal += l.product.quantity*l.price_sold
-                    total += l.product.quantity*(
+                    subtotal += l.quantity*l.price_sold
+                    total += l.quantity*(
                         l.price_sold + (l.price_sold*l.product.vat.tax)
                     )
                 instance.subtotal = subtotal
