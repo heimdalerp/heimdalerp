@@ -489,7 +489,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             subtotal = Decimal('0.00')
             total = Decimal('0.00')
             for l_data in invoice_lines_data:
-                l = models.InvoiceLine.create(**l_data)
+                l = models.InvoiceLine.objects.create(**l_data)
                 if l.discount > 0.00:
                     price_aux = (
                         l.price_sold - (l.price_sold * l.discount)
