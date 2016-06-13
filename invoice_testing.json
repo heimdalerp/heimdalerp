@@ -1,5 +1,4 @@
-[
-{
+[{
  "model": "persons.physicaladdress",
  "pk": 1,
  "fields": {
@@ -63,9 +62,7 @@
   "slogan": "Make Your Company Great Again",
   "initiated_activities": "2016-01-01"
  }
-}
-]
-[
+},
 {
  "model": "contact.contact",
  "pk": 1,
@@ -93,9 +90,7 @@
   "name": "Cliente Consumidor Final",
   "contact_type": "I"
  }
-}
-]
-[
+},
 {
  "model": "accounting.ledger",
  "pk": 1,
@@ -136,9 +131,7 @@
   "account_type": "",
   "balance": "0.00"
  }
-}
-]
-[
+},
 {
  "model": "invoice.fiscalposition",
  "pk": 1,
@@ -416,9 +409,7 @@
   "name": "Recibo M",
   "code": "54"
  }
-}
-]
-[
+},
 {
  "model": "invoice_ar.concepttype",
  "pk": 1,
