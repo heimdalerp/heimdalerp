@@ -494,13 +494,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                     price_aux = (
                         l.price_sold - (l.price_sold * l.discount)
                     )
+                    price_aux *= l.product.quantity
                     subtotal += price_aux
                     total += (
                         price_aux + (price_aux*l.product.vat.tax)
                     )
                 else:
-                    subtotal += l.price_sold
-                    total += (
+                    subtotal += l.price_sold*l.product.quantity
+                    total += l.product.quantity*(
                         l.price_sold + (l.price_sold*l.product.vat.tax)
                     )
                 invoice.invoice_lines.add(l)
@@ -554,13 +555,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                         price_aux = (
                             l.price_sold - (l.price_sold * l.discount)
                         )
+                        price_aux *= l.product.quantity
                         subtotal += price_aux
                         total += (
                             price_aux + (price_aux*l.product.vat.tax)
                         )
                 else:
-                    subtotal += l.price_sold
-                    total += (
+                    subtotal += l.product.quantity*l.price_sold
+                    total += l.product.quantity*(
                         l.price_sold + (l.price_sold*l.product.vat.tax)
                     )
                 instance.subtotal = subtotal
