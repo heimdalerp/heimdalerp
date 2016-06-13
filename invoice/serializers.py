@@ -475,7 +475,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 invoice_company.default_invoice_debit_account
             )
         if validated_data.get('invoice_credit_account') is None:
-            validated_data['invoice_debit_account'] = (
+            validated_data['invoice_credit_account'] = (
                 invoice_company.default_invoice_credit_account
             )
 
