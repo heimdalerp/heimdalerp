@@ -8,5 +8,10 @@ router.register(r'contacts', views.ContactViewSet)
 
 app_name = 'contact'
 urlpatterns = [
+    url(
+        r'^companies/(?P<pk>\d+)/contacts/$',
+        views.ContactsByCompanyList.as_view(),
+        name='company-contacts'
+    ),
     url(r'^', include(router.urls)),
 ]

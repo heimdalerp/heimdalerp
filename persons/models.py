@@ -57,11 +57,55 @@ class PhysicalAddress(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+class Company(models.Model):
+    """
+    The companies using HeimdalERP.
+    """
+    fantasy_name = models.CharField(
+        _('fantasy name'),
+        max_length=150,
+        unique=False # Temporary until DRF 3.4.0 is released
+    )
+    legal_name = models.CharField(
+        _('legal name'),
+        max_length=300,
+        default="",
+        blank=True
+    )
+    slogan = models.CharField(
+        _('slogan'),
+        max_length=200,
+        default="",
+        blank=True
+    )
+    initiated_activities = models.DateField(
+        _('initiated activities'),
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return self.fantasy_name
+
+    class Meta:
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
 class PersonProfile(models.Model):
     """
     This is an abstract class where Employee and Client inherit their
     main attributes.
     """
+    persons_company = models.ForeignKey(
+        Company,
+        verbose_name=_('company'),
+        related_name='+',
+        related_query_name='+',
+        db_index=True,
+        on_delete=models.PROTECT
+    )
     birth_date = models.DateField(
         _("birth date"),
         blank=True,
@@ -98,39 +142,3 @@ class PersonProfile(models.Model):
 
     class Meta:
         abstract = True
-
-
-class Company(models.Model):
-    """
-    The companies using HeimdalERP.
-    """
-    fantasy_name = models.CharField(
-        _('fantasy name'),
-        max_length=150,
-        unique=True
-    )
-    legal_name = models.CharField(
-        _('legal name'),
-        max_length=300,
-        default="",
-        blank=True
-    )
-    slogan = models.CharField(
-        _('slogan'),
-        max_length=200,
-        default="",
-        blank=True
-    )
-    initiated_activities = models.DateField(
-        _('initiated activities'),
-        blank=True,
-        null=True
-    )
-
-    def __str__(self):
-        return self.fantasy_name
-
-    class Meta:
-        verbose_name = _('company')
-        verbose_name_plural = _('companies')
-        default_permissions = ('view', 'add', 'change', 'delete')

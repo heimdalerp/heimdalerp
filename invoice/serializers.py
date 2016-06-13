@@ -51,7 +51,6 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             'legal_name',
             'fiscal_position',
             'fiscal_address',
-            'invoice_account',
             'invoices'
         )
         extra_kwargs = {
@@ -60,10 +59,6 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             },
             'fiscal_position': {
                 'view_name': 'api:invoice:fiscalposition-detail'
-            },
-            'invoice_account': {
-                'view_name': 'api:accounting:account-detail',
-                'read_only': True
             }
         }
 
@@ -185,9 +180,6 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
 class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
     persons_company = CompanySerializer()
     fiscal_address = PhysicalAddressSerializer()
-    contacts = HyperlinkedIdentityField(
-        view_name='api:invoice:companyinvoice-contacts'
-    )
     products = HyperlinkedIdentityField(
         view_name='api:invoice:companyinvoice-products'
     )
@@ -203,7 +195,6 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'persons_company',
             'fiscal_position',
             'fiscal_address',
-            'contacts',
             'products',
             'default_invoice_debit_account',
             'default_invoice_credit_account',

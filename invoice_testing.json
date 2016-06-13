@@ -27,7 +27,7 @@
  "fields": {
   "street_address": "Hola 123",
   "floor_number": "1",
-  "apartment_number": "1",
+  "apartment_number": "2",
   "city": null,
   "postal_code": "3000"
  }
@@ -47,31 +47,9 @@
  "model": "persons.physicaladdress",
  "pk": 5,
  "fields": {
-  "street_address": "Hola 1234",
-  "floor_number": "2",
+  "street_address": "Hola 123",
+  "floor_number": "1",
   "apartment_number": "2",
-  "city": null,
-  "postal_code": "3000"
- }
-},
-{
- "model": "persons.physicaladdress",
- "pk": 6,
- "fields": {
-  "street_address": "",
-  "floor_number": "",
-  "apartment_number": "",
-  "city": null,
-  "postal_code": ""
- }
-},
-{
- "model": "persons.physicaladdress",
- "pk": 7,
- "fields": {
-  "street_address": "Hola 555",
-  "floor_number": "3",
-  "apartment_number": "3",
   "city": null,
   "postal_code": "3000"
  }
@@ -85,7 +63,39 @@
   "slogan": "Make Your Company Great Again",
   "initiated_activities": "2016-01-01"
  }
+}
+]
+[
+{
+ "model": "contact.contact",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 2,
+  "name": "Cliente Responsable Inscripto",
+  "contact_type": "I"
+ }
 },
+{
+ "model": "contact.contact",
+ "pk": 2,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 4,
+  "name": "Cliente Consumidor Final",
+  "contact_type": "I"
+ }
+}
+]
+[
 {
  "model": "accounting.ledger",
  "pk": 1,
@@ -100,7 +110,8 @@
  "fields": {
   "ledger": 1,
   "code": "001",
-  "name": "Facturaci\u00f3n - D\u00e9bito",
+  "name": "Deudores por ventas",
+  "account_type": "",
   "balance": "0.00"
  }
 },
@@ -110,49 +121,24 @@
  "fields": {
   "ledger": 1,
   "code": "002",
-  "name": "Facturaci\u00f3n - Cr\u00e9dito",
+  "name": "Ventas",
+  "account_type": "",
   "balance": "0.00"
  }
 },
 {
- "model": "contact.contact",
- "pk": 1,
- "fields": {
-  "birth_date": null,
-  "born_in": null,
-  "phone_numbers": "",
-  "extra_emails": "",
-  "home_address": 2,
-  "name": "Cliente 1",
-  "contact_type": "C"
- }
-},
-{
- "model": "contact.contact",
- "pk": 2,
- "fields": {
-  "birth_date": null,
-  "born_in": null,
-  "phone_numbers": "",
-  "extra_emails": "",
-  "home_address": 4,
-  "name": "Cliente 2",
-  "contact_type": "C"
- }
-},
-{
- "model": "contact.contact",
+ "model": "accounting.account",
  "pk": 3,
  "fields": {
-  "birth_date": null,
-  "born_in": null,
-  "phone_numbers": "",
-  "extra_emails": "",
-  "home_address": 6,
-  "name": "Cliente 3",
-  "contact_type": "C"
+  "ledger": 1,
+  "code": "003",
+  "name": "Caja ventas",
+  "account_type": "",
+  "balance": "0.00"
  }
-},
+}
+]
+[
 {
  "model": "invoice.fiscalposition",
  "pk": 1,
@@ -186,8 +172,7 @@
   "fiscal_position": 3,
   "fiscal_address": 1,
   "default_invoice_debit_account": 1,
-  "default_invoice_credit_account": 2,
-  "contacts": []
+  "default_invoice_credit_account": 2
  }
 },
 {
@@ -195,7 +180,7 @@
  "pk": 1,
  "fields": {
   "contact_contact": 1,
-  "legal_name": "Cliente 1",
+  "legal_name": "Juan Perez",
   "fiscal_position": 2,
   "fiscal_address": 3
  }
@@ -205,19 +190,9 @@
  "pk": 2,
  "fields": {
   "contact_contact": 2,
-  "legal_name": "Cliente 2",
-  "fiscal_position": 2,
-  "fiscal_address": 5
- }
-},
-{
- "model": "invoice.contactinvoice",
- "pk": 3,
- "fields": {
-  "contact_contact": 3,
-  "legal_name": "Cliente 3",
+  "legal_name": "Juan Perez",
   "fiscal_position": 3,
-  "fiscal_address": 7
+  "fiscal_address": 5
  }
 },
 {
@@ -272,36 +247,6 @@
   "name": "9% AR",
   "code": "9",
   "tax": 0.025
- }
-},
-{
- "model": "invoice.product",
- "pk": 1,
- "fields": {
-  "invoice_company": 1,
-  "name": "Men\u00fa",
-  "current_price": "50.00",
-  "vat": 3
- }
-},
-{
- "model": "invoice.product",
- "pk": 2,
- "fields": {
-  "invoice_company": 1,
-  "name": "Men\u00fa Especial",
-  "current_price": "70.00",
-  "vat": 2
- }
-},
-{
- "model": "invoice.product",
- "pk": 3,
- "fields": {
-  "invoice_company": 1,
-  "name": "Leche Entera",
-  "current_price": "10.00",
-  "vat": 1
  }
 },
 {
@@ -470,6 +415,32 @@
  "fields": {
   "name": "Recibo M",
   "code": "54"
+ }
+}
+]
+[
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 1,
+ "fields": {
+  "name": "Producto",
+  "code": "1"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 2,
+ "fields": {
+  "name": "Servicios",
+  "code": "2"
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 3,
+ "fields": {
+  "name": "Productos y Servicios",
+  "code": "3"
  }
 }
 ]

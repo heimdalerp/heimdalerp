@@ -33,7 +33,6 @@ class AccountSerializer(HyperlinkedModelSerializer):
             'ledger',
             'code',
             'name',
-            'account_subtype',
             'balance'
         )
         extra_kwargs = {
@@ -42,9 +41,6 @@ class AccountSerializer(HyperlinkedModelSerializer):
             },
             'ledger': {
                 'view_name': 'api:accounting:ledger-detail'
-            },
-            'account_subtype': {
-                'view_name': 'api:accounting:accountsubtype-detail'
             }
         }
 

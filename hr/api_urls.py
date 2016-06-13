@@ -75,6 +75,11 @@ urlpatterns = [
         name='company-areas'
     ),
     url(
+        r'^companies/(?P<pk>\d+)/employees/$',
+        views.EmployeesByCompanyList.as_view(),
+        name='company-employees'
+    ),
+    url(
         r'^areas/(?P<pk>\d+)/employees/$',
         views.EmployeesByAreaList.as_view(),
         name='area-employees'

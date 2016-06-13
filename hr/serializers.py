@@ -149,6 +149,7 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
+            'persons_company',
             'user',
             'birth_date',
             'born_in',
@@ -169,6 +170,9 @@ class EmployeeSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:hr:employee-detail'
+            },
+            'persons_company': {
+                'view_name': 'api:persons:company-detail'
             },
             'sexual_orientation': {
                 'required': False

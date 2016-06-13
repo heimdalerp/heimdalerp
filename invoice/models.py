@@ -71,13 +71,6 @@ class CompanyInvoice(models.Model):
         blank=True,
         null=True
     )
-    contacts = models.ManyToManyField(
-        Contact,
-        verbose_name=_('contacts'),
-        related_name='companies',
-        related_query_name='company',
-        blank=True
-    )
     default_invoice_debit_account = models.ForeignKey(
         Account,
         verbose_name=_('default invoice debit account'),
@@ -131,15 +124,6 @@ class ContactInvoice(models.Model):
         related_name='+',
         related_query_name='+',
         on_delete=models.CASCADE
-    )
-    invoice_account = models.ForeignKey(
-        Account,
-        verbose_name=_('invoice account'),
-        related_name='+',
-        related_query_name='contact_invoice',
-        on_delete=models.PROTECT,
-        blank=True,
-        null=True
     )
 
     def __str__(self):

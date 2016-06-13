@@ -73,7 +73,7 @@ class Account(models.Model):
     )
     code = models.SlugField(
         _('code'),
-        max_length=50
+        max_length=30
     )
     name = models.CharField(
         _('name'),

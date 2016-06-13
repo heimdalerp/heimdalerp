@@ -20,6 +20,7 @@ class ContactSerializer(HyperlinkedModelSerializer):
         fields = (
             'url',
             'id',
+            'persons_company',
             'name',
             'birth_date',
             'born_in',
@@ -31,6 +32,9 @@ class ContactSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:contact:contact-detail'
+            },
+            'persons_company': {
+                'view_name': 'api:persons:company-detail'
             },
             'born_in': {
                 'required': False
@@ -69,6 +73,9 @@ class ContactSerializer(HyperlinkedModelSerializer):
         )
         instance.home_address.save()
 
+        instance.persons_company = validated_data.get(
+            'persons_company', instance.persons_company
+        )
         instance.birth_date = validated_data.get(
             'birth_date', instance.birth_date
         )

@@ -43,7 +43,7 @@ class CompanySerializer(HyperlinkedModelSerializer):
             'fantasy_name',
             'legal_name',
             'slogan',
-            'initiated_activities'
+            'initiated_activities',
         )
         extra_kwargs = {
             'url': {

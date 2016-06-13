@@ -34,6 +34,14 @@ class EmployeeViewSet(ModelViewSet):
     serializer_class = serializers.EmployeeSerializer
 
 
+class EmployeesByCompanyList(ListAPIView):
+    serializer_class = serializers.EmployeeSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.Employee.objects.filter(persons_company=pk)
+
+
 class AptitudesByEmployeeList(ListAPIView):
     serializer_class = serializers.AptitudeSerializer
 
