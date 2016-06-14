@@ -63,6 +63,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
@@ -88,6 +89,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         )
         return invoice_contact
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
@@ -225,6 +227,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         persons_company_data = validated_data.pop('persons_company')
         persons_company, created = Company.objects.update_or_create(
@@ -242,6 +245,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         company = models.CompanyInvoice.objects.create(**validated_data)
         return company
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         persons_company_data = validated_data.pop('persons_company')
 
@@ -357,7 +361,8 @@ class InvoiceLineSerializer(HyperlinkedModelSerializer):
             'product',
             'price_sold',
             'discount',
-            'quantity'
+            'quantity',
+            'description'
         )
         extra_kwargs = {
             'url': {

@@ -1,3 +1,5 @@
+from django.db import transaction
+
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
@@ -33,6 +35,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         invoice_contact_data = validated_data['invoice_contact']
         contact_contact_data = invoice_contact_data.pop('contact_contact')
@@ -66,6 +69,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         return invoicear_contact
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         invoice_contact_data = validated_data.pop('invoice_contact')
         contact_contact_data = invoice_contact_data.pop('contact_contact')
@@ -106,6 +110,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         contact_contact.home_address.save()
 
+        contact_contact.persons_company = contact_contact_data.get(
+            'persons_company',
+            contact_contact.persons_company
+        )
         contact_contact.birth_date = contact_contact_data.get(
             'birth_date',
             contact_contact.birth_date
@@ -205,6 +213,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
@@ -230,6 +239,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         company = models.CompanyInvoiceAR.objects.create(**validated_data)
         return company
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
@@ -436,18 +446,138 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
-        invoice_company = (
+        validated_data['invoice_company'] = (
             validated_data.get('invoicear_company').invoice_company
         )
-        invoice_contact = (
+        validated_data['invoice_contact'] = (
             validated_data.get('invoicear_contact').invoice_contact
         )
 
-        invoicear = models.InvoiceAR.create(
-            status=INVOICE_STATUSTYPE_DRAFT,
-            invoice_company=invoice_company,
-            invoice_contact=invoice_contact,
+        validated_data['status'] = models.INVOICE_STATUSTYPE_DRAFT
+        number = validated_data.get('number')
+        if number is None or number == 0:
+            validated_data['number'] = 0
+
+        invoice_company = validated_data.get('invoice_company')
+        if validated_data.get('invoice_debit_account') is None:
+            validated_data['invoice_debit_account'] = (
+                invoice_company.default_invoice_debit_account
+            )
+        if validated_data.get('invoice_credit_account') is None:
+            validated_data['invoice_credit_account'] = (
+                invoice_company.default_invoice_credit_account
+            )
+
+        invoice_lines_data = validated_data.pop('invoice_lines')
+
+        invoicear = models.InvoiceAR.objects.create(
             **validated_data
         )
+
+        if invoice_lines_data is not None:
+            subtotal = Decimal('0.00')
+            total = Decimal('0.00')
+            for l_data in invoice_lines_data:
+                l = models.InvoiceLine.objects.create(**l_data)
+                if l.discount > 0.00:
+                    price_aux = (
+                        l.price_sold - (l.price_sold * l.discount)
+                    )
+                    price_aux *= l.quantity
+                    subtotal += price_aux
+                    total += (
+                        price_aux + (price_aux*l.product.vat.tax)
+                    )
+                else:
+                    subtotal += l.price_sold*l.quantity
+                    total += l.quantity*(
+                        l.price_sold + (l.price_sold*l.product.vat.tax)
+                    )
+                invoicear.invoice_lines.add(l)
+            invoicear.subtotal = subtotal
+            invoicear.total = total
+            invoicear.save()
+
         return invoicear
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        if instance.status is models.INVOICE_STATUSTYPE_DRAFT:
+            instance.invoicear_company = validated_data.get(
+                'invoicear_company',
+                instance.invoicear_company
+            )
+            instance.invoicear_contact = validated_data.get(
+                'invoicear_contact',
+                instance.invoicear_contact
+            )
+            instance.invoice_date = validated_data.get(
+                'invoice_date',
+                instance.invoice_date
+            )
+            instance.notes = validated_data.get(
+                'notes',
+                instance.notes
+            )
+            instance.debit_account = validated_data.get(
+                'invoice_debit_account',
+                instance.invoice_debit_account
+            )
+            instance.invoice_credit_account = validated_data.get(
+                'invoice_credit_account',
+                instance.invoice_credit_account
+            )
+            instance.due_date = validated_data.get(
+                'due_date',
+                instance.due_date
+            )
+            instance.service_start = validated_data.get(
+                'service_start',
+                instance.service_start
+            )
+            instance.concept_type = validated_data.get(
+                'concept_type',
+                instance.concept_type
+            )
+            instance.point_of_sale = validated_data.get(
+                'point_of_sale',
+                instance.point_of_sale
+            )
+
+            invoice_lines_data = validated_data.get('invoice_lines')
+            if invoice_lines_data is not None:
+                subtotal = Decimal('0.00')
+                total = Decimal('0.00')
+                vat_total = Decimal('0.00')
+                for l_data in invoice_lines_data:
+                    l, created = (
+                        models.InvoiceLine.objects.update_or_create(
+                            pk=l_data.get('id'),
+                            defaults=l_data
+                        )
+                    )
+                    if created:
+                        instance.invoice_lines.add(l)
+                    if l.discount > 0.00:
+                        price_aux = (
+                            l.price_sold - (l.price_sold * l.discount)
+                        )
+                        price_aux *= l.quantity
+                        subtotal += price_aux
+                        total += (
+                            price_aux + (price_aux*l.product.vat.tax)
+                        )
+                else:
+                    subtotal += l.quantity*l.price_sold
+                    total += l.quantity*(
+                        l.price_sold + (l.price_sold*l.product.vat.tax)
+                    )
+                instance.subtotal = subtotal
+                instance.total = total
+                instance.vat_total = vat_total
+
+            instance.save()
+
+        return instance

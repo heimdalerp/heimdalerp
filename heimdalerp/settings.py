@@ -248,7 +248,6 @@ INSTALLED_APPS = [
     'hr',
     'contact',
     'invoice',
-    'sales',
     'accounting',
 
     # HeimdalERP Custom Apps

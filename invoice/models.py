@@ -253,6 +253,12 @@ class InvoiceLine(models.Model):
         _('quantity'),
         default=1
     )
+    description = models.CharField(
+        _('description'),
+        max_length=300,
+        default="",
+        blank=True
+    )
 
     def __str__(self):
         return "%(product)s x %(quantity)s" % {

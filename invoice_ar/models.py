@@ -215,7 +215,8 @@ class InvoiceAR(Invoice):
         'InvoiceARHasVATSubtotal',
         verbose_name=_('VAT subtotals'),
         related_name='+',
-        related_query_name='invoicear'
+        related_query_name='invoicear',
+        blank=True
     )
 
     def __str__(self):
