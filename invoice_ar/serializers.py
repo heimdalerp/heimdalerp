@@ -479,6 +479,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
         if invoice_lines_data is not None:
             subtotal = Decimal('0.00')
             total = Decimal('0.00')
+            vat_total = Decimal('0.00')
             for l_data in invoice_lines_data:
                 l = models.InvoiceLine.objects.create(**l_data)
                 if l.discount > 0.00:
@@ -490,14 +491,17 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                     total += (
                         price_aux + (price_aux*l.product.vat.tax)
                     )
+                    vat_total += price_aux*l.product.vat.tax
                 else:
                     subtotal += l.price_sold*l.quantity
                     total += l.quantity*(
                         l.price_sold + (l.price_sold*l.product.vat.tax)
                     )
+                    vat_total += l.price_sold*l.product.vat.tax
                 invoicear.invoice_lines.add(l)
             invoicear.subtotal = subtotal
             invoicear.total = total
+            invoicear.vat_total = vat_total
             invoicear.save()
 
         return invoicear
@@ -569,11 +573,13 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         total += (
                             price_aux + (price_aux*l.product.vat.tax)
                         )
-                else:
-                    subtotal += l.quantity*l.price_sold
-                    total += l.quantity*(
-                        l.price_sold + (l.price_sold*l.product.vat.tax)
-                    )
+                        vat_total += price_aux*l.product.vat.tax
+                    else:
+                        subtotal += l.quantity*l.price_sold
+                        total += l.quantity*(
+                            l.price_sold + (l.price_sold*l.product.vat.tax)
+                        )
+                        vat_total += l.price_sold*l.product.vat.tax
                 instance.subtotal = subtotal
                 instance.total = total
                 instance.vat_total = vat_total
