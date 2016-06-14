@@ -611,15 +611,16 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                             l.quantity * vat_aux
                         )
 
-                '''for key, value in vat_subtotals_data.items():
+                for key, value in vat_subtotals_data.items():
                     vat = VAT.objects.get(pk=key)
-                    vatsubtotal = (
-                        models.InvoiceARHasVATSubtotal.objects.create(
-                        vat=vat,
-                        subtotal=value
+                    vatsubtotal, created = (
+                        instance.vat_subtotals.update_or_create(
+                            vat=vat,
+                            defaults={'vat': vat, 'subtotal': value}
+                        )
                     )
-                    instance.vat_subtotals.add(vatsubtotal)'''
-
+                    if created:
+                        instance.vat_subtotals.add(vatsubtotal)
 
                 instance.subtotal = subtotal
                 instance.total = total
