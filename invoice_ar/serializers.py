@@ -6,7 +6,7 @@ from rest_framework.serializers import (HyperlinkedIdentityField,
 
 from contact.models import Contact
 from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
-                            ContactInvoice)
+                            ContactInvoice, InvoiceLine)
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)
@@ -383,7 +383,10 @@ class ConceptTypeSerializer(HyperlinkedModelSerializer):
 
 class InvoiceARSerializer(HyperlinkedModelSerializer):
     invoice_lines = InvoiceLineSerializer(many=True)
-    vat_subtotals = InvoiceARHasVATSubtotalSerializer(many=True)
+    vat_subtotals = InvoiceARHasVATSubtotalSerializer(
+        many=True,
+        read_only=True
+    )
 
     class Meta:
         model = models.InvoiceAR
@@ -442,14 +445,6 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             },
             'vat_total': {
                 'read_only': True
-            },
-            'vat_subtotals': {
-                'view_name':
-                    'api:invoice_ar:invoicearhasvatsubtotal-detail',
-                'many': True,
-                'read_only': True,
-                'required': False,
-                'allow_null': True
             }
         }
 
@@ -489,8 +484,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             vat_total = Decimal('0.00')
             vat_subtotals_data = dict()
             for l_data in invoice_lines_data:
-                l = models.InvoiceLine.objects.create(**l_data)
-                if l.product.vat.id not in vat_subtotals_data:
+                l = InvoiceLine.objects.create(**l_data)
+                if str(l.product.vat.id) not in vat_subtotals_data:
                     vat_subtotals_data[str(l.product.vat.id)] = (
                         Decimal(0.00)
                     )
@@ -502,7 +497,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                     subtotal += price_aux
                     total += price_aux + vat_aux
                     vat_total += vat_aux
-                    vat_subtotals_data[str(l.product.vat.id)] = (
+                    vat_subtotals_data[str(l.product.vat.id)] += (
                         l.quantity * vat_aux
                     )
                 else:
@@ -512,7 +507,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         l.price_sold + (l.price_sold * l.product.vat.tax)
                     )
                     vat_total += l.quantity * vat_aux
-                    vat_subtotals_data[str(l.product.vat.id)] = (
+                    vat_subtotals_data[str(l.product.vat.id)] += (
                         l.quantity * vat_aux
                     )
 
@@ -582,30 +577,49 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 subtotal = Decimal('0.00')
                 total = Decimal('0.00')
                 vat_total = Decimal('0.00')
+                vat_subtotals_data = dict()
                 for l_data in invoice_lines_data:
                     l, created = (
-                        models.InvoiceLine.objects.update_or_create(
+                        InvoiceLine.objects.update_or_create(
                             pk=l_data.get('id'),
                             defaults=l_data
                         )
                     )
                     if created:
                         instance.invoice_lines.add(l)
+                    if str(l.product.vat.id) not in vat_subtotals_data:
+                        vat_subtotals_data[str(l.product.vat.id)] = (
+                            Decimal(0.00)
+                        )
                     if l.discount > 0.00:
-                        price_aux = (
+                        price_aux = l.quantity * (
                             l.price_sold - (l.price_sold * l.discount)
                         )
-                        price_aux *= l.quantity
                         vat_aux = price_aux * l.product.vat.tax
                         subtotal += price_aux
                         total += price_aux + vat_tax
                         vat_total += price_aux * l.product.vat.tax
-                    else:
-                        subtotal += l.quantity*l.price_sold
-                        total += l.quantity * (
-                            l.price_sold + (l.price_sold * l.product.vat.tax)
+                        vat_subtotals_data[str(l.product.vat.id)] += (
+                            vat_aux
                         )
+                    else:
+                        subtotal += l.quantity * l.price_sold
+                        vat_aux = l.price_sold * l.product.vat.tax
+                        total += l.quantity * (l.price_sold + vat_aux)
                         vat_total += l.price_sold * l.product.vat.tax
+                        vat_subtotals_data[str(l.product.vat.id)] += (
+                            l.quantity * vat_aux
+                        )
+
+                '''for key, value in vat_subtotals_data.items():
+                    vat = VAT.objects.get(pk=key)
+                    vatsubtotal = (
+                        models.InvoiceARHasVATSubtotal.objects.create(
+                        vat=vat,
+                        subtotal=value
+                    )
+                    instance.vat_subtotals.add(vatsubtotal)'''
+
 
                 instance.subtotal = subtotal
                 instance.total = total
