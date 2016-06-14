@@ -143,7 +143,7 @@ class VAT(models.Model):
         _('name'),
         max_length=15,
         unique=True,
-        help_text=_("i.e. 8%")
+        help_text=_("i.e. 8% US")
     )
     code = models.SlugField(
         _('code'),

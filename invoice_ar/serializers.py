@@ -1,11 +1,14 @@
+from decimal import Decimal
 from django.db import transaction
 
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
 from contact.models import Contact
-from invoice.models import (INVOICE_STATUSTYPE_DRAFT, CompanyInvoice,
-                            ContactInvoice)
+from invoice.models import (INVOICE_STATUSTYPE_DRAFT,
+                            CompanyInvoice,
+                            ContactInvoice,
+                            VAT)
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)
@@ -310,6 +313,9 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
 
 
 class PointOfSaleSerializer(HyperlinkedModelSerializer):
+    invoices = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:pointofsale-invoices'
+    )
 
     class Meta:
         model = models.PointOfSale
@@ -320,7 +326,8 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
             'afip_id',
             'point_of_sale_type',
             'fiscal_address',
-            'is_inactive'
+            'is_inactive',
+            'invoices'
         )
         extra_kwargs = {
             'url': {
@@ -408,13 +415,13 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice_ar:invoicear-detail'
             },
             'invoicear_company': {
-                'view_name': 'api:invoice_ar:companyinvoice-detail'
+                'view_name': 'api:invoice_ar:companyinvoicear-detail'
             },
             'invoice_type': {
                 'view_name': 'api:invoice:invoicetype-detail'
             },
             'invoicear_contact': {
-                'view_name': 'api:invoice_ar:contactinvoice-detail'
+                'view_name': 'api:invoice_ar:contactinvoicear-detail'
             },
             'status': {
                 'read_only': True
@@ -455,7 +462,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             validated_data.get('invoicear_contact').invoice_contact
         )
 
-        validated_data['status'] = models.INVOICE_STATUSTYPE_DRAFT
+        validated_data['status'] = INVOICE_STATUSTYPE_DRAFT
         number = validated_data.get('number')
         if number is None or number == 0:
             validated_data['number'] = 0
@@ -480,25 +487,45 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             subtotal = Decimal('0.00')
             total = Decimal('0.00')
             vat_total = Decimal('0.00')
+            vat_subtotals_data = dict()
             for l_data in invoice_lines_data:
                 l = models.InvoiceLine.objects.create(**l_data)
+                if l.product.vat.id not in vat_subtotals_data:
+                    vat_subtotals_data[str(l.product.vat.id)] = (
+                        Decimal(0.00)
+                    )
                 if l.discount > 0.00:
-                    price_aux = (
+                    price_aux = l.quantity * (
                         l.price_sold - (l.price_sold * l.discount)
                     )
-                    price_aux *= l.quantity
+                    vat_aux = price_aux * l.product.vat.tax
                     subtotal += price_aux
-                    total += (
-                        price_aux + (price_aux*l.product.vat.tax)
+                    total += price_aux + vat_aux
+                    vat_total += vat_aux
+                    vat_subtotals_data[str(l.product.vat.id)] = (
+                        l.quantity * vat_aux
                     )
-                    vat_total += price_aux*l.product.vat.tax
                 else:
-                    subtotal += l.price_sold*l.quantity
-                    total += l.quantity*(
-                        l.price_sold + (l.price_sold*l.product.vat.tax)
+                    subtotal += l.price_sold * l.quantity
+                    vat_aux = l.price_sold * l.product.vat.tax
+                    total += l.quantity * (
+                        l.price_sold + (l.price_sold * l.product.vat.tax)
                     )
-                    vat_total += l.price_sold*l.product.vat.tax
+                    vat_total += l.quantity * vat_aux
+                    vat_subtotals_data[str(l.product.vat.id)] = (
+                        l.quantity * vat_aux
+                    )
+
                 invoicear.invoice_lines.add(l)
+
+            for key, value in vat_subtotals_data.items():
+                vat = VAT.objects.get(pk=key)
+                vatsubtotal = models.InvoiceARHasVATSubtotal.objects.create(
+                    vat=vat,
+                    subtotal=value
+                )
+                invoicear.vat_subtotals.add(vatsubtotal)
+
             invoicear.subtotal = subtotal
             invoicear.total = total
             invoicear.vat_total = vat_total
@@ -508,7 +535,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
-        if instance.status is models.INVOICE_STATUSTYPE_DRAFT:
+        if instance.status is INVOICE_STATUSTYPE_DRAFT:
             instance.invoicear_company = validated_data.get(
                 'invoicear_company',
                 instance.invoicear_company

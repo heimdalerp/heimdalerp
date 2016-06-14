@@ -246,7 +246,7 @@ class InvoiceARHasVATSubtotal(models.Model):
     )
 
     def __str__(self):
-        return str(self.subtotal)
+        return str(self.vat) + ':' + str(self.subtotal)
 
     class Meta:
         verbose_name = _('VAT subtotal')
