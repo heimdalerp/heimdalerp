@@ -433,5 +433,43 @@
   "name": "Productos y Servicios",
   "code": "3"
  }
+},
+{
+ "model": "invoice_ar.companyinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "cuit": "20354467438",
+  "iibb": "1231255123"
+ }
+},
+{
+ "model": "invoice_ar.contactinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_contact": 1,
+  "id_type": "T",
+  "id_number": "203454679"
+ }
+},
+{
+ "model": "invoice_ar.contactinvoicear",
+ "pk": 2,
+ "fields": {
+  "invoice_contact": 2,
+  "id_type": "D",
+  "id_number": "35446743"
+ }
+},
+{
+ "model": "invoice_ar.pointofsale",
+ "pk": 1,
+ "fields": {
+  "invoicear_company": 1,
+  "afip_id": 1,
+  "point_of_sale_type": "W",
+  "fiscal_address": 1,
+  "is_inactive": false
+ }
 }
 ]
