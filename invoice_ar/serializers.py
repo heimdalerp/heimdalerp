@@ -447,7 +447,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name':
                     'api:invoice_ar:invoicearhasvatsubtotal-detail',
                 'many': True,
-                'read_only': True
+                'read_only': True,
+                'required': False,
+                'allow_null': True
             }
         }
 
@@ -594,17 +596,17 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                             l.price_sold - (l.price_sold * l.discount)
                         )
                         price_aux *= l.quantity
+                        vat_aux = price_aux * l.product.vat.tax
                         subtotal += price_aux
-                        total += (
-                            price_aux + (price_aux*l.product.vat.tax)
-                        )
-                        vat_total += price_aux*l.product.vat.tax
+                        total += price_aux + vat_tax
+                        vat_total += price_aux * l.product.vat.tax
                     else:
                         subtotal += l.quantity*l.price_sold
-                        total += l.quantity*(
-                            l.price_sold + (l.price_sold*l.product.vat.tax)
+                        total += l.quantity * (
+                            l.price_sold + (l.price_sold * l.product.vat.tax)
                         )
-                        vat_total += l.price_sold*l.product.vat.tax
+                        vat_total += l.price_sold * l.product.vat.tax
+
                 instance.subtotal = subtotal
                 instance.total = total
                 instance.vat_total = vat_total

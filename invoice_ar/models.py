@@ -195,7 +195,9 @@ class InvoiceAR(Invoice):
         _('due date')
     )
     service_start = models.DateField(
-        _('service start')
+        _('service start'),
+        blank=True,
+        null=True
     )
     concept_type = models.ForeignKey(
         ConceptType,
