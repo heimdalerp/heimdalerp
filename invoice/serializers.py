@@ -498,10 +498,9 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             for l_data in invoice_lines_data:
                 l = models.InvoiceLine.objects.create(**l_data)
                 if l.discount > 0.00:
-                    price_aux = (
+                    price_aux = l.quantity * (
                         l.price_sold - (l.price_sold * l.discount)
                     )
-                    price_aux *= l.quantity
                     subtotal += price_aux
                     total += (
                         price_aux + (price_aux * l.product.vat.tax)
@@ -562,10 +561,9 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                     if created:
                         instance.invoice_lines.add(l)
                     if l.discount > 0.00:
-                        price_aux = (
+                        price_aux = l.quantity * (
                             l.price_sold - (l.price_sold * l.discount)
                         )
-                        price_aux *= l.quantity
                         subtotal += price_aux
                         total += (
                             price_aux + (price_aux * l.product.vat.tax)
