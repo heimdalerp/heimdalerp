@@ -1,14 +1,12 @@
 from decimal import Decimal
-from django.db import transaction
 
+from django.db import transaction
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
 from contact.models import Contact
-from invoice.models import (INVOICE_STATUSTYPE_DRAFT,
-                            CompanyInvoice,
-                            ContactInvoice,
-                            VAT)
+from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
+                            ContactInvoice)
 from invoice.serializers import (CompanyInvoiceSerializer,
                                  ContactInvoiceSerializer,
                                  InvoiceLineSerializer)

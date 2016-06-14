@@ -1,6 +1,6 @@
 from decimal import Decimal
-from django.db import transaction
 
+from django.db import transaction
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
 
