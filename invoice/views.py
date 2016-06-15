@@ -126,10 +126,13 @@ class InvoicesByInvoiceTypeList(ListAPIView):
 
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
 
         return queryset
 
@@ -143,10 +146,13 @@ class InvoicesByCompanyList(ListAPIView):
 
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
 
         return queryset
 
@@ -160,9 +166,12 @@ class InvoicesByContactList(ListAPIView):
 
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
 
         return queryset
