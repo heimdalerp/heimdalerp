@@ -10,6 +10,17 @@
  }
 },
 {
+ "model": "persons.physicaladdress",
+ "pk": 1,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "city": null,
+  "postal_code": ""
+ }
+},
+{
  "model": "invoice.companyinvoice",
  "pk": 1,
  "fields": {
