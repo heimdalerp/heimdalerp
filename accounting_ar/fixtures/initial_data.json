@@ -1,0 +1,1141 @@
+[
+{
+ "model": "persons.company",
+ "pk": 1,
+ "fields": {
+  "fantasy_name": "Tu Compa\u00f1\u00eda",
+  "legal_name": "Tu Compa\u00f1\u00eda",
+  "slogan": "",
+  "initiated_activities": null
+ }
+},
+{
+ "model": "invoice.companyinvoice",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "legal_name": "",
+  "fiscal_position": null,
+  "fiscal_address": 1,
+  "default_invoice_debit_account": null,
+  "default_invoice_credit_account": null
+ }
+},
+{
+ "model": "invoice_ar.companyinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "cuit": "",
+  "iibb": ""
+ }
+},
+{
+ "model": "accounting.ledger",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "name": "Libro Mayor"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 1,
+ "fields": {
+  "ledger": 1,
+  "code": "1-1-01",
+  "name": "Caja y Bancos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 2,
+ "fields": {
+  "ledger": 1,
+  "code": "1-1-02",
+  "name": "Inversiones Temporarias",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 3,
+ "fields": {
+  "ledger": 1,
+  "code": "1-1-03",
+  "name": "Cr\u00e9ditos por Ventas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 4,
+ "fields": {
+  "ledger": 1,
+  "code": "1-1-04",
+  "name": "Otros Cr\u00e9ditos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 5,
+ "fields": {
+  "ledger": 1,
+  "code": "1-1-06",
+  "name": "Otros Activos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 6,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-01",
+  "name": "Cr\u00e9ditos por Ventas Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 7,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-02",
+  "name": "Otros Cr\u00e9ditos Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 8,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-03",
+  "name": "Bienes de Cambio de D\u00edficil Rotaci\u00f3n",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 9,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-04",
+  "name": "Bienes de Uso",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 10,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-05",
+  "name": "Participaciones Permanentes en Sociedades",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 11,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-06",
+  "name": "Otras Inversiones Permanentes o de Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 12,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-07",
+  "name": "Activos Intangibles",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 13,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-08",
+  "name": "Otros Activos No Corrientes",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 14,
+ "fields": {
+  "ledger": 1,
+  "code": "1-2-09",
+  "name": "Llave de Negocio",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 15,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-01",
+  "name": "Deudas Comerciales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 16,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-02",
+  "name": "Pr\u00e9stamos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 17,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-03",
+  "name": "Remuneraciones y Cargas Sociales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 18,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-04",
+  "name": "Cargas Fiscales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 19,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-05",
+  "name": "Anticipos de Clientes",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 20,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-06",
+  "name": "Dividendos a Pagar",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 21,
+ "fields": {
+  "ledger": 1,
+  "code": "2-1-01-07",
+  "name": "Otras Deudas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 22,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-01",
+  "name": "Deudas Comerciales a Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 23,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-02",
+  "name": "Pr\u00e9stamos a Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 24,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-03",
+  "name": "Remuneraciones y Cargas Sociales Previsionales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 25,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-04",
+  "name": "Cargas Fiscales Previsionales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 26,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-05",
+  "name": "Anticipos de Clientes Previsionales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 27,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-06",
+  "name": "Dividendos a Pagar a Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 28,
+ "fields": {
+  "ledger": 1,
+  "code": "2-2-02-07",
+  "name": "Otras Deudas a Largo Plazo",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 29,
+ "fields": {
+  "ledger": 1,
+  "code": "3-1-01",
+  "name": "Aportes Capitalizados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 30,
+ "fields": {
+  "ledger": 1,
+  "code": "3-1-02",
+  "name": "Aportes No Capitalizados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 31,
+ "fields": {
+  "ledger": 1,
+  "code": "3-1-03",
+  "name": "Ajuste del Capital",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 32,
+ "fields": {
+  "ledger": 1,
+  "code": "3-2-01",
+  "name": "Ganancias Reservadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 33,
+ "fields": {
+  "ledger": 1,
+  "code": "3-2-02",
+  "name": "Resultados Diferidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 34,
+ "fields": {
+  "ledger": 1,
+  "code": "3-2-03",
+  "name": "Resultados No Asignados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 35,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-01",
+  "name": "Ventas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 36,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-02",
+  "name": "Intereses Ganados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 37,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-03",
+  "name": "Alquileres Ganados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 38,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-04",
+  "name": "Comisiones Ganadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 39,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-05",
+  "name": "Renta de T\u00edtulos P\u00fablicos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 40,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-06",
+  "name": "Descuentos Ganados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 41,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-07",
+  "name": "Honorarios Ganados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 42,
+ "fields": {
+  "ledger": 1,
+  "code": "4-1-08",
+  "name": "Ganancia Venta Acciones",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 43,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-01",
+  "name": "Recupero de Rezagos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 44,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-02",
+  "name": "Recupero Deudores Incobrables",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 45,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-03",
+  "name": "Recupero Previsi\u00f3n para Presuntos Deudores Incobrables",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 46,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-04",
+  "name": "Ganancia Venta de Bienes de Uso",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 47,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-05",
+  "name": "Donaciones Ganadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 48,
+ "fields": {
+  "ledger": 1,
+  "code": "4-2-06",
+  "name": "Ganancia Venta Inversiones Permanentes",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 49,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-01",
+  "name": "Costo de Mercader\u00edas Vendidas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 50,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-02",
+  "name": "Costo de Productos Elaborados Vendidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 51,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-03",
+  "name": "Depreciaci\u00f3n de Bienes de Uso",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 52,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-04",
+  "name": "Amortizaci\u00f3n Bienes Inmateriales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 53,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-05",
+  "name": "Amortizaci\u00f3n Cargos Diferidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 54,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-06",
+  "name": "Sueldos y Jornales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 55,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-07",
+  "name": "Cargas Sociales",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 56,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-09",
+  "name": "Impuestos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 57,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-10",
+  "name": "Sellados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 58,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-11",
+  "name": "Desvalorizaci\u00f3n Moneda Extranjera",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 59,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-12",
+  "name": "Desvalorizaci\u00f3n Acciones",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 60,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-13",
+  "name": "Desvalorizaci\u00f3n Bienes de Cambio",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 61,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-14",
+  "name": "Deudores Incobrables",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 62,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-15",
+  "name": "Deudores Incobrables Presuntos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 63,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-16",
+  "name": "Indemnizaci\u00f3n Despidos Presuntos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 64,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-17",
+  "name": "Indemnizaci\u00f3n Despidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 65,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-18",
+  "name": "Diferencias de Cambio",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 66,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-19",
+  "name": "Comisiones y Gastos Bancarios",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 67,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-20",
+  "name": "Electricidad, Gas, Tel\u00e9fono, Internet, Cable",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 68,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-21",
+  "name": "Gastos de Vi\u00e1ticos y Representaci\u00f3n",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 69,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-22",
+  "name": "Alquileres Perdidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 70,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-23",
+  "name": "Intereses Perdidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 71,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-24",
+  "name": "Seguros",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 72,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-25",
+  "name": "Descuentos Perdidos",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 73,
+ "fields": {
+  "ledger": 1,
+  "code": "5-1-26",
+  "name": "Gastos en Publicidad y Propaganda",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 74,
+ "fields": {
+  "ledger": 1,
+  "code": "5-2-01",
+  "name": "Siniestros",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 75,
+ "fields": {
+  "ledger": 1,
+  "code": "5-2-02",
+  "name": "Donaciones Otorgadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 76,
+ "fields": {
+  "ledger": 1,
+  "code": "5-2-03",
+  "name": "P\u00e9rdida Venta Bienes de Uso",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 77,
+ "fields": {
+  "ledger": 1,
+  "code": "6-1-01",
+  "name": "Compras al Contado",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 78,
+ "fields": {
+  "ledger": 1,
+  "code": "6-1-02",
+  "name": "Compras a Cr\u00e9dito",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 79,
+ "fields": {
+  "ledger": 1,
+  "code": "6-1-03",
+  "name": "IVA Cr\u00e9dito Fiscal",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 80,
+ "fields": {
+  "ledger": 1,
+  "code": "6-1-04",
+  "name": "IVA Cr\u00e9dito Fiscal",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 81,
+ "fields": {
+  "ledger": 1,
+  "code": "6-1-05",
+  "name": "Bonificaciones Cedidas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 82,
+ "fields": {
+  "ledger": 1,
+  "code": "6-2-01",
+  "name": "Ventas al Contado",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 83,
+ "fields": {
+  "ledger": 1,
+  "code": "6-2-02",
+  "name": "Ventas a Cr\u00e9dito",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 84,
+ "fields": {
+  "ledger": 1,
+  "code": "6-2-03",
+  "name": "IVA D\u00e9bito Fiscal",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 85,
+ "fields": {
+  "ledger": 1,
+  "code": "6-2-04",
+  "name": "Bonificaciones Ganadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 86,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-01",
+  "name": "Mercader\u00edas Recibidas en Consignaci\u00f3n",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 87,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-02",
+  "name": "Dep\u00f3sito de Acciones Recibidas en Garant\u00eda",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 88,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-03",
+  "name": "Garant\u00edas Otorgadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 89,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-04",
+  "name": "Fianzas Otorgadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 90,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-05",
+  "name": "Avales Otorgados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 91,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-06",
+  "name": "Documentos Descontados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 92,
+ "fields": {
+  "ledger": 1,
+  "code": "7-1-07",
+  "name": "Documentos Endosados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 93,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-01",
+  "name": "Mercader\u00edas Recibidas en Consignaci\u00f3n",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 94,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-02",
+  "name": "Comitente por Mercader\u00edas Recibidas en Consignaci\u00f3n",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 95,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-03",
+  "name": "Depositantes de Acciones Recibidas en Garant\u00eda",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 96,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-04",
+  "name": "Garant\u00edas Otorgadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 97,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-05",
+  "name": "Fianzas Otorgadas",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 98,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-06",
+  "name": "Avales Otorgados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 99,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-07",
+  "name": "Documentos Descontados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 100,
+ "fields": {
+  "ledger": 1,
+  "code": "7-2-08",
+  "name": "Acreedor Portencial por Documentos Descontados",
+  "account_type": "",
+  "balance": "0.00"
+ }
+}
+]

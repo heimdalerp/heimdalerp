@@ -83,7 +83,8 @@ class Account(models.Model):
         _('main type'),
         max_length=1,
         choices=ACCOUNT_TYPES,
-        db_index=True
+        blank=True,
+        null=True
     )
     balance = models.DecimalField(
         _('balance'),

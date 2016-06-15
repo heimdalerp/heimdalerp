@@ -31,6 +31,7 @@ class AccountSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'ledger',
+            'account_type',
             'code',
             'name',
             'balance'
