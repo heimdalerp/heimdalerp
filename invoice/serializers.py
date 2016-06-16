@@ -591,7 +591,3 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             instance.save()
 
         return instance
-
-    '''@transaction.atomic
-    def delete(self, instance):
-        models.InvoiceLine.objects.filter('''
