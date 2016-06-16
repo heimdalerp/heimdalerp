@@ -42,6 +42,9 @@ class AccountSerializer(HyperlinkedModelSerializer):
             },
             'ledger': {
                 'view_name': 'api:accounting:ledger-detail'
+            },
+            'balance': {
+                'coerce_to_string': False
             }
         }
 
@@ -68,6 +71,15 @@ class TransactionSerializer(HyperlinkedModelSerializer):
                 },
                 'credit_account': {
                     'view_name': 'api:accounting:account-detail'
+                },
+                'amount': {
+                    'coerce_to_string': False
+                },
+                'debit_account_balance': {
+                    'coerce_to_string': False
+                },
+                'credit_account_balance': {
+                    'coerce_to_string': False
                 }
             }
 
@@ -92,5 +104,8 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             },
             'account': {
                 'view_name': 'api:accounting:account-detail'
+            },
+            'amount': {
+                'coerce_to_string': False
             }
         }

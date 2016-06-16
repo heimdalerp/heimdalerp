@@ -471,5 +471,35 @@
   "fiscal_address": 1,
   "is_inactive": false
  }
+},
+{
+ "model": "invoice.product",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Pan",
+  "current_price": "20.00",
+  "vat": 2
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 2,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Leche",
+  "current_price": "20.00",
+  "vat": 5
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 3,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Men\u00fa",
+  "current_price": "50.00",
+  "vat": 3
+ }
 }
 ]

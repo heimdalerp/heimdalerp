@@ -356,6 +356,9 @@ class InvoiceARHasVATSubtotalSerializer(HyperlinkedModelSerializer):
             },
             'vat': {
                 'view_name': 'api:invoice:vat-detail'
+            },
+            'subtotal': {
+                'coerce_to_string': False
             }
         }
 
@@ -428,10 +431,12 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'read_only': True
             },
             'subtotal': {
-                'read_only': True
+                'read_only': True,
+                'coerce_to_string': False
             },
             'total': {
-                'read_only': True
+                'read_only': True,
+                'coerce_to_string': False
             },
             'transaction': {
                 'view_name': 'api:accounting:transaction-detail',
@@ -444,7 +449,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice_ar:concepttype-detail'
             },
             'vat_total': {
-                'read_only': True
+                'read_only': True,
+                'coerce_to_string': False
             }
         }
 

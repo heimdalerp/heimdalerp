@@ -318,6 +318,9 @@ class VATSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:invoice:vat-detail'
+            },
+            'tax': {
+                'coerce_to_string': False
             }
         }
 
@@ -347,6 +350,9 @@ class ProductSerializer(HyperlinkedModelSerializer):
             },
             'vat': {
                 'view_name': 'api:invoice:vat-detail'
+            },
+            'current_price': {
+                'coerce_to_string': False
             }
         }
 
@@ -370,6 +376,9 @@ class InvoiceLineSerializer(HyperlinkedModelSerializer):
             },
             'product': {
                 'view_name': 'api:invoice:product-detail'
+            },
+            'price_sold': {
+                'coerce_to_string': False
             }
         }
 
@@ -436,10 +445,12 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'required': False
             },
             'subtotal': {
-                'read_only': True
+                'read_only': True,
+                'coerce_to_string': False
             },
             'total': {
-                'read_only': True
+                'read_only': True,
+                'coerce_to_string': False
             },
             'status': {
                 'read_only': True
@@ -580,3 +591,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             instance.save()
 
         return instance
+
+    '''@transaction.atomic
+    def delete(self, instance):
+        models.InvoiceLine.objects.filter('''
