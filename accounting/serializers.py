@@ -92,7 +92,9 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'contact_contact',
-            'account',
+            'payment_date',
+            'payment_type',
+            'payment_method',
             'amount'
         )
         extra_kwargs = {
@@ -102,10 +104,95 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             'contact_contact': {
                 'view_name': 'api:contact:contact-detail'
             },
-            'account': {
-                'view_name': 'api:accounting:account-detail'
-            },
             'amount': {
                 'coerce_to_string': False
+            }
+        }
+
+
+class CompanyAccountingSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.CompanyAccounting
+        fields = (
+            'url',
+            'id',
+            'persons_company',
+            'default_debit_account_for_cash',
+            'default_credit_account_for_cash',
+            'default_debit_account_for_creditcard',
+            'default_credit_account_for_creditcard',
+            'default_debit_account_for_debitcard',
+            'default_credit_account_for_debitcard',
+            'default_debit_account_for_bankaccount',
+            'default_credit_account_for_bankaccount',
+            'default_debit_account_for_check',
+            'default_credit_account_for_check',
+            'default_debit_account_for_paypal',
+            'default_credit_account_for_paypal',
+            'default_debit_account_for_googlewallet',
+            'default_credit_account_for_googlewallet',
+            'default_debit_account_for_applepay',
+            'default_credit_account_for_applepay',
+            'default_debit_account_for_bitcoin',
+            'default_credit_account_for_bitcoin'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:accounting:companyaccounting-detail'
+            },
+            'default_debit_account_for_cash': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_cash': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_creditcard': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_creditcard': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_debitcard': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_debitcard': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_bankaccount': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_bankaccount': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_check': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_check': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_paypal': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_paypal': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_googlewallet': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_googlewallet': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_applepay': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_applepay': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_debit_account_for_bitcoin': {
+                'view_name': 'api:accounting:account-detail'
+            },
+            'default_credit_account_for_bitcoin': {
+                'view_name': 'api:accounting:account-detail'
             }
         }

@@ -8,14 +8,10 @@ router.register(r'ledgers', views.LedgerViewSet)
 router.register(r'accounts', views.AccountViewSet)
 router.register(r'transactions', views.TransactionViewSet)
 router.register(r'payments', views.PaymentViewSet)
+router.register(r'companies', views.CompanyAccountingViewSet)
 
 app_name = 'accounting'
 urlpatterns = [
-    url(
-        r'^accounts/(?P<pk>\d+)/payments/$',
-        views.PaymentsByAccountList.as_view(),
-        name='account-payments'
-    ),
     url(
         r'^contacts/(?P<pk>\d+)/payments/$',
         views.PaymentsByContactList.as_view(),

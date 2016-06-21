@@ -51,20 +51,24 @@ class PaymentViewSet(ModelViewSet):
     serializer_class = serializers.PaymentSerializer
 
 
-class PaymentsByAccountList(ListAPIView):
-    serializer_class = serializers.PaymentSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return models.Payment.objects.filter(account=pk)
-
-
 class PaymentsByContactList(ListAPIView):
     serializer_class = serializers.PaymentSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return models.Payment.objects.filter(contact=pk)
+        queryset = models.Payment.objects.filter(contact=pk)
+
+        year = self.request.query_params.get('year')
+        month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
+        if year is not None:
+            queryset = queryset.filter(invoice_date__year=year)
+        if month is not None:
+            queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
+
+        return queryset
 
 
 class PaymentsByCompanyList(ListAPIView):
@@ -72,4 +76,21 @@ class PaymentsByCompanyList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return models.Payment.objects.filter(contact__company=pk)
+        queryset = models.Payment.objects.filter(contact__company=pk)
+
+        year = self.request.query_params.get('year')
+        month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
+        if year is not None:
+            queryset = queryset.filter(invoice_date__year=year)
+        if month is not None:
+            queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
+
+        return queryset
+
+
+class CompanyAccountingViewSet(ModelViewSet):
+    queryset = models.CompanyAccounting.objects.all()
+    serializer_class = serializers.CompanyAccountingSerializer

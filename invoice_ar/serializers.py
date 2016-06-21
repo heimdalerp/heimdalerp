@@ -468,16 +468,6 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
         if number is None or number == 0:
             validated_data['number'] = 0
 
-        invoice_company = validated_data.get('invoice_company')
-        if validated_data.get('invoice_debit_account') is None:
-            validated_data['invoice_debit_account'] = (
-                invoice_company.default_invoice_debit_account
-            )
-        if validated_data.get('invoice_credit_account') is None:
-            validated_data['invoice_credit_account'] = (
-                invoice_company.default_invoice_credit_account
-            )
-
         invoice_lines_data = validated_data.pop('invoice_lines')
 
         invoicear = models.InvoiceAR.objects.create(
@@ -552,14 +542,6 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             instance.notes = validated_data.get(
                 'notes',
                 instance.notes
-            )
-            instance.debit_account = validated_data.get(
-                'invoice_debit_account',
-                instance.invoice_debit_account
-            )
-            instance.invoice_credit_account = validated_data.get(
-                'invoice_credit_account',
-                instance.invoice_credit_account
             )
             instance.due_date = validated_data.get(
                 'due_date',

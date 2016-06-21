@@ -154,6 +154,37 @@ class Transaction(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+PAYMENT_TYPE_SEND = 'S'
+PAYMENT_TYPE_RECEIVE = 'R'
+PAYMENT_TYPE_INTERNAL = 'I'
+PAYMENT_TYPES = (
+    (PAYMENT_TYPE_SEND, _('Send')),
+    (PAYMENT_TYPE_RECEIVE, _('Receive')),
+    (PAYMENT_TYPE_INTERNAL, _('Internal'))
+)
+
+PAYMENT_METHOD_CASH = 'C'
+PAYMENT_METHOD_CREDITCARD = 'CC'
+PAYMENT_METHOD_DEBITCARD = 'DB'
+PAYMENT_METHOD_BANKACCOUNT = 'B'
+PAYMENT_METHOD_CHECK = 'CH'
+PAYMENT_METHOD_PAYPAL = 'P'
+PAYMENT_METHOD_GOOGLEWALLET = 'GW'
+PAYMENT_METHOD_APPLEPAY = 'AP'
+PAYMENT_METHOD_BITCOIN = 'BC'
+PAYMENT_METHODS = (
+    (PAYMENT_METHOD_CASH, _('Cash')),
+    (PAYMENT_METHOD_CREDITCARD, _('Credit Card')),
+    (PAYMENT_METHOD_DEBITCARD, _('Debit Card')),
+    (PAYMENT_METHOD_BANKACCOUNT, _('Bank Account')),
+    (PAYMENT_METHOD_CHECK, _('Check')),
+    (PAYMENT_METHOD_PAYPAL, _('PayPal')),
+    (PAYMENT_METHOD_GOOGLEWALLET, _('Google Wallet')),
+    (PAYMENT_METHOD_APPLEPAY, _('Apple Pay')),
+    (PAYMENT_METHOD_BITCOIN, _('Bitcoin')),
+)
+
+
 class Payment(models.Model):
     """
     Payments are made by Contacts, most of the time to pay an invoice.
@@ -165,12 +196,21 @@ class Payment(models.Model):
         related_query_name='payment',
         on_delete=models.PROTECT
     )
-    account = models.ForeignKey(
-        Account,
-        verbose_name=_('account'),
-        related_name='accounts',
-        related_query_name='account',
-        on_delete=models.PROTECT
+    payment_date = models.DateField(
+        _('payment date'),
+        help_text=_("Not necessarily today.")
+    )
+    payment_type = models.CharField(
+        _('payment type'),
+        max_length=1,
+        default=PAYMENT_TYPE_RECEIVE,
+        choices=PAYMENT_TYPES
+    )
+    payment_method = models.CharField(
+        _('payment method'),
+        max_length=2,
+        default=PAYMENT_METHOD_CASH,
+        choices=PAYMENT_METHODS
     )
     amount = models.DecimalField(
         _('amount'),
@@ -193,4 +233,148 @@ class Payment(models.Model):
     class Meta:
         verbose_name = _('payment')
         verbose_name_plural = _('payments')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class CompanyAccounting(models.Model):
+    """
+    An Accounting extension for Company.
+    """
+    persons_company = models.OneToOneField(
+        Company,
+        verbose_name=_('company')
+    )
+    default_debit_account_for_cash = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for cash'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_cash = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for cash'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_creditcard = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for credit card'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_creditcard = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for credit card'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_debitcard = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for debit card'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_debitcard = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for debit card'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_bankaccount = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for bank account'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_bankaccount = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for bank account'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_check = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for check'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_check = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for check'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_paypal = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for PayPal'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_paypal = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for PayPal'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_googlewallet = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for Google Wallet'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_googlewallet = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for Google Wallet'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_applepay = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for Apple Pay'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_applepay = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for Apple Pay'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_debit_account_for_bitcoin = models.ForeignKey(
+        Account,
+        verbose_name=_('default debit account for Bitcoin'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+    default_credit_account_for_bitcoin = models.ForeignKey(
+        Account,
+        verbose_name=_('default credit account for Bitcoin'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT
+    )
+
+    def __str__(self):
+        return str(self.persons_company)
+
+    class Meta:
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
         default_permissions = ('view', 'add', 'change', 'delete')

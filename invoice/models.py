@@ -382,18 +382,6 @@ class Invoice(models.Model):
         blank=True,
         default=""
     )
-    invoice_debit_account = models.ForeignKey(
-        Account,
-        verbose_name=_('invoice debit account'),
-        related_name='invoices_debit',
-        related_query_name='invoice_debit',
-    )
-    invoice_credit_account = models.ForeignKey(
-        Account,
-        verbose_name=_('invoice credit account'),
-        related_name='invoices_credit',
-        related_query_name='invoice_credit',
-    )
     transaction = models.ForeignKey(
         Transaction,
         verbose_name=_('transaction'),

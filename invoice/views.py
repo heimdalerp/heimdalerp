@@ -94,9 +94,10 @@ class InvoiceViewSet(ModelViewSet):
     @transaction.atomic
     def accept(self, request, pk=None):
         invoice = models.Invoice.objects.get(pk=pk)
+        invoice_company = invoice.invoice_company
         if invoice.status == models.INVOICE_STATUSTYPE_DRAFT:
-            debit_account = invoice.invoice_debit_account
-            credit_account = invoice.invoice_credit_account
+            debit_account = invoice_company.default_invoice_debit_account
+            credit_account = invoice_company.default_invoice_credit_account
             transaction = Transaction.objects.create(
                 amount=invoice.total,
                 debit_account=debit_account,

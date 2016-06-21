@@ -22,3 +22,8 @@ class TransactionAdmin(VersionAdmin):
 @admin.register(models.Payment)
 class PaymentAdmin(VersionAdmin):
     pass
+
+
+@admin.register(models.CompanyAccounting)
+class CompanyAccountingAdmin(VersionAdmin):
+    pass
