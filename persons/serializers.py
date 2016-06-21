@@ -6,11 +6,6 @@ from persons import models
 
 
 class PhysicalAddressSerializer(HyperlinkedModelSerializer):
-    city = SlugRelatedField(
-        slug_field='geoname_id',
-        queryset=City.objects.all(),
-        allow_null=True
-    )
 
     class Meta:
         model = models.PhysicalAddress
@@ -28,7 +23,10 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:persons:physicaladdress-detail'
             },
             'city': {
-                'required': False
+                'view_name': 'api:geo:city-detail',
+                'lookup_field': 'geoname_id',
+                'required': False,
+                'allow_null': True
             }
         }
 
