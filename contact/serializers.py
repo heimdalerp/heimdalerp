@@ -33,7 +33,6 @@ class ContactSerializer(HyperlinkedModelSerializer):
             },
             'born_in': {
                 'view_name': 'api:geo:country-detail',
-                'lookup_field': 'code',
                 'required': False
             },
             'home_address': {

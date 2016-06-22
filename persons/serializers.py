@@ -24,7 +24,6 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
             },
             'city': {
                 'view_name': 'api:geo:city-detail',
-                'lookup_field': 'code',
                 'required': False,
                 'allow_null': True
             }
