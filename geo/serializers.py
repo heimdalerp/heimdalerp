@@ -43,14 +43,16 @@ class DistrictSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:geo:district-detail'
             },
             'city': {
-                'view_name': 'api:geo:city-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:city-detail'
             }
         }
 
 
 class CitySerializer(HyperlinkedModelSerializer):
     alt_names = AlternativeNameSerializer(many=True)
+    districts = HyperlinkedIdentityField(
+        view_name='api:geo:city-districts'
+    )
 
     class Meta:
         model = City
@@ -68,20 +70,16 @@ class CitySerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:geo:city-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:city-detail'
             },
             'subregion': {
-                'view_name': 'api:geo:subregion-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:subregion-detail'
             },
             'region': {
-                'view_name': 'api:geo:region-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:region-detail'
             },
             'country': {
-                'view_name': 'api:geo:country-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:country-detail'
             }
         }
 
@@ -103,12 +101,10 @@ class SubregionSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:geo:subregion-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:subregion-detail'
             },
             'region': {
-                'view_name': 'api:geo:region-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:region-detail'
             }
         }
 
@@ -116,12 +112,10 @@ class SubregionSerializer(HyperlinkedModelSerializer):
 class RegionSerializer(HyperlinkedModelSerializer):
     alt_names = AlternativeNameSerializer(many=True)
     subregions = HyperlinkedIdentityField(
-        view_name='api:geo:region-subregions',
-        lookup_field='code'
+        view_name='api:geo:region-subregions'
     )
     cities = HyperlinkedIdentityField(
-        view_name='api:geo:region-cities',
-        lookup_field='code'
+        view_name='api:geo:region-cities'
     )
 
     class Meta:
@@ -141,11 +135,9 @@ class RegionSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:geo:region-detail',
-                'lookup_field': 'code'
             },
             'country': {
-                'view_name': 'api:geo:country-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:country-detail'
             }
         }
 
@@ -153,12 +145,10 @@ class RegionSerializer(HyperlinkedModelSerializer):
 class CountrySerializer(HyperlinkedModelSerializer):
     alt_names = AlternativeNameSerializer(many=True)
     regions = HyperlinkedIdentityField(
-        view_name='api:geo:country-regions',
-        lookup_field='code'
+        view_name='api:geo:country-regions'
     )
     cities = HyperlinkedIdentityField(
-        view_name='api:geo:country-cities',
-        lookup_field='code'
+        view_name='api:geo:country-cities'
     )
 
     class Meta:
@@ -176,7 +166,6 @@ class CountrySerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:geo:country-detail',
-                'lookup_field': 'code'
+                'view_name': 'api:geo:country-detail'
             }
         }
