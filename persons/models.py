@@ -1,4 +1,4 @@
-from cities_light.models import City, Country
+from cities.models import City, Country
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -37,7 +37,7 @@ class PhysicalAddress(models.Model):
         related_name='physical_addresses',
         related_query_name='physical_address',
         verbose_name=_('city'),
-        to_field='geoname_id',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )
@@ -114,7 +114,9 @@ class PersonProfile(models.Model):
     born_in = models.ForeignKey(
         Country,
         verbose_name=_('born in'),
-        to_field='geoname_id',
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT,
         blank=True,
         null=True
     )

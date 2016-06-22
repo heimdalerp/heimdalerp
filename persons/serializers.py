@@ -1,4 +1,4 @@
-from cities_light.models import City
+from cities.models import City
 from rest_framework.serializers import (HyperlinkedModelSerializer,
                                         SlugRelatedField)
 
@@ -24,7 +24,7 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
             },
             'city': {
                 'view_name': 'api:geo:city-detail',
-                'lookup_field': 'geoname_id',
+                'lookup_field': 'code',
                 'required': False,
                 'allow_null': True
             }

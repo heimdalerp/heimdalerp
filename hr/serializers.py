@@ -1,4 +1,4 @@
-from cities_light.models import Country
+from cities.models import Country
 from django.contrib.auth.models import User
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,

@@ -114,7 +114,7 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'heimdalerp',
         'USER': 'heimdalerp',
         'PASSWORD': None,
@@ -234,9 +234,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
 
     'bcrypt',
-    'cities_light',
+    'cities',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
@@ -337,24 +338,6 @@ TEST_NON_SERIALIZED_APPS = []
 #
 # CUSTOM MODULES SETTINGS
 #
-
-# django-cities-light
-CITIES_LIGHT_TRANSLATION_LANGUAGES = ['en', 'es']
-CITIES_LIGHT_INCLUDE_COUNTRIES = ['AR']
-CITIES_LIGHT_INCLUDE_CITY_TYPES = [
-    'PPL',
-    'PPLA',
-    'PPLA2',
-    'PPLA3',
-    'PPLA4',
-    'PPLC',
-    'PPLF',
-    'PPLG',
-    'PPLL',
-    'PPLR',
-    'PPLS',
-    'STLMT'
-]
 
 # invoice_ar
 REST_PROXY = {

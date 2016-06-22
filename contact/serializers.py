@@ -1,4 +1,4 @@
-from cities_light.models import Country
+from cities.models import Country
 from rest_framework.serializers import (HyperlinkedModelSerializer,
                                         SlugRelatedField)
 
@@ -8,11 +8,6 @@ from persons.serializers import PhysicalAddressSerializer
 
 
 class ContactSerializer(HyperlinkedModelSerializer):
-    born_in = SlugRelatedField(
-        slug_field='geoname_id',
-        queryset=Country.objects.all(),
-        allow_null=True
-    )
     home_address = PhysicalAddressSerializer()
 
     class Meta:
@@ -37,6 +32,8 @@ class ContactSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:persons:company-detail'
             },
             'born_in': {
+                'view_name': 'api:geo:country-detail',
+                'lookup_field': 'code',
                 'required': False
             },
             'home_address': {
