@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-14 19:31-0300\n"
+"POT-Creation-Date: 2016-06-23 16:51-0300\n"
 "PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
@@ -18,19 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounting/models.py:16 hr/models.py:535 invoice/models.py:46
-#: invoice/models.py:95 invoice/models.py:183 invoice/models.py:321
-#: invoice_ar/models.py:56 invoice_ar/models.py:83 invoice_ar/models.py:107
-#: persons/models.py:91 persons/models.py:103 sales/models.py:14
-#: sales/models.py:142 sales/models.py:277
+#: accounting/models.py:16 accounting/models.py:245 accounting/models.py:378
+#: hr/models.py:535 invoice/models.py:46 invoice/models.py:95
+#: invoice/models.py:183 invoice/models.py:321 invoice_ar/models.py:56
+#: invoice_ar/models.py:83 invoice_ar/models.py:107 persons/models.py:92
+#: persons/models.py:104 sales/models.py:14 sales/models.py:142
+#: sales/models.py:277
 msgid "company"
 msgstr "compañía"
 
 #: accounting/models.py:23 accounting/models.py:79 contact/models.py:20
-#: hr/models.py:15 hr/models.py:42 hr/models.py:70 hr/models.py:135
-#: hr/models.py:169 hr/models.py:195 hr/models.py:509 hr/models.py:541
-#: invoice/models.py:16 invoice/models.py:143 invoice/models.py:190
-#: invoice/models.py:280 invoice_ar/models.py:147 sales/models.py:20
+#: geo/models.py:13 hr/models.py:15 hr/models.py:42 hr/models.py:70
+#: hr/models.py:135 hr/models.py:169 hr/models.py:195 hr/models.py:509
+#: hr/models.py:541 invoice/models.py:16 invoice/models.py:143
+#: invoice/models.py:190 invoice/models.py:280 invoice_ar/models.py:147
+#: sales/models.py:20
 msgid "name"
 msgstr "nombre"
 
@@ -59,68 +61,210 @@ msgstr "código"
 msgid "main type"
 msgstr "tipo principal"
 
-#: accounting/models.py:89
+#: accounting/models.py:90
 msgid "balance"
 msgstr "balance"
 
-#: accounting/models.py:103 accounting/models.py:169
+#: accounting/models.py:104
 msgid "account"
 msgstr "cuenta"
 
-#: accounting/models.py:104
+#: accounting/models.py:105
 msgid "accounts"
 msgstr "cuentas"
 
-#: accounting/models.py:114
+#: accounting/models.py:115
 msgid "timestamp"
 msgstr "fecha y hora"
 
-#: accounting/models.py:118 accounting/models.py:175
+#: accounting/models.py:119 accounting/models.py:216
 msgid "amount"
 msgstr "cantidad"
 
-#: accounting/models.py:124
+#: accounting/models.py:125
 msgid "debit account"
 msgstr "cuenta de débito"
 
-#: accounting/models.py:130
+#: accounting/models.py:131
 msgid "account balance"
 msgstr "balance de cuenta"
 
-#: accounting/models.py:136
+#: accounting/models.py:137
 msgid "credit account"
 msgstr "cuenta de crédito"
 
-#: accounting/models.py:142
+#: accounting/models.py:143
 msgid "credit account balance"
 msgstr "balance de cuenta de crédito"
 
-#: accounting/models.py:148
+#: accounting/models.py:149
 #, python-format
 msgid "Transaction #%(id)s"
 msgstr "Transacción #%(id)s"
 
-#: accounting/models.py:151 accounting/models.py:181 invoice/models.py:399
+#: accounting/models.py:152 accounting/models.py:222 invoice/models.py:387
 msgid "transaction"
 msgstr "transacción"
 
-#: accounting/models.py:152
+#: accounting/models.py:153
 msgid "transactions"
 msgstr "transacciones"
 
-#: accounting/models.py:162 contact/models.py:33 invoice/models.py:106
+#: accounting/models.py:161
+msgid "Send"
+msgstr "Enviar"
+
+#: accounting/models.py:162
+msgid "Receive"
+msgstr "Recibir"
+
+#: accounting/models.py:163
+msgid "Internal"
+msgstr "Interno"
+
+#: accounting/models.py:176
+msgid "Cash"
+msgstr "Efectivo"
+
+#: accounting/models.py:177
+msgid "Credit Card"
+msgstr "Tarjeta de Crédito"
+
+#: accounting/models.py:178
+msgid "Debit Card"
+msgstr "Tarjeta de Débito"
+
+#: accounting/models.py:179
+msgid "Bank Account"
+msgstr "cuenta bancaria"
+
+#: accounting/models.py:180
+msgid "Check"
+msgstr "Cheque"
+
+#: accounting/models.py:181
+msgid "PayPal"
+msgstr "PayPal"
+
+#: accounting/models.py:182
+msgid "Google Wallet"
+msgstr "Google Wallet"
+
+#: accounting/models.py:183
+msgid "Apple Pay"
+msgstr "Apple Pay"
+
+#: accounting/models.py:184
+msgid "Bitcoin"
+msgstr "Bitcoin"
+
+#: accounting/models.py:194 contact/models.py:33 invoice/models.py:106
 #: invoice/models.py:133 invoice/models.py:329 invoice_ar/models.py:24
 #: invoice_ar/models.py:44
 msgid "contact"
 msgstr "contacto"
 
-#: accounting/models.py:193
+#: accounting/models.py:200
+msgid "payment date"
+msgstr "fecha de pago"
+
+#: accounting/models.py:201 invoice/models.py:358 sales/models.py:162
+#: sales/models.py:297
+msgid "Not necessarily today."
+msgstr "No necesariamente hoy."
+
+#: accounting/models.py:204
+msgid "payment type"
+msgstr "tipo de pago"
+
+#: accounting/models.py:210
+msgid "payment method"
+msgstr "método de pago"
+
+#: accounting/models.py:234
 msgid "payment"
 msgstr "pago"
 
-#: accounting/models.py:194
+#: accounting/models.py:235
 msgid "payments"
 msgstr "pagos"
+
+#: accounting/models.py:249
+msgid "default debit account for cash"
+msgstr "cuenta de débito por defecto para efectivo"
+
+#: accounting/models.py:256
+msgid "default credit account for cash"
+msgstr "cuenta de crédito por defecto para efectivo"
+
+#: accounting/models.py:263
+msgid "default debit account for credit card"
+msgstr "cuenta de débito por defecto para tarjeta de crédito"
+
+#: accounting/models.py:270
+msgid "default credit account for credit card"
+msgstr "cuenta de crédito por defecto para tarjeta de crédito"
+
+#: accounting/models.py:277
+msgid "default debit account for debit card"
+msgstr "cuenta de débito por defecto para tarjeta de débito"
+
+#: accounting/models.py:284
+msgid "default credit account for debit card"
+msgstr "cuenta de crédito por defecto para tarjeta de débito"
+
+#: accounting/models.py:291
+msgid "default debit account for bank account"
+msgstr "cuenta de débito por defecto para cuenta bancaria"
+
+#: accounting/models.py:298
+msgid "default credit account for bank account"
+msgstr "cuenta de crédito por defecto para cuenta bancaria"
+
+#: accounting/models.py:305
+msgid "default debit account for check"
+msgstr "cuenta de débito por defecto para cheque"
+
+#: accounting/models.py:312
+msgid "default credit account for check"
+msgstr "cuenta de crédito por defecto para cheque"
+
+#: accounting/models.py:319
+msgid "default debit account for PayPal"
+msgstr "cuenta de débito por defecto para PayPal"
+
+#: accounting/models.py:326
+msgid "default credit account for PayPal"
+msgstr "cuenta de crédito por defecto para PayPal"
+
+#: accounting/models.py:333
+msgid "default debit account for Google Wallet"
+msgstr "cuenta de débito por defecto para Google Wallet"
+
+#: accounting/models.py:340
+msgid "default credit account for Google Wallet"
+msgstr "cuenta de crédito por defecto para Google Wallet"
+
+#: accounting/models.py:347
+msgid "default debit account for Apple Pay"
+msgstr "cuenta de débito por defecto para Apple Pay"
+
+#: accounting/models.py:354
+msgid "default credit account for Apple Pay"
+msgstr "cuenta de crédito por defecto para Apple Pay"
+
+#: accounting/models.py:361
+msgid "default debit account for Bitcoin"
+msgstr "cuenta de débito por defecto para Bitcoin"
+
+#: accounting/models.py:368
+msgid "default credit account for Bitcoin"
+msgstr "cuenta de crédito por defecto para Bitcoin"
+
+#: accounting/models.py:379 invoice/models.py:96 invoice_ar/models.py:84
+#: persons/models.py:93
+msgid "companies"
+msgstr "compañías"
 
 #: contact/models.py:9
 msgid "Company"
@@ -138,6 +282,50 @@ msgstr "tipo de contacto"
 #: sales/models.py:150 sales/models.py:285
 msgid "contacts"
 msgstr "contactos"
+
+#: geo/models.py:8
+msgid "language code"
+msgstr "código de idioma"
+
+#: geo/models.py:21
+msgid "alternative name"
+msgstr "nombre alternativo"
+
+#: geo/models.py:22 geo/models.py:40 geo/models.py:77 geo/models.py:108
+msgid "alternative names"
+msgstr "nombres alternativos"
+
+#: geo/models.py:29 geo/models.py:66
+msgid "codename"
+msgstr "nombre código"
+
+#: geo/models.py:35 geo/models.py:72 geo/models.py:103
+msgid "default name"
+msgstr "nombre por defecto"
+
+#: geo/models.py:50 geo/models.py:59
+msgid "country"
+msgstr "país"
+
+#: geo/models.py:51
+msgid "countries"
+msgstr "países"
+
+#: geo/models.py:87 geo/models.py:98
+msgid "region"
+msgstr "región"
+
+#: geo/models.py:88
+msgid "regions"
+msgstr "regiones"
+
+#: geo/models.py:118 persons/models.py:40
+msgid "locality"
+msgstr "localidad"
+
+#: geo/models.py:119
+msgid "localities"
+msgstr "localidades"
 
 #: heimdalerp/settings.py:306
 msgid "English"
@@ -410,7 +598,7 @@ msgstr "posición fiscal"
 msgid "fiscal positions"
 msgstr "posiciones fiscales"
 
-#: invoice/models.py:49 invoice/models.py:109 persons/models.py:70
+#: invoice/models.py:49 invoice/models.py:109 persons/models.py:71
 msgid "legal name"
 msgstr "razón social"
 
@@ -431,10 +619,6 @@ msgstr "cuenta de débito por defecto para facturación"
 msgid "default invoice credit account"
 msgstr "cuenta de crédito por defecto para facturación"
 
-#: invoice/models.py:96 invoice_ar/models.py:84 persons/models.py:92
-msgid "companies"
-msgstr "compañías"
-
 #: invoice/models.py:146
 msgid "i.e. 8% US"
 msgstr "ej: 8% US"
@@ -447,7 +631,7 @@ msgstr "impuesto"
 msgid "A value between 0.00 and 1.00"
 msgstr "Un valor entre 0.00 y 1.00"
 
-#: invoice/models.py:171 invoice/models.py:204 invoice_ar/models.py:237
+#: invoice/models.py:171 invoice/models.py:204 invoice_ar/models.py:239
 msgid "VAT"
 msgstr "IVA"
 
@@ -532,15 +716,11 @@ msgstr "número"
 msgid "date"
 msgstr "fecha"
 
-#: invoice/models.py:358 sales/models.py:162 sales/models.py:297
-msgid "Not necessarily today."
-msgstr "No necesariamente hoy."
-
 #: invoice/models.py:361 sales/models.py:184 sales/models.py:319
 msgid "status"
 msgstr "estado"
 
-#: invoice/models.py:367 invoice_ar/models.py:242 sales/models.py:165
+#: invoice/models.py:367 invoice_ar/models.py:244 sales/models.py:165
 #: sales/models.py:300
 msgid "subtotal"
 msgstr "subtotal"
@@ -561,19 +741,11 @@ msgstr "Subtotal con impuestos."
 msgid "notes"
 msgstr "notas"
 
-#: invoice/models.py:387
-msgid "invoice debit account"
-msgstr "cuenta de débito de facturación"
-
-#: invoice/models.py:393
-msgid "invoice credit account"
-msgstr "cuenta de crédito de facturación"
-
-#: invoice/models.py:414 invoice_ar/models.py:226 invoice_ar/models.py:227
+#: invoice/models.py:402 invoice_ar/models.py:228 invoice_ar/models.py:229
 msgid "invoice"
 msgstr "factura"
 
-#: invoice/models.py:415
+#: invoice/models.py:403
 msgid "invoices"
 msgstr "facturas"
 
@@ -652,7 +824,7 @@ msgstr "punto de venta"
 msgid "point of sales"
 msgstr "puntos de venta"
 
-#: invoice_ar/models.py:161 invoice_ar/models.py:202
+#: invoice_ar/models.py:161 invoice_ar/models.py:204
 msgid "concept type"
 msgstr "tipo de concepto"
 
@@ -676,83 +848,79 @@ msgstr "fecha de vencimiento"
 msgid "service start"
 msgstr "inicio servicio"
 
-#: invoice_ar/models.py:209
+#: invoice_ar/models.py:211
 msgid "VAT total"
 msgstr "total IVA"
 
-#: invoice_ar/models.py:216 invoice_ar/models.py:253
+#: invoice_ar/models.py:218 invoice_ar/models.py:255
 msgid "VAT subtotals"
 msgstr "subtotales IVA"
 
-#: invoice_ar/models.py:252
+#: invoice_ar/models.py:254
 msgid "VAT subtotal"
 msgstr "subtotal IVA"
 
-#: persons/models.py:8
+#: persons/models.py:9
 msgid "Male"
 msgstr "Masculino"
 
-#: persons/models.py:9
+#: persons/models.py:10
 msgid "Female"
 msgstr "Femenino"
 
-#: persons/models.py:18
+#: persons/models.py:19
 msgid "street address"
 msgstr "dirección"
 
-#: persons/models.py:24
+#: persons/models.py:25
 msgid "floor number"
 msgstr "número de piso"
 
-#: persons/models.py:30
+#: persons/models.py:31
 msgid "apartment number"
 msgstr "número de apartamento"
 
-#: persons/models.py:39
-msgid "city"
-msgstr "ciudad"
-
-#: persons/models.py:45
+#: persons/models.py:46
 msgid "postal code"
 msgstr "código postal"
 
-#: persons/models.py:55
+#: persons/models.py:56
 msgid "physical address"
 msgstr "dirección física"
 
-#: persons/models.py:56
+#: persons/models.py:57
 msgid "physical addresses"
 msgstr "direcciones físicas"
 
-#: persons/models.py:65
+#: persons/models.py:66
 msgid "fantasy name"
 msgstr "nombre de fantasía"
 
-#: persons/models.py:76
+#: persons/models.py:77
 msgid "slogan"
 msgstr "eslogan"
 
-#: persons/models.py:82
+#: persons/models.py:83
 msgid "initiated activities"
 msgstr "inicio de actividades"
 
-#: persons/models.py:110
+#: persons/models.py:111
 msgid "birth date"
 msgstr "fecha de nacimiento"
 
-#: persons/models.py:116
+#: persons/models.py:117
 msgid "born in"
 msgstr "nacido en"
 
-#: persons/models.py:122
+#: persons/models.py:125
 msgid "phone numbers"
 msgstr "números de teléfono"
 
-#: persons/models.py:128
+#: persons/models.py:131
 msgid "extra email addresses"
 msgstr "direcciones extra de correo electrónico"
 
-#: persons/models.py:136
+#: persons/models.py:139
 msgid "home address"
 msgstr "domicilio personal"
 
@@ -827,6 +995,15 @@ msgstr "venta"
 #: sales/models.py:333
 msgid "sales"
 msgstr "ventas"
+
+#~ msgid "invoice debit account"
+#~ msgstr "cuenta de débito de facturación"
+
+#~ msgid "invoice credit account"
+#~ msgstr "cuenta de crédito de facturación"
+
+#~ msgid "city"
+#~ msgstr "ciudad"
 
 #~ msgid "account subtype"
 #~ msgstr "subtipo de cuenta"
