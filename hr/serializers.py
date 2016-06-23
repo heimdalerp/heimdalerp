@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
-                                        ModelSerializer,
-                                        SlugRelatedField)
+                                        ModelSerializer, SlugRelatedField)
 
 from geo.models import Country
 from hr import models

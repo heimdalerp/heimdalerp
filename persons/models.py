@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from geo.models import Locality, Country
+from geo.models import Country, Locality
 
 GENRE_TYPE_MALE = 'M'
 GENRE_TYPE_FEMALE = 'F'
@@ -65,7 +65,7 @@ class Company(models.Model):
     fantasy_name = models.CharField(
         _('fantasy name'),
         max_length=150,
-        unique=False # Temporary until DRF 3.4.0 is released
+        unique=False  # Temporary until DRF 3.4.0 is released
     )
     legal_name = models.CharField(
         _('legal name'),

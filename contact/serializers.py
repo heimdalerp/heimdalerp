@@ -1,8 +1,6 @@
-from rest_framework.serializers import (HyperlinkedModelSerializer,
-                                        SlugRelatedField)
+from rest_framework.serializers import HyperlinkedModelSerializer
 
 from contact import models
-from geo.models import Country
 from persons.models import PhysicalAddress
 from persons.serializers import PhysicalAddressSerializer
 

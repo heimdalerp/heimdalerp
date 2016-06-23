@@ -585,7 +585,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         )
                         vat_aux = price_aux * l.product.vat.tax
                         subtotal += price_aux
-                        total += price_aux + vat_tax
+                        total += price_aux + vat_aux
                         vat_total += price_aux * l.product.vat.tax
                         vat_subtotals_data[str(l.product.vat.id)] += (
                             vat_aux

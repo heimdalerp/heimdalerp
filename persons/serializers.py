@@ -1,5 +1,4 @@
-from rest_framework.serializers import (HyperlinkedModelSerializer,
-                                        SlugRelatedField)
+from rest_framework.serializers import HyperlinkedModelSerializer
 
 from persons import models
 
