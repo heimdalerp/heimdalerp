@@ -44,7 +44,7 @@ class Country(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.default_name
 
     class Meta:
         verbose_name = _('country')
@@ -81,7 +81,7 @@ class Region(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.default_name
 
     class Meta:
         verbose_name = _('region')
@@ -112,7 +112,7 @@ class Locality(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.default_name
 
     class Meta:
         verbose_name = _('locality')

@@ -1,5 +1,654 @@
 [
 {
+ "model": "geo.alternativename",
+ "pk": 1,
+ "fields": {
+  "language_code": "en",
+  "name": "Argentina"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 2,
+ "fields": {
+  "language_code": "es",
+  "name": "Argentina"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 3,
+ "fields": {
+  "language_code": "en",
+  "name": "Buenos Aires"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 4,
+ "fields": {
+  "language_code": "es",
+  "name": "Buenos Aires"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 5,
+ "fields": {
+  "language_code": "en",
+  "name": "Autonomous City of Buenos Aires"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 6,
+ "fields": {
+  "language_code": "es",
+  "name": "Ciudad Aut\u00f3noma de Buenos Aires"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 7,
+ "fields": {
+  "language_code": "en",
+  "name": "Catamarca"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 8,
+ "fields": {
+  "language_code": "es",
+  "name": "Catamarca"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 9,
+ "fields": {
+  "language_code": "en",
+  "name": "Chaco"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 10,
+ "fields": {
+  "language_code": "es",
+  "name": "Chaco"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 11,
+ "fields": {
+  "language_code": "en",
+  "name": "Chubut"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 12,
+ "fields": {
+  "language_code": "es",
+  "name": "Chubut"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 13,
+ "fields": {
+  "language_code": "en",
+  "name": "Cordoba"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 14,
+ "fields": {
+  "language_code": "es",
+  "name": "C\u00f3rdoba"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 15,
+ "fields": {
+  "language_code": "en",
+  "name": "Corrientes"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 16,
+ "fields": {
+  "language_code": "es",
+  "name": "Corrientes"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 17,
+ "fields": {
+  "language_code": "en",
+  "name": "Entre Rios"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 18,
+ "fields": {
+  "language_code": "es",
+  "name": "Entre R\u00edos"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 19,
+ "fields": {
+  "language_code": "en",
+  "name": "Formosa"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 20,
+ "fields": {
+  "language_code": "es",
+  "name": "Formosa"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 21,
+ "fields": {
+  "language_code": "en",
+  "name": "Jujuy"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 22,
+ "fields": {
+  "language_code": "es",
+  "name": "Jujuy"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 23,
+ "fields": {
+  "language_code": "en",
+  "name": "La Pampa"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 24,
+ "fields": {
+  "language_code": "es",
+  "name": "La Pampa"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 25,
+ "fields": {
+  "language_code": "en",
+  "name": "La Rioja"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 26,
+ "fields": {
+  "language_code": "es",
+  "name": "La Rioja"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 27,
+ "fields": {
+  "language_code": "en",
+  "name": "Mendoza"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 28,
+ "fields": {
+  "language_code": "es",
+  "name": "Mendoza"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 29,
+ "fields": {
+  "language_code": "en",
+  "name": "Misiones"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 30,
+ "fields": {
+  "language_code": "es",
+  "name": "Misiones"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 31,
+ "fields": {
+  "language_code": "en",
+  "name": "Neuquen"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 32,
+ "fields": {
+  "language_code": "es",
+  "name": "Neuqu\u00e9n"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 33,
+ "fields": {
+  "language_code": "en",
+  "name": "Rio Negro"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 34,
+ "fields": {
+  "language_code": "es",
+  "name": "R\u00edo Negro"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 35,
+ "fields": {
+  "language_code": "en",
+  "name": "Salta"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 36,
+ "fields": {
+  "language_code": "es",
+  "name": "Salta"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 37,
+ "fields": {
+  "language_code": "en",
+  "name": "San Juan"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 38,
+ "fields": {
+  "language_code": "es",
+  "name": "San Juan"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 39,
+ "fields": {
+  "language_code": "en",
+  "name": "San Luis"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 40,
+ "fields": {
+  "language_code": "es",
+  "name": "San Luis"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 41,
+ "fields": {
+  "language_code": "en",
+  "name": "Santa Cruz"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 42,
+ "fields": {
+  "language_code": "es",
+  "name": "Santa Cruz"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 43,
+ "fields": {
+  "language_code": "en",
+  "name": "Santa Fe"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 44,
+ "fields": {
+  "language_code": "es",
+  "name": "Santa Fe"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 45,
+ "fields": {
+  "language_code": "en",
+  "name": "Santiago del Estero"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 46,
+ "fields": {
+  "language_code": "es",
+  "name": "Santiago del Estero"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 47,
+ "fields": {
+  "language_code": "en",
+  "name": "Tierra del Fuego, Antarctic and South Atlantic Islands"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 48,
+ "fields": {
+  "language_code": "es",
+  "name": "Tierra del Fuego, Ant\u00e1rtida e Islas del Atl\u00e1ntico Sur"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 49,
+ "fields": {
+  "language_code": "en",
+  "name": "Tucuman"
+ }
+},
+{
+ "model": "geo.alternativename",
+ "pk": 50,
+ "fields": {
+  "language_code": "es",
+  "name": "Tucum\u00e1n"
+ }
+},
+{
+ "model": "geo.country",
+ "pk": 2,
+ "fields": {
+  "codename": "AR",
+  "default_name": "Argentina",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 1,
+ "fields": {
+  "country": 2,
+  "codename": "BA",
+  "default_name": "Buenos Aires",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 2,
+ "fields": {
+  "country": 2,
+  "codename": "CABA",
+  "default_name": "Ciudad Aut\u00f3noma de Buenos Aires",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 3,
+ "fields": {
+  "country": 2,
+  "codename": "CT",
+  "default_name": "Catamarca",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 4,
+ "fields": {
+  "country": 2,
+  "codename": "CC",
+  "default_name": "Chaco",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 5,
+ "fields": {
+  "country": 2,
+  "codename": "CH",
+  "default_name": "Chubut",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 6,
+ "fields": {
+  "country": 2,
+  "codename": "CB",
+  "default_name": "C\u00f3rdoba",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 7,
+ "fields": {
+  "country": 2,
+  "codename": "CR",
+  "default_name": "Corrientes",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 8,
+ "fields": {
+  "country": 2,
+  "codename": "ER",
+  "default_name": "Entre R\u00edos",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 9,
+ "fields": {
+  "country": 2,
+  "codename": "FO",
+  "default_name": "Formosa",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 10,
+ "fields": {
+  "country": 2,
+  "codename": "JY",
+  "default_name": "Jujuy",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 11,
+ "fields": {
+  "country": 2,
+  "codename": "LP",
+  "default_name": "La Pampa",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 12,
+ "fields": {
+  "country": 2,
+  "codename": "LR",
+  "default_name": "La Rioja",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 13,
+ "fields": {
+  "country": 2,
+  "codename": "MZ",
+  "default_name": "Mendoza",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 14,
+ "fields": {
+  "country": 2,
+  "codename": "MN",
+  "default_name": "Misiones",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 15,
+ "fields": {
+  "country": 2,
+  "codename": "NQ",
+  "default_name": "Neuqu\u00e9n",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 16,
+ "fields": {
+  "country": 2,
+  "codename": "RN",
+  "default_name": "R\u00edo Negro",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 17,
+ "fields": {
+  "country": 2,
+  "codename": "SA",
+  "default_name": "Salta",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 18,
+ "fields": {
+  "country": 2,
+  "codename": "SJ",
+  "default_name": "San Juan",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 19,
+ "fields": {
+  "country": 2,
+  "codename": "SL",
+  "default_name": "San Luis",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 20,
+ "fields": {
+  "country": 2,
+  "codename": "SC",
+  "default_name": "Santa Cruz",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 21,
+ "fields": {
+  "country": 2,
+  "codename": "SF",
+  "default_name": "Santa Fe",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 22,
+ "fields": {
+  "country": 2,
+  "codename": "SE",
+  "default_name": "Santiago del Estero",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 23,
+ "fields": {
+  "country": 2,
+  "codename": "TF",
+  "default_name": "Tiera del Fuego, Ant\u00e1rtida e Islas del Atl\u00e1ntico Sur",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 24,
+ "fields": {
+  "country": 2,
+  "codename": "TM",
+  "default_name": "Tucum\u00e1n",
+  "alternative_names": []
+ }
+},
+{
  "model": "invoice.fiscalposition",
  "pk": 1,
  "fields": {
