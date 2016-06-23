@@ -114,7 +114,7 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'heimdalerp',
         'USER': 'heimdalerp',
         'PASSWORD': None,
@@ -234,10 +234,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
 
     'bcrypt',
-    'cities',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
@@ -245,6 +243,7 @@ INSTALLED_APPS = [
     'rest_framework_docs',
 
     # HeimdalERP Core Apps
+    'geo',
     'persons',
     'hr',
     'contact',
@@ -338,6 +337,7 @@ TEST_NON_SERIALIZED_APPS = []
 #
 # CUSTOM MODULES SETTINGS
 #
+CITIES_IGNORE_EMPTY_REGIONS = False
 
 # invoice_ar
 REST_PROXY = {

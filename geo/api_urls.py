@@ -5,9 +5,7 @@ from geo import views
 
 router = DefaultRouter()
 router.register(r'alternativenames', views.AlternativeNameViewSet)
-router.register(r'districts', views.DistrictViewSet)
-router.register(r'cities', views.CityViewSet)
-router.register(r'subregions', views.SubregionViewSet)
+router.register(r'localities', views.LocalityViewSet)
 router.register(r'regions', views.RegionViewSet)
 router.register(r'countries', views.CountryViewSet)
 
@@ -19,24 +17,14 @@ urlpatterns = [
         name='country-regions'
     ),
     url(
-        r'^countries/(?P<pk>\d+)/cities/$',
-        views.CitiesByCountryList.as_view(),
-        name='country-cities'
+        r'^countries/(?P<pk>\d+)/localities/$',
+        views.LocalitiesByCountryList.as_view(),
+        name='country-localities'
     ),
     url(
-        r'^regions/(?P<pk>\d+)/cities/$',
-        views.CitiesByRegionList.as_view(),
-        name='region-cities'
-    ),
-    url(
-        r'^regions/(?P<pk>\d+)/subregions/$',
-        views.SubregionsByRegionList.as_view(),
-        name='region-subregions'
-    ),
-    url(
-        r'^cities/(?P<pk>\d+)/districts/$',
-        views.DistrictsByCityList.as_view(),
-        name='city-districts'
+        r'^regions/(?P<pk>\d+)/localities/$',
+        views.LocalitiesByRegionList.as_view(),
+        name='region-localities'
     ),
     url(r'^', include(router.urls)),
 ]

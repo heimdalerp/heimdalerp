@@ -1,24 +1,22 @@
-from cities.models import (AlternativeName, District, City, Subregion,
-                            Region, Country)
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from geo import serializers
+from geo import models, serializers
 
 
 class AlternativeNameViewSet(ReadOnlyModelViewSet):
     serializer_class = serializers.AlternativeNameSerializer
-    queryset = AlternativeName.objects.all()
+    queryset = models.AlternativeName.objects.all()
 
 
 class CountryViewSet(ReadOnlyModelViewSet):
     serializer_class = serializers.CountrySerializer
-    queryset = Country.objects.all()
+    queryset = models.Country.objects.all()
 
 
 class RegionViewSet(ReadOnlyModelViewSet):
     serializer_class = serializers.RegionSerializer
-    queryset = Region.objects.all()
+    queryset = models.Region.objects.all()
 
 
 class RegionsByCountryList(ListAPIView):
@@ -26,24 +24,12 @@ class RegionsByCountryList(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return Region.objects.filter(country=pk)
+        return models.Region.objects.filter(country=pk)
 
 
-class SubregionViewSet(ReadOnlyModelViewSet):
-    serializer_class = serializers.SubregionSerializer
-    queryset = Subregion.objects.all()
-
-class SubregionsByRegionList(ListAPIView):
-    serializer_class = serializers.SubregionSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return Subregion.objects.filter(region=pk)
-
-
-class CityViewSet(ReadOnlyModelViewSet):
-    serializer_class = serializers.CitySerializer
-    queryset = City.objects.all()
+class LocalityViewSet(ReadOnlyModelViewSet):
+    serializer_class = serializers.LocalitySerializer
+    queryset = models.Locality.objects.all()
 
     def get_queryset(self):
         """
@@ -58,30 +44,17 @@ class CityViewSet(ReadOnlyModelViewSet):
         return queryset
 
 
-class CitiesByCountryList(ListAPIView):
-    serializer_class = serializers.CitySerializer
+class LocalitiesByCountryList(ListAPIView):
+    serializer_class = serializers.LocalitySerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return City.objects.filter(country=pk)
+        return models.Locality.objects.filter(region__country=pk)
 
 
-class CitiesByRegionList(ListAPIView):
-    serializer_class = serializers.CitySerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return City.objects.filter(region=pk)
-
-
-class DistrictViewSet(ReadOnlyModelViewSet):
-    serializer_class = serializers.DistrictSerializer
-    queryset = District.objects.all()
-
-
-class DistrictsByCityList(ListAPIView):
-    serializer_class = serializers.DistrictSerializer
+class LocalitiesByRegionList(ListAPIView):
+    serializer_class = serializers.LocalitySerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return District.objects.filter(city=pk)
+        return models.Locality.objects.filter(region=pk)

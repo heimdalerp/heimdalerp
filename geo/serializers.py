@@ -1,21 +1,18 @@
-from cities.models import (AlternativeName, City, District, Subregion,
-                            Region, Country)
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
+
+from geo import models
 
 
 class AlternativeNameSerializer(HyperlinkedModelSerializer):
 
     class Meta:
-        model = AlternativeName
+        model = models.AlternativeName
         fields = (
             'url',
             'id',
             'name',
-            'language',
-            'is_preferred',
-            'is_short',
-            'is_colloquial'
+            'language_code',
         )
         extra_kwargs = {
             'url': {
@@ -24,84 +21,21 @@ class AlternativeNameSerializer(HyperlinkedModelSerializer):
         }
 
 
-class DistrictSerializer(HyperlinkedModelSerializer):
-    alt_names = AlternativeNameSerializer(many=True)
+class LocalitySerializer(HyperlinkedModelSerializer):
+    alternative_names = AlternativeNameSerializer(many=True)
 
     class Meta:
-        model = District
+        model = models.Locality
         fields = (
             'url',
             'id',
-            'name',
-            'slug',
-            'alt_names',
-            'name_std',
-            'city'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:geo:district-detail'
-            },
-            'city': {
-                'view_name': 'api:geo:city-detail'
-            }
-        }
-
-
-class CitySerializer(HyperlinkedModelSerializer):
-    alt_names = AlternativeNameSerializer(many=True)
-    districts = HyperlinkedIdentityField(
-        view_name='api:geo:city-districts'
-    )
-
-    class Meta:
-        model = City
-        fields = (
-            'url',
-            'id',
-            'name',
-            'slug',
-            'alt_names',
-            'name_std',
-            'subregion',
-            'region',
-            'country',
-            'districts'
-        )
-        extra_kwargs = {
-            'url': {
-                'view_name': 'api:geo:city-detail'
-            },
-            'subregion': {
-                'view_name': 'api:geo:subregion-detail'
-            },
-            'region': {
-                'view_name': 'api:geo:region-detail'
-            },
-            'country': {
-                'view_name': 'api:geo:country-detail'
-            }
-        }
-
-
-class SubregionSerializer(HyperlinkedModelSerializer):
-    alt_names = AlternativeNameSerializer(many=True)
-
-    class Meta:
-        model = Subregion
-        fields = (
-            'url',
-            'id',
-            'name',
-            'slug',
-            'alt_names',
-            'name_std',
-            'code',
+            'default_name',
+            'alternative_names',
             'region'
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:geo:subregion-detail'
+                'view_name': 'api:geo:locality-detail'
             },
             'region': {
                 'view_name': 'api:geo:region-detail'
@@ -110,27 +44,21 @@ class SubregionSerializer(HyperlinkedModelSerializer):
 
 
 class RegionSerializer(HyperlinkedModelSerializer):
-    alt_names = AlternativeNameSerializer(many=True)
-    subregions = HyperlinkedIdentityField(
-        view_name='api:geo:region-subregions'
-    )
-    cities = HyperlinkedIdentityField(
-        view_name='api:geo:region-cities'
+    alternative_names = AlternativeNameSerializer(many=True)
+    localities = HyperlinkedIdentityField(
+        view_name='api:geo:region-localities'
     )
 
     class Meta:
-        model = Region
+        model = models.Region
         fields = (
             'url',
             'id',
-            'name',
-            'slug',
-            'alt_names',
-            'name_std',
-            'code',
+            'default_name',
+            'alternative_names',
+            'codename',
             'country',
-            'subregions',
-            'cities'
+            'localities'
         )
         extra_kwargs = {
             'url': {
@@ -143,26 +71,24 @@ class RegionSerializer(HyperlinkedModelSerializer):
 
 
 class CountrySerializer(HyperlinkedModelSerializer):
-    alt_names = AlternativeNameSerializer(many=True)
+    alternative_names = AlternativeNameSerializer(many=True)
     regions = HyperlinkedIdentityField(
         view_name='api:geo:country-regions'
     )
-    cities = HyperlinkedIdentityField(
-        view_name='api:geo:country-cities'
+    localities = HyperlinkedIdentityField(
+        view_name='api:geo:country-localities'
     )
 
     class Meta:
-        model = Country
+        model = models.Country
         fields = (
             'url',
             'id',
-            'name',
-            'slug',
-            'alt_names',
-            'code',
-            'languages',
+            'default_name',
+            'alternative_names',
+            'codename',
             'regions',
-            'cities'
+            'localities'
         )
         extra_kwargs = {
             'url': {

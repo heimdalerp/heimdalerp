@@ -97,10 +97,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
                 contact_contact.home_address.apartment_number
             )
         )
-        contact_contact.home_address.city = (
+        contact_contact.home_address.locality = (
             home_address_data.get(
-                'city',
-                contact_contact.home_address.city
+                'locality',
+                contact_contact.home_address.locality
             )
         )
         contact_contact.home_address.postal_code = (
@@ -160,10 +160,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
                 invoice_contact.fiscal_address.apartment_number
             )
         )
-        invoice_contact.fiscal_address.city = (
+        invoice_contact.fiscal_address.locality = (
             fiscal_address_data.get(
-                'city',
-                invoice_contact.fiscal_address.city
+                'locality',
+                invoice_contact.fiscal_address.locality
             )
         )
         invoice_contact.fiscal_address.postal_code = (
@@ -284,10 +284,10 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
                 invoice_company.fiscal_address.apartment_number
             )
         )
-        invoice_company.fiscal_address.city = (
+        invoice_company.fiscal_address.locality = (
             fiscal_address_data.get(
-                'city',
-                invoice_company.fiscal_address.city
+                'locality',
+                invoice_company.fiscal_address.locality
             )
         )
         invoice_company.fiscal_address.postal_code = (

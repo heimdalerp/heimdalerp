@@ -1,4 +1,3 @@
-from cities.models import City
 from rest_framework.serializers import (HyperlinkedModelSerializer,
                                         SlugRelatedField)
 
@@ -15,15 +14,15 @@ class PhysicalAddressSerializer(HyperlinkedModelSerializer):
             'street_address',
             'floor_number',
             'apartment_number',
-            'city',
+            'locality',
             'postal_code'
         )
         extra_kwargs = {
             'url': {
                 'view_name': 'api:persons:physicaladdress-detail'
             },
-            'city': {
-                'view_name': 'api:geo:city-detail',
+            'locality': {
+                'view_name': 'api:geo:locality-detail',
                 'required': False,
                 'allow_null': True
             }

@@ -39,7 +39,6 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     (heimdalerp) $ pip3.4 install -r dev/heimdalerp/requirements.pip
     (heimdalerp) $ python3.4 manage.py migrate
     (heimdalerp) $ python3.4 manage.py createsuperuser
-    (heimdalerp) $ python3.4 manage.py cities
     (heimdalerp) $ python3.4 manage.py createinitialrevisions
 
 ### 1.2 Debian 8 / Ubuntu 16.04 LTS
@@ -64,6 +63,5 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
     (heimdalerp) $ pip3 install -r dev/heimdalerp/requirements.pip
     (heimdalerp) $ python3 manage.py migrate
     (heimdalerp) $ python3 manage.py createsuperuser
-    (heimdalerp) $ python3 manage.py cities
     (heimdalerp) $ python3 manage.py createinitialrevisions
 

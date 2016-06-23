@@ -111,10 +111,10 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
                 instance.contact_contact.home_address.apartment_number
             )
         )
-        instance.contact_contact.home_address.city = (
+        instance.contact_contact.home_address.locality = (
             home_address_data.get(
-                'city',
-                instance.contact_contact.home_address.city
+                'locality',
+                instance.contact_contact.home_address.locality
             )
         )
         instance.contact_contact.home_address.postal_code = (
@@ -161,8 +161,8 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         instance.fiscal_address.apartment_number = fiscal_address_data.get(
             'apartment_number', instance.fiscal_address.apartment_number
         )
-        instance.fiscal_address.city = fiscal_address_data.get(
-            'city', instance.fiscal_address.city
+        instance.fiscal_address.locality = fiscal_address_data.get(
+            'locality', instance.fiscal_address.locality
         )
         instance.fiscal_address.postal_code = fiscal_address_data.get(
             'postal_code', instance.fiscal_address.postal_code
@@ -275,8 +275,8 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         instance.fiscal_address.apartment_number = fiscal_address_data.get(
             'apartment_number', instance.fiscal_address.apartment_number
         )
-        instance.fiscal_address.city = fiscal_address_data.get(
-            'city', instance.fiscal_address.city
+        instance.fiscal_address.locality = fiscal_address_data.get(
+            'locality', instance.fiscal_address.locality
         )
         instance.fiscal_address.postal_code = fiscal_address_data.get(
             'postal_code', instance.fiscal_address.postal_code

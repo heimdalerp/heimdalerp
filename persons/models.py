@@ -1,6 +1,7 @@
-from cities.models import City, Country
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from geo.models import Locality, Country
 
 GENRE_TYPE_MALE = 'M'
 GENRE_TYPE_FEMALE = 'F'
@@ -32,11 +33,11 @@ class PhysicalAddress(models.Model):
         default="",
         blank=True
     )
-    city = models.ForeignKey(
-        City,
+    locality = models.ForeignKey(
+        Locality,
         related_name='physical_addresses',
         related_query_name='physical_address',
-        verbose_name=_('city'),
+        verbose_name=_('locality'),
         on_delete=models.PROTECT,
         blank=True,
         null=True

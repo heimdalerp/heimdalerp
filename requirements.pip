@@ -3,7 +3,6 @@ setuptools
 django
 bcrypt
 psycopg2
-django-cities
 djangorestframework
 djangorestframework-jwt
 django-cors-headers
