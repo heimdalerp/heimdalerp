@@ -154,88 +154,6 @@ class Transaction(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
-PAYMENT_TYPE_SEND = 'S'
-PAYMENT_TYPE_RECEIVE = 'R'
-PAYMENT_TYPE_INTERNAL = 'I'
-PAYMENT_TYPES = (
-    (PAYMENT_TYPE_SEND, _('Send')),
-    (PAYMENT_TYPE_RECEIVE, _('Receive')),
-    (PAYMENT_TYPE_INTERNAL, _('Internal'))
-)
-
-PAYMENT_METHOD_CASH = 'C'
-PAYMENT_METHOD_CREDITCARD = 'CC'
-PAYMENT_METHOD_DEBITCARD = 'DB'
-PAYMENT_METHOD_BANKACCOUNT = 'B'
-PAYMENT_METHOD_CHECK = 'CH'
-PAYMENT_METHOD_PAYPAL = 'P'
-PAYMENT_METHOD_GOOGLEWALLET = 'GW'
-PAYMENT_METHOD_APPLEPAY = 'AP'
-PAYMENT_METHOD_BITCOIN = 'BC'
-PAYMENT_METHODS = (
-    (PAYMENT_METHOD_CASH, _('Cash')),
-    (PAYMENT_METHOD_CREDITCARD, _('Credit Card')),
-    (PAYMENT_METHOD_DEBITCARD, _('Debit Card')),
-    (PAYMENT_METHOD_BANKACCOUNT, _('Bank Account')),
-    (PAYMENT_METHOD_CHECK, _('Check')),
-    (PAYMENT_METHOD_PAYPAL, _('PayPal')),
-    (PAYMENT_METHOD_GOOGLEWALLET, _('Google Wallet')),
-    (PAYMENT_METHOD_APPLEPAY, _('Apple Pay')),
-    (PAYMENT_METHOD_BITCOIN, _('Bitcoin')),
-)
-
-
-class Payment(models.Model):
-    """
-    Payments are made by Contacts, most of the time to pay an invoice.
-    """
-    contact_contact = models.ForeignKey(
-        Contact,
-        verbose_name=_('contact'),
-        related_name='payments',
-        related_query_name='payment',
-        on_delete=models.PROTECT
-    )
-    payment_date = models.DateField(
-        _('payment date'),
-        help_text=_("Not necessarily today.")
-    )
-    payment_type = models.CharField(
-        _('payment type'),
-        max_length=1,
-        default=PAYMENT_TYPE_RECEIVE,
-        choices=PAYMENT_TYPES
-    )
-    payment_method = models.CharField(
-        _('payment method'),
-        max_length=2,
-        default=PAYMENT_METHOD_CASH,
-        choices=PAYMENT_METHODS
-    )
-    amount = models.DecimalField(
-        _('amount'),
-        max_digits=15,
-        decimal_places=2
-    )
-    transaction = models.ForeignKey(
-        Transaction,
-        verbose_name=_('transaction'),
-        related_name='+',
-        related_query_name='+',
-        on_delete=models.PROTECT,
-        blank=True,
-        null=True
-    )
-
-    def __str__(self):
-        return str(self.contact) + ' : ' + str(self.amount)
-
-    class Meta:
-        verbose_name = _('payment')
-        verbose_name_plural = _('payments')
-        default_permissions = ('view', 'add', 'change', 'delete')
-
-
 class CompanyAccounting(models.Model):
     """
     An Accounting extension for Company.
@@ -377,4 +295,96 @@ class CompanyAccounting(models.Model):
     class Meta:
         verbose_name = _('company')
         verbose_name_plural = _('companies')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+PAYMENT_TYPE_SEND = 'S'
+PAYMENT_TYPE_RECEIVE = 'R'
+PAYMENT_TYPE_INTERNAL = 'I'
+PAYMENT_TYPES = (
+    (PAYMENT_TYPE_SEND, _('Send')),
+    (PAYMENT_TYPE_RECEIVE, _('Receive')),
+    (PAYMENT_TYPE_INTERNAL, _('Internal'))
+)
+
+PAYMENT_METHOD_CASH = 'C'
+PAYMENT_METHOD_CREDITCARD = 'CC'
+PAYMENT_METHOD_DEBITCARD = 'DB'
+PAYMENT_METHOD_BANKACCOUNT = 'B'
+PAYMENT_METHOD_CHECK = 'CH'
+PAYMENT_METHOD_PAYPAL = 'P'
+PAYMENT_METHOD_GOOGLEWALLET = 'GW'
+PAYMENT_METHOD_APPLEPAY = 'AP'
+PAYMENT_METHOD_BITCOIN = 'BC'
+PAYMENT_METHODS = (
+    (PAYMENT_METHOD_CASH, _('Cash')),
+    (PAYMENT_METHOD_CREDITCARD, _('Credit Card')),
+    (PAYMENT_METHOD_DEBITCARD, _('Debit Card')),
+    (PAYMENT_METHOD_BANKACCOUNT, _('Bank Account')),
+    (PAYMENT_METHOD_CHECK, _('Check')),
+    (PAYMENT_METHOD_PAYPAL, _('PayPal')),
+    (PAYMENT_METHOD_GOOGLEWALLET, _('Google Wallet')),
+    (PAYMENT_METHOD_APPLEPAY, _('Apple Pay')),
+    (PAYMENT_METHOD_BITCOIN, _('Bitcoin')),
+)
+
+
+class Payment(models.Model):
+    """
+    Payments are made by Contacts, most of the time to pay an invoice, but
+    also they are made by Companies for Contacts.
+    """
+    accounting_company = models.ForeignKey(
+        CompanyAccounting,
+        verbose_name=_('company'),
+        related_name='payments',
+        related_query_name='payment',
+        on_delete=models.PROTECT,
+        db_index=True
+    )
+    contact_contact = models.ForeignKey(
+        Contact,
+        verbose_name=_('contact'),
+        related_name='payments',
+        related_query_name='payment',
+        on_delete=models.PROTECT,
+        db_index=True
+    )
+    payment_date = models.DateField(
+        _('payment date'),
+        help_text=_("Not necessarily today.")
+    )
+    payment_type = models.CharField(
+        _('payment type'),
+        max_length=1,
+        default=PAYMENT_TYPE_RECEIVE,
+        choices=PAYMENT_TYPES
+    )
+    payment_method = models.CharField(
+        _('payment method'),
+        max_length=2,
+        default=PAYMENT_METHOD_CASH,
+        choices=PAYMENT_METHODS
+    )
+    amount = models.DecimalField(
+        _('amount'),
+        max_digits=15,
+        decimal_places=2
+    )
+    transaction = models.ForeignKey(
+        Transaction,
+        verbose_name=_('transaction'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return str(self.contact) + ' : ' + str(self.amount)
+
+    class Meta:
+        verbose_name = _('payment')
+        verbose_name_plural = _('payments')
         default_permissions = ('view', 'add', 'change', 'delete')
