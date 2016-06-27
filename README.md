@@ -44,7 +44,7 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
 ### 1.2 Debian 8 / Ubuntu 16.04 LTS
 
     $ sudo su
-    # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 postgis git apache2 libapache2-mod-wsgi
+    # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 postgis git apache2 libapache2-mod-wsgi-py3
     # su postgres
     $ createuser heimdalerp
     $ psql
