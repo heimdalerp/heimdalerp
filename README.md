@@ -94,7 +94,7 @@ In our case, we'll clone it again at /var/www/heimdalerp and recreate the virtua
 
 Now you need to create a folder named static and point it in heimdalerp/settings.py (search for const vars named "STATIC").    
 
-    (heimdalerp) # cd src/heimdalerp && mkdir static
+    (heimdalerp) # cd src/heimdalerp && mkdir djangostatic
     (heimdalerp) # vi heimdalerp/settings.py
     (heimdalerp) # python3 manage.py collectstatic
     (heimdalerp) # deactivate
