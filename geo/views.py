@@ -1,5 +1,5 @@
 from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from geo import models, serializers
 
@@ -27,7 +27,7 @@ class RegionsByCountryList(ListAPIView):
         return models.Region.objects.filter(country=pk)
 
 
-class LocalityViewSet(ReadOnlyModelViewSet):
+class LocalityViewSet(ModelViewSet):
     serializer_class = serializers.LocalitySerializer
     queryset = models.Locality.objects.all()
 
@@ -35,7 +35,7 @@ class LocalityViewSet(ReadOnlyModelViewSet):
         """
         Allows a GET param, 'q', to be used against search_names.
         """
-        queryset = super(ReadOnlyModelViewSet, self).get_queryset()
+        queryset = super(ModelViewSet, self).get_queryset()
 
         if self.request.GET.get('q', None):
             return queryset.filter(
