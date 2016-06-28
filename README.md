@@ -33,13 +33,12 @@ It is said that he brings the gift of the gods to mankind.
     $ . bin/activate
 
 At this point, typing python, python3 or python3.4 achieves the same.
-But I like to use python3.4 and pip3.4 to emphasize the version:
 
-    (heimdalerp) $ pip3.4 install --upgrade pip
-    (heimdalerp) $ pip3.4 install -r src/heimdalerp/requirements.pip
-    (heimdalerp) $ python3.4 manage.py migrate
-    (heimdalerp) $ python3.4 manage.py createsuperuser
-    (heimdalerp) $ python3.4 manage.py createinitialrevisions
+    (heimdalerp) $ pip3 install --upgrade pip
+    (heimdalerp) $ pip3 install -r src/heimdalerp/requirements.pip
+    (heimdalerp) $ python3 manage.py migrate
+    (heimdalerp) $ python3 manage.py createsuperuser
+    (heimdalerp) $ python3 manage.py createinitialrevisions
 
 ### 1.2 Debian 8 / Ubuntu 16.04 LTS
 
@@ -70,6 +69,9 @@ But I like to use python3.4 and pip3.4 to emphasize the version:
 When steps from point 1 are completed, you may now deploy your HeimdalERP instance.
 Please, consider reading this [checklist](https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/) before running your instance in production.
 
+If you have your files at $HOME/workspace/heimdalerp, you need to copy them,symlink them, clone them again from git or configure your user/group and your OS webserver's user/group to access it.
+
+In our case, we'll clone it again at /var/www/heimdalerp and recreate the virtualenv. In this way, we have a two separate enviroments, one for development and testing, and the other for production use. Be aware, that in this case they are using the very same database. You may set separate databases creating another one and modifying heimdalerp/settings.py to use it (search for const var "DATABASE").
 
 ### 2.1 OpenBSD 5.9-stable
 
@@ -82,3 +84,21 @@ Please, consider reading this [checklist](https://docs.djangoproject.com/en/1.9/
     # sudo su
     # apt-get install nginx
     # pip3 install uwsgi
+    # mkdir -p /var/www/heimdalerp/src/
+    # cd /var/www/heimdalerp/src/
+    # git clone https://github.com/heimdalerp/heimdalerp
+    # cd ..
+    # . bin/activate
+    (heimdalerp) # pip3 install --upgrade pip
+    (heimdalerp) # pip3 install src/heimdalerp/requirements.pip
+
+Now you need to create a folder named static and point it in heimdalerp/settings.py (search for const vars named "STATIC").    
+
+    (heimdalerp) # cd src/heimdalerp && mkdir static
+    (heimdalerp) # vi heimdalerp/settings.py
+    (heimdalerp) # python3 manage.py collectstatic
+    (heimdalerp) # deactivate
+    # cp /etc/nginx/uwsgi_params .
+    # ln -s deployment/heimdalerp_nginx.conf /etc/nginx/sites-enabled/ 
+    # chown -R www-data:www-data /var/www/heimdalerp
+    # service nginx restart
