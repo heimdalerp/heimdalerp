@@ -5,7 +5,7 @@
   "street_address": "Javier de la Rosa 19",
   "floor_number": "1",
   "apartment_number": "34",
-  "city": null,
+  "locality": null,
   "postal_code": "3000"
  }
 },
@@ -16,7 +16,7 @@
   "street_address": "",
   "floor_number": "",
   "apartment_number": "",
-  "city": null,
+  "locality": null,
   "postal_code": ""
  }
 },
@@ -27,7 +27,7 @@
   "street_address": "Hola 123",
   "floor_number": "1",
   "apartment_number": "2",
-  "city": null,
+  "locality": null,
   "postal_code": "3000"
  }
 },
@@ -38,7 +38,7 @@
   "street_address": "",
   "floor_number": "",
   "apartment_number": "",
-  "city": null,
+  "locality": null,
   "postal_code": ""
  }
 },
@@ -49,7 +49,7 @@
   "street_address": "Hola 123",
   "floor_number": "1",
   "apartment_number": "2",
-  "city": null,
+  "locality": null,
   "postal_code": "3000"
  }
 },
