@@ -43,7 +43,7 @@ At this point, typing python, python3 or python3.4 achieves the same.
 ### 1.2 Debian 8 / Ubuntu 16.04 LTS
 
     $ sudo su
-    # apt-get install python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 git
+    # apt-get install libffi-dev python3-pip python3-setuptools python3-bcrypt python3-venv postgresql postgresql-server-dev-all python3-psycopg2 git
     # su postgres
     $ createuser heimdalerp
     $ psql
