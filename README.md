@@ -102,3 +102,9 @@ Now you need to create a folder named static and point it in heimdalerp/settings
     # ln -s deployment/heimdalerp_nginx.conf /etc/nginx/sites-enabled/ 
     # chown -R www-data:www-data /var/www/heimdalerp
     # service nginx restart
+    # mkdir -p /etc/uwsgi/vassals
+    # ln -s deployment/heimdalerp_uwsgi.ini /etc/uwsgi/vassals/
+
+Add to /etc/rc.local:
+
+    /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi-emperor.log
