@@ -16,7 +16,7 @@
   "street_address": "",
   "floor_number": "",
   "apartment_number": "",
-  "city": null,
+  "locality": null,
   "postal_code": ""
  }
 },
@@ -1147,6 +1147,31 @@
   "name": "Acreedor Portencial por Documentos Descontados",
   "account_type": "",
   "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.companyaccounting",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "default_debit_account_for_cash": 1,
+  "default_credit_account_for_cash": 3,
+  "default_debit_account_for_creditcard": 1,
+  "default_credit_account_for_creditcard": 3,
+  "default_debit_account_for_debitcard": 1,
+  "default_credit_account_for_debitcard": 3,
+  "default_debit_account_for_bankaccount": 1,
+  "default_credit_account_for_bankaccount": 3,
+  "default_debit_account_for_check": 1,
+  "default_credit_account_for_check": 3,
+  "default_debit_account_for_paypal": 1,
+  "default_credit_account_for_paypal": 3,
+  "default_debit_account_for_googlewallet": 1,
+  "default_credit_account_for_googlewallet": 3,
+  "default_debit_account_for_applepay": 1,
+  "default_credit_account_for_applepay": 3,
+  "default_debit_account_for_bitcoin": 1,
+  "default_credit_account_for_bitcoin": 3
  }
 }
 ]

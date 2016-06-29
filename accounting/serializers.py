@@ -191,7 +191,7 @@ class PaymentSerializer(HyperlinkedModelSerializer):
         transaction = models.Transaction.objects.create(
             amount=amount,
             debit_account=debit_account,
-            debit_account_balance=debit_account.balance-amount,
+            debit_account_balance=debit_account.balance+amount,
             credit_account=credit_account,
             credit_account_balance=credit_account.balance+amount
         )
@@ -230,6 +230,9 @@ class CompanyAccountingSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:accounting:companyaccounting-detail'
+            },
+            'persons_company': {
+                'view_name': 'api:persons:company-detail'
             },
             'default_debit_account_for_cash': {
                 'view_name': 'api:accounting:account-detail'

@@ -401,251 +401,251 @@
 },
 {
  "model": "geo.country",
- "pk": 2,
+ "pk": 1,
  "fields": {
   "codename": "AR",
   "default_name": "Argentina",
-  "alternative_names": []
+  "alternative_names": [1, 2]
  }
 },
 {
  "model": "geo.region",
  "pk": 1,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "BA",
   "default_name": "Buenos Aires",
-  "alternative_names": []
+  "alternative_names": [3, 4]
  }
 },
 {
  "model": "geo.region",
  "pk": 2,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CABA",
   "default_name": "Ciudad Aut\u00f3noma de Buenos Aires",
-  "alternative_names": []
+  "alternative_names": [5, 6]
  }
 },
 {
  "model": "geo.region",
  "pk": 3,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CT",
   "default_name": "Catamarca",
-  "alternative_names": []
+  "alternative_names": [7, 8]
  }
 },
 {
  "model": "geo.region",
  "pk": 4,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CC",
   "default_name": "Chaco",
-  "alternative_names": []
+  "alternative_names": [9, 10]
  }
 },
 {
  "model": "geo.region",
  "pk": 5,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CH",
   "default_name": "Chubut",
-  "alternative_names": []
+  "alternative_names": [11, 12]
  }
 },
 {
  "model": "geo.region",
  "pk": 6,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CB",
   "default_name": "C\u00f3rdoba",
-  "alternative_names": []
+  "alternative_names": [13, 14]
  }
 },
 {
  "model": "geo.region",
  "pk": 7,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "CR",
   "default_name": "Corrientes",
-  "alternative_names": []
+  "alternative_names": [15, 16]
  }
 },
 {
  "model": "geo.region",
  "pk": 8,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "ER",
   "default_name": "Entre R\u00edos",
-  "alternative_names": []
+  "alternative_names": [17, 18]
  }
 },
 {
  "model": "geo.region",
  "pk": 9,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "FO",
   "default_name": "Formosa",
-  "alternative_names": []
+  "alternative_names": [19, 20]
  }
 },
 {
  "model": "geo.region",
  "pk": 10,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "JY",
   "default_name": "Jujuy",
-  "alternative_names": []
+  "alternative_names": [21, 22]
  }
 },
 {
  "model": "geo.region",
  "pk": 11,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "LP",
   "default_name": "La Pampa",
-  "alternative_names": []
+  "alternative_names": [23, 24]
  }
 },
 {
  "model": "geo.region",
  "pk": 12,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "LR",
   "default_name": "La Rioja",
-  "alternative_names": []
+  "alternative_names": [25, 26]
  }
 },
 {
  "model": "geo.region",
  "pk": 13,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "MZ",
   "default_name": "Mendoza",
-  "alternative_names": []
+  "alternative_names": [27, 28]
  }
 },
 {
  "model": "geo.region",
  "pk": 14,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "MN",
   "default_name": "Misiones",
-  "alternative_names": []
+  "alternative_names": [29, 30]
  }
 },
 {
  "model": "geo.region",
  "pk": 15,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "NQ",
   "default_name": "Neuqu\u00e9n",
-  "alternative_names": []
+  "alternative_names": [31, 32]
  }
 },
 {
  "model": "geo.region",
  "pk": 16,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "RN",
   "default_name": "R\u00edo Negro",
-  "alternative_names": []
+  "alternative_names": [33, 34]
  }
 },
 {
  "model": "geo.region",
  "pk": 17,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SA",
   "default_name": "Salta",
-  "alternative_names": []
+  "alternative_names": [35, 36]
  }
 },
 {
  "model": "geo.region",
  "pk": 18,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SJ",
   "default_name": "San Juan",
-  "alternative_names": []
+  "alternative_names": [37, 38]
  }
 },
 {
  "model": "geo.region",
  "pk": 19,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SL",
   "default_name": "San Luis",
-  "alternative_names": []
+  "alternative_names": [39, 40]
  }
 },
 {
  "model": "geo.region",
  "pk": 20,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SC",
   "default_name": "Santa Cruz",
-  "alternative_names": []
+  "alternative_names": [41, 42]
  }
 },
 {
  "model": "geo.region",
  "pk": 21,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SF",
   "default_name": "Santa Fe",
-  "alternative_names": []
+  "alternative_names": [43, 44]
  }
 },
 {
  "model": "geo.region",
  "pk": 22,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "SE",
   "default_name": "Santiago del Estero",
-  "alternative_names": []
+  "alternative_names": [45, 46]
  }
 },
 {
  "model": "geo.region",
  "pk": 23,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "TF",
   "default_name": "Tiera del Fuego, Ant\u00e1rtida e Islas del Atl\u00e1ntico Sur",
-  "alternative_names": []
+  "alternative_names": [47, 48]
  }
 },
 {
  "model": "geo.region",
  "pk": 24,
  "fields": {
-  "country": 2,
+  "country": 1,
   "codename": "TM",
   "default_name": "Tucum\u00e1n",
-  "alternative_names": []
+  "alternative_names": [49, 50]
  }
 },
 {
