@@ -118,8 +118,8 @@ DATABASES = {
         'NAME': 'heimdalerp',
         'USER': 'heimdalerp',
         'PASSWORD': None,
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        #'HOST': '127.0.0.1', # Uncomment to use TCP/IP
+        #'PORT': '5432', # Uncomment to use TCP/IP
         'ATOMIC_REQUESTS': False,
         'AUTOCOMMIT': True,
         'CONN_MAX_AGE': 0,
@@ -132,7 +132,7 @@ DATABASES = {
             'DEPENDENCIES': ['default'],
             'MIRROR': None,
             'SERIALIZE': True,
-            'USER': 'test_heimdalerp',
+            'USER': 'heimdalerp',
             'PASSWORD': None,
         },
     }
