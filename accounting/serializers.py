@@ -103,6 +103,9 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             'url': {
                 'view_name': 'api:accounting:payment-detail'
             },
+            'accounting_company': {
+                'view_name': 'api:accounting:companyaccounting-detail',
+            },
             'contact_contact': {
                 'view_name': 'api:contact:contact-detail'
             },
