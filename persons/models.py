@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from common import date_is_past, date_is_present_or_past
+from common.validators import date_is_past, date_is_present_or_past
 from geo.models import Country, Locality
 
 GENRE_TYPE_MALE = 'M'
