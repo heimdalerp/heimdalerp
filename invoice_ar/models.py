@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from common.validators import date_is_present_or_future
 from invoice.models import VAT, CompanyInvoice, ContactInvoice, Invoice
 from persons.models import PhysicalAddress
 
@@ -192,7 +193,8 @@ class InvoiceAR(Invoice):
         db_index=True
     )
     due_date = models.DateField(
-        _('due date')
+        _('due date'),
+        validators=[date_is_present_or_future]
     )
     service_start = models.DateField(
         _('service start'),

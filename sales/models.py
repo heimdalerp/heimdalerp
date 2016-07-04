@@ -1,3 +1,4 @@
+from common.validators import date_is_present_or_past
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -159,7 +160,8 @@ class Quotation(models.Model):
     )
     quotation_date = models.DateField(
         _('date'),
-        help_text=_('Not necessarily today.')
+        help_text=_('Not necessarily today.'),
+        validators=[date_is_present_or_past]
     )
     subtotal = models.DecimalField(
         _('subtotal'),
@@ -294,7 +296,8 @@ class Sale(models.Model):
     )
     sale_date = models.DateField(
         _('date'),
-        help_text=_('Not necessarily today.')
+        help_text=_('Not necessarily today.'),
+        validators=[date_is_present_or_past]
     )
     subtotal = models.DecimalField(
         _('subtotal'),

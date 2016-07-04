@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
 
+from common.validators import date_is_present_or_past
 from contact.models import Contact
 from persons.models import Company
 
@@ -352,7 +353,8 @@ class Payment(models.Model):
     )
     payment_date = models.DateField(
         _('payment date'),
-        help_text=_("Not necessarily today.")
+        help_text=_("Not necessarily today."),
+        validators=[date_is_present_or_past]
     )
     payment_type = models.CharField(
         _('payment type'),

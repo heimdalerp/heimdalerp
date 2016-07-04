@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
 
+from common.validators import date_is_present_or_past
 from persons.models import GENRE_TYPES, Company, PersonProfile
 
 
@@ -108,7 +109,8 @@ class Achievement(models.Model):
         _('when it happened'),
         help_text=_("Not necessarily the current date."),
         blank=True,
-        null=True
+        null=True,
+        validators=[date_is_present_or_past]
     )
     points = models.DecimalField(
         _('points'),
@@ -392,7 +394,8 @@ class EmployeeHasSanction(models.Model):
     )
     when_it_happened = models.DateTimeField(
         _('when it happened'),
-        help_text=_("Not necessarily the current date")
+        help_text=_("Not necessarily the current date"),
+        validators=[date_is_present_or_past]
     )
     others_implicated = models.ManyToManyField(
         Employee,
@@ -574,7 +577,8 @@ class AreaHasEmployee(models.Model):
     date_since = models.DateField(
         _('date since'),
         blank=True,
-        null=True
+        null=True,
+        validators=[date_is_present_or_past]
     )
 
     def __str__(self):
@@ -611,7 +615,8 @@ class EmployeeHasRole(models.Model):
     date_since = models.DateField(
         _('date since'),
         blank=True,
-        null=True
+        null=True,
+        validators=[date_is_present_or_past]
     )
 
     def __str__(self):
