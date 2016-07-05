@@ -17,19 +17,19 @@ class PhysicalAddress(models.Model):
     Physical address are of high importance due to impositive regulations.
     """
     street_address = models.CharField(
-        _("street address"),
+        _('street address'),
         max_length=150,
         default="",
         blank=True
     )
     floor_number = models.CharField(
-        _("floor number"),
+        _('floor number'),
         max_length=4,
         default="",
         blank=True
     )
     apartment_number = models.CharField(
-        _("apartment number"),
+        _('apartment number'),
         max_length=6,
         default="",
         blank=True
@@ -44,7 +44,7 @@ class PhysicalAddress(models.Model):
         null=True
     )
     postal_code = models.CharField(
-        _("postal code"),
+        _('postal code'),
         max_length=20,
         default="",
         blank=True
@@ -54,8 +54,8 @@ class PhysicalAddress(models.Model):
         return self.street_address
 
     class Meta:
-        verbose_name = _("physical address")
-        verbose_name_plural = _("physical addresses")
+        verbose_name = _('physical address')
+        verbose_name_plural = _('physical addresses')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
@@ -110,7 +110,7 @@ class PersonProfile(models.Model):
         on_delete=models.PROTECT
     )
     birth_date = models.DateField(
-        _("birth date"),
+        _('birth date'),
         blank=True,
         null=True,
         validators=[date_is_past]
