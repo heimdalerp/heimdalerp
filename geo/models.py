@@ -3,7 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class AlternativeName(models.Model):
-
+    """
+    """
     language_code = models.CharField(
         _('language code'),
         max_length=2,
@@ -24,7 +25,8 @@ class AlternativeName(models.Model):
 
 
 class Country(models.Model):
-
+    """
+    """
     codename = models.CharField(
         _('codename'),
         max_length=2,
@@ -53,7 +55,8 @@ class Country(models.Model):
 
 
 class Region(models.Model):
-
+    """
+    """
     country = models.ForeignKey(
         Country,
         verbose_name=_('country'),
@@ -90,7 +93,8 @@ class Region(models.Model):
 
 
 class Locality(models.Model):
-
+    """
+    """
     region = models.ForeignKey(
         Region,
         related_name='localities',
