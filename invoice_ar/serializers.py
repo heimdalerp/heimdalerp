@@ -1,8 +1,10 @@
 from decimal import Decimal
 
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
 from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer)
+                                        HyperlinkedModelSerializer,
+                                        ValidationError)
 
 from contact.models import Contact
 from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
@@ -44,15 +46,15 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         id_number = id_number.replace(' ', '')
         id_number = id_number.replace('-', '')
         if id_type == models.ID_TYPE_DNI:
-            if len(id_number) != 8 or !id_number.isdigit():
+            if len(id_number) != 8 or not id_number.isdigit():
                 raise ValidationError(_("A DNI must be 8 numbers long."))
         else:
             if len(id_number) == 11 and id_number.isdigit():
                 base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
                 aux = 0
-                for i in xrange(10):
+                for i in range(10):
                     aux += int(id_number[i]) * base[i]
-                aux = 11 - (aux%11)
+                aux = 11 - (aux % 11)
                 if aux == 11:
                     aux = 0
                 if int(id_number[10]) != aux:
