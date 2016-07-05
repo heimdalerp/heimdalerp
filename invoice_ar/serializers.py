@@ -38,6 +38,33 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        id_type = validated_data['id_type']
+        id_number = validated_data['id_number']
+        id_number = id_number.replace('.', '')
+        id_number = id_number.replace(' ', '')
+        id_number = id_number.replace('-', '')
+        if id_type == models.ID_TYPE_DNI:
+            if len(id_number) != 8 or !id_number.isdigit():
+                raise ValidationError(_("A DNI must be 8 numbers long."))
+        else:
+            if len(id_number) == 11 and id_number.isdigit():
+                base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
+                aux = 0
+                for i in xrange(10):
+                    aux += int(id_number[i]) * base[i]
+                aux = 11 - (aux%11)
+                if aux == 11:
+                    aux = 0
+                if int(id_number[10]) != aux:
+                    raise ValidationError(
+                        _("The number entered isn't a valid CUIT/CUIL.")
+                    )
+            else:
+                raise ValidationError(
+                    _("A CUIT/CUIL must be 11 numbers long.")
+                )
+        validated_data['id_number'] = id_number
+
         invoice_contact_data = validated_data['invoice_contact']
         contact_contact_data = invoice_contact_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
