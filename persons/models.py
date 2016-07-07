@@ -142,6 +142,7 @@ class PersonProfile(models.Model):
         verbose_name=_('home address'),
         related_name='+',
         related_query_name='+',
+        db_index=False,
         blank=True,
         null=True
     )

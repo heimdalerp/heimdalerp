@@ -69,6 +69,7 @@ class CompanyInvoice(models.Model):
         related_name='+',
         related_query_name='+',
         on_delete=models.CASCADE,
+        db_index=False,
         blank=True,
         null=True
     )
@@ -124,7 +125,8 @@ class ContactInvoice(models.Model):
         verbose_name=_('fiscal address'),
         related_name='+',
         related_query_name='+',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        db_index=False
     )
 
     def __str__(self):

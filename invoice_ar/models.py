@@ -123,7 +123,8 @@ class PointOfSale(models.Model):
         verbose_name=_('fiscal address'),
         related_name='point_of_sales',
         related_query_name='point_of_sale',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=False
     )
     is_inactive = models.BooleanField(
         _('is inactive'),
