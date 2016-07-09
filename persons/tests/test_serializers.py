@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from geo.models import Locality
 from persons import models
 
 
@@ -29,3 +30,6 @@ class PhysicalAddressTestCase(APITestCase):
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.PhysicalAddress.objects.count(), 1)
+        obj = models.PhysicalAddress.objects.get(pk=1)
+        self.assertEqual(obj.street_address, '9 de Julio 2454')
+        self.assertEqual(obj.locality, Locality.objects.get(pk=1))
