@@ -129,7 +129,7 @@ DATABASES = {
             'NAME': 'test_heimdalerp',
             'CHARSET': None,
             'COLLATION': None,
-            'DEPENDENCIES': ['default'],
+            'DEPENDENCIES': [],
             'MIRROR': None,
             'SERIALIZE': True,
             'USER': 'heimdalerp',
