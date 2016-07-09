@@ -16,7 +16,7 @@ class PhysicalAddressTestCase(APITestCase):
         'persons/tests/fixtures/geo.json'
     ]
 
-    def test_create(self):
+    def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse('api:persons:physicaladdress-list')  
@@ -27,8 +27,13 @@ class PhysicalAddressTestCase(APITestCase):
             'locality': reverse('api:geo:locality-detail', args=[1]),
             'postal_code': '3000'
         }
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.PhysicalAddress.objects.filter(pk=1).delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.PhysicalAddress.objects.count(), 1)
         obj = models.PhysicalAddress.objects.get(pk=1)
         self.assertEqual(obj.street_address, '9 de Julio 2454')
