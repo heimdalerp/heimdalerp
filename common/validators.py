@@ -1,17 +1,17 @@
-from datetime import date, datetime
+import datetime
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 
 def date_is_future(value):
-    if value is date:
-        if date.today() <= value:
+    if isinstance(value, datetime.date):
+        if value <= datetime.date.today():
             raise ValidationError(
                 _("The date entered must be greater than today.")
             )
-    elif value is datetime:
-        if datetime.today() <= value.date():
+    elif isinstance(value, datetime.datetime):
+        if value.date() <= datetime.today():
             raise ValidationError(
                 _("The date entered must be greater than today.")
             )
@@ -22,13 +22,13 @@ def date_is_future(value):
 
 
 def date_is_present_or_future(value):
-    if value is date:
-        if date.today() < value:
+    if isinstance(value, datetime.date):
+        if value < datetime.date.today():
             raise ValidationError(
                 _("The date entered must be today or lesser.")
             )
-    elif value is datetime:
-        if datetime.today() < value.date():
+    elif isinstance(value, datetime.datetime):
+        if value.date() < datetime.datetime.today():
             raise ValidationError(
                 _("The date entered must be today or greater.")
             )
@@ -39,13 +39,13 @@ def date_is_present_or_future(value):
 
 
 def date_is_past(value):
-    if value is date:
-        if date.today() >= value:
+    if isinstance(value, datetime.date):
+        if value >= datetime.date.today():
             raise ValidationError(
                 _("The date entered must be today or lesser.")
             )
-    elif value is datetime:
-        if datetime.today() >= value.date():
+    elif isinstance(value, datetime.datetime):
+        if value.date() >= datetime.datetime.today():
             raise ValidationError(
                 _("The date entered must be lesser than today.")
             )
@@ -56,13 +56,13 @@ def date_is_past(value):
 
 
 def date_is_present_or_past(value):
-    if value is date:
-        if date.today() > value:
+    if isinstance(value, datetime.date):
+        if value > datetime.date.today():
             raise ValidationError(
                 _("The date entered must be today or lesser.")
             )
-    elif value is datetime:
-        if datetime.today() > value.date():
+    elif isinstance(value, datetime.datetime):
+        if value.date() > datetime.datetime.today():
             raise ValidationError(
                 _("The date entered must be today or lesser.")
             )
