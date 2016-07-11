@@ -19,7 +19,7 @@ class PhysicalAddressTestCase(APITestCase):
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:persons:physicaladdress-list')  
+        url = reverse('api:persons:physicaladdress-list')
         data = {
             'street_address': '9 de Julio 2454',
             'floor_number': '',
@@ -38,3 +38,30 @@ class PhysicalAddressTestCase(APITestCase):
         obj = models.PhysicalAddress.objects.get(pk=1)
         self.assertEqual(obj.street_address, '9 de Julio 2454')
         self.assertEqual(obj.locality, Locality.objects.get(pk=1))
+
+
+class CompanyTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'persons/tests/fixtures/users.json',
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:persons:company-list')
+        data = {
+            'fantasy_name': 'IRONA',
+            'legal_name': 'Baragiola-Zanitti SH',
+            'slogan': '',
+            'initiated_activities': '2016-01-01'
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.Company.objects.filter(pk=1).delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.Company.objects.count(), 1)
