@@ -1,6 +1,7 @@
-from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from datetime import date, timedelta
 
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -55,13 +56,24 @@ class CompanyTestCase(APITestCase):
             'fantasy_name': 'IRONA',
             'legal_name': 'Baragiola-Zanitti SH',
             'slogan': '',
+            'initiated_activities': str(date.today() + timedelta(days=1))
+        }
+        self.response = self.client.post(url, data)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_400_BAD_REQUEST
+        )
+        data = {
+            'fantasy_name': 'IRONA',
+            'legal_name': 'Baragiola-Zanitti SH',
+            'slogan': '',
             'initiated_activities': '2016-01-01'
         }
         self.response = self.client.post(url, data)
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
 
     def tearDown(self):
         models.Company.objects.filter(pk=1).delete()
 
     def test_create(self):
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.Company.objects.count(), 1)
