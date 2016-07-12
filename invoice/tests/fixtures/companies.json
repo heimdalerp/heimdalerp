@@ -1,0 +1,35 @@
+[
+{
+ "model": "persons.company",
+ "pk": 1,
+ "fields": {
+  "fantasy_name": "IRONA",
+  "legal_name": "Baragiola-Zanitti SH",
+  "slogan": "tfw no slogan",
+  "initiated_activities": "2016-01-01"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 1,
+ "fields": {
+  "street_address": "9 de Julio 2454",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "invoice.companyinvoice",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "legal_name": "",
+  "fiscal_position": 1,
+  "fiscal_address": 1,
+  "default_invoice_debit_account": null,
+  "default_invoice_credit_account": null
+ }
+}
+]
