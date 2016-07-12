@@ -24,12 +24,6 @@ class ContactTestCase(APITestCase):
         self.client.force_authenticate(user=admin)
         url = reverse('api:contact:contact-list')
         data = {
-            'street_address': '9 de Julio 2454',
-            'floor_number': '',
-            'apartment_number': '',
-            'postal_code': '3000'
-        }
-        data = {
             'persons_company': (
                 reverse('api:persons:company-detail', args=[1])
             ),
