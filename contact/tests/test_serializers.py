@@ -108,3 +108,15 @@ class ContactTestCase(APITestCase):
             obj.home_address.postal_code,
             '3000'
         )
+
+    def test_birthdate(self):
+        data = {
+            'birth_date': str(date.today())
+        }
+        obj = models.Contact.objects.get(name='Tobias Riper')
+        url = reverse('api:contact:contact-detail', args=[obj.pk])
+        self.response = self.client.put(url, data)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_400_BAD_REQUEST
+        )
