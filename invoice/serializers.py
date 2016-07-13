@@ -257,6 +257,10 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'legal_name',
             instance.persons_company.legal_name
         )
+        instance.persons_company.slogan = persons_company_data.get(
+            'slogan',
+            instance.persons_company.slogan
+        )
         instance.persons_company.initiated_activities = (
             persons_company_data.get(
                 'initiated_activities',
