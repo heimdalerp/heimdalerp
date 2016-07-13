@@ -1,4 +1,5 @@
 from datetime import date
+from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -9,6 +10,97 @@ from contact.models import Contact
 from geo.models import Locality, Country
 from persons.models import Company
 from invoice import models
+
+
+class FiscalPositionTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:fiscalposition-list')
+        data = {
+            'name': 'Do Easy',
+            'code': ''
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.FiscalPosition.objects.get(name='Do Easy').delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.FiscalPosition.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.FiscalPosition.objects.get(name='Do Easy')
+        self.assertEqual(obj.name, 'Do Easy')
+        self.assertEqual(obj.code, '')
+
+
+class VATTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:vat-list')
+        data = {
+            'name': '10%',
+            'code': '',
+            'tax': 0.10
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.VAT.objects.get(name='20%').delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.VAT.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.VAT.objects.get(name='10%')
+        self.assertEqual(obj.name, '10%')
+        self.assertEqual(obj.code, '')
+        self.assertEqual(obj.tax, Decimal('0.10'))
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:invoice:vat-detail',
+            args=[models.VAT.objects.get(name='10%').pk]
+        )
+        data = {
+            'name': '-10%',
+            'code': '',
+            'tax': -0.10
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        data = {
+            'name': '110%',
+            'code': '',
+            'tax': 1.10
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        data = {
+            'name': '20%',
+            'code': '',
+            'tax': 0.20
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class CompanyInvoiceTestCase(APITestCase):
