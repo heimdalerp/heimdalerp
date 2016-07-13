@@ -9,6 +9,15 @@
  }
 },
 {
+ "model": "geo.country",
+ "pk": 2,
+ "fields": {
+  "codename": "UY",
+  "default_name": "Uruguay",
+  "alternative_names": []
+ }
+},
+{
  "model": "geo.region",
  "pk": 1,
  "fields": {

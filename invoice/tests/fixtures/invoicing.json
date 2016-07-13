@@ -8,6 +8,14 @@
  }
 },
 {
+ "model": "invoice.fiscalposition",
+ "pk": 2,
+ "fields": {
+  "name": "Do No Easy",
+  "code": ""
+ }
+},
+{
  "model": "invoice.vat",
  "pk": 1,
  "fields": {
