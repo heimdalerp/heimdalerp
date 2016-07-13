@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from geo.models import Locality, Country
+from persons.models import Company
 from invoice import models
 
 
@@ -39,8 +40,8 @@ class CompanyInvoiceTestCase(APITestCase):
                 'locality': reverse('api:geo:locality-detail', args=[1]),
                 'postal_code': '3000'
             },
-            'default_invoice_debit_account': null,
-            'default_invoice_credit_account': null
+            'default_invoice_debit_account': None,
+            'default_invoice_credit_account': None
         }
         self.response = self.client.post(url, data)
 
@@ -105,6 +106,7 @@ class ContactInvoiceTestCase(APITestCase):
     fixtures = [
         'invoice/tests/fixtures/users.json',
         'invoice/tests/fixtures/geo.json',
+        'invoice/tests/fixtures/invoicing.json',
         'invoice/tests/fixtures/companies.json'
     ]
 
@@ -113,18 +115,36 @@ class ContactInvoiceTestCase(APITestCase):
         self.client.force_authenticate(user=admin)
         url = reverse('api:invoice:contactinvoice-list')
         data = {
-            'persons_company': (
-                reverse('api:persons:company-detail', args=[1])
+            'contact_contact': {
+                'persons_company': (
+                    reverse(
+                        'api:persons:company-detail',
+                        args=[Company.objects.get(fantasy_name='IRONA').pk]
+                    )
+                ),
+                'name': 'Tobias Riper',
+                'birth_date': '1970-07-07',
+                'born_in': reverse('api:geo:country-detail', args=[1]),
+                'phone_numbers': '555444555,333222333',
+                'extra_emails': (
+                    'top@kek.com'
+                ),
+                'contact_type': 'I',
+                'home_address': {
+                    'street_address': '9 de Julio 2454',
+                    'floor_number': '',
+                    'apartment_number': '',
+                    'locality': (
+                        reverse('api:geo:locality-detail', args=[1]),
+                    ),
+                    'postal_code': '3000'
+                }
+            },
+            'legal_name': 'Tobias Riper',
+            'fiscal_position': (
+                reverse('api:invoice:fiscalposition-detail', args=[1])
             ),
-            'name': 'Tobias Riper',
-            'birth_date': '1970-07-07',
-            'born_in': reverse('api:geo:country-detail', args=[1]),
-            'phone_numbers': '555444555,333222333',
-            'extra_emails': (
-                'they.said.this.wouldnt.fit@gmail.com,topkek@hotmail.com'
-            ),
-            'contact_type': 'I',
-            'home_address': {
+            'fiscal_address': {
                 'street_address': '9 de Julio 2454',
                 'floor_number': '',
                 'apartment_number': '',
@@ -135,71 +155,91 @@ class ContactInvoiceTestCase(APITestCase):
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.Contact.objects.filter(name='Tobias Riper').delete()
+        models.ContactInvoice.objects.filter(
+            contact_contact__name='Tobias Riper'
+        ).delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.Contact.objects.count(), 1)
+        self.assertEqual(models.ContactInvoice.objects.count(), 1)
 
     def test_correctness(self):
-        obj = models.Contact.objects.get(name='Tobias Riper')
+        obj = models.ContactInvoice.objects.get(
+            contact_contact__name='Tobias Riper'
+        )
         self.assertEqual(
-            obj.persons_company,
+            obj.contact_contact.persons_company,
             Company.objects.get(fantasy_name='IRONA')
         )
         self.assertEqual(
-            obj.name,
+            obj.contact_contact.name,
             'Tobias Riper'
         )
         self.assertEqual(
-            obj.birth_date,
+            obj.contact_contact.birth_date,
             date(1970, 7, 7)
         )
         self.assertEqual(
-            obj.born_in,
+            obj.contact_contact.born_in,
             Country.objects.get(pk=1)
         )
         self.assertEqual(
-            obj.phone_numbers,
+            obj.contact_contact.phone_numbers,
             '555444555,333222333'
         )
         self.assertEqual(
-            obj.extra_emails,
-            'they.said.this.wouldnt.fit@gmail.com,topkek@hotmail.com'
+            obj.contact_contact.extra_emails,
+            'top@kek.com'
         )
         self.assertEqual(
-            obj.contact_type,
+            obj.contact_contact.contact_type,
             'I'
         )
         self.assertEqual(
-            obj.home_address.street_address,
+            obj.contact_contact.home_address.street_address,
             '9 de Julio 2454'
         )
         self.assertEqual(
-            obj.home_address.floor_number,
+            obj.contact_contact.home_address.floor_number,
             ''
         )
         self.assertEqual(
-            obj.home_address.apartment_number,
+            obj.contact_contact.home_address.apartment_number,
             ''
         )
         self.assertEqual(
-            obj.home_address.locality,
+            obj.contact_contact.home_address.locality,
             Locality.objects.get(pk=1)
         )
         self.assertEqual(
-            obj.home_address.postal_code,
+            obj.contact_contact.home_address.postal_code,
             '3000'
         )
-
-    def test_birthdate(self):
-        data = {
-            'birth_date': str(date.today())
-        }
-        obj = models.Contact.objects.get(name='Tobias Riper')
-        url = reverse('api:contact:contact-detail', args=[obj.pk])
-        self.response = self.client.put(url, data)
         self.assertEqual(
-            self.response.status_code,
-            status.HTTP_400_BAD_REQUEST
+            obj.legal_name,
+            'Tobias Riper'
+        )
+        self.assertEqual(
+            obj.fiscal_position,
+            models.FiscalPosition.objects.get(name='Do Easy')
+        )
+        self.assertEqual(
+            obj.fiscal_address.street_address,
+            '9 de Julio 2454'
+        )
+        self.assertEqual(
+            obj.fiscal_address.floor_number,
+            ''
+        )
+        self.assertEqual(
+            obj.fiscal_address.apartment_number,
+            ''
+        )
+        self.assertEqual(
+            obj.fiscal_address.locality,
+            Locality.objects.get(pk=1)
+        )
+        self.assertEqual(
+            obj.fiscal_address.postal_code,
+            '3000'
         )
