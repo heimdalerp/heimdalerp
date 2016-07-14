@@ -152,8 +152,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
     ),
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
-    'DEFAULT_METADATA_CLASS': 'heimdalerp.metadata.MyMetadata'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 JWT_AUTH = {
