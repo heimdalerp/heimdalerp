@@ -1,0 +1,22 @@
+[
+{
+ "model": "invoice.product",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Do Easy",
+  "current_price": "100.00",
+  "vat": 1
+ }
+},
+{
+ "model": "invoice.product",
+ "pk": 2,
+ "fields": {
+  "invoice_company": 1,
+  "name": "Do No Easy",
+  "current_price": "100.00",
+  "vat": 2
+ }
+}
+]

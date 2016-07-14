@@ -562,3 +562,130 @@ class ContactInvoiceTestCase(APITestCase):
             obj.fiscal_address.postal_code,
             '2000'
         )
+
+
+class ProductTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json',
+        'invoice/tests/fixtures/invoicing.json',
+        'invoice/tests/fixtures/companies.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:product-list')
+        data = {
+            'invoice_company': reverse(
+                'api:invoice:companyinvoice-detail',
+                args=[
+                    models.CompanyInvoice.objects.get(
+                        persons_company__fantasy_name='IRONA'
+                    ).pk
+                ]
+            ),
+            'name': 'Do Easy',
+            'current_price': 100.00,
+            'vat': reverse(
+                'api:invoice:vat-detail',
+                args=[
+                    models.VAT.objects.get(name='10%').pk
+                ]
+            )
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.Product.objects.get(name='Do Easy').delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.Product.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.Product.objects.get(name='Do Easy')
+        self.assertEqual(
+            obj.invoice_company,
+            models.CompanyInvoice.objects.get(
+                persons_company__fantasy_name='IRONA'
+            )
+        )
+        self.assertEqual(obj.name, 'Do Easy')
+        self.assertEqual(obj.current_price, Decimal('100.00'))
+        self.assertEqual(
+            obj.vat,
+            models.VAT.objects.get(name='10%')
+        )
+
+
+class InvoiceLineTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json',
+        'invoice/tests/fixtures/invoicing.json',
+        'invoice/tests/fixtures/companies.json',
+        'invoice/tests/fixtures/products.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:invoiceline-list')
+        data = {
+            'product': reverse(
+                'api:invoice:product-detail',
+                args=[models.Product.objects.get(name='Do Easy').pk]
+            ),
+            'price_sold': 100.00,
+            'discount': 0.00,
+            'quantity': 2,
+            'description': 'cardio kills gains'
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.InvoiceLine.objects.get(product__name='Do Easy').delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.InvoiceLine.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
+        self.assertEqual(
+            obj.product,
+            models.Product.objects.get(name='Do Easy')
+        )
+        self.assertEqual(obj.price_sold, Decimal('100.00'))
+        self.assertEqual(obj.discount, Decimal('0.00'))
+        self.assertEqual(obj.quantity, 2)
+        self.assertEqual(obj.description, 'cardio kills gains')
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
+        url = reverse('api:invoice:invoiceline-detail', args=[obj.pk])
+        
+        data = {'price_sold': -100.00}
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(obj.price_sold, Decimal('100.00'))
+        
+        data = {'price_sold': 101.00}
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(obj.price_sold, Decimal('101.00'))
+
+        data = {'discount': -0.10}
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(obj.discount, Decimal('0.00'))
+        
+        data = {'price_sold': 0.10}
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(obj.discount, Decimal('0.10'))
