@@ -201,6 +201,7 @@ class Product(models.Model):
         decimal_places=2,
         blank=True,
         null=True,
+        validators=[MinValueValidator(0.00)]
     )
     vat = models.ForeignKey(
         VAT,
@@ -239,6 +240,7 @@ class InvoiceLine(models.Model):
         decimal_places=2,
         blank=True,
         null=True,
+        validators=[MinValueValidator(0.00)]
     )
     discount = models.DecimalField(
         _('discount'),
