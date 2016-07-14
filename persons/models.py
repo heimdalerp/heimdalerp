@@ -66,7 +66,7 @@ class Company(models.Model):
     fantasy_name = models.CharField(
         _('fantasy name'),
         max_length=150,
-        unique=False  # Temporary until DRF 3.4.0 is released
+        unique=True
     )
     legal_name = models.CharField(
         _('legal name'),
