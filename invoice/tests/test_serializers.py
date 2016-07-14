@@ -54,53 +54,69 @@ class VATTestCase(APITestCase):
         self.client.force_authenticate(user=admin)
         url = reverse('api:invoice:vat-list')
         data = {
-            'name': '10%',
+            'name': '10',
+            'tax': 0.10,
             'code': '',
-            'tax': 0.10
         }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.VAT.objects.get(name='20%').delete()
+        models.VAT.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.VAT.objects.count(), 1)
 
     def test_correctness(self):
-        obj = models.VAT.objects.get(name='10%')
-        self.assertEqual(obj.name, '10%')
-        self.assertEqual(obj.code, '')
+        obj = models.VAT.objects.get(name='10')
+        self.assertEqual(obj.name, '10')
         self.assertEqual(obj.tax, Decimal('0.10'))
+        self.assertEqual(obj.code, '')
 
     def test_update(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse(
             'api:invoice:vat-detail',
-            args=[models.VAT.objects.get(name='10%').pk]
+            args=[models.VAT.objects.get(name='10').pk]
         )
         data = {
-            'name': '-10%',
+            'name': '-10',
+            'tax': -0.10,
             'code': '',
-            'tax': -0.10
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        obj = models.VAT.objects.get(name='10')
+        self.assertEqual(obj.name, '10')
+        self.assertEqual(obj.tax, Decimal('0.10'))
+        self.assertEqual(obj.code, '')
+
         data = {
-            'name': '110%',
-            'code': '',
-            'tax': 1.10
+            'name': '110',
+            'tax': 1.10,
+            'code': ''
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+ 
+        obj = models.VAT.objects.get(name='10')
+        self.assertEqual(obj.name, '10')
+        self.assertEqual(obj.tax, Decimal('0.10'))
+        self.assertEqual(obj.code, '')
+
         data = {
-            'name': '20%',
-            'code': '',
-            'tax': 0.20
+            'name': '20',
+            'tax': 0.20,
+            'code': ''
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        obj = models.VAT.objects.get(name='20')
+        self.assertEqual(obj.name, '20')
+        self.assertEqual(obj.tax, Decimal('0.20'))
+        self.assertEqual(obj.code, '')
 
 
 class CompanyInvoiceTestCase(APITestCase):
