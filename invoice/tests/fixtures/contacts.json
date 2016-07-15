@@ -1,0 +1,12 @@
+[
+{
+ "model": "invoice.contactinvoice",
+ "pk": 1,
+ "fields": {
+  "contact_contact": 1,
+  "legal_name": "Tobias Riper",
+  "fiscal_position": 1,
+  "fiscal_address": 3
+ }
+}
+]

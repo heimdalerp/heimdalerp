@@ -711,3 +711,132 @@ class InvoiceLineTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         obj = models.InvoiceLine.objects.get(product__name='Do Easy')
         self.assertEqual(obj.discount, Decimal('0.10'))
+
+
+class InvoiceTypeTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:invoicetype-list')
+        data = {
+            'name': 'Do Easy',
+            'code': ''
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.InvoiceType.objects.get(name='Do Easy').delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.InvoiceType.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.InvoiceType.objects.get(name='Do Easy')
+        self.assertEqual(obj.name, 'Do Easy')
+        self.assertEqual(obj.code, '')
+
+
+class InvoiceTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json',
+        'invoice/tests/fixtures/invoicing.json',
+        'invoice/tests/fixtures/companies.json',
+        'invoice/tests/fixtures/products.json',
+        'invoice/tests/fixtures/contacts.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice:invoice-list')
+        data = {
+            'invoice_company': reverse(
+                'api:invoice:companyinvoice-detail',
+                args=[
+                    models.CompanyInvoice.objects.get(
+                        persons_company__fantasy_name='IRONA'
+                    ).pk
+                ]
+            ),
+            'invoice_contact': reverse(
+                'api:invoice:contactinvoice-detail',
+                args=[
+                    models.ContactInvoice.objects.get(
+                        contact_contact__name='Tobias Riper'
+                    ).pk
+                ]
+            ),
+            'number': 1,
+            'invoice_lines': [
+                {
+                    'product': reverse(
+                        'api:invoice:product-detail',
+                        args=[models.Product.objects.get(name='Do Easy').pk]
+                    ),
+                    'price_sold': 100.00,
+                    'discount': 0.00,
+                    'quantity': 2,
+                    'description': 'hello there'
+                },
+                {
+                    'product': reverse(
+                        'api:invoice:product-detail',
+                        args=[
+                            models.Product.objects.get(name='Do No Easy').pk
+                        ]
+                    ),
+                    'price_sold': 200.00,
+                    'discount': 0.50,
+                    'quantity': 1,
+                    'description': ''
+                }
+            ],
+            'invoice_type': reverse(
+                'api:invoice:invoicetype-detail',
+                args=[models.InvoiceType.objects.get(name='Do Easy').pk]
+            ),
+            'invoice_date': str(date.today()),
+            'notes': 'cardio kills gains'
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.Invoice.objects.get(number=1).delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.Invoice.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.Invoice.objects.get(number=1)
+        self.assertEqual(
+            obj.invoice_company,
+            models.CompanyInvoice.objects.get(
+                persons_company__fantasy_name='IRONA'
+            )
+        )
+        self.assertEqual(
+            obj.invoice_contact,
+            models.ContactInvoice.objects.get(
+                contact_contact__name='Tobias Riper'
+            )
+        )
+        self.assertEqual(obj.number, 1)
+        self.assertEqual(
+            obj.invoice_type,
+            models.InvoiceType.objects.get(name='Do Easy')
+        )
+        self.assertEqual(obj.invoice_date, date.today())
+        self.assertEqual(obj.description, 'cardio kills gains')
+        self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
+        self.assertEqual(obj.subtotal, Decimal('300.00'))
+        self.assertEqual(obj.total, Decimal('341.00'))

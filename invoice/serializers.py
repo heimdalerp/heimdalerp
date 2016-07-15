@@ -465,15 +465,6 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
-        '''
-        number = validated_data.get('number')
-        if number is None or number == 0:
-            max_invoice = models.Invoice.objects.all.aggregate(
-                models.Max('number')
-            )
-            number = max_invoice.number + 1
-            validated_data['number'] = number
-        '''
         validated_data['status'] = models.INVOICE_STATUSTYPE_DRAFT
         number = validated_data.get('number')
         if number is None or number == 0:
