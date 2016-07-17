@@ -748,6 +748,7 @@ class InvoiceTestCase(APITestCase):
     """
     fixtures = [
         'invoice/tests/fixtures/users.json',
+        'invoice/tests/fixtures/geo.json',
         'invoice/tests/fixtures/invoicing.json',
         'invoice/tests/fixtures/companies.json',
         'invoice/tests/fixtures/products.json',
@@ -836,7 +837,7 @@ class InvoiceTestCase(APITestCase):
             models.InvoiceType.objects.get(name='Do Easy')
         )
         self.assertEqual(obj.invoice_date, date.today())
-        self.assertEqual(obj.description, 'cardio kills gains')
+        self.assertEqual(obj.notes, 'cardio kills gains')
         self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('300.00'))
         self.assertEqual(obj.total, Decimal('341.00'))
