@@ -1,5 +1,6 @@
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
+from django.db import transaction
 
 from geo import models
 
@@ -41,6 +42,50 @@ class LocalitySerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:geo:region-detail'
             }
         }
+
+    @transaction.atomic
+    def create(self, validated_data):
+        alternative_names_data = validated_data.pop('alternative_names')
+        locality = models.Locality.objects.create(
+            **validated_data
+        )
+
+        if alternative_names_data is not None:
+            for a_n_data in alternative_names_data:
+                alternative_name = models.AlternativeName.objects.create(
+                    **a_n_data
+                )
+                locality.alternative_names.add(alternative_name)
+
+            locality.save()
+
+        return locality
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        instance.default_name = validated_data.get(
+            'default_name',
+            instance.default_name
+        )
+        instance.region = validated_data.get(
+            'region',
+            instance.region
+        )
+
+        alternative_names_data = validated_data.pop('alternative_names')
+        if alternative_names_data is not None:
+            for a_l_data in alternative_names_data:
+                alternative_name, created = (
+                    models.AlternativeName.objects.update_or_create(
+                        pk=a_l_data.get('id'),
+                        defaults=a_l_data
+                    )
+                )
+                if created:
+                    instance.alternative_names.add(alternative_name)
+
+        instance.save()
+        return instance
 
 
 class RegionSerializer(HyperlinkedModelSerializer):
