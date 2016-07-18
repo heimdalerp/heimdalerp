@@ -85,22 +85,10 @@ class LocalityTestCase(APITestCase):
             'default_name': 'Santa Fe',
             'alternative_names': [
                 {
-                    'id': (
-                        models.AlternativeName.objects.get(
-                            name='Holy Faith',
-                            language_code='en'
-                        ).pk
-                    ),
                     'name': 'Santa Fe',
                     'language_code': 'en'
                 },
                 {
-                    'id': (
-                        models.AlternativeName.objects.get(
-                            name='Santa Fe',
-                            language_code='es'
-                        ).pk
-                    ),
                     'name': 'Santa Fe',
                     'language_code': 'es'
                 },
