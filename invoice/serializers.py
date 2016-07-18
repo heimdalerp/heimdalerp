@@ -518,24 +518,27 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                 'invoice_date',
                 instance.invoice_date
             )
+            instance.invoice_type = validated_data.get(
+                'invoice_type',
+                instance.invoice_type
+            )
             instance.notes = validated_data.get(
                 'notes',
                 instance.notes
             )
+            instance.number = validated_data.get(
+                'number',
+                instance.number
+            )
 
             invoice_lines_data = validated_data.get('invoice_lines')
             if invoice_lines_data is not None:
+                instance.invoice_lines.clear()
                 subtotal = Decimal('0.00')
                 total = Decimal('0.00')
                 for l_data in invoice_lines_data:
-                    l, created = (
-                        models.InvoiceLine.objects.update_or_create(
-                            pk=l_data.get('id'),
-                            defaults=l_data
-                        )
-                    )
-                    if created:
-                        instance.invoice_lines.add(l)
+                    l = models.InvoiceLine.objects.create(**l_data)
+                    instance.invoice_lines.add(l)
                     if l.discount > 0.00:
                         price_aux = l.quantity * (
                             l.price_sold - (l.price_sold * l.discount)
@@ -544,11 +547,13 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
                         total += (
                             price_aux + (price_aux * l.product.vat.tax)
                         )
-                else:
-                    subtotal += l.quantity * l.price_sold
-                    total += l.quantity * (
-                        l.price_sold + (l.price_sold * l.product.vat.tax)
-                    )
+                    else:
+                        subtotal += l.quantity * l.price_sold
+                        total += l.quantity * (
+                            l.price_sold + (
+                                l.price_sold * l.product.vat.tax
+                            )
+                        )
 
                 instance.subtotal = subtotal
                 instance.total = total
