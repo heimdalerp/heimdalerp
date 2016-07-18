@@ -57,8 +57,6 @@ class LocalitySerializer(HyperlinkedModelSerializer):
                 )
                 locality.alternative_names.add(alternative_name)
 
-            locality.save()
-
         return locality
 
     @transaction.atomic
@@ -74,15 +72,12 @@ class LocalitySerializer(HyperlinkedModelSerializer):
 
         alternative_names_data = validated_data.pop('alternative_names')
         if alternative_names_data is not None:
+            instance.alternative_names.clear()
             for a_l_data in alternative_names_data:
-                alternative_name, created = (
-                    models.AlternativeName.objects.update_or_create(
-                        pk=a_l_data.get('id'),
-                        defaults=a_l_data
+                alternative_name = (
+                        models.AlternativeName.objects.create(**a_l_data)
                     )
-                )
-                if created:
-                    instance.alternative_names.add(alternative_name)
+                instance.alternative_names.add(alternative_name)
 
         instance.save()
         return instance
