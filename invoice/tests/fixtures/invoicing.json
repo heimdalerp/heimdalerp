@@ -49,5 +49,13 @@
   "name": "Do Easy",
   "code": ""
  }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 2,
+ "fields": {
+  "name": "Do No Easy",
+  "code": ""
+ }
 }
 ]

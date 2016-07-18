@@ -10,8 +10,29 @@
  }
 },
 {
+ "model": "persons.company",
+ "pk": 2,
+ "fields": {
+  "fantasy_name": "ANORI",
+  "legal_name": "Zanitti-Baragiola SH",
+  "slogan": "tfw no slogan",
+  "initiated_activities": "2016-01-01"
+ }
+},
+{
  "model": "persons.physicaladdress",
  "pk": 1,
+ "fields": {
+  "street_address": "9 de Julio 2454",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 2,
  "fields": {
   "street_address": "9 de Julio 2454",
   "floor_number": "",
@@ -28,6 +49,18 @@
   "legal_name": "",
   "fiscal_position": 1,
   "fiscal_address": 1,
+  "default_invoice_debit_account": null,
+  "default_invoice_credit_account": null
+ }
+},
+{
+ "model": "invoice.companyinvoice",
+ "pk": 2,
+ "fields": {
+  "persons_company": 2,
+  "legal_name": "",
+  "fiscal_position": 2,
+  "fiscal_address": 2,
   "default_invoice_debit_account": null,
   "default_invoice_credit_account": null
  }

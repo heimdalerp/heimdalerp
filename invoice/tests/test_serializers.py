@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 from django.contrib.auth.models import User
@@ -811,7 +811,7 @@ class InvoiceTestCase(APITestCase):
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.Invoice.objects.get(number=1).delete()
+        models.Invoice.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
@@ -841,3 +841,85 @@ class InvoiceTestCase(APITestCase):
         self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('300.00'))
         self.assertEqual(obj.total, Decimal('341.00'))
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:invoice:invoice-detail',
+            args=[models.Invoice.objects.get(number=1).pk]
+        )
+        data = {
+            'invoice_company': reverse(
+                'api:invoice:companyinvoice-detail',
+                args=[
+                    models.CompanyInvoice.objects.get(
+                        persons_company__fantasy_name='ANORI'
+                    ).pk
+                ]
+            ),
+            'invoice_contact': reverse(
+                'api:invoice:contactinvoice-detail',
+                args=[
+                    models.ContactInvoice.objects.get(
+                        contact_contact__name='Riper Tobias'
+                    ).pk
+                ]
+            ),
+            'number': 2,
+            'invoice_lines': [
+                {
+                    'product': reverse(
+                        'api:invoice:product-detail',
+                        args=[models.Product.objects.get(name='Do Easy').pk]
+                    ),
+                    'price_sold': 100.00,
+                    'discount': 0.00,
+                    'quantity': 1,
+                    'description': 'The Negus used to rule Ethiopia'
+                },
+                {
+                    'product': reverse(
+                        'api:invoice:product-detail',
+                        args=[
+                            models.Product.objects.get(name='Do No Easy').pk
+                        ]
+                    ),
+                    'price_sold': 200.00,
+                    'discount': 0.00,
+                    'quantity': 2,
+                    'description': 'no description'
+                }
+            ],
+            'invoice_type': reverse(
+                'api:invoice:invoicetype-detail',
+                args=[models.InvoiceType.objects.get(name='Do No Easy').pk]
+            ),
+            'invoice_date': str(date.today() - timedelta(days=1)),
+            'notes': 'gains are killed by cardio'
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        obj = models.Invoice.objects.get(number=2)
+        self.assertEqual(
+            obj.invoice_company,
+            models.CompanyInvoice.objects.get(
+                persons_company__fantasy_name='ANORI'
+            )
+        )
+        self.assertEqual(
+            obj.invoice_contact,
+            models.ContactInvoice.objects.get(
+                contact_contact__name='Riper Tobias'
+            )
+        )
+        self.assertEqual(obj.number, 2)
+        self.assertEqual(
+            obj.invoice_type,
+            models.InvoiceType.objects.get(name='Do No Easy')
+        )
+        self.assertEqual(obj.invoice_date, date.today() - timedelta(days=1))
+        self.assertEqual(obj.notes, 'gains are killed by cardio')
+        self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
+        self.assertEqual(obj.subtotal, Decimal('500.00'))
+        self.assertEqual(obj.total, Decimal('594.00'))
