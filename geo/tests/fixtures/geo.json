@@ -1,0 +1,21 @@
+[
+{
+ "model": "geo.country",
+ "pk": 1,
+ "fields": {
+  "codename": "AR",
+  "default_name": "Argentina",
+  "alternative_names": []
+ }
+},
+{
+ "model": "geo.region",
+ "pk": 1,
+ "fields": {
+  "country": 1,
+  "codename": "SF",
+  "default_name": "Santa Fe",
+  "alternative_names": []
+ }
+}
+]
