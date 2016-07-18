@@ -17,5 +17,15 @@
   "default_name": "Santa Fe",
   "alternative_names": []
  }
+},
+{
+ "model": "geo.region",
+ "pk": 2,
+ "fields": {
+  "country": 1,
+  "codename": "ER",
+  "default_name": "Entre Ríos",
+  "alternative_names": []
+ }
 }
 ]
