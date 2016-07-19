@@ -58,9 +58,7 @@
  "pk": 1,
  "fields": {
   "fantasy_name": "IRONA",
-  "legal_name": "Baragiola-Zanitti SH",
-  "slogan": "Make Your Company Great Again",
-  "initiated_activities": "2016-01-01"
+  "slogan": "Make Your Company Great Again"
  }
 },
 {
@@ -161,7 +159,8 @@
  "pk": 1,
  "fields": {
   "persons_company": 1,
-  "legal_name": "",
+  "legal_name": "Baragiola-Zanitti SH",
+  "initiated_activities": "2016-01-01",
   "fiscal_position": 3,
   "fiscal_address": 1,
   "default_invoice_debit_account": 1,
