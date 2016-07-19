@@ -64,18 +64,16 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data): # TODO: Use existing objects.
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
-        home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data.get('id'),
-            defaults=home_address_data
+        home_address = PhysicalAddress.objects.create(
+            **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
-        contact_contact, created = Contact.objects.update_or_create(
-            pk=contact_contact_data.get('id'),
-            defaults=contact_contact_data
+        contact_contact = Contact.objects.create(
+            **contact_contact_data
         )
         validated_data['contact_contact'] = contact_contact
 
@@ -196,6 +194,8 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'persons_company',
+            'legal_name',
+            'initiated_activities',
             'fiscal_position',
             'fiscal_address',
             'products',
@@ -228,11 +228,10 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data): # TODO: Use existing objects.
         persons_company_data = validated_data.pop('persons_company')
-        persons_company, created = Company.objects.update_or_create(
-            pk=persons_company_data.get('id'),
-            defaults=persons_company_data
+        persons_company = Company.objects.create(
+            **persons_company_data
         )
         validated_data['persons_company'] = persons_company
 
@@ -253,21 +252,21 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
             'fantasy_name',
             instance.persons_company.fantasy_name
         )
-        instance.persons_company.legal_name = persons_company_data.get(
-            'legal_name',
-            instance.persons_company.legal_name
-        )
         instance.persons_company.slogan = persons_company_data.get(
             'slogan',
             instance.persons_company.slogan
         )
-        instance.persons_company.initiated_activities = (
-            persons_company_data.get(
+        instance.persons_company.save()
+        instance.legal_name = validated_data.get(
+            'legal_name',
+            instance.legal_name
+        )
+        instance.initiated_activities = (
+            validated_data.get(
                 'initiated_activities',
-                instance.persons_company.initiated_activities
+                instance.initiated_activities
             )
         )
-        instance.persons_company.save()
 
         fiscal_address_data = validated_data.pop('fiscal_address')
         instance.fiscal_address.street_address = fiscal_address_data.get(

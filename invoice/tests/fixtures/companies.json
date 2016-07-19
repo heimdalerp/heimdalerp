@@ -4,9 +4,7 @@
  "pk": 1,
  "fields": {
   "fantasy_name": "IRONA",
-  "legal_name": "Baragiola-Zanitti SH",
-  "slogan": "tfw no slogan",
-  "initiated_activities": "2016-01-01"
+  "slogan": "tfw no slogan"
  }
 },
 {
@@ -14,9 +12,7 @@
  "pk": 2,
  "fields": {
   "fantasy_name": "ANORI",
-  "legal_name": "Zanitti-Baragiola SH",
-  "slogan": "tfw no slogan",
-  "initiated_activities": "2016-01-01"
+  "slogan": "tfw no slogan"
  }
 },
 {
@@ -46,7 +42,8 @@
  "pk": 1,
  "fields": {
   "persons_company": 1,
-  "legal_name": "",
+  "legal_name": "Baragiola-Zanitti SH",
+  "initiated_activities": "2016-01-01",
   "fiscal_position": 1,
   "fiscal_address": 1,
   "default_invoice_debit_account": null,
@@ -58,7 +55,8 @@
  "pk": 2,
  "fields": {
   "persons_company": 2,
-  "legal_name": "",
+  "legal_name": "Zanitti-Baragiola SH",
+  "initiated_activities": "2016-01-01",
   "fiscal_position": 2,
   "fiscal_address": 2,
   "default_invoice_debit_account": null,

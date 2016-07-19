@@ -39,7 +39,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data): # TODO: Use existing objects.
         id_type = validated_data['id_type']
         id_number = validated_data['id_number']
         id_number = id_number.replace('.', '')
@@ -70,27 +70,23 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         invoice_contact_data = validated_data['invoice_contact']
         contact_contact_data = invoice_contact_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
-        home_address, created = PhysicalAddress.objects.update_or_create(
-            pk=home_address_data.get('id'),
-            defaults=home_address_data
+        home_address = PhysicalAddress.objects.create(
+            **home_address_data
         )
         contact_contact_data['home_address'] = home_address
 
-        contact_contact, created = Contact.objects.update_or_create(
-            pk=contact_contact_data.get('id'),
-            defaults=contact_contact_data
+        contact_contact = Contact.objects.create(
+            **contact_contact_data
         )
         invoice_contact_data['contact_contact'] = contact_contact
 
         fiscal_address_data = invoice_contact_data.pop('fiscal_address')
-        fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data.get('id'),
-            defaults=fiscal_address_data
+        fiscal_address = PhysicalAddress.objects.create(
+            **fiscal_address_data
         )
         invoice_contact_data['fiscal_address'] = fiscal_address
-        invoice_contact, created = ContactInvoice.objects.update_or_create(
-            pk=invoice_contact_data.get('id'),
-            defaults=invoice_contact_data
+        invoice_contact = ContactInvoice.objects.create(
+            **invoice_contact_data
         )
         validated_data['invoice_contact'] = invoice_contact
 
@@ -214,7 +210,8 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
 
         instance.id_type = validated_data.get('id_type', instance.id_type)
         instance.id_number = validated_data.get(
-            'id_number', instance.id_number
+            'id_number',
+            instance.id_number
         )
 
         instance.save()
@@ -244,25 +241,22 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data): # TODO: Use existing objects.
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
-        persons_company, created = Company.objects.update_or_create(
-            pk=persons_company_data.get('pk'),
-            defaults=persons_company_data
+        persons_company = Company.objects.create(
+            **persons_company_data
         )
         invoice_company_data['persons_company'] = persons_company
 
         fiscal_address_data = invoice_company_data.pop('fiscal_address')
-        fiscal_address, created = PhysicalAddress.objects.update_or_create(
-            pk=fiscal_address_data.get('id'),
-            defaults=fiscal_address_data
+        fiscal_address = PhysicalAddress.objects.create(
+            **fiscal_address_data
         )
         invoice_company_data['fiscal_address'] = fiscal_address
 
-        invoice_company, created = CompanyInvoice.objects.update_or_create(
-            pk=invoice_company_data.get('pk'),
-            defaults=invoice_company_data
+        invoice_company, created = CompanyInvoice.objects.create(
+            **invoice_company_data
         )
         validated_data['invoice_company'] = invoice_company
 
@@ -281,18 +275,19 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'fantasy_name',
             persons_company.fantasy_name
         )
-        persons_company.legal_name = persons_company_data.get(
-            'legal_name',
-            persons_company.legal_name
-        )
 
-        persons_company.initiated_activities = (
-            persons_company_data.get(
+        persons_company.save()
+
+        invoice_company.legal_name = invoice_company_data.get(
+            'legal_name',
+            invoice_company.legal_name
+        )
+        invoice_company.initiated_activities = (
+            invoice_company_data.get(
                 'initiated_activities',
-                persons_company.initiated_activities
+                invoice_company.initiated_activities
             )
         )
-        persons_company.save()
 
         fiscal_address_data = invoice_company_data.pop('fiscal_address')
         invoice_company.fiscal_address.street_address = (

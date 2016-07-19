@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from common.validators import date_is_past, date_is_present_or_past
+from common.validators import date_is_past
 from geo.models import Country, Locality
 
 GENRE_TYPE_MALE = 'M'
@@ -68,23 +68,11 @@ class Company(models.Model):
         max_length=150,
         unique=True
     )
-    legal_name = models.CharField(
-        _('legal name'),
-        max_length=300,
-        default="",
-        blank=True
-    )
     slogan = models.CharField(
         _('slogan'),
         max_length=200,
         default="",
         blank=True
-    )
-    initiated_activities = models.DateField(
-        _('initiated activities'),
-        blank=True,
-        null=True,
-        validators=[date_is_present_or_past]
     )
 
     def __str__(self):

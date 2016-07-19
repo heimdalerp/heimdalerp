@@ -135,10 +135,10 @@ class CompanyInvoiceTestCase(APITestCase):
         data = {
             'persons_company': {
                 'fantasy_name': 'IRONA',
-                'legal_name': 'Baragiola-Zanitti SH',
-                'slogan': 'tfw no slogan',
-                'initiated_activities': '2016-01-01'
+                'slogan': 'tfw no slogan'
             },
+            'legal_name': 'Baragiola-Zanitti SH',
+            'initiated_activities': '2016-01-01',
             'fiscal_position': (
                 reverse('api:invoice:fiscalposition-detail', args=[1])
             ),
@@ -173,7 +173,7 @@ class CompanyInvoiceTestCase(APITestCase):
             'IRONA'
         )
         self.assertEqual(
-            obj.persons_company.legal_name,
+            obj.legal_name,
             'Baragiola-Zanitti SH'
         )
         self.assertEqual(
@@ -181,7 +181,7 @@ class CompanyInvoiceTestCase(APITestCase):
             'tfw no slogan'
         )
         self.assertEqual(
-            obj.persons_company.initiated_activities,
+            obj.initiated_activities,
             date(2016, 1, 1)
         )
         self.assertEqual(
@@ -223,10 +223,10 @@ class CompanyInvoiceTestCase(APITestCase):
         data = {
             'persons_company': {
                 'fantasy_name': 'ANORI',
-                'legal_name': 'Zanitti-Baragiola SH',
-                'slogan': 'when face the slogan no',
-                'initiated_activities': '2015-02-03'
+                'slogan': 'when face the slogan no'
             },
+            'legal_name': 'Zanitti-Baragiola SH',
+            'initiated_activities': '2015-02-03',
             'fiscal_position': (
                 reverse('api:invoice:fiscalposition-detail', args=[2])
             ),
@@ -250,7 +250,7 @@ class CompanyInvoiceTestCase(APITestCase):
             'ANORI'
         )
         self.assertEqual(
-            obj.persons_company.legal_name,
+            obj.legal_name,
             'Zanitti-Baragiola SH'
         )
         self.assertEqual(
@@ -258,7 +258,7 @@ class CompanyInvoiceTestCase(APITestCase):
             'when face the slogan no'
         )
         self.assertEqual(
-            obj.persons_company.initiated_activities,
+            obj.initiated_activities,
             date(2015, 2, 3)
         )
         self.assertEqual(

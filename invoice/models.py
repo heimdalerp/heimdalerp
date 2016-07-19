@@ -48,9 +48,14 @@ class CompanyInvoice(models.Model):
     )
     legal_name = models.CharField(
         _('legal name'),
-        max_length=200,
-        default="",
-        blank=True
+        max_length=300,
+        unique=True
+    )
+    initiated_activities = models.DateField(
+        _('initiated activities'),
+        blank=True,
+        null=True,
+        validators=[date_is_present_or_past]
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
@@ -109,7 +114,7 @@ class ContactInvoice(models.Model):
     )
     legal_name = models.CharField(
         _('legal name'),
-        max_length=200
+        max_length=300
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
