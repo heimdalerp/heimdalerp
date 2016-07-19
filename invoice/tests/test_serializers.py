@@ -139,14 +139,18 @@ class CompanyInvoiceTestCase(APITestCase):
             },
             'legal_name': 'Baragiola-Zanitti SH',
             'initiated_activities': '2016-01-01',
-            'fiscal_position': (
-                reverse('api:invoice:fiscalposition-detail', args=[1])
+            'fiscal_position': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[models.FiscalPosition.objects.get(name='Do Easy').pk]
             ),
             'fiscal_address': {
                 'street_address': '9 de Julio 2454',
                 'floor_number': '',
                 'apartment_number': '',
-                'locality': reverse('api:geo:locality-detail', args=[1]),
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Santa Fe').pk]
+                ),
                 'postal_code': '3000'
             },
             'default_invoice_debit_account': '',
@@ -202,7 +206,7 @@ class CompanyInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.fiscal_address.locality,
-            Locality.objects.get(pk=1)
+            Locality.objects.get(default_name='Santa Fe')
         )
         self.assertEqual(
             obj.fiscal_address.postal_code,
@@ -227,14 +231,20 @@ class CompanyInvoiceTestCase(APITestCase):
             },
             'legal_name': 'Zanitti-Baragiola SH',
             'initiated_activities': '2015-02-03',
-            'fiscal_position': (
-                reverse('api:invoice:fiscalposition-detail', args=[2])
+            'fiscal_position': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[
+                    models.FiscalPosition.objects.get(name='Do No Easy').pk
+                ]
             ),
             'fiscal_address': {
                 'street_address': 'San Martín 1100',
                 'floor_number': '1',
                 'apartment_number': '2',
-                'locality': reverse('api:geo:locality-detail', args=[2]),
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(name='Rosario').pk]
+                ),
                 'postal_code': '2000'
             },
             'default_invoice_debit_account': '',
@@ -279,7 +289,7 @@ class CompanyInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.fiscal_address.locality,
-            Locality.objects.get(pk=2)
+            Locality.objects.get(default_name='Rosario')
         )
         self.assertEqual(
             obj.fiscal_address.postal_code,
@@ -311,7 +321,12 @@ class ContactInvoiceTestCase(APITestCase):
                 ),
                 'name': 'Tobias Riper',
                 'birth_date': '1970-07-07',
-                'born_in': reverse('api:geo:country-detail', args=[1]),
+                'born_in': reverse(
+                    'api:geo:country-detail',
+                     args=[
+                        Country.objects.get(default_name='Argentina').pk
+                    ]
+                ),
                 'phone_numbers': '555444555,333222333',
                 'extra_emails': (
                     'top@kek.com'
@@ -321,21 +336,28 @@ class ContactInvoiceTestCase(APITestCase):
                     'street_address': '9 de Julio 2454',
                     'floor_number': '',
                     'apartment_number': '',
-                    'locality': (
-                        reverse('api:geo:locality-detail', args=[1])
+                    'locality': reverse(
+                        'api:geo:locality-detail',
+                        args=[
+                            Locality.objects.get(default_name='Santa Fe').pk
+                        ]
                     ),
                     'postal_code': '3000'
                 }
             },
             'legal_name': 'Tobias Riper',
-            'fiscal_position': (
-                reverse('api:invoice:fiscalposition-detail', args=[1])
+            'fiscal_position': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[models.FiscalPosition.objects.get(name='Do Easy').pk]
             ),
             'fiscal_address': {
                 'street_address': '9 de Julio 2454',
                 'floor_number': '',
                 'apartment_number': '',
-                'locality': reverse('api:geo:locality-detail', args=[1]),
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Santa Fe').pk]
+                ),
                 'postal_code': '3000'
             }
         }
@@ -369,7 +391,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.contact_contact.born_in,
-            Country.objects.get(pk=1)
+            Country.objects.get(default_name='Argentina')
         )
         self.assertEqual(
             obj.contact_contact.phone_numbers,
@@ -397,7 +419,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.contact_contact.home_address.locality,
-            Locality.objects.get(pk=1)
+            Locality.objects.get(default_name='Santa Fe')
         )
         self.assertEqual(
             obj.contact_contact.home_address.postal_code,
@@ -425,7 +447,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.fiscal_address.locality,
-            Locality.objects.get(pk=1)
+            Locality.objects.get(default_name='Santa Fe')
         )
         self.assertEqual(
             obj.fiscal_address.postal_code,
@@ -453,7 +475,10 @@ class ContactInvoiceTestCase(APITestCase):
                 ),
                 'name': 'Riper Tobias',
                 'birth_date': '1980-09-09',
-                'born_in': reverse('api:geo:country-detail', args=[2]),
+                'born_in': reverse(
+                    'api:geo:country-detail',
+                    args=[Country.objects.get(default_name='Uruguay').pk]
+                ),
                 'phone_numbers': '123456',
                 'extra_emails': (
                     'kek@top.com'
@@ -463,21 +488,30 @@ class ContactInvoiceTestCase(APITestCase):
                     'street_address': 'San Martín 1100',
                     'floor_number': '1',
                     'apartment_number': '2',
-                    'locality': (
-                        reverse('api:geo:locality-detail', args=[2])
+                    'locality': reverse(
+                        'api:geo:locality-detail',
+                        args=[
+                            Locality.objects.get(default_name='Rosario').pk
+                        ]
                     ),
                     'postal_code': '2000'
                 }
             },
             'legal_name': 'Riper Tobias',
-            'fiscal_position': (
-                reverse('api:invoice:fiscalposition-detail', args=[2])
+            'fiscal_position': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[
+                    models.FiscalPosition.objects.get(name='Do No Easy').pk
+                ]
             ),
             'fiscal_address': {
                 'street_address': 'San Martín 1100',
                 'floor_number': '1',
                 'apartment_number': '2',
-                'locality': reverse('api:geo:locality-detail', args=[2]),
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Rosario').pk]
+                ),
                 'postal_code': '2000'
             }
         }
@@ -500,7 +534,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.contact_contact.born_in,
-            Country.objects.get(pk=2)
+            Country.objects.get(default_name='Uruguay')
         )
         self.assertEqual(
             obj.contact_contact.phone_numbers,
@@ -528,7 +562,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.contact_contact.home_address.locality,
-            Locality.objects.get(pk=2)
+            Locality.objects.get(default_name='Rosario')
         )
         self.assertEqual(
             obj.contact_contact.home_address.postal_code,
@@ -556,7 +590,7 @@ class ContactInvoiceTestCase(APITestCase):
         )
         self.assertEqual(
             obj.fiscal_address.locality,
-            Locality.objects.get(pk=2)
+            Locality.objects.get(default_name='Rosario')
         )
         self.assertEqual(
             obj.fiscal_address.postal_code,
