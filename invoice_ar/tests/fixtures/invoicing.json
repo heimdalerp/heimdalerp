@@ -1,0 +1,77 @@
+[
+{
+ "model": "invoice.fiscalposition",
+ "pk": 1,
+ "fields": {
+  "name": "Do Easy",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.fiscalposition",
+ "pk": 2,
+ "fields": {
+  "name": "Do No Easy",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 1,
+ "fields": {
+  "name": "10%",
+  "code": "",
+  "tax": "0.10"
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 2,
+ "fields": {
+  "name": "21%",
+  "code": "",
+  "tax": "0.21"
+ }
+},
+{
+ "model": "invoice.vat",
+ "pk": 3,
+ "fields": {
+  "name": "0%",
+  "code": "",
+  "tax": "0.00"
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 1,
+ "fields": {
+  "name": "Do Easy",
+  "code": ""
+ }
+},
+{
+ "model": "invoice.invoicetype",
+ "pk": 2,
+ "fields": {
+  "name": "Do No Easy",
+  "code": ""
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 1,
+ "fields": {
+  "name": "Do Easy",
+  "code": ""
+ }
+},
+{
+ "model": "invoice_ar.concepttype",
+ "pk": 2,
+ "fields": {
+  "name": "Do No Easy",
+  "code": ""
+ }
+}
+]

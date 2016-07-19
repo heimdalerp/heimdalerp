@@ -1,0 +1,94 @@
+[
+{
+ "model": "persons.physicaladdress",
+ "pk": 1,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 2,
+ "fields": {
+  "street_address": "9 de Julio 2454",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": 1,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 3,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 4,
+ "fields": {
+  "street_address": "9 de Julio 2454",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": 1,
+  "postal_code": "3000"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 1,
+  "name": "Tobias Riper",
+  "contact_type": "I"
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 1,
+ "fields": {
+  "contact_contact": 1,
+  "legal_name": "Tobias Riper",
+  "fiscal_position": 1,
+  "fiscal_address": 2
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 2,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 3,
+  "name": "Riper Tobias",
+  "contact_type": "I"
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 2,
+ "fields": {
+  "contact_contact": 2,
+  "legal_name": "Riper Tobias",
+  "fiscal_position": 2,
+  "fiscal_address": 4
+ }
+}
+]
