@@ -4,9 +4,7 @@
  "pk": 1,
  "fields": {
   "fantasy_name": "Tu Compa\u00f1\u00eda",
-  "legal_name": "Tu Compa\u00f1\u00eda",
   "slogan": "",
-  "initiated_activities": null
  }
 },
 {
@@ -25,7 +23,8 @@
  "pk": 1,
  "fields": {
   "persons_company": 1,
-  "legal_name": "",
+  "legal_name": "Tu Compa\u00f1\u00eda",
+  "initiated_activities": null,
   "fiscal_position": null,
   "fiscal_address": 1,
   "default_invoice_debit_account": null,
