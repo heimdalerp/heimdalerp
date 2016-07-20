@@ -239,7 +239,6 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'reversion',
-    'rest_framework_docs',
 
     # HeimdalERP Core Apps
     'geo',
