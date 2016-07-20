@@ -39,7 +39,7 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data): # TODO: Use existing objects.
+    def create(self, validated_data):  # TODO: Use existing objects.
         id_type = validated_data['id_type']
         id_number = validated_data['id_number']
         id_number = id_number.replace('.', '')
@@ -241,7 +241,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data): # TODO: Use existing objects.
+    def create(self, validated_data):  # TODO: Use existing objects.
         invoice_company_data = validated_data.pop('invoice_company')
         persons_company_data = invoice_company_data.pop('persons_company')
         persons_company = Company.objects.create(
@@ -586,19 +586,14 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
 
             invoice_lines_data = validated_data.get('invoice_lines')
             if invoice_lines_data is not None:
+                instance.invoice_lines.clear()
                 subtotal = Decimal('0.00')
                 total = Decimal('0.00')
                 vat_total = Decimal('0.00')
                 vat_subtotals_data = dict()
                 for l_data in invoice_lines_data:
-                    l, created = (
-                        InvoiceLine.objects.update_or_create(
-                            pk=l_data.get('id'),
-                            defaults=l_data
-                        )
-                    )
-                    if created:
-                        instance.invoice_lines.add(l)
+                    l = InvoiceLine.objects.create(**l_data)
+                    instance.invoice_lines.add(l)
                     if str(l.product.vat.id) not in vat_subtotals_data:
                         vat_subtotals_data[str(l.product.vat.id)] = (
                             Decimal(0.00)
@@ -623,16 +618,11 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                             l.quantity * vat_aux
                         )
 
-                for key, value in vat_subtotals_data.items():
-                    vat = VAT.objects.get(pk=key)
-                    vatsubtotal, created = (
-                        instance.vat_subtotals.update_or_create(
-                            vat=vat,
-                            defaults={'vat': vat, 'subtotal': value}
-                        )
+                for v_s_data in vat_subtotals_data:
+                    vatsubtotal = models.InvoiceARHasVATSubtotal.create(
+                        **v_s_data
                     )
-                    if created:
-                        instance.vat_subtotals.add(vatsubtotal)
+                    instance.vat_subtotals.add(vatsubtotal)
 
                 instance.subtotal = subtotal
                 instance.total = total
