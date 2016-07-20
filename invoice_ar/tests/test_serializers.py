@@ -11,7 +11,10 @@ from geo.models import Locality, Country
 from persons.models import Company
 from invoice.models import (ContactInvoice,
                             CompanyInvoice,
+                            INVOICE_STATUSTYPE_DRAFT,
+                            InvoiceType,
                             FiscalPosition,
+                            Product,
                             VAT)
 from invoice_ar import models
 
@@ -633,7 +636,7 @@ class PointOfSaleTestCase(APITestCase):
         self.client.force_authenticate(user=admin)
         url = reverse('api:invoice_ar:pointofsale-list')
         invoicear_company = models.CompanyInvoiceAR.objects.get(
-            invoice_company__legal_name='IRONA'
+            invoice_company__legal_name='Baragiola-Zanitti SH'
         )
         data = {
             'invoicear_company': reverse(
@@ -659,7 +662,7 @@ class PointOfSaleTestCase(APITestCase):
 
     def test_correctness(self):
         invoicear_company = models.CompanyInvoiceAR.objects.get(
-            invoice_company__legal_name='IRONA'
+            invoice_company__legal_name='Baragiola-Zanitti SH'
         )
         obj = models.PointOfSale.objects.get(
             invoicear_company=invoicear_company
@@ -698,21 +701,21 @@ class InvoiceARTestCase(APITestCase):
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice:invoice-list')
+        url = reverse('api:invoice_ar:invoicear-list')
         data = {
-            'invoice_company': reverse(
-                'api:invoice:companyinvoice-detail',
+            'invoicear_company': reverse(
+                'api:invoice_ar:companyinvoicear-detail',
                 args=[
-                    models.CompanyInvoice.objects.get(
-                        persons_company__fantasy_name='IRONA'
+                    models.CompanyInvoiceAR.objects.get(
+                        invoice_company__legal_name='Baragiola-Zanitti SH'
                     ).pk
                 ]
             ),
-            'invoice_contact': reverse(
-                'api:invoice:contactinvoice-detail',
+            'invoicear_contact': reverse(
+                'api:invoice_ar:contactinvoicear-detail',
                 args=[
-                    models.ContactInvoice.objects.get(
-                        contact_contact__name='Tobias Riper'
+                    models.ContactInvoiceAR.objects.get(
+                        invoice_contact__legal_name='Tobias Riper'
                     ).pk
                 ]
             ),
@@ -721,7 +724,7 @@ class InvoiceARTestCase(APITestCase):
                 {
                     'product': reverse(
                         'api:invoice:product-detail',
-                        args=[models.Product.objects.get(name='Do Easy').pk]
+                        args=[Product.objects.get(name='Do Easy').pk]
                     ),
                     'price_sold': 100.00,
                     'discount': 0.00,
@@ -732,7 +735,7 @@ class InvoiceARTestCase(APITestCase):
                     'product': reverse(
                         'api:invoice:product-detail',
                         args=[
-                            models.Product.objects.get(name='Do No Easy').pk
+                            Product.objects.get(name='Do No Easy').pk
                         ]
                     ),
                     'price_sold': 200.00,
@@ -746,39 +749,65 @@ class InvoiceARTestCase(APITestCase):
                 args=[models.InvoiceType.objects.get(name='Do Easy').pk]
             ),
             'invoice_date': str(date.today()),
-            'notes': 'cardio kills gains'
+            'notes': 'cardio kills gains',
+            'point_of_sale': reverse(
+                'api:invoice_ar:pointofsale-detail',
+                args=[models.PointOfSale.objects.get(afip_id=1).pk]
+            ),
+            'due_date': str(date.today() + timedelta(days=30)),
+            'service_start': str(date.today()),
+            'concept_type': reverse(
+                'api:invoice_ar:concepttype-detail',
+                args=[models.ConceptType.objects.get(name='Do Easy').pk]
+            )
         }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.Invoice.objects.get().delete()
+        models.InvoiceAR.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.Invoice.objects.count(), 1)
+        self.assertEqual(models.InvoiceAR.objects.count(), 1)
 
     def test_correctness(self):
-        obj = models.Invoice.objects.get(number=1)
+        obj = models.InvoiceAR.objects.get(number=1)
         self.assertEqual(
-            obj.invoice_company,
-            models.CompanyInvoice.objects.get(
-                persons_company__fantasy_name='IRONA'
+            obj.invoicear_company,
+            models.CompanyInvoiceAR.objects.get(
+                invoice_company__legal_name='Baragiola-Zanitti SH'
             )
         )
         self.assertEqual(
-            obj.invoice_contact,
-            models.ContactInvoice.objects.get(
-                contact_contact__name='Tobias Riper'
+            obj.invoicear_contact,
+            models.ContactInvoiceAR.objects.get(
+                invoice_contact__legal_name='Tobias Riper'
             )
         )
         self.assertEqual(obj.number, 1)
         self.assertEqual(
             obj.invoice_type,
-            models.InvoiceType.objects.get(name='Do Easy')
+            InvoiceType.objects.get(name='Do Easy')
         )
         self.assertEqual(obj.invoice_date, date.today())
         self.assertEqual(obj.notes, 'cardio kills gains')
-        self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
+        self.assertEqual(
+            obj.point_of_sale,
+            models.PointOfSale.objects.get(afip_id=1)
+        )
+        self.assertEqual(
+            obj.due_date,
+            date.today() + timedelta(days=30)
+        )
+        self.assertEqual(
+            obj.service_start,
+            date.today()
+        )
+        self.assertEqual(
+            obj.concept_type,
+            models.ConceptType.objects.get(name='Do Easy')
+        )
+        self.assertEqual(obj.status, INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('300.00'))
         self.assertEqual(obj.total, Decimal('341.00'))
 
@@ -786,23 +815,23 @@ class InvoiceARTestCase(APITestCase):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse(
-            'api:invoice:invoice-detail',
-            args=[models.Invoice.objects.get(number=1).pk]
+            'api:invoice_ar:invoicear-detail',
+            args=[models.InvoiceAR.objects.get(number=1).pk]
         )
         data = {
-            'invoice_company': reverse(
-                'api:invoice:companyinvoice-detail',
+            'invoicear_company': reverse(
+                'api:invoice_ar:companyinvoicear-detail',
                 args=[
-                    models.CompanyInvoice.objects.get(
-                        persons_company__fantasy_name='ANORI'
+                    models.CompanyInvoiceAR.objects.get(
+                        invoice_company__legal_name='Baragiola-Zanitti SH'
                     ).pk
                 ]
             ),
-            'invoice_contact': reverse(
-                'api:invoice:contactinvoice-detail',
+            'invoicear_contact': reverse(
+                'api:invoice_ar:contactinvoicear-detail',
                 args=[
-                    models.ContactInvoice.objects.get(
-                        contact_contact__name='Riper Tobias'
+                    models.ContactInvoiceAR.objects.get(
+                        invoice_contact__legal_name='Riper Tobias'
                     ).pk
                 ]
             ),
@@ -811,7 +840,7 @@ class InvoiceARTestCase(APITestCase):
                 {
                     'product': reverse(
                         'api:invoice:product-detail',
-                        args=[models.Product.objects.get(name='Do Easy').pk]
+                        args=[Product.objects.get(name='Do Easy').pk]
                     ),
                     'price_sold': 100.00,
                     'discount': 0.00,
@@ -822,7 +851,7 @@ class InvoiceARTestCase(APITestCase):
                     'product': reverse(
                         'api:invoice:product-detail',
                         args=[
-                            models.Product.objects.get(name='Do No Easy').pk
+                            Product.objects.get(name='Do No Easy').pk
                         ]
                     ),
                     'price_sold': 200.00,
@@ -833,24 +862,34 @@ class InvoiceARTestCase(APITestCase):
             ],
             'invoice_type': reverse(
                 'api:invoice:invoicetype-detail',
-                args=[models.InvoiceType.objects.get(name='Do No Easy').pk]
+                args=[InvoiceType.objects.get(name='Do No Easy').pk]
             ),
             'invoice_date': str(date.today() - timedelta(days=1)),
-            'notes': 'gains are killed by cardio'
+            'notes': 'gains are killed by cardio',
+            'point_of_sale': reverse(
+                'api:invoice_ar:pointofsale-detail',
+                args=[models.PointOfSale.objects.get(afip_id=2).pk]
+            ),
+            'due_date': str(date.today() + timedelta(days=29)),
+            'service_start': str(date.today() - timedelta(days=1)),
+            'concept_type': reverse(
+                'api:invoice_ar:concepttype-detail',
+                args=[models.ConceptType.objects.get(name='Do No Easy').pk]
+            )
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        obj = models.Invoice.objects.get(number=2)
+        obj = models.InvoiceAR.objects.get(number=2)
         self.assertEqual(
-            obj.invoice_company,
-            models.CompanyInvoice.objects.get(
-                persons_company__fantasy_name='ANORI'
+            obj.invoicear_company,
+            models.CompanyInvoiceAR.objects.get(
+                invoice_company__legal_name='Zanitti-Baragiola SH'
             )
         )
         self.assertEqual(
-            obj.invoice_contact,
-            models.ContactInvoice.objects.get(
-                contact_contact__name='Riper Tobias'
+            obj.invoicear_contact,
+            models.ContactInvoiceAR.objects.get(
+                invoice_contact__legal_name='Riper Tobias'
             )
         )
         self.assertEqual(obj.number, 2)
@@ -860,6 +899,22 @@ class InvoiceARTestCase(APITestCase):
         )
         self.assertEqual(obj.invoice_date, date.today() - timedelta(days=1))
         self.assertEqual(obj.notes, 'gains are killed by cardio')
-        self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
+        self.assertEqual(
+            obj.point_of_sale,
+            models.PointOfSale.objects.get(afip_id=2)
+        )
+        self.assertEqual(
+            obj.due_date,
+            date.today() + timedelta(days=29)
+        )
+        self.assertEqual(
+            obj.service_start,
+            date.today() - timedelta(days=1)
+        )
+        self.assertEqual(
+            obj.concept_type,
+            models.ConceptType.objects.get(name='Do No Easy')
+        )
+        self.assertEqual(obj.status, INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('500.00'))
         self.assertEqual(obj.total, Decimal('594.00'))
