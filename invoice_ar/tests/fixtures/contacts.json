@@ -68,6 +68,15 @@
  }
 },
 {
+ "model": "invoice_ar.contactinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_contact": 1,
+  "id_type": "T",
+  "id_number": "20111111112"
+ }
+},
+{
  "model": "contact.contact",
  "pk": 2,
  "fields": {
@@ -89,6 +98,15 @@
   "legal_name": "Riper Tobias",
   "fiscal_position": 2,
   "fiscal_address": 4
+ }
+},
+{
+ "model": "invoice_ar.contactinvoicear",
+ "pk": 2,
+ "fields": {
+  "invoice_contact": 2,
+  "id_type": "T",
+  "id_number": "20222222223"
  }
 }
 ]

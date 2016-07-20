@@ -62,5 +62,23 @@
   "default_invoice_debit_account": null,
   "default_invoice_credit_account": null
  }
+},
+{
+ "model": "invoice_ar.companyinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_company": 1,
+  "cuit": "30111111118",
+  "iibb": "123456"
+ }
+},
+{
+ "model": "invoice_ar.companyinvoicear",
+ "pk": 2,
+ "fields": {
+  "invoice_company": 2,
+  "cuit": "30222222229",
+  "iibb": "654321"
+ }
 }
 ]

@@ -9,7 +9,10 @@ from rest_framework.test import APITestCase
 from contact.models import Contact
 from geo.models import Locality, Country
 from persons.models import Company
-from invoice.models import ContactInvoice, CompanyInvoice, FiscalPosition
+from invoice.models import (ContactInvoice,
+                            CompanyInvoice,
+                            FiscalPosition,
+                            VAT)
 from invoice_ar import models
 
 
@@ -398,315 +401,298 @@ class ContactInvoiceARTestCase(APITestCase):
             ]
         )
         data = {
-            'contact_contact': {
-                'persons_company': (
-                    reverse(
-                        'api:persons:company-detail',
-                        args=[Company.objects.get(fantasy_name='IRONA').pk]
-                    )
+            'invoice_contact': {
+                'contact_contact': {
+                    'persons_company': (
+                        reverse(
+                            'api:persons:company-detail',
+                            args=[
+                                Company.objects.get(fantasy_name='IRONA').pk
+                            ]
+                        )
+                    ),
+                    'name': 'Riper Tobias',
+                    'birth_date': '1980-09-09',
+                    'born_in': reverse(
+                        'api:geo:country-detail',
+                        args=[
+                            Country.objects.get(default_name='Uruguay').pk
+                        ]
+                    ),
+                    'phone_numbers': '123456',
+                    'extra_emails': (
+                        'kek@top.com'
+                    ),
+                    'contact_type': 'C',
+                    'home_address': {
+                        'street_address': 'San Martín 1100',
+                        'floor_number': '1',
+                        'apartment_number': '2',
+                        'locality': reverse(
+                            'api:geo:locality-detail',
+                            args=[
+                                Locality.objects.get(
+                                    default_name='Rosario'
+                                ).pk
+                            ]
+                        ),
+                        'postal_code': '2000'
+                    }
+                },
+                'legal_name': 'Riper Tobias',
+                'fiscal_position': reverse(
+                    'api:invoice:fiscalposition-detail',
+                    args=[FiscalPosition.objects.get(name='Do No Easy').pk]
                 ),
-                'name': 'Riper Tobias',
-                'birth_date': '1980-09-09',
-                'born_in': reverse('api:geo:country-detail', args=[2]),
-                'phone_numbers': '123456',
-                'extra_emails': (
-                    'kek@top.com'
-                ),
-                'contact_type': 'C',
-                'home_address': {
+                'fiscal_address': {
                     'street_address': 'San Martín 1100',
                     'floor_number': '1',
                     'apartment_number': '2',
-                    'locality': (
-                        reverse('api:geo:locality-detail', args=[2])
+                    'locality': reverse(
+                        'api:geo:locality-detail',
+                        args=[
+                            Locality.objects.get(default_name='Rosario').pk
+                        ]
                     ),
                     'postal_code': '2000'
                 }
             },
-            'legal_name': 'Riper Tobias',
-            'fiscal_position': (
-                reverse('api:invoice:fiscalposition-detail', args=[2])
-            ),
-            'fiscal_address': {
-                'street_address': 'San Martín 1100',
-                'floor_number': '1',
-                'apartment_number': '2',
-                'locality': reverse('api:geo:locality-detail', args=[2]),
-                'postal_code': '2000'
-            }
+            'id_type': models.ID_TYPE_CUIL,
+            'id_number': '20222222223'
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        obj = models.ContactInvoice.objects.get(
-            contact_contact__name='Riper Tobias'
+        obj = models.ContactInvoiceAR.objects.get(
+            invoice_contact__legal_name='Riper Tobias'
         )
+        contact_contact = obj.invoice_contact.contact_contact
         self.assertEqual(
-            obj.contact_contact.persons_company,
+            contact_contact.persons_company,
             Company.objects.get(fantasy_name='IRONA')
         )
         self.assertEqual(
-            obj.contact_contact.name,
+            contact_contact.name,
             'Riper Tobias'
         )
         self.assertEqual(
-            obj.contact_contact.birth_date,
+            contact_contact.birth_date,
             date(1980, 9, 9)
         )
         self.assertEqual(
-            obj.contact_contact.born_in,
-            Country.objects.get(pk=2)
+            contact_contact.born_in,
+            Country.objects.get(default_name='Uruguay')
         )
         self.assertEqual(
-            obj.contact_contact.phone_numbers,
+            contact_contact.phone_numbers,
             '123456'
         )
         self.assertEqual(
-            obj.contact_contact.extra_emails,
+            contact_contact.extra_emails,
             'kek@top.com'
         )
         self.assertEqual(
-            obj.contact_contact.contact_type,
+            contact_contact.contact_type,
             'C'
         )
         self.assertEqual(
-            obj.contact_contact.home_address.street_address,
+            contact_contact.home_address.street_address,
             'San Martín 1100'
         )
         self.assertEqual(
-            obj.contact_contact.home_address.floor_number,
+            contact_contact.home_address.floor_number,
             '1'
         )
         self.assertEqual(
-            obj.contact_contact.home_address.apartment_number,
+            contact_contact.home_address.apartment_number,
             '2'
         )
         self.assertEqual(
-            obj.contact_contact.home_address.locality,
-            Locality.objects.get(pk=2)
+            contact_contact.home_address.locality,
+            Locality.objects.get(default_name='Rosario')
         )
         self.assertEqual(
-            obj.contact_contact.home_address.postal_code,
+            contact_contact.home_address.postal_code,
             '2000'
         )
         self.assertEqual(
-            obj.legal_name,
+            obj.invoice_contact.legal_name,
             'Riper Tobias'
         )
         self.assertEqual(
-            obj.fiscal_position,
-            models.FiscalPosition.objects.get(name='Do No Easy')
+            obj.invoice_contact.fiscal_position,
+            FiscalPosition.objects.get(name='Do No Easy')
         )
         self.assertEqual(
-            obj.fiscal_address.street_address,
+            obj.invoice_contact.fiscal_address.street_address,
             'San Martín 1100'
         )
         self.assertEqual(
-            obj.fiscal_address.floor_number,
+            obj.invoice_contact.fiscal_address.floor_number,
             '1'
         )
         self.assertEqual(
-            obj.fiscal_address.apartment_number,
+            obj.invoice_contact.fiscal_address.apartment_number,
             '2'
         )
         self.assertEqual(
-            obj.fiscal_address.locality,
-            Locality.objects.get(pk=2)
+            obj.invoice_contact.fiscal_address.locality,
+            Locality.objects.get(default_name='Rosario')
         )
         self.assertEqual(
-            obj.fiscal_address.postal_code,
+            obj.invoice_contact.fiscal_address.postal_code,
             '2000'
         )
+        self.assertEqual(
+            obj.id_type,
+            models.ID_TYPE_CUIL
+        )
+        self.assertEqual(
+            obj.id_number,
+            '20222222223'
+        )
 
 
-class ProductTestCase(APITestCase):
+class ConceptTypeTestCase(APITestCase):
     """
     """
     fixtures = [
-        'invoice/tests/fixtures/users.json',
-        'invoice/tests/fixtures/invoicing.json',
-        'invoice/tests/fixtures/companies.json'
+        'invoice_ar/tests/fixtures/users.json'
     ]
 
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice:product-list')
-        data = {
-            'invoice_company': reverse(
-                'api:invoice:companyinvoice-detail',
-                args=[
-                    models.CompanyInvoice.objects.get(
-                        persons_company__fantasy_name='IRONA'
-                    ).pk
-                ]
-            ),
-            'name': 'Do Easy',
-            'current_price': 100.00,
-            'vat': reverse(
-                'api:invoice:vat-detail',
-                args=[
-                    models.VAT.objects.get(name='10%').pk
-                ]
-            )
-        }
-        self.response = self.client.post(url, data)
-
-    def tearDown(self):
-        models.Product.objects.get(name='Do Easy').delete()
-
-    def test_create(self):
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.Product.objects.count(), 1)
-
-    def test_correctness(self):
-        obj = models.Product.objects.get(name='Do Easy')
-        self.assertEqual(
-            obj.invoice_company,
-            models.CompanyInvoice.objects.get(
-                persons_company__fantasy_name='IRONA'
-            )
-        )
-        self.assertEqual(obj.name, 'Do Easy')
-        self.assertEqual(obj.current_price, Decimal('100.00'))
-        self.assertEqual(
-            obj.vat,
-            models.VAT.objects.get(name='10%')
-        )
-
-    def test_update(self):
-        admin = User.objects.get(username='admin')
-        self.client.force_authenticate(user=admin)
-        obj = models.Product.objects.get(name='Do Easy')
-        url = reverse('api:invoice:product-detail', args=[obj.pk])
-        
-        data = {'current_price': -100.00}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        obj = models.Product.objects.get(name='Do Easy')
-        self.assertEqual(obj.current_price, Decimal('100.00'))
-
-        data = {'current_price': 101.00}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        obj = models.Product.objects.get(name='Do Easy')
-        self.assertEqual(obj.current_price, Decimal('101.00'))
-
-
-class InvoiceLineTestCase(APITestCase):
-    """
-    """
-    fixtures = [
-        'invoice/tests/fixtures/users.json',
-        'invoice/tests/fixtures/invoicing.json',
-        'invoice/tests/fixtures/companies.json',
-        'invoice/tests/fixtures/products.json'
-    ]
-
-    def setUp(self):
-        admin = User.objects.get(username='admin')
-        self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice:invoiceline-list')
-        data = {
-            'product': reverse(
-                'api:invoice:product-detail',
-                args=[models.Product.objects.get(name='Do Easy').pk]
-            ),
-            'price_sold': 100.00,
-            'discount': 0.00,
-            'quantity': 2,
-            'description': 'cardio kills gains'
-        }
-        self.response = self.client.post(url, data)
-
-    def tearDown(self):
-        models.InvoiceLine.objects.get(product__name='Do Easy').delete()
-
-    def test_create(self):
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.InvoiceLine.objects.count(), 1)
-
-    def test_correctness(self):
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        self.assertEqual(
-            obj.product,
-            models.Product.objects.get(name='Do Easy')
-        )
-        self.assertEqual(obj.price_sold, Decimal('100.00'))
-        self.assertEqual(obj.discount, Decimal('0.00'))
-        self.assertEqual(obj.quantity, 2)
-        self.assertEqual(obj.description, 'cardio kills gains')
-
-    def test_update(self):
-        admin = User.objects.get(username='admin')
-        self.client.force_authenticate(user=admin)
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        url = reverse('api:invoice:invoiceline-detail', args=[obj.pk])
-
-        data = {'price_sold': -100.00}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        self.assertEqual(obj.price_sold, Decimal('100.00'))
-
-        data = {'price_sold': 101.00}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        self.assertEqual(obj.price_sold, Decimal('101.00'))
-
-        data = {'discount': -0.10}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        self.assertEqual(obj.discount, Decimal('0.00'))
-
-        data = {'discount': 0.10}
-        response = self.client.patch(url, data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        obj = models.InvoiceLine.objects.get(product__name='Do Easy')
-        self.assertEqual(obj.discount, Decimal('0.10'))
-
-
-class InvoiceTypeTestCase(APITestCase):
-    """
-    """
-    fixtures = [
-        'invoice/tests/fixtures/users.json'
-    ]
-
-    def setUp(self):
-        admin = User.objects.get(username='admin')
-        self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice:invoicetype-list')
+        url = reverse('api:invoice_ar:concepttypes-list')
         data = {
             'name': 'Do Easy',
-            'code': ''
+            'code': '',
         }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.InvoiceType.objects.get(name='Do Easy').delete()
+        models.ConceptType.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.InvoiceType.objects.count(), 1)
+        self.assertEqual(models.ConceptType.objects.count(), 1)
 
     def test_correctness(self):
-        obj = models.InvoiceType.objects.get(name='Do Easy')
+        obj = models.ConceptType.objects.get(name='Do Easy')
         self.assertEqual(obj.name, 'Do Easy')
         self.assertEqual(obj.code, '')
 
 
-class InvoiceTestCase(APITestCase):
+class InvoiceARHasVATSubtotalTestCase(APITestCase):
     """
     """
     fixtures = [
-        'invoice/tests/fixtures/users.json',
-        'invoice/tests/fixtures/geo.json',
-        'invoice/tests/fixtures/invoicing.json',
-        'invoice/tests/fixtures/companies.json',
-        'invoice/tests/fixtures/products.json',
-        'invoice/tests/fixtures/contacts.json'
+        'invoice_ar/tests/fixtures/users.json',
+        'invoice_ar/tests/fixtures/invoicing.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice_ar:invoicearhasvatsubtotal-list')
+        data = {
+            'vat': reverse(
+                'api:invoice:vat-detail',
+                args=[VAT.objects.get(name='10%').pk]
+            ),
+            'subtotal': 100.00,
+        }
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.InvoiceARHasVATSubtotal.objects.get().delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.InvoiceARHasVATSubtotal.objects.count(), 1)
+
+    def test_correctness(self):
+        obj = models.InvoiceARHasVATSubtotal.objects.get(vat__name='10%')
+        self.assertEqual(
+            obj.vat,
+            VAT.objects.get(name='10%')
+        )
+        self.assertEqual(obj.subtotal, Decimal('100.00'))
+
+
+class PointOfSaleTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice_ar/tests/fixtures/users.json',
+        'invoice_ar/tests/fixtures/invoicing.json',
+        'invoice_ar/tests/fixtures/companies.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:invoice_ar:pointofsale-list')
+        invoicear_company = models.CompanyInvoiceAR.objects.get(
+            invoice_company__legal_name='IRONA'
+        )
+        data = {
+            'invoicear_company': reverse(
+                'api:invoice_ar:companyinvoicear-detail',
+                args=[invoicear_company.pk]
+            ),
+            'afip_id': 1,
+            'point_of_sale_type': models.POINTOFSALE_TYPE_WEBSERVICE,
+            'fiscal_address': reverse(
+                'api:persons:physicaladdress-detail',
+                args=[invoicear_company.invoice_company.fiscal_address.pk]
+            ),
+            'is_inactive': False
+        } 
+        self.response = self.client.post(url, data)
+
+    def tearDown(self):
+        models.PointOfSale.objects.get().delete()
+
+    def test_create(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.PointOfSale.objects.count(), 1)
+
+    def test_correctness(self):
+        invoicear_company = models.CompanyInvoiceAR.objects.get(
+            invoice_company__legal_name='IRONA'
+        )
+        obj = models.PointOfSale.objects.get(
+            invoicear_company=invoicear_company
+        )
+        self.assertEqual(
+            obj.invoicear_company,
+            invoicear_company
+        )
+        self.assertEqual(obj.afip_id, 1)
+        self.assertEqual(
+            obj.point_of_sale_type,
+            models.POINTOFSALE_TYPE_WEBSERVICE
+        )
+        self.assertEqual(
+            obj.fiscal_address,
+            invoicear_company.fiscal_address
+        )
+        self.assertEqual(
+            obj.is_inactive,
+            False
+        )
+
+
+class InvoiceARTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice_ar/tests/fixtures/users.json',
+        'invoice_ar/tests/fixtures/geo.json',
+        'invoice_ar/tests/fixtures/invoicing.json',
+        'invoice_ar/tests/fixtures/companies.json',
+        'invoice_ar/tests/fixtures/products.json',
+        'invoice_ar/tests/fixtures/contacts.json'
     ]
 
     def setUp(self):
