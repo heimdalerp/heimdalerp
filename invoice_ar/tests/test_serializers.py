@@ -815,6 +815,15 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(obj.status, INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('300.00'))
         self.assertEqual(obj.total, Decimal('341.00'))
+        self.assertEqual(obj.vat_total, Decimal('41.00'))
+        self.assertEqual(
+            obj.vat_subtotals.get(vat__name='10%').subtotal,
+            Decimal('20.00')
+        )
+        self.assertEqual(
+            obj.vat_subtotals.get(vat__name='21%').subtotal,
+            Decimal('21.00')
+        )
 
     def test_update(self):
         admin = User.objects.get(username='admin')
@@ -923,3 +932,12 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(obj.status, INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('500.00'))
         self.assertEqual(obj.total, Decimal('594.00'))
+        self.assertEqual(obj.vat_total, Decimal('94.00'))
+        self.assertEqual(
+            obj.vat_subtotals.get(vat__name='10%').subtotal,
+            Decimal('10.00')
+        )
+        self.assertEqual(
+            obj.vat_subtotals.get(vat__name='21%').subtotal,
+            Decimal('84.00')
+        )

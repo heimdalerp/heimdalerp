@@ -528,7 +528,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                     total += price_aux + vat_aux
                     vat_total += vat_aux
                     vat_subtotals_data[str(l.product.vat.id)] += (
-                        Decimal(l.quantity * vat_aux)
+                        Decimal(vat_aux)
                     )
                 else:
                     subtotal += l.price_sold * l.quantity
@@ -633,7 +633,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         subtotal += l.quantity * l.price_sold
                         vat_aux = Decimal(l.price_sold * l.product.vat.tax)
                         total += l.quantity * (l.price_sold + vat_aux)
-                        vat_total += l.price_sold * l.product.vat.tax
+                        vat_total += l.quantity * vat_aux
                         vat_subtotals_data[str(l.product.vat.id)] += (
                             Decimal(l.quantity * vat_aux)
                         )
