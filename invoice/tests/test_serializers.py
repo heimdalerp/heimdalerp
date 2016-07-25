@@ -243,7 +243,7 @@ class CompanyInvoiceTestCase(APITestCase):
                 'apartment_number': '2',
                 'locality': reverse(
                     'api:geo:locality-detail',
-                    args=[Locality.objects.get(name='Rosario').pk]
+                    args=[Locality.objects.get(default_name='Rosario').pk]
                 ),
                 'postal_code': '2000'
             },

@@ -1,0 +1,24 @@
+[
+{
+ "model": "invoice_ar.pointofsale",
+ "pk": 1,
+ "fields": {
+  "invoicear_company": 1,
+  "fiscal_address": 2,
+  "afip_id": "1",
+  "point_of_sale_type": "W",
+  "is_inactive": false
+ }
+},
+{
+ "model": "invoice_ar.pointofsale",
+ "pk": 2,
+ "fields": {
+  "invoicear_company": 2,
+  "fiscal_address": 4,
+  "afip_id": "2",
+  "point_of_sale_type": "W",
+  "is_inactive": false
+ }
+}
+]

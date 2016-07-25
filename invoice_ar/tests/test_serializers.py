@@ -52,7 +52,9 @@ class CompanyInvoiceARTestCase(APITestCase):
                     'apartment_number': '',
                     'locality': reverse(
                         'api:geo:locality-detail',
-                        args=[Locality.objects.get(name='Santa Fe').pk]
+                        args=[
+                            Locality.objects.get(default_name='Santa Fe').pk
+                        ]
                     ),
                     'postal_code': '3000'
                 },
@@ -75,7 +77,7 @@ class CompanyInvoiceARTestCase(APITestCase):
 
     def test_correctness(self):
         obj = models.CompanyInvoiceAR.objects.get(
-            invoice_company__legal_name='IRONA'
+            invoice_company__legal_name='Baragiola-Zanitti SH'
         )
         self.assertEqual(
             obj.invoice_company.persons_company.fantasy_name,
@@ -130,7 +132,7 @@ class CompanyInvoiceARTestCase(APITestCase):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse(
-            'api:invoice:companyinvoicear-detail',
+            'api:invoice_ar:companyinvoicear-detail',
             args=[
                 models.CompanyInvoiceAR.objects.get(
                     invoice_company__legal_name='Baragiola-Zanitti SH'
@@ -155,7 +157,9 @@ class CompanyInvoiceARTestCase(APITestCase):
                     'apartment_number': '2',
                     'locality': reverse(
                         'api:geo:locality-detail',
-                        args=[Locality.objects.get(name='Rosario').pk]
+                        args=[
+                            Locality.objects.get(default_name='Rosario').pk
+                        ]
                     ),
                     'postal_code': '2000'
                 },
@@ -233,7 +237,7 @@ class ContactInvoiceARTestCase(APITestCase):
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:invoicear:contactinvoicear-list')
+        url = reverse('api:invoice_ar:contactinvoicear-list')
         data = {
             'invoice_contact': {
                 'contact_contact': {
@@ -361,7 +365,7 @@ class ContactInvoiceARTestCase(APITestCase):
         )
         self.assertEqual(
             obj.invoice_contact.fiscal_position,
-            models.FiscalPosition.objects.get(name='Do Easy')
+            FiscalPosition.objects.get(name='Do Easy')
         )
         self.assertEqual(
             obj.invoice_contact.fiscal_address.street_address,
@@ -396,7 +400,7 @@ class ContactInvoiceARTestCase(APITestCase):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse(
-            'api:invoice:contactinvoicear-detail',
+            'api:invoice_ar:contactinvoicear-detail',
             args=[
                 models.ContactInvoiceAR.objects.get(
                     invoice_contact__legal_name='Tobias Riper'
@@ -565,10 +569,10 @@ class ConceptTypeTestCase(APITestCase):
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice_ar:concepttypes-list')
+        url = reverse('api:invoice_ar:concepttype-list')
         data = {
             'name': 'Do Easy',
-            'code': '',
+            'code': '1',
         }
         self.response = self.client.post(url, data)
 
@@ -582,7 +586,7 @@ class ConceptTypeTestCase(APITestCase):
     def test_correctness(self):
         obj = models.ConceptType.objects.get(name='Do Easy')
         self.assertEqual(obj.name, 'Do Easy')
-        self.assertEqual(obj.code, '')
+        self.assertEqual(obj.code, '1')
 
 
 class InvoiceARHasVATSubtotalTestCase(APITestCase):
@@ -678,7 +682,7 @@ class PointOfSaleTestCase(APITestCase):
         )
         self.assertEqual(
             obj.fiscal_address,
-            invoicear_company.fiscal_address
+            invoicear_company.invoice_company.fiscal_address
         )
         self.assertEqual(
             obj.is_inactive,
@@ -695,7 +699,8 @@ class InvoiceARTestCase(APITestCase):
         'invoice_ar/tests/fixtures/invoicing.json',
         'invoice_ar/tests/fixtures/companies.json',
         'invoice_ar/tests/fixtures/products.json',
-        'invoice_ar/tests/fixtures/contacts.json'
+        'invoice_ar/tests/fixtures/contacts.json',
+        'invoice_ar/tests/fixtures/pos.json'
     ]
 
     def setUp(self):
@@ -746,7 +751,7 @@ class InvoiceARTestCase(APITestCase):
             ],
             'invoice_type': reverse(
                 'api:invoice:invoicetype-detail',
-                args=[models.InvoiceType.objects.get(name='Do Easy').pk]
+                args=[InvoiceType.objects.get(name='Do Easy').pk]
             ),
             'invoice_date': str(date.today()),
             'notes': 'cardio kills gains',
@@ -823,7 +828,7 @@ class InvoiceARTestCase(APITestCase):
                 'api:invoice_ar:companyinvoicear-detail',
                 args=[
                     models.CompanyInvoiceAR.objects.get(
-                        invoice_company__legal_name='Baragiola-Zanitti SH'
+                        invoice_company__legal_name='Zanitti-Baragiola SH'
                     ).pk
                 ]
             ),
@@ -895,7 +900,7 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(obj.number, 2)
         self.assertEqual(
             obj.invoice_type,
-            models.InvoiceType.objects.get(name='Do No Easy')
+            InvoiceType.objects.get(name='Do No Easy')
         )
         self.assertEqual(obj.invoice_date, date.today() - timedelta(days=1))
         self.assertEqual(obj.notes, 'gains are killed by cardio')

@@ -255,7 +255,7 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         )
         invoice_company_data['fiscal_address'] = fiscal_address
 
-        invoice_company, created = CompanyInvoice.objects.create(
+        invoice_company = CompanyInvoice.objects.create(
             **invoice_company_data
         )
         validated_data['invoice_company'] = invoice_company
@@ -275,6 +275,10 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'fantasy_name',
             persons_company.fantasy_name
         )
+        persons_company.slogan = persons_company_data.get(
+            'slogan',
+            persons_company.slogan
+        )
 
         persons_company.save()
 
@@ -287,6 +291,10 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
                 'initiated_activities',
                 invoice_company.initiated_activities
             )
+        )
+        invoice_company.fiscal_position = invoice_company_data.get(
+            'fiscal_position',
+            invoice_company.fiscal_position
         )
 
         fiscal_address_data = invoice_company_data.pop('fiscal_address')
@@ -510,15 +518,17 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         Decimal(0.00)
                     )
                 if l.discount > 0.00:
-                    price_aux = l.quantity * (
-                        l.price_sold - (l.price_sold * l.discount)
+                    price_aux = Decimal(
+                        l.quantity * (
+                            l.price_sold - (l.price_sold * l.discount)
+                        )
                     )
-                    vat_aux = price_aux * l.product.vat.tax
+                    vat_aux = Decimal(price_aux * l.product.vat.tax)
                     subtotal += price_aux
                     total += price_aux + vat_aux
                     vat_total += vat_aux
                     vat_subtotals_data[str(l.product.vat.id)] += (
-                        l.quantity * vat_aux
+                        Decimal(l.quantity * vat_aux)
                     )
                 else:
                     subtotal += l.price_sold * l.quantity
@@ -528,7 +538,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                     )
                     vat_total += l.quantity * vat_aux
                     vat_subtotals_data[str(l.product.vat.id)] += (
-                        l.quantity * vat_aux
+                        Decimal(l.quantity * vat_aux)
                     )
 
                 invoicear.invoice_lines.add(l)
@@ -558,6 +568,14 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             instance.invoicear_contact = validated_data.get(
                 'invoicear_contact',
                 instance.invoicear_contact
+            )
+            instance.number = validated_data.get(
+                'number',
+                instance.number
+            )
+            instance.invoice_type = validated_data.get(
+                'invoice_type',
+                instance.invoice_type
             )
             instance.invoice_date = validated_data.get(
                 'invoice_date',
@@ -599,10 +617,12 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                             Decimal(0.00)
                         )
                     if l.discount > 0.00:
-                        price_aux = l.quantity * (
-                            l.price_sold - (l.price_sold * l.discount)
+                        price_aux = Decimal(
+                            l.quantity * (
+                                l.price_sold - (l.price_sold * l.discount)
+                            )
                         )
-                        vat_aux = price_aux * l.product.vat.tax
+                        vat_aux = Decimal(price_aux * l.product.vat.tax)
                         subtotal += price_aux
                         total += price_aux + vat_aux
                         vat_total += price_aux * l.product.vat.tax
@@ -611,16 +631,21 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                         )
                     else:
                         subtotal += l.quantity * l.price_sold
-                        vat_aux = l.price_sold * l.product.vat.tax
+                        vat_aux = Decimal(l.price_sold * l.product.vat.tax)
                         total += l.quantity * (l.price_sold + vat_aux)
                         vat_total += l.price_sold * l.product.vat.tax
                         vat_subtotals_data[str(l.product.vat.id)] += (
-                            l.quantity * vat_aux
+                            Decimal(l.quantity * vat_aux)
                         )
 
-                for v_s_data in vat_subtotals_data:
-                    vatsubtotal = models.InvoiceARHasVATSubtotal.create(
-                        **v_s_data
+                instance.vat_subtotals.clear()
+                for k, v in vat_subtotals_data.items():
+                    vat = VAT.objects.get(pk=k)
+                    vatsubtotal = (
+                        models.InvoiceARHasVATSubtotal.objects.create(
+                            vat=vat,
+                            subtotal=v
+                        )
                     )
                     instance.vat_subtotals.add(vatsubtotal)
 
