@@ -1,0 +1,10 @@
+[
+{
+ "model": "persons.company",
+ "pk": 1,
+ "fields": {
+  "fantasy_name": "IRONA",
+  "slogan": "tfw no slogan"
+ }
+}
+]

@@ -1,0 +1,32 @@
+[
+{
+ "model": "accounting.ledger",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "name": "Do Easy"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 1,
+ "fields": {
+  "ledger": 1,
+  "code": "001",
+  "name": "Do Easy",
+  "account_type": "",
+  "balance": "0.00"
+ }
+},
+{
+ "model": "accounting.account",
+ "pk": 2,
+ "fields": {
+  "ledger": 1,
+  "code": "002",
+  "name": "Do No Easy",
+  "account_type": "",
+  "balance": "0.00"
+ }
+}
+]
