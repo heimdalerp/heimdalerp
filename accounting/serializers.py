@@ -122,73 +122,73 @@ class PaymentSerializer(HyperlinkedModelSerializer):
 
         if payment_method == models.PAYMENT_METHOD_CASH:
             debit_account = (
-                accounting_company.default_debit_account_cash
+                accounting_company.default_debit_account_for_cash
             )
             credit_account = (
-                accounting_company.default_credit_account_crash
+                accounting_company.default_credit_account_for_cash
             )
         elif payment_method == models.PAYMENT_METHOD_CREDITCARD:
             debit_account = (
-                accounting_company.default_debit_account_creditcard
+                accounting_company.default_debit_account_for_creditcard
             )
             credit_account = (
-                accounting_company.default_credit_account_creditcard
+                accounting_company.default_credit_account_for_creditcard
             )
 
         elif payment_method == models.PAYMENT_METHOD_DEBITCARD:
             debit_account = (
-                accounting_company.default_debit_account_debitcard
+                accounting_company.default_debit_account_for_debitcard
             )
             credit_account = (
-                accounting_company.default_credit_account_debitcard
+                accounting_company.default_credit_account_for_debitcard
             )
 
         elif payment_method == models.PAYMENT_METHOD_BANKACCOUNT:
             debit_account = (
-                accounting_company.default_debit_account_bankaccount
+                accounting_company.default_debit_account_for_bankaccount
             )
             credit_account = (
-                accounting_company.default_credit_account_bankaccount
+                accounting_company.default_credit_account_for_bankaccount
             )
 
         elif payment_method == models.PAYMENT_METHOD_CHECK:
             debit_account = (
-                accounting_company.default_debit_account_check
+                accounting_company.default_debit_account_for_check
             )
             credit_account = (
-                accounting_company.default_credit_account_check
+                accounting_company.default_credit_account_for_check
             )
 
         elif payment_method == models.PAYMENT_METHOD_PAYPAL:
             debit_account = (
-                accounting_company.default_debit_account_paypal
+                accounting_company.default_debit_account_for_paypal
             )
             credit_account = (
-                accounting_company.default_credit_account_paypal
+                accounting_company.default_credit_account_for_paypal
             )
 
         elif payment_method == models.PAYMENT_METHOD_GOOGLEWALLET:
             debit_account = (
-                accounting_company.default_debit_account_googlewallet
+                accounting_company.default_debit_account_for_googlewallet
             )
             credit_account = (
-                accounting_company.default_credit_account_googlewallet
+                accounting_company.default_credit_account_for_googlewallet
             )
 
         elif payment_method == models.PAYMENT_METHOD_APPLEPAY:
             debit_account = (
-                accounting_company.default_debit_account_applepay
+                accounting_company.default_debit_account_for_applepay
             )
             credit_account = (
-                accounting_company.default_credit_account_applepay
+                accounting_company.default_credit_account_for_applepay
             )
 
         elif payment_method == models.PAYMENT_METHOD_BITCOIN:
             debit_account = (
-                accounting_company.default_debit_account_bitcoin
+                accounting_company.default_debit_account_for_bitcoin
             )
             credit_account = (
-                accounting_company.default_credit_account_bitcoin
+                accounting_company.default_credit_account_for_bitcoin
             )
 
         transaction = models.Transaction.objects.create(

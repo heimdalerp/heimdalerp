@@ -384,7 +384,7 @@ class Payment(models.Model):
     )
 
     def __str__(self):
-        return str(self.contact) + ' : ' + str(self.amount)
+        return str(self.contact_contact) + ' : ' + str(self.amount)
 
     class Meta:
         verbose_name = _('payment')

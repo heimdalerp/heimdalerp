@@ -1,0 +1,52 @@
+[
+{
+ "model": "persons.physicaladdress",
+ "pk": 1,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "persons.physicaladdress",
+ "pk": 2,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": ""
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 1,
+  "name": "Tobias Riper",
+  "contact_type": "I"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 2,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": 2,
+  "name": "Riper Tobias",
+  "contact_type": "I"
+ }
+}
+]

@@ -1,0 +1,27 @@
+[
+{
+ "model": "accounting.companyaccounting",
+ "pk": 1,
+ "fields": {
+  "persons_company": 1,
+  "default_debit_account_for_cash": 1,
+  "default_credit_account_for_cash": 2,
+  "default_debit_account_for_creditcard": 1,
+  "default_credit_account_for_creditcard": 2,
+  "default_debit_account_for_debitcard": 1,
+  "default_credit_account_for_debitcard": 2,
+  "default_debit_account_for_bankaccount": 1,
+  "default_credit_account_for_bankaccount": 2,
+  "default_debit_account_for_check": 1,
+  "default_credit_account_for_check": 2,
+  "default_debit_account_for_paypal": 1,
+  "default_credit_account_for_paypal": 2,
+  "default_debit_account_for_googlewallet": 1,
+  "default_credit_account_for_googlewallet": 2,
+  "default_debit_account_for_applepay": 1,
+  "default_credit_account_for_applepay": 2,
+  "default_debit_account_for_bitcoin": 1,
+  "default_credit_account_for_bitcoin": 2
+ }
+}
+]
