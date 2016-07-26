@@ -25,11 +25,17 @@ class ContactTestCase(APITestCase):
         url = reverse('api:contact:contact-list')
         data = {
             'persons_company': (
-                reverse('api:persons:company-detail', args=[1])
+                reverse(
+                    'api:persons:company-detail',
+                    args=[Company.objects.get(fantasy_name='IRONA').pk]
+                )
             ),
             'name': 'Tobias Riper',
             'birth_date': '1970-07-07',
-            'born_in': reverse('api:geo:country-detail', args=[1]),
+            'born_in': reverse(
+                'api:geo:country-detail',
+                args=[Country.objects.get(default_name='Argentina').pk]
+            ),
             'phone_numbers': '555444555,333222333',
             'extra_emails': (
                 'they.said.this.wouldnt.fit@gmail.com,topkek@hotmail.com'
@@ -39,14 +45,17 @@ class ContactTestCase(APITestCase):
                 'street_address': '9 de Julio 2454',
                 'floor_number': '',
                 'apartment_number': '',
-                'locality': reverse('api:geo:locality-detail', args=[1]),
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Santa Fe').pk]
+                ),
                 'postal_code': '3000'
             }
         }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.Contact.objects.filter(name='Tobias Riper').delete()
+        models.Contact.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
@@ -68,7 +77,7 @@ class ContactTestCase(APITestCase):
         )
         self.assertEqual(
             obj.born_in,
-            Country.objects.get(pk=1)
+            Country.objects.get(default_name='Argentina')
         )
         self.assertEqual(
             obj.phone_numbers,
@@ -96,7 +105,7 @@ class ContactTestCase(APITestCase):
         )
         self.assertEqual(
             obj.home_address.locality,
-            Locality.objects.get(pk=1)
+            Locality.objects.get(default_name='Santa Fe')
         )
         self.assertEqual(
             obj.home_address.postal_code,
