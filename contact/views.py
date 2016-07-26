@@ -1,7 +1,6 @@
+from contact import models, serializers
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
-
-from contact import models, serializers
 
 
 class ContactViewSet(ModelViewSet):

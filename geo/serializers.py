@@ -1,8 +1,7 @@
+from django.db import transaction
+from geo import models
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer)
-from django.db import transaction
-
-from geo import models
 
 
 class AlternativeNameSerializer(HyperlinkedModelSerializer):

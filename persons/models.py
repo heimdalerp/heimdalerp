@@ -1,7 +1,6 @@
+from common.validators import date_is_past
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from common.validators import date_is_past
 from geo.models import Country, Locality
 
 GENRE_TYPE_MALE = 'M'

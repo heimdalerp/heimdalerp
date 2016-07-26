@@ -1,6 +1,5 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
-
 from persons import models
+from rest_framework.serializers import HyperlinkedModelSerializer
 
 
 class PhysicalAddressSerializer(HyperlinkedModelSerializer):

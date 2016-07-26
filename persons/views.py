@@ -1,6 +1,5 @@
-from rest_framework.viewsets import ModelViewSet
-
 from persons import models, serializers
+from rest_framework.viewsets import ModelViewSet
 
 
 class PhysicalAddressViewSet(ModelViewSet):

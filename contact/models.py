@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from persons.models import PersonProfile
 
 CONTACT_TYPE_COMPANY = 'C'

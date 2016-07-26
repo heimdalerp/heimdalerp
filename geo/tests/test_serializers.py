@@ -1,11 +1,8 @@
-from datetime import date, timedelta
-
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from geo import models
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from geo import models
 
 
 class LocalityTestCase(APITestCase):
@@ -38,7 +35,7 @@ class LocalityTestCase(APITestCase):
                     models.Region.objects.get(default_name='Entre Ríos').pk
                 ]
             )
-        }  
+        }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
@@ -101,7 +98,7 @@ class LocalityTestCase(APITestCase):
                 'api:geo:region-detail',
                 args=[models.Region.objects.get(default_name='Santa Fe').pk]
             )
-        }  
+        }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         obj = models.Locality.objects.get(

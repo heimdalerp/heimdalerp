@@ -1,9 +1,8 @@
+from common.validators import date_is_present_or_past
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
-
-from common.validators import date_is_present_or_past
 from persons.models import GENRE_TYPES, Company, PersonProfile
 
 

@@ -1,22 +1,16 @@
 from datetime import date, timedelta
 from decimal import Decimal
 
+from contact.models import Contact
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from geo.models import Country, Locality
+from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
+                            FiscalPosition, InvoiceType, Product)
+from invoice_ar import models
+from persons.models import Company
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from contact.models import Contact
-from geo.models import Locality, Country
-from persons.models import Company
-from invoice.models import (ContactInvoice,
-                            CompanyInvoice,
-                            INVOICE_STATUSTYPE_DRAFT,
-                            InvoiceType,
-                            FiscalPosition,
-                            Product,
-                            VAT)
-from invoice_ar import models
 
 
 class CompanyInvoiceARTestCase(APITestCase):
@@ -654,7 +648,7 @@ class PointOfSaleTestCase(APITestCase):
                 args=[invoicear_company.invoice_company.fiscal_address.pk]
             ),
             'is_inactive': False
-        } 
+        }
         self.response = self.client.post(url, data)
 
     def tearDown(self):

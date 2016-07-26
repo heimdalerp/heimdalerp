@@ -1,7 +1,6 @@
 from django.conf.urls import include, url
-from rest_framework.routers import DefaultRouter
-
 from invoice_ar import views
+from rest_framework.routers import DefaultRouter
 from rest_framework_proxy.views import ProxyView
 
 router = DefaultRouter()

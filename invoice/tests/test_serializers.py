@@ -1,15 +1,14 @@
 from datetime import date, timedelta
 from decimal import Decimal
 
+from contact.models import Contact
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from geo.models import Country, Locality
+from invoice import models
+from persons.models import Company
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from contact.models import Contact
-from geo.models import Locality, Country
-from persons.models import Company
-from invoice import models
 
 
 class FiscalPositionTestCase(APITestCase):
@@ -321,11 +320,13 @@ class ContactInvoiceTestCase(APITestCase):
                 ),
                 'name': 'Tobias Riper',
                 'birth_date': '1970-07-07',
-                'born_in': reverse(
-                    'api:geo:country-detail',
-                     args=[
-                        Country.objects.get(default_name='Argentina').pk
-                    ]
+                'born_in': (
+                    reverse(
+                        'api:geo:country-detail',
+                        args=[
+                            Country.objects.get(default_name='Argentina').pk
+                        ]
+                    )
                 ),
                 'phone_numbers': '555444555,333222333',
                 'extra_emails': (
@@ -658,7 +659,7 @@ class ProductTestCase(APITestCase):
         self.client.force_authenticate(user=admin)
         obj = models.Product.objects.get(name='Do Easy')
         url = reverse('api:invoice:product-detail', args=[obj.pk])
-        
+
         data = {'current_price': -100.00}
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

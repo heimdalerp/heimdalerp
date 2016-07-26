@@ -1,12 +1,8 @@
 from decimal import Decimal
 
+from contact.models import Contact
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
-from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer,
-                                        ValidationError)
-
-from contact.models import Contact
 from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
                             ContactInvoice, InvoiceLine)
 from invoice.serializers import (CompanyInvoiceSerializer,
@@ -14,6 +10,9 @@ from invoice.serializers import (CompanyInvoiceSerializer,
                                  InvoiceLineSerializer)
 from invoice_ar import models
 from persons.models import Company, PhysicalAddress
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer,
+                                        ValidationError)
 
 
 class ContactInvoiceARSerializer(HyperlinkedModelSerializer):

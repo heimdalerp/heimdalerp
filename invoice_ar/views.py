@@ -1,7 +1,6 @@
+from invoice_ar import models, serializers
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
-
-from invoice_ar import models, serializers
 
 
 class ContactInvoiceARViewSet(ModelViewSet):

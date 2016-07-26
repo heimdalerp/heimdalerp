@@ -1,7 +1,6 @@
+from common.validators import date_is_present_or_future
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from common.validators import date_is_present_or_future
 from invoice.models import VAT, CompanyInvoice, ContactInvoice, Invoice
 from persons.models import PhysicalAddress
 

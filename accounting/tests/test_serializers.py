@@ -1,14 +1,13 @@
 from datetime import date, timedelta
 from decimal import Decimal
 
+from accounting import models
+from contact.models import Contact
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from persons.models import Company
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from contact.models import Contact
-from persons.models import Company
-from accounting import models
 
 
 class LedgerTestCase(APITestCase):

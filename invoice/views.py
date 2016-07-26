@@ -1,10 +1,9 @@
+from accounting.models import Transaction
 from django.db import transaction
+from invoice import models, serializers
 from rest_framework.decorators import detail_route
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
-
-from accounting.models import Transaction
-from invoice import models, serializers
 
 
 class FiscalPositionViewSet(ModelViewSet):

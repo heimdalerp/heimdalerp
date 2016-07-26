@@ -1,7 +1,6 @@
 from django.contrib import admin
-from reversion.admin import VersionAdmin
-
 from invoice import models
+from reversion.admin import VersionAdmin
 
 
 @admin.register(models.FiscalPosition)

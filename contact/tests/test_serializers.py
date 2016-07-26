@@ -1,13 +1,12 @@
-from datetime import date, timedelta
+from datetime import date
 
+from contact import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from geo.models import Country, Locality
+from persons.models import Company
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from geo.models import Locality, Country
-from persons.models import Company
-from contact import models
 
 
 class ContactTestCase(APITestCase):

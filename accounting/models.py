@@ -1,9 +1,8 @@
+from common.validators import date_is_present_or_past
+from contact.models import Contact
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_noop as _noop
-
-from common.validators import date_is_present_or_past
-from contact.models import Contact
 from persons.models import Company
 
 

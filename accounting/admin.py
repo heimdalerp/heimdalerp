@@ -1,7 +1,6 @@
+from accounting import models
 from django.contrib import admin
 from reversion.admin import VersionAdmin
-
-from accounting import models
 
 
 @admin.register(models.Ledger)

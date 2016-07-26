@@ -1,10 +1,9 @@
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
 from accounting.models import Account, Transaction
 from common.validators import date_is_present_or_past
 from contact.models import Contact
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from persons.models import Company, PhysicalAddress
 
 

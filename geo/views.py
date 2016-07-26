@@ -1,7 +1,6 @@
-from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
-
 from geo import models, serializers
+from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 
 class AlternativeNameViewSet(ReadOnlyModelViewSet):

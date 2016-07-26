@@ -1,7 +1,6 @@
+from accounting import models
 from django.db import transaction
 from rest_framework.serializers import HyperlinkedModelSerializer
-
-from accounting import models
 
 
 class LedgerSerializer(HyperlinkedModelSerializer):

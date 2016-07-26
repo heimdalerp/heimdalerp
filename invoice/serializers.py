@@ -1,14 +1,13 @@
 from decimal import Decimal
 
-from django.db import transaction
-from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer)
-
 from contact.models import Contact
 from contact.serializers import ContactSerializer
+from django.db import transaction
 from invoice import models
 from persons.models import Company, PhysicalAddress
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer
+from rest_framework.serializers import (HyperlinkedIdentityField,
+                                        HyperlinkedModelSerializer)
 
 
 class FiscalPositionSerializer(HyperlinkedModelSerializer):
@@ -64,7 +63,7 @@ class ContactInvoiceSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data): # TODO: Use existing objects.
+    def create(self, validated_data):  # TODO: Use existing objects.
         contact_contact_data = validated_data.pop('contact_contact')
         home_address_data = contact_contact_data.pop('home_address')
         home_address = PhysicalAddress.objects.create(
@@ -228,7 +227,7 @@ class CompanyInvoiceSerializer(HyperlinkedModelSerializer):
         }
 
     @transaction.atomic
-    def create(self, validated_data): # TODO: Use existing objects.
+    def create(self, validated_data):  # TODO: Use existing objects.
         persons_company_data = validated_data.pop('persons_company')
         persons_company = Company.objects.create(
             **persons_company_data
