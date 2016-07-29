@@ -22,7 +22,12 @@ class PhysicalAddressTestCase(APITestCase):
             'street_address': '9 de Julio 2454',
             'floor_number': '',
             'apartment_number': '',
-            'locality': reverse('api:geo:locality-detail', args=[1]),
+            'locality': reverse(
+                'api:geo:locality-detail',
+                args=[
+                    Locality.objects.get(default_name='Santa Fe').pk
+                ]
+            ),
             'postal_code': '3000'
         }
         self.response = self.client.post(url, data)
@@ -43,7 +48,10 @@ class PhysicalAddressTestCase(APITestCase):
         self.assertEqual(obj.street_address, '9 de Julio 2454')
         self.assertEqual(obj.floor_number, '')
         self.assertEqual(obj.apartment_number, '')
-        self.assertEqual(obj.locality, Locality.objects.get(pk=1))
+        self.assertEqual(
+            obj.locality,
+            Locality.objects.get(default_name='Santa Fe')
+        )
         self.assertEqual(obj.postal_code, '3000')
 
 
