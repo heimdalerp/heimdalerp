@@ -236,6 +236,7 @@ class InvoiceARHasVATSubtotal(models.Model):
     """
     AFIP requires to compute each VAT's subtotal and store it.
     """
+    id = models.AutoField(primary_key=True)
     vat = models.ForeignKey(
         VAT,
         verbose_name=_('VAT'),

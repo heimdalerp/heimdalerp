@@ -231,6 +231,7 @@ class InvoiceLine(models.Model):
     An invoice is composed of lines or entries, which have a product,
     a price and a quantity.
     """
+    id = models.AutoField(primary_key=True)
     product = models.ForeignKey(
         Product,
         verbose_name=_('product'),
@@ -325,6 +326,7 @@ class Invoice(models.Model):
     """
     The invoices themselves.
     """
+    id = models.AutoField(primary_key=True)
     invoice_company = models.ForeignKey(
         CompanyInvoice,
         verbose_name=_('company'),
