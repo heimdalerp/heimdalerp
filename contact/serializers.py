@@ -1,4 +1,5 @@
 from contact import models
+from django.db import transaction
 from persons.models import PhysicalAddress
 from persons.serializers import PhysicalAddressSerializer
 from rest_framework.serializers import HyperlinkedModelSerializer
@@ -37,6 +38,7 @@ class ContactSerializer(HyperlinkedModelSerializer):
             }
         }
 
+    @transaction.atomic
     def create(self, validated_data):
         home_address_data = validated_data.pop('home_address')
         home_address = PhysicalAddress.objects.create(
@@ -47,6 +49,7 @@ class ContactSerializer(HyperlinkedModelSerializer):
         contact = models.Contact.objects.create(**validated_data)
         return contact
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         home_address_data = validated_data.pop('home_address')
         instance.home_address.street_address = home_address_data.get(
