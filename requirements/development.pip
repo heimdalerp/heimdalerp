@@ -1,5 +1,4 @@
 flake8
 isort
 markdown
-django-filter
 django-crispy-forms
