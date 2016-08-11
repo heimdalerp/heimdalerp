@@ -5,6 +5,91 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 
+class CountryTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'geo/tests/fixtures/users.json',
+        'geo/tests/fixtures/geo.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:geo:country-list')
+        data = {
+            'default_name': 'Argentina'
+        }
+        self.response = self.client.post(url, data)
+
+    def test_create(self):
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:geo:country-detail',
+            args=[models.Country.objects.get(default_name='Argentina').pk]
+        )
+        data = {
+            'default_name': 'Not Argentina',
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+class RegionTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'geo/tests/fixtures/users.json',
+        'geo/tests/fixtures/geo.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse('api:geo:region-list')
+        data = {
+            'default_name': 'Santa Fe',
+            'country': reverse(
+                'api:geo:country-detail',
+                args=[
+                    models.Country.objects.get(default_name='Argentina').pk
+                ]
+            )
+        }
+        self.response = self.client.post(url, data)
+
+    def test_create(self):
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:geo:region-detail',
+            args=[models.Region.objects.get(default_name='Santa Fe').pk]
+        )
+        data = {
+            'default_name': 'Holy Faith',
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+
 class LocalityTestCase(APITestCase):
     """
     """

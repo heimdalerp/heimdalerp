@@ -90,7 +90,7 @@ class RegionSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Region
-        fields = (
+        read_only_fields = (
             'url',
             'id',
             'default_name',
@@ -120,7 +120,7 @@ class CountrySerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Country
-        fields = (
+        read_only_fields = (
             'url',
             'id',
             'default_name',
