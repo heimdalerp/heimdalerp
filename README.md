@@ -90,7 +90,7 @@ In our case, we'll clone it again at /var/www/heimdalerp and recreate the virtua
     # cd ..
     # . bin/activate
     (heimdalerp) # pip3 install --upgrade pip
-    (heimdalerp) # pip3 install src/heimdalerp/requirements/common.pip
+    (heimdalerp) # pip3 install -r src/heimdalerp/requirements/common.pip
 
 Now you need to create a folder named static and point it in heimdalerp/settings.py (search for const vars named "STATIC").    
 
