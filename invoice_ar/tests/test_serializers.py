@@ -755,6 +755,7 @@ class InvoiceARTestCase(APITestCase):
             ),
             'due_date': str(date.today() + timedelta(days=30)),
             'service_start': str(date.today()),
+            'service_end': str(date.today()),
             'concept_type': reverse(
                 'api:invoice_ar:concepttype-detail',
                 args=[models.ConceptType.objects.get(name='Do Easy').pk]
@@ -800,6 +801,10 @@ class InvoiceARTestCase(APITestCase):
         )
         self.assertEqual(
             obj.service_start,
+            date.today()
+        )
+        self.assertEqual(
+            obj.service_end,
             date.today()
         )
         self.assertEqual(
@@ -880,6 +885,7 @@ class InvoiceARTestCase(APITestCase):
             ),
             'due_date': str(date.today() + timedelta(days=29)),
             'service_start': str(date.today() - timedelta(days=1)),
+            'service_end': str(date.today() - timedelta(days=1)),
             'concept_type': reverse(
                 'api:invoice_ar:concepttype-detail',
                 args=[models.ConceptType.objects.get(name='Do No Easy').pk]
@@ -917,6 +923,10 @@ class InvoiceARTestCase(APITestCase):
         )
         self.assertEqual(
             obj.service_start,
+            date.today() - timedelta(days=1)
+        )
+        self.assertEqual(
+            obj.service_end,
             date.today() - timedelta(days=1)
         )
         self.assertEqual(

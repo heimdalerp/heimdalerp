@@ -441,6 +441,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'point_of_sale',
             'due_date',
             'service_start',
+            'service_end',
             'concept_type',
             'vat_total',
             'vat_subtotals'
@@ -591,6 +592,10 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             instance.service_start = validated_data.get(
                 'service_start',
                 instance.service_start
+            )
+            instance.service_end = validated_data.get(
+                'service_end',
+                instance.service_end
             )
             instance.concept_type = validated_data.get(
                 'concept_type',

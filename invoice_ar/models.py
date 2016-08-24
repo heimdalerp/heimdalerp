@@ -201,6 +201,11 @@ class InvoiceAR(Invoice):
         blank=True,
         null=True
     )
+    service_end = models.DateField(
+        _('service end'),
+        blank=True,
+        null=True
+    )
     concept_type = models.ForeignKey(
         ConceptType,
         verbose_name=_('concept type'),
