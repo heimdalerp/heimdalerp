@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-24 11:20-0300\n"
+"POT-Creation-Date: 2016-08-29 15:49-0300\n"
 "PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
@@ -102,7 +102,7 @@ msgstr "balance de cuenta de crédito"
 msgid "Transaction #%(id)s"
 msgstr "Transacción #%(id)s"
 
-#: accounting/models.py:152 accounting/models.py:377 invoice/models.py:399
+#: accounting/models.py:152 accounting/models.py:383 invoice/models.py:399
 msgid "transaction"
 msgstr "transacción"
 
@@ -258,11 +258,16 @@ msgstr "tipo de pago"
 msgid "payment method"
 msgstr "método de pago"
 
-#: accounting/models.py:389
+#: accounting/models.py:376 hr/models.py:75 hr/models.py:103 hr/models.py:141
+#: invoice/models.py:267 sales/models.py:25 sales/models.py:51
+msgid "description"
+msgstr "descripción"
+
+#: accounting/models.py:395
 msgid "payment"
 msgstr "pago"
 
-#: accounting/models.py:390
+#: accounting/models.py:396
 msgid "payments"
 msgstr "pagos"
 
@@ -394,11 +399,6 @@ msgstr "orientación sexual"
 #: hr/models.py:59
 msgid "sexual orientations"
 msgstr "orientaciones sexuales"
-
-#: hr/models.py:75 hr/models.py:103 hr/models.py:141 invoice/models.py:267
-#: sales/models.py:25 sales/models.py:51
-msgid "description"
-msgstr "descripción"
 
 #: hr/models.py:90
 msgid "aptitude"

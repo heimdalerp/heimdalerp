@@ -372,6 +372,12 @@ class Payment(models.Model):
         max_digits=15,
         decimal_places=2
     )
+    description = models.CharField(
+        _('description'),
+        max_length=500,
+        blank=True,
+        default=""
+    )
     transaction = models.ForeignKey(
         Transaction,
         verbose_name=_('transaction'),

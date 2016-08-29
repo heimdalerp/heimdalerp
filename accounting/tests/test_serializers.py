@@ -368,7 +368,8 @@ class PaymentTestCase(APITestCase):
             'payment_date': str(date.today()),
             'payment_type': models.PAYMENT_TYPE_RECEIVE,
             'payment_method': models.PAYMENT_METHOD_CASH,
-            'amount': Decimal('100.00')
+            'amount': Decimal('100.00'),
+            'description': 'cardio kills gains'
         }
         self.response = self.client.post(url, data)
 
@@ -405,6 +406,10 @@ class PaymentTestCase(APITestCase):
         self.assertEqual(
             obj.amount,
             Decimal('100.00')
+        )
+        self.assertEqual(
+            obj.description,
+            'cardio kills gains'
         )
         self.assertEqual(
             obj.transaction.debit_account,

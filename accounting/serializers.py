@@ -96,7 +96,9 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             'payment_date',
             'payment_type',
             'payment_method',
-            'amount'
+            'amount',
+            'description',
+            'transaction'
         )
         extra_kwargs = {
             'url': {
@@ -110,6 +112,10 @@ class PaymentSerializer(HyperlinkedModelSerializer):
             },
             'amount': {
                 'coerce_to_string': False
+            },
+            'transaction': {
+                'view_name': 'api:accounting:transaction-detail',
+                'read_only': True
             }
         }
 
