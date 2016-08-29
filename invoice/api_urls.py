@@ -50,9 +50,24 @@ urlpatterns = [
         name='fiscalposition-contacts'
     ),
     url(
-        r'^invoicetypes/(?P<pk>\d+)/invoices/$',
+        r'^invoicetypes/(?P<pk>\d+)/invoices$',
         views.InvoicesByInvoiceTypeList.as_view(),
         name='invoicetype-invoices'
+    ),
+    url(
+        r'^invoicetypes/bills/$',
+        views.InvoiceTypesByBillClassList.as_view(),
+        name='invoicetype-bills'
+    ),
+    url(
+        r'^invoicetypes/debits/$',
+        views.InvoiceTypesByDebitClassList.as_view(),
+        name='invoicetype-debits'
+    ),
+    url(
+        r'^invoicetypes/credits/$',
+        views.InvoiceTypesByCreditClassList.as_view(),
+        name='invoicetype-credits'
     ),
     url(r'^', include(router.urls)),
 ]

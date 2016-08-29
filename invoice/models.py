@@ -282,6 +282,16 @@ class InvoiceLine(models.Model):
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
+INVOICETYPE_CLASS_BILL = 'B'
+INVOICETYPE_CLASS_DEBIT = 'D'
+INVOICETYPE_CLASS_CREDIT = 'C'
+INVOICETYPE_CLASSES = (
+    (INVOICETYPE_CLASS_BILL, _('Bill')),
+    (INVOICETYPE_CLASS_DEBIT, _('Debit')),
+    (INVOICETYPE_CLASS_CREDIT, _('Credit')),
+)
+
+
 class InvoiceType(models.Model):
     """
     Government defined invoice types.
@@ -289,6 +299,11 @@ class InvoiceType(models.Model):
     name = models.CharField(
         _('name'),
         max_length=150
+    )
+    invoice_type_class = models.CharField(
+        _('invoice type class'),
+        max_length=1,
+        choices=INVOICETYPE_CLASSES
     )
     code = models.SlugField(
         _('code'),

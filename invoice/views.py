@@ -85,6 +85,33 @@ class InvoiceTypeViewSet(ModelViewSet):
     serializer_class = serializers.InvoiceTypeSerializer
 
 
+class InvoiceTypesByBillClassList(ListAPIView):
+    serializer_class = serializers.InvoiceTypeSerializer
+
+    def get_queryset(self):
+        return models.InvoiceType.objects.filter(
+            invoice_type_class=models.INVOICETYPE_CLASS_BILL
+        )
+
+
+class InvoiceTypesByDebitClassList(ListAPIView):
+    serializer_class = serializers.InvoiceTypeSerializer
+
+    def get_queryset(self):
+        return models.InvoiceType.objects.filter(
+            invoice_type_class=models.INVOICETYPE_CLASS_DEBIT
+        )
+
+
+class InvoiceTypesByCreditClassList(ListAPIView):
+    serializer_class = serializers.InvoiceTypeSerializer
+
+    def get_queryset(self):
+        return models.InvoiceType.objects.filter(
+            invoice_type_class=models.INVOICETYPE_CLASS_CREDIT
+        )
+
+
 class InvoiceViewSet(ModelViewSet):
     queryset = models.Invoice.objects.all()
     serializer_class = serializers.InvoiceSerializer

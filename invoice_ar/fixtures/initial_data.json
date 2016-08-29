@@ -677,6 +677,7 @@
  "pk": 1,
  "fields": {
   "name": "Factura A",
+  "invoice_type_class": "B",
   "code": "1"
  }
 },
@@ -685,6 +686,7 @@
  "pk": 2,
  "fields": {
   "name": "Nota de Débito A",
+  "invoice_type_class": "D",
   "code": "2"
  }
 },
@@ -693,6 +695,7 @@
  "pk": 3,
  "fields": {
   "name": "Nota de Crédito A",
+  "invoice_type_class": "C",
   "code": "3"
  }
 },
@@ -701,6 +704,7 @@
  "pk": 4,
  "fields": {
   "name": "Factura B",
+  "invoice_type_class": "B",
   "code": "6"
  }
 },
@@ -709,6 +713,7 @@
  "pk": 5,
  "fields": {
   "name": "Nota de Débito B",
+  "invoice_type_class": "D",
   "code": "7"
  }
 },
@@ -717,6 +722,7 @@
  "pk": 6,
  "fields": {
   "name": "Nota de Crédito B",
+  "invoice_type_class": "C",
   "code": "8"
  }
 },
@@ -725,6 +731,7 @@
  "pk": 7,
  "fields": {
   "name": "Recibos A",
+  "invoice_type_class": "B",
   "code": "4"
  }
 },
@@ -733,6 +740,7 @@
  "pk": 8,
  "fields": {
   "name": "Notas de Venta al contado A",
+  "invoice_type_class": "B",
   "code": "5"
  }
 },
@@ -741,6 +749,7 @@
  "pk": 9,
  "fields": {
   "name": "Recibo B",
+  "invoice_type_class": "B",
   "code": "9"
  }
 },
@@ -749,6 +758,7 @@
  "pk": 10,
  "fields": {
   "name": "Notas de Venta al contado B",
+  "invoice_type_class": "B",
   "code": "10"
  }
 },
@@ -757,6 +767,7 @@
  "pk": 11,
  "fields": {
   "name": "Liquidación A",
+  "invoice_type_class": "B",
   "code": "63"
  }
 },
@@ -765,6 +776,7 @@
  "pk": 12,
  "fields": {
   "name": "Liquidación B",
+  "invoice_type_class": "B",
   "code": "64"
  }
 },
@@ -773,6 +785,7 @@
  "pk": 13,
  "fields": {
   "name": "Factura C",
+  "invoice_type_class": "B",
   "code": "11"
  }
 },
@@ -781,6 +794,7 @@
  "pk": 14,
  "fields": {
   "name": "Nota de Débito C",
+  "invoice_type_class": "D",
   "code": "12"
  }
 },
@@ -789,6 +803,7 @@
  "pk": 15,
  "fields": {
   "name": "Nota de Crédito C",
+  "invoice_type_class": "C",
   "code": "13"
  }
 },
@@ -797,6 +812,7 @@
  "pk": 16,
  "fields": {
   "name": "Recibo C",
+  "invoice_type_class": "B",
   "code": "15"
  }
 },
@@ -805,6 +821,7 @@
  "pk": 17,
  "fields": {
   "name": "Comprobante de Compra de Bienes Usados a Consumidor Final",
+  "invoice_type_class": "B",
   "code": "49"
  }
 },
@@ -813,6 +830,7 @@
  "pk": 18,
  "fields": {
   "name": "Factura M",
+  "invoice_type_class": "B",
   "code": "51"
  }
 },
@@ -821,6 +839,7 @@
  "pk": 19,
  "fields": {
   "name": "Nota de Débito M",
+  "invoice_type_class": "D",
   "code": "52"
  }
 },
@@ -829,6 +848,7 @@
  "pk": 20,
  "fields": {
   "name": "Nota de Crédito M",
+  "invoice_type_class": "C",
   "code": "53"
  }
 },
@@ -837,6 +857,7 @@
  "pk": 21,
  "fields": {
   "name": "Recibo M",
+  "invoice_type_class": "B",
   "code": "54"
  }
 },

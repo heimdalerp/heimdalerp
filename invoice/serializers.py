@@ -396,6 +396,7 @@ class InvoiceTypeSerializer(HyperlinkedModelSerializer):
             'url',
             'id',
             'name',
+            'invoice_type_class',
             'code',
             'invoices'
         )

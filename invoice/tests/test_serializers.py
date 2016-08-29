@@ -761,6 +761,7 @@ class InvoiceTypeTestCase(APITestCase):
         url = reverse('api:invoice:invoicetype-list')
         data = {
             'name': 'Do Easy',
+            'invoice_type_class': models.INVOICETYPE_CLASS_BILL,
             'code': ''
         }
         self.response = self.client.post(url, data)
@@ -775,6 +776,10 @@ class InvoiceTypeTestCase(APITestCase):
     def test_correctness(self):
         obj = models.InvoiceType.objects.get(name='Do Easy')
         self.assertEqual(obj.name, 'Do Easy')
+        self.assertEqual(
+            obj.invoice_type_class,
+            models.INVOICETYPE_CLASS_BILL
+        )
         self.assertEqual(obj.code, '')
 
 

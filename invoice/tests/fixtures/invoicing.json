@@ -47,6 +47,7 @@
  "pk": 1,
  "fields": {
   "name": "Do Easy",
+  "invoice_type_class": "B",
   "code": ""
  }
 },
@@ -55,6 +56,7 @@
  "pk": 2,
  "fields": {
   "name": "Do No Easy",
+  "invoice_type_class": "C",
   "code": ""
  }
 }
