@@ -11,6 +11,10 @@ router.register(r'products', views.ProductViewSet)
 router.register(r'invoicelines', views.InvoiceLineViewSet)
 router.register(r'invoicetypes', views.InvoiceTypeViewSet)
 router.register(r'invoices', views.InvoiceViewSet)
+router.register(
+    r'fiscalpositionshaveinvoicetypesallowed',
+    views.FiscalPositionHasInvoiceTypeAllowedViewSet
+)
 
 app_name = 'invoice'
 urlpatterns = [

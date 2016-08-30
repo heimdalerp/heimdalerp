@@ -3,7 +3,7 @@ from django.db import transaction
 from invoice import models, serializers
 from rest_framework.decorators import detail_route
 from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 
 class FiscalPositionViewSet(ModelViewSet):
@@ -202,3 +202,10 @@ class InvoicesByContactList(ListAPIView):
             queryset = queryset.filter(invoice_date__day=day)
 
         return queryset
+
+
+class FiscalPositionHasInvoiceTypeAllowedViewSet(ReadOnlyModelViewSet):
+    queryset = models.FiscalPositionHasInvoiceTypeAllowed.objects.all()
+    serializer_class = (
+        serializers.FiscalPositionHasInvoiceTypeAllowedSerializer
+    )

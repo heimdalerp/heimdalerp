@@ -29,7 +29,7 @@ class FiscalPositionTestCase(APITestCase):
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.FiscalPosition.objects.get(name='Do Easy').delete()
+        models.FiscalPosition.objects.all().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
@@ -821,7 +821,9 @@ class InvoiceTestCase(APITestCase):
                 {
                     'product': reverse(
                         'api:invoice:product-detail',
-                        args=[models.Product.objects.get(name='Do Easy').pk]
+                        args=[
+                            models.Product.objects.get(name='Do Easy').pk
+                        ]
                     ),
                     'price_sold': 100.00,
                     'discount': 0.00,
@@ -832,7 +834,9 @@ class InvoiceTestCase(APITestCase):
                     'product': reverse(
                         'api:invoice:product-detail',
                         args=[
-                            models.Product.objects.get(name='Do No Easy').pk
+                            models.Product.objects.get(
+                                name='Do No Easy'
+                            ).pk
                         ]
                     ),
                     'price_sold': 200.00,
@@ -854,7 +858,10 @@ class InvoiceTestCase(APITestCase):
         models.Invoice.objects.get().delete()
 
     def test_create(self):
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_201_CREATED
+        )
         self.assertEqual(models.Invoice.objects.count(), 1)
 
     def test_correctness(self):
@@ -911,7 +918,9 @@ class InvoiceTestCase(APITestCase):
                 {
                     'product': reverse(
                         'api:invoice:product-detail',
-                        args=[models.Product.objects.get(name='Do Easy').pk]
+                        args=[
+                            models.Product.objects.get(name='Do Easy').pk
+                        ]
                     ),
                     'price_sold': 100.00,
                     'discount': 0.00,
@@ -922,7 +931,9 @@ class InvoiceTestCase(APITestCase):
                     'product': reverse(
                         'api:invoice:product-detail',
                         args=[
-                            models.Product.objects.get(name='Do No Easy').pk
+                            models.Product.objects.get(
+                                name='Do No Easy'
+                            ).pk
                         ]
                     ),
                     'price_sold': 200.00,
@@ -958,8 +969,90 @@ class InvoiceTestCase(APITestCase):
             obj.invoice_type,
             models.InvoiceType.objects.get(name='Do No Easy')
         )
-        self.assertEqual(obj.invoice_date, date.today() - timedelta(days=1))
+        self.assertEqual(
+            obj.invoice_date,
+            date.today() - timedelta(days=1)
+        )
         self.assertEqual(obj.notes, 'gains are killed by cardio')
         self.assertEqual(obj.status, models.INVOICE_STATUSTYPE_DRAFT)
         self.assertEqual(obj.subtotal, Decimal('500.00'))
         self.assertEqual(obj.total, Decimal('594.00'))
+
+
+class FiscalPositionHasInvoiceTypeAllowedTestCase(APITestCase):
+    """
+    """
+    fixtures = [
+        'invoice/tests/fixtures/users.json',
+        'invoice/tests/fixtures/geo.json',
+        'invoice/tests/fixtures/invoicing.json'
+    ]
+
+    def setUp(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:invoice:fiscalpositionhasinvoicetypeallowed-list'
+        )
+        data = {
+            'fiscal_position_issuer': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[models.FiscalPosition.objects.get(name='Do Easy').pk]
+            ),
+            'invoice_type': reverse(
+                'api:invoice:invoicetype-detail',
+                args=[models.InvoiceType.objects.get(name='Do Easy').pk]
+            ),
+            'fiscal_position_receiver': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[
+                    models.FiscalPosition.objects.get(name='Do No Easy').pk
+                ]
+            )
+        }
+        self.response = self.client.post(url, data)
+
+    def test_create(self):
+        self.assertEqual(
+            self.response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        url = reverse(
+            'api:invoice:fiscalpositionhasinvoicetypeallowed-detail',
+            args=[
+                models.FiscalPositionHasInvoiceTypeAllowed.objects.get(
+                    fiscal_position_issuer__name='Do Easy',
+                    invoice_type__name='Do Easy',
+                    fiscal_position_receiver__name='Do Easy'
+                ).pk
+            ]
+        )
+        data = {
+            'fiscal_position_issuer': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[
+                    models.FiscalPosition.objects.get(name='Do No Easy').pk
+                ]
+            ),
+            'invoice_type': reverse(
+                'api:invoice:invoicetype-detail',
+                args=[
+                    models.InvoiceType.objects.get(name='Do No Easy').pk
+                ]
+            ),
+            'fiscal_position_receiver': reverse(
+                'api:invoice:fiscalposition-detail',
+                args=[models.FiscalPosition.objects.get(
+                    name='Do No Easy').pk
+                ]
+            )
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
+        )

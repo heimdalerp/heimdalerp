@@ -59,5 +59,14 @@
   "invoice_type_class": "C",
   "code": ""
  }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 1,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 1,
+  "fiscal_position_receiver": 1
+ }
 }
 ]

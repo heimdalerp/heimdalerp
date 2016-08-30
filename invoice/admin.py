@@ -41,3 +41,8 @@ class InvoiceTypeAdmin(VersionAdmin):
 @admin.register(models.Invoice)
 class InvoiceAdmin(VersionAdmin):
     pass
+
+
+@admin.register(models.FiscalPositionHasInvoiceTypeAllowed)
+class FiscalPositionHasInvoiceTypeAllowedAdmin(VersionAdmin):
+    pass

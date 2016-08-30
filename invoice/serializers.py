@@ -564,3 +564,34 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             instance.save()
 
         return instance
+
+
+class FiscalPositionHasInvoiceTypeAllowedSerializer(
+    HyperlinkedModelSerializer
+):
+
+    class Meta:
+        model = models.FiscalPositionHasInvoiceTypeAllowed
+        read_only_fields = (
+            'url',
+            'id',
+            'fiscal_position_issuer',
+            'invoice_type',
+            'fiscal_position_receiver'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': (
+                    'api:invoice:fiscalpositionhasinvoicetypeallowed-detail'
+                )
+            },
+            'fiscal_position_issuer': {
+                'view_name': 'api:invoice:fiscalposition-detail'
+            },
+            'invoice_type': {
+                'view_name': 'api:invoice:invoicetype-detail'
+            },
+            'fiscal_position_receiver': {
+                'view_name': 'api:invoice:fiscalposition-detail'
+            }
+        }

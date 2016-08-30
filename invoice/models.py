@@ -429,3 +429,47 @@ class Invoice(models.Model):
         verbose_name = _('invoice')
         verbose_name_plural = _('invoices')
         default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class FiscalPositionHasInvoiceTypeAllowed(models.Model):
+    """
+    In some countries, Fiscal Positions are allowed to use certain Invoice
+    Types.
+    """
+    fiscal_position_issuer = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position issuer'),
+        related_name='+',
+        related_query_name='+',
+        db_index=True
+    )
+    invoice_type = models.ForeignKey(
+        InvoiceType,
+        verbose_name=_('invoice type'),
+        related_name='+',
+        related_query_name='+',
+        db_index=True
+    )
+    fiscal_position_receiver = models.ForeignKey(
+        FiscalPosition,
+        verbose_name=_('fiscal position receiver'),
+        related_name='+',
+        related_query_name='+',
+        db_index=True
+    )
+
+    def __str__(self):
+        return (
+            str(self.fiscal_position_issuer) + '->' + (
+                str(self.invoice_type) + '->' + (
+                    str(self.fiscal_position_receiver)
+                )
+            )
+        )
+
+    class Meta:
+        verbose_name = _('fiscal position has invoice type allowed')
+        verbose_name_plural = (
+            _('fiscal positions have invoice types allowed')
+        )
+        default_permissions = ('view', 'add', 'change', 'delete')

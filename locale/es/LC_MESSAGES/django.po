@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-29 19:40-0300\n"
+"POT-Creation-Date: 2016-08-30 10:38-0300\n"
 "PO-Revision-Date: 2016-05-23 11:14-0300\n"
 "Last-Translator: Mariano Baragiola <mbaragiola@irona.com.ar>\n"
 "Language-Team: Spanish\n"
@@ -722,7 +722,7 @@ msgstr "Crédito"
 msgid "invoice type class"
 msgstr "clase de tipo de factura"
 
-#: invoice/models.py:321 invoice/models.py:375
+#: invoice/models.py:321 invoice/models.py:375 invoice/models.py:448
 msgid "invoice type"
 msgstr "tipo de factura"
 
@@ -790,6 +790,22 @@ msgstr "factura"
 #: invoice/models.py:430
 msgid "invoices"
 msgstr "facturas"
+
+#: invoice/models.py:441
+msgid "fiscal position issuer"
+msgstr "posición fiscal del que factura"
+
+#: invoice/models.py:455
+msgid "fiscal position receiver"
+msgstr "posición fiscal del facturado"
+
+#: invoice/models.py:471
+msgid "fiscal position has invoice type allowed"
+msgstr "posición fiscal tiene tipo de factura permitido"
+
+#: invoice/models.py:473
+msgid "fiscal positions have invoice types allowed"
+msgstr "posiciones fiscales tienen tipos de factura permitidos"
 
 #: invoice_ar/models.py:11
 msgid "DNI"
