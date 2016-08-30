@@ -13,7 +13,8 @@ router.register(r'invoicetypes', views.InvoiceTypeViewSet)
 router.register(r'invoices', views.InvoiceViewSet)
 router.register(
     r'fiscalpositionshaveinvoicetypesallowed',
-    views.FiscalPositionHasInvoiceTypeAllowedViewSet
+    views.FiscalPositionHasInvoiceTypeAllowedViewSet,
+    base_name='fiscalpositionhasinvoicetypeallowed'
 )
 
 app_name = 'invoice'

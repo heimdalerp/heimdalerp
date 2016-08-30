@@ -205,7 +205,18 @@ class InvoicesByContactList(ListAPIView):
 
 
 class FiscalPositionHasInvoiceTypeAllowedViewSet(ReadOnlyModelViewSet):
-    queryset = models.FiscalPositionHasInvoiceTypeAllowed.objects.all()
     serializer_class = (
         serializers.FiscalPositionHasInvoiceTypeAllowedSerializer
     )
+
+    def get_queryset(self):
+        queryset = models.FiscalPositionHasInvoiceTypeAllowed.objects.all()
+
+        issuer = self.request.query_params.get('issuer')
+        receiver = self.request.query_params.get('receiver')
+        if issuer is not None:
+            queryset = queryset.filter(fiscal_position_issuer=issuer)
+        if receiver is not None:
+            queryset = queryset.filter(fiscal_position_receiver=receiver)
+
+        return queryset
