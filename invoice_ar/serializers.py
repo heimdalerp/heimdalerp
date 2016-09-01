@@ -353,6 +353,7 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
             'id',
             'invoicear_company',
             'afip_id',
+            'fantasy_name',
             'point_of_sale_type',
             'fiscal_address',
             'is_inactive',

@@ -111,6 +111,10 @@ class PointOfSale(models.Model):
     afip_id = models.PositiveSmallIntegerField(
         _('AFIP id')
     )
+    fantasy_name = models.CharField(
+        _('fantasy name'),
+        max_length=150
+    )
     point_of_sale_type = models.CharField(
         _('point of sale type'),
         max_length=1,

@@ -487,6 +487,7 @@
  "fields": {
   "invoicear_company": 1,
   "afip_id": 1,
+  "fantasy_name": "hola",
   "point_of_sale_type": "W",
   "fiscal_address": 1,
   "is_inactive": false

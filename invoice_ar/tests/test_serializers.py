@@ -642,6 +642,7 @@ class PointOfSaleTestCase(APITestCase):
                 args=[invoicear_company.pk]
             ),
             'afip_id': 1,
+            'fantasy_name': 'testing',
             'point_of_sale_type': models.POINTOFSALE_TYPE_WEBSERVICE,
             'fiscal_address': reverse(
                 'api:persons:physicaladdress-detail',
@@ -670,6 +671,7 @@ class PointOfSaleTestCase(APITestCase):
             invoicear_company
         )
         self.assertEqual(obj.afip_id, 1)
+        self.assertEqual(obj.fantasy_name, 'testing')
         self.assertEqual(
             obj.point_of_sale_type,
             models.POINTOFSALE_TYPE_WEBSERVICE
