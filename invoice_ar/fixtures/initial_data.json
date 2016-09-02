@@ -673,6 +673,14 @@
  }
 },
 {
+ "model": "invoice.fiscalposition",
+ "pk": 4,
+ "fields": {
+  "name": "Responsable Monotributo",
+  "code": ""
+ }
+},
+{
  "model": "invoice.invoicetype",
  "pk": 1,
  "fields": {
@@ -937,6 +945,330 @@
   "name": "9% AR",
   "code": "9",
   "tax": 0.025
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 1,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 1,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 2,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 2,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 3,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 3,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 4,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 5,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 6,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 7,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 8,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 9,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 10,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 11,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 12,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 13,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 14,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 15,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 16,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 17,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 18,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 19,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 20,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 21,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 22,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 23,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 24,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 25,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 26,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 27,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 28,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 29,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 30,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 31,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 32,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 33,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 34,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 35,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 36,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 3
  }
 }
 ]

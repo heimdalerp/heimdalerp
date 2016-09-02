@@ -54,6 +54,17 @@
  }
 },
 {
+ "model": "persons.physicaladdress",
+ "pk": 6,
+ "fields": {
+  "street_address": "",
+  "floor_number": "",
+  "apartment_number": "",
+  "locality": null,
+  "postal_code": ""
+ }
+},
+{
  "model": "persons.company",
  "pk": 1,
  "fields": {
@@ -86,6 +97,20 @@
   "extra_emails": "",
   "home_address": 4,
   "name": "Cliente Consumidor Final",
+  "contact_type": "I"
+ }
+},
+{
+ "model": "contact.contact",
+ "pk": 3,
+ "fields": {
+  "persons_company": 1,
+  "birth_date": null,
+  "born_in": null,
+  "phone_numbers": "",
+  "extra_emails": "",
+  "home_address": null,
+  "name": "Cliente Monotributista",
   "contact_type": "I"
  }
 },
@@ -155,6 +180,14 @@
  }
 },
 {
+ "model": "invoice.fiscalposition",
+ "pk": 4,
+ "fields": {
+  "name": "Responsable Monotributo",
+  "code": ""
+ }
+},
+{
  "model": "invoice.companyinvoice",
  "pk": 1,
  "fields": {
@@ -185,6 +218,16 @@
   "legal_name": "Juan Perez",
   "fiscal_position": 3,
   "fiscal_address": 5
+ }
+},
+{
+ "model": "invoice.contactinvoice",
+ "pk": 3,
+ "fields": {
+  "contact_contact": 3,
+  "legal_name": "Consumidor Final",
+  "fiscal_position": 3,
+  "fiscal_address": 6
  }
 },
 {
@@ -482,6 +525,15 @@
  }
 },
 {
+ "model": "invoice_ar.contactinvoicear",
+ "pk": 1,
+ "fields": {
+  "invoice_contact": 3,
+  "id_type": null,
+  "id_number": ""
+ }
+},
+{
  "model": "invoice_ar.pointofsale",
  "pk": 1,
  "fields": {
@@ -521,6 +573,330 @@
   "name": "Men\u00fa",
   "current_price": "50.00",
   "vat": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 1,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 1,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 2,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 2,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 3,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 3,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 4,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 5,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 6,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 7,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 8,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 9,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 10,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 11,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 12,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 13,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 14,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 15,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 16,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 17,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 18,
+ "fields": {
+  "fiscal_position_issuer": 4,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 19,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 20,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 21,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 1
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 22,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 23,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 24,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 2
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 25,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 26,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 27,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 28,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 13,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 29,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 14,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 30,
+ "fields": {
+  "fiscal_position_issuer": 1,
+  "invoice_type": 15,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 31,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 32,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 33,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 4
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 34,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 4,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 35,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 5,
+  "fiscal_position_receiver": 3
+ }
+},
+{
+ "model": "invoice.fiscalpositionhasinvoicetypeallowed",
+ "pk": 36,
+ "fields": {
+  "fiscal_position_issuer": 2,
+  "invoice_type": 6,
+  "fiscal_position_receiver": 3
  }
 }
 ]
