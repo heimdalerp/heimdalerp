@@ -197,8 +197,7 @@ class InvoiceAR(Invoice):
         db_index=True
     )
     due_date = models.DateField(
-        _('due date'),
-        validators=[date_is_present_or_future]
+        _('due date')
     )
     service_start = models.DateField(
         _('service start'),
