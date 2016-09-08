@@ -1,8 +1,8 @@
 from persons import models, serializers
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 
-class PhysicalAddressViewSet(ModelViewSet):
+class PhysicalAddressViewSet(ReadOnlyModelViewSet):
     queryset = models.PhysicalAddress.objects.all()
     serializer_class = serializers.PhysicalAddressSerializer
 

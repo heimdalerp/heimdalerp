@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from geo.models import Locality
 from persons import models
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -14,7 +13,7 @@ class PhysicalAddressTestCase(APITestCase):
         'persons/tests/fixtures/geo.json'
     ]
 
-    def setUp(self):
+    def test_create(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
         url = reverse('api:persons:physicaladdress-list')
@@ -25,34 +24,16 @@ class PhysicalAddressTestCase(APITestCase):
             'locality': reverse(
                 'api:geo:locality-detail',
                 args=[
-                    Locality.objects.get(default_name='Santa Fe').pk
+                    models.Locality.objects.get(default_name='Santa Fe').pk
                 ]
             ),
             'postal_code': '3000'
         }
-        self.response = self.client.post(url, data)
-
-    def tearDown(self):
-        models.PhysicalAddress.objects.filter(
-            street_address='9 de Julio 2454'
-        ).delete()
-
-    def test_create(self):
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.PhysicalAddress.objects.count(), 1)
-
-    def test_correctness(self):
-        obj = models.PhysicalAddress.objects.get(
-            street_address='9 de Julio 2454'
-        )
-        self.assertEqual(obj.street_address, '9 de Julio 2454')
-        self.assertEqual(obj.floor_number, '')
-        self.assertEqual(obj.apartment_number, '')
+        response = self.client.post(url, data)
         self.assertEqual(
-            obj.locality,
-            Locality.objects.get(default_name='Santa Fe')
+            response.status_code,
+            status.HTTP_405_METHOD_NOT_ALLOWED
         )
-        self.assertEqual(obj.postal_code, '3000')
 
 
 class CompanyTestCase(APITestCase):
