@@ -9,7 +9,7 @@ It is said that he brings the gift of the gods to mankind.
 
 ## 1. Install from source
 
-### 1.1 OpenBSD 5.9-stable
+### 1.1 OpenBSD 6.0-stable
 
     $ doas su
     # pkg_add py3-pip py3-bcrypt postgresql-server postgresql py3-psycopg2 git
@@ -73,7 +73,7 @@ If you have your files at $HOME/workspace/heimdalerp, you need to copy them,syml
 
 In our case, we'll clone it again at /var/www/heimdalerp and recreate the virtualenv. In this way, we have a two separate enviroments, one for development and testing, and the other for production use. Be aware, that in this case they are using the very same database. You may set separate databases creating another one and modifying heimdalerp/settings.py to use it (search for const var "DATABASE").
 
-### 2.1 OpenBSD 5.9-stable
+### 2.1 OpenBSD 6.0-stable
 
     # doas su
     # pkg_add nginx
