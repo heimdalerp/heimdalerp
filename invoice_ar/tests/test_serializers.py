@@ -620,10 +620,11 @@ class InvoiceARHasVATSubtotalTestCase(APITestCase):
         self.assertEqual(obj.subtotal, Decimal('100.00'))
 
 
-class PointOfSaleTestCase(APITestCase):
+class PointOfSaleARTestCase(APITestCase):
     """
     """
     fixtures = [
+        'invoice_ar/tests/fixtures/geo.json',
         'invoice_ar/tests/fixtures/users.json',
         'invoice_ar/tests/fixtures/invoicing.json',
         'invoice_ar/tests/fixtures/companies.json'
@@ -632,7 +633,7 @@ class PointOfSaleTestCase(APITestCase):
     def setUp(self):
         admin = User.objects.get(username='admin')
         self.client.force_authenticate(user=admin)
-        url = reverse('api:invoice_ar:pointofsale-list')
+        url = reverse('api:invoice_ar:pointofsalear-list')
         invoicear_company = models.CompanyInvoiceAR.objects.get(
             invoice_company__legal_name='Baragiola-Zanitti SH'
         )
@@ -644,26 +645,32 @@ class PointOfSaleTestCase(APITestCase):
             'afip_id': 1,
             'fantasy_name': 'testing',
             'point_of_sale_type': models.POINTOFSALE_TYPE_WEBSERVICE,
-            'fiscal_address': reverse(
-                'api:persons:physicaladdress-detail',
-                args=[invoicear_company.invoice_company.fiscal_address.pk]
-            ),
+            'fiscal_address': {
+                'street_address': '9 de Julio 2454',
+                'floor_number': '',
+                'apartment_number': '',
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Santa Fe').pk]
+                ),
+                'postal_code': '3000'
+            },
             'is_inactive': False
         }
         self.response = self.client.post(url, data)
 
     def tearDown(self):
-        models.PointOfSale.objects.get().delete()
+        models.PointOfSaleAR.objects.get().delete()
 
     def test_create(self):
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.PointOfSale.objects.count(), 1)
+        self.assertEqual(models.PointOfSaleAR.objects.count(), 1)
 
     def test_correctness(self):
         invoicear_company = models.CompanyInvoiceAR.objects.get(
             invoice_company__legal_name='Baragiola-Zanitti SH'
         )
-        obj = models.PointOfSale.objects.get(
+        obj = models.PointOfSaleAR.objects.get(
             invoicear_company=invoicear_company
         )
         self.assertEqual(
@@ -677,12 +684,101 @@ class PointOfSaleTestCase(APITestCase):
             models.POINTOFSALE_TYPE_WEBSERVICE
         )
         self.assertEqual(
-            obj.fiscal_address,
-            invoicear_company.invoice_company.fiscal_address
+            obj.fiscal_address.street_address,
+            '9 de Julio 2454'
+        )
+        self.assertEqual(
+            obj.fiscal_address.floor_number,
+            ''
+        )
+        self.assertEqual(
+            obj.fiscal_address.apartment_number,
+            ''
+        )
+        self.assertEqual(
+            obj.fiscal_address.locality,
+            Locality.objects.get(default_name='Santa Fe')
+        )
+        self.assertEqual(
+            obj.fiscal_address.postal_code,
+            '3000'
         )
         self.assertEqual(
             obj.is_inactive,
             False
+        )
+
+    def test_update(self):
+        admin = User.objects.get(username='admin')
+        self.client.force_authenticate(user=admin)
+        invoicear_company_1 = models.CompanyInvoiceAR.objects.get(
+            invoice_company__legal_name='Baragiola-Zanitti SH'
+        )
+        obj = models.PointOfSaleAR.objects.get(
+            invoicear_company=invoicear_company_1
+        )
+        url = reverse('api:invoice_ar:pointofsalear-detail', args=[obj.pk])
+        invoicear_company_2 = models.CompanyInvoiceAR.objects.get(
+            invoice_company__legal_name='Zanitti-Baragiola SH'
+        )
+        data = {
+            'invoicear_company': reverse(
+                'api:invoice_ar:companyinvoicear-detail',
+                args=[invoicear_company_2.pk]
+            ),
+            'afip_id': 7,
+            'fantasy_name': 'still testing',
+            'point_of_sale_type': models.POINTOFSALE_TYPE_ENLINEA,
+            'fiscal_address': {
+                'street_address': 'San Martin 1300',
+                'floor_number': '1',
+                'apartment_number': '2',
+                'locality': reverse(
+                    'api:geo:locality-detail',
+                    args=[Locality.objects.get(default_name='Rosario').pk]
+                ),
+                'postal_code': '2000'
+            },
+            'is_inactive': True
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        obj = models.PointOfSaleAR.objects.get(
+            invoicear_company=invoicear_company_1
+        )
+        self.assertEqual(
+            obj.invoicear_company,
+            invoicear_company_1
+        )
+        self.assertEqual(obj.afip_id, 7)
+        self.assertEqual(obj.fantasy_name, 'still testing')
+        self.assertEqual(
+            obj.point_of_sale_type,
+            models.POINTOFSALE_TYPE_ENLINEA
+        )
+        self.assertEqual(
+            obj.fiscal_address.street_address,
+            'San Martin 1300'
+        )
+        self.assertEqual(
+            obj.fiscal_address.floor_number,
+            '1'
+        )
+        self.assertEqual(
+            obj.fiscal_address.apartment_number,
+            '2'
+        )
+        self.assertEqual(
+            obj.fiscal_address.locality,
+            Locality.objects.get(default_name='Rosario')
+        )
+        self.assertEqual(
+            obj.fiscal_address.postal_code,
+            '2000'
+        )
+        self.assertEqual(
+            obj.is_inactive,
+            True
         )
 
 
@@ -751,9 +847,9 @@ class InvoiceARTestCase(APITestCase):
             ),
             'invoice_date': str(date.today()),
             'notes': 'cardio kills gains',
-            'point_of_sale': reverse(
-                'api:invoice_ar:pointofsale-detail',
-                args=[models.PointOfSale.objects.get(afip_id=1).pk]
+            'point_of_sale_ar': reverse(
+                'api:invoice_ar:pointofsalear-detail',
+                args=[models.PointOfSaleAR.objects.get(afip_id=1).pk]
             ),
             'due_date': str(date.today() + timedelta(days=30)),
             'service_start': str(date.today()),
@@ -794,8 +890,8 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(obj.invoice_date, date.today())
         self.assertEqual(obj.notes, 'cardio kills gains')
         self.assertEqual(
-            obj.point_of_sale,
-            models.PointOfSale.objects.get(afip_id=1)
+            obj.point_of_sale_ar,
+            models.PointOfSaleAR.objects.get(afip_id=1)
         )
         self.assertEqual(
             obj.due_date,
@@ -881,9 +977,9 @@ class InvoiceARTestCase(APITestCase):
             ),
             'invoice_date': str(date.today() - timedelta(days=1)),
             'notes': 'gains are killed by cardio',
-            'point_of_sale': reverse(
-                'api:invoice_ar:pointofsale-detail',
-                args=[models.PointOfSale.objects.get(afip_id=2).pk]
+            'point_of_sale_ar': reverse(
+                'api:invoice_ar:pointofsalear-detail',
+                args=[models.PointOfSaleAR.objects.get(afip_id=2).pk]
             ),
             'due_date': str(date.today() + timedelta(days=29)),
             'service_start': str(date.today() - timedelta(days=1)),
@@ -916,8 +1012,8 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(obj.invoice_date, date.today() - timedelta(days=1))
         self.assertEqual(obj.notes, 'gains are killed by cardio')
         self.assertEqual(
-            obj.point_of_sale,
-            models.PointOfSale.objects.get(afip_id=2)
+            obj.point_of_sale_ar,
+            models.PointOfSaleAR.objects.get(afip_id=2)
         )
         self.assertEqual(
             obj.due_date,

@@ -1,4 +1,3 @@
-from common.validators import date_is_present_or_future
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from invoice.models import VAT, CompanyInvoice, ContactInvoice, Invoice
@@ -97,7 +96,7 @@ POINTOFSALE_TYPES = (
 )
 
 
-class PointOfSale(models.Model):
+class PointOfSaleAR(models.Model):
     """
     AFIP requires the following attributes related to a previously
     registered in their website point of sale.
@@ -105,8 +104,8 @@ class PointOfSale(models.Model):
     invoicear_company = models.ForeignKey(
         CompanyInvoiceAR,
         verbose_name=_('company'),
-        related_name='point_of_sales',
-        related_query_name='point_of_sale'
+        related_name='point_of_sales_ar',
+        related_query_name='point_of_sale_ar'
     )
     afip_id = models.PositiveSmallIntegerField(
         _('AFIP id')
@@ -124,8 +123,8 @@ class PointOfSale(models.Model):
     fiscal_address = models.ForeignKey(
         PhysicalAddress,
         verbose_name=_('fiscal address'),
-        related_name='point_of_sales',
-        related_query_name='point_of_sale',
+        related_name='point_of_sales_ar',
+        related_query_name='point_of_sale_ar',
         on_delete=models.PROTECT,
         db_index=False
     )
@@ -139,8 +138,8 @@ class PointOfSale(models.Model):
 
     class Meta:
         unique_together = ('invoicear_company', 'afip_id')
-        verbose_name = _('point of sale')
-        verbose_name_plural = _('point of sales')
+        verbose_name = _('point of sale AR')
+        verbose_name_plural = _('point of sales AR')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 
@@ -188,9 +187,9 @@ class InvoiceAR(Invoice):
         on_delete=models.PROTECT,
         db_index=True
     )
-    point_of_sale = models.ForeignKey(
-        PointOfSale,
-        verbose_name=_('point of sale'),
+    point_of_sale_ar = models.ForeignKey(
+        PointOfSaleAR,
+        verbose_name=_('point of sale AR'),
         related_name='invoices_ar',
         related_query_name='invoice_ar',
         on_delete=models.PROTECT,

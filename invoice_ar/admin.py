@@ -13,8 +13,8 @@ class CompanyInvoiceARAdmin(VersionAdmin):
     pass
 
 
-@admin.register(models.PointOfSale)
-class PointOfSaleAdmin(VersionAdmin):
+@admin.register(models.PointOfSaleAR)
+class PointOfSaleARAdmin(VersionAdmin):
     pass
 
 

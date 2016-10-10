@@ -10,6 +10,7 @@ from invoice.serializers import (CompanyInvoiceSerializer,
                                  InvoiceLineSerializer)
 from invoice_ar import models
 from persons.models import Company, PhysicalAddress
+from persons.serializers import PhysicalAddressSerializer
 from rest_framework.serializers import (HyperlinkedIdentityField,
                                         HyperlinkedModelSerializer,
                                         ValidationError)
@@ -341,13 +342,14 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         return instance
 
 
-class PointOfSaleSerializer(HyperlinkedModelSerializer):
+class PointOfSaleARSerializer(HyperlinkedModelSerializer):
+    fiscal_address = PhysicalAddressSerializer()
     invoices = HyperlinkedIdentityField(
-        view_name='api:invoice_ar:pointofsale-invoices'
+        view_name='api:invoice_ar:pointofsalear-invoices'
     )
 
     class Meta:
-        model = models.PointOfSale
+        model = models.PointOfSaleAR
         fields = (
             'url',
             'id',
@@ -361,15 +363,68 @@ class PointOfSaleSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
-                'view_name': 'api:invoice_ar:pointofsale-detail'
+                'view_name': 'api:invoice_ar:pointofsalear-detail'
             },
             'invoicear_company': {
                 'view_name': 'api:invoice_ar:companyinvoicear-detail'
-            },
-            'fiscal_address': {
-                'view_name': 'api:persons:physicaladdress-detail'
             }
         }
+
+    @transaction.atomic
+    def create(self, validated_data):
+        fiscal_address_data = validated_data.pop('fiscal_address')
+        fiscal_address = PhysicalAddress.objects.create(
+            **fiscal_address_data
+        )
+        validated_data['fiscal_address'] = fiscal_address
+
+        return models.PointOfSaleAR.objects.create(**validated_data)
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        instance.afip_id = validated_data.get(
+            'afip_id',
+            instance.afip_id
+        )
+        instance.fantasy_name = validated_data.get(
+            'fantasy_name',
+            instance.fantasy_name
+        )
+        instance.point_of_sale_type = validated_data.get(
+            'point_of_sale_type',
+            instance.point_of_sale_type
+        )
+        instance.is_inactive = validated_data.get(
+            'is_inactive',
+            instance.is_inactive
+        )
+
+        fiscal_address_data = validated_data.get('fiscal_address')
+        if fiscal_address_data is not None:
+            instance.fiscal_address.street_address = fiscal_address_data.get(
+                'street_address',
+                instance.fiscal_address.street_address
+            )
+            instance.fiscal_address.floor_number = fiscal_address_data.get(
+                'floor_number',
+                instance.fiscal_address.floor_number
+            )
+            instance.fiscal_address.apartment_number = fiscal_address_data.get(
+                'apartment_number',
+                instance.fiscal_address.apartment_number
+            )
+            instance.fiscal_address.locality = fiscal_address_data.get(
+                'locality',
+                instance.fiscal_address.locality
+            )
+            instance.fiscal_address.postal_code = fiscal_address_data.get(
+                'postal_code',
+                instance.fiscal_address.postal_code
+            )
+            instance.fiscal_address.save()
+
+        instance.save()
+        return instance
 
 
 class InvoiceARHasVATSubtotalSerializer(HyperlinkedModelSerializer):
@@ -439,7 +494,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'total',
             'notes',
             'transaction',
-            'point_of_sale',
+            'point_of_sale_ar',
             'due_date',
             'service_start',
             'service_end',
@@ -475,8 +530,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:accounting:transaction-detail',
                 'read_only': True
             },
-            'point_of_sale': {
-                'view_name': 'api:invoice_ar:pointofsale-detail'
+            'point_of_sale_ar': {
+                'view_name': 'api:invoice_ar:pointofsalear-detail'
             },
             'concept_type': {
                 'view_name': 'api:invoice_ar:concepttype-detail'
@@ -602,9 +657,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'concept_type',
                 instance.concept_type
             )
-            instance.point_of_sale = validated_data.get(
-                'point_of_sale',
-                instance.point_of_sale
+            instance.point_of_sale_ar = validated_data.get(
+                'point_of_sale_ar',
+                instance.point_of_sale_ar
             )
 
             invoice_lines_data = validated_data.get('invoice_lines')
