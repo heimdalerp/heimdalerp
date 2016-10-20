@@ -13,9 +13,9 @@ class CompanyInvoiceARViewSet(ModelViewSet):
     serializer_class = serializers.CompanyInvoiceARSerializer
 
 
-class PointOfSaleViewSet(ModelViewSet):
-    queryset = models.PointOfSale.objects.all()
-    serializer_class = serializers.PointOfSaleSerializer
+class PointOfSaleARViewSet(ModelViewSet):
+    queryset = models.PointOfSaleAR.objects.all()
+    serializer_class = serializers.PointOfSaleARSerializer
 
 
 class ConceptTypeViewSet(ModelViewSet):
@@ -83,12 +83,12 @@ class InvoicesByCompanyList(ListAPIView):
         return queryset
 
 
-class InvoicesByPointOfSaleList(ListAPIView):
+class InvoicesByPointOfSaleARList(ListAPIView):
     serializer_class = serializers.InvoiceARSerializer
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        queryset = models.InvoiceAR.objects.filter(point_of_sale=pk)
+        queryset = models.InvoiceAR.objects.filter(point_of_sale_ar=pk)
 
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')

@@ -534,7 +534,7 @@
  }
 },
 {
- "model": "invoice_ar.pointofsale",
+ "model": "invoice_ar.pointofsalear",
  "pk": 1,
  "fields": {
   "invoicear_company": 1,
