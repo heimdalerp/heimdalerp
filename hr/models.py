@@ -240,6 +240,7 @@ class Employee(PersonProfile):
         related_query_name='employee',
         verbose_name=_('sexual orientation'),
         on_delete=models.PROTECT,
+        db_index=False,
         blank=True,
         null=True,
         help_text=_('Relevant for countries where one must comply quotas')
@@ -334,14 +335,16 @@ class EmployeeSpeaksLanguage(models.Model):
         related_name='+',
         related_query_name='+',
         verbose_name=_('employee'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     language = models.ForeignKey(
         Language,
         related_name='+',
         related_query_name='+',
         verbose_name=_('language'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     level = models.CharField(
         _('level'),
@@ -378,14 +381,16 @@ class EmployeeHasSanction(models.Model):
         related_name='+',
         related_query_name='+',
         verbose_name=_('employee'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     sanction = models.ForeignKey(
         Sanction,
         related_name='+',
         related_query_name='+',
         verbose_name=_('sanction'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=False
     )
     what_happened = models.TextField(
         _('what happened'),
@@ -461,21 +466,24 @@ class EmployeeHasDegree(models.Model):
         related_name='+',
         related_query_name='+',
         verbose_name=_('employee'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     degree = models.ForeignKey(
         Degree,
         related_name='+',
         related_query_name='+',
         verbose_name=_('degree'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=False
     )
     academic_institution = models.ForeignKey(
         AcademicInstitution,
         related_name='+',
         related_query_name='+',
         verbose_name=_('academic institution'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     ingress_year = models.PositiveSmallIntegerField(
         _('ingress year'),
@@ -537,7 +545,8 @@ class Area(models.Model):
         verbose_name=_('company'),
         related_name='areas',
         related_query_name='area',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     name = models.CharField(
         _('name'),
@@ -564,14 +573,16 @@ class AreaHasEmployee(models.Model):
         related_name='+',
         related_query_name='+',
         verbose_name=_('area'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     employee = models.ForeignKey(
         Employee,
         related_name='+',
         related_query_name='+',
         verbose_name=_('employee'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     date_since = models.DateField(
         _('date since'),
@@ -602,14 +613,16 @@ class EmployeeHasRole(models.Model):
         verbose_name=_('employee'),
         related_name='+',
         related_query_name='+',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     role = models.ForeignKey(
         Role,
         related_name='+',
         related_query_name='+',
         verbose_name=_('roles'),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=True
     )
     date_since = models.DateField(
         _('date since'),

@@ -58,10 +58,11 @@ class CompanyInvoice(models.Model):
     )
     fiscal_position = models.ForeignKey(
         FiscalPosition,
-        on_delete=models.PROTECT,
         verbose_name=_('fiscal position'),
         related_name='companies',
         related_query_name='company',
+        on_delete=models.PROTECT,
+        db_index=False,
         blank=True,
         null=True,
         help_text=_("Certain countries require a fiscal position for "
@@ -82,6 +83,8 @@ class CompanyInvoice(models.Model):
         verbose_name=_('default invoice debit account'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
+        db_index=False,
         null=True,
         blank=True
     )
@@ -90,6 +93,8 @@ class CompanyInvoice(models.Model):
         verbose_name=_('default invoice credit account'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
+        db_index=False,
         null=True,
         blank=True
     )
@@ -121,6 +126,7 @@ class ContactInvoice(models.Model):
         related_name='contacts',
         related_query_name='contact',
         on_delete=models.PROTECT,
+        db_index=False,
         help_text=_("Certain countries require a fiscal position for "
                     "its taxpayers.")
     )
@@ -237,7 +243,8 @@ class InvoiceLine(models.Model):
         verbose_name=_('product'),
         related_name='invoice_lines',
         related_query_name='invoice_line',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        db_index=False
     )
     price_sold = models.DecimalField(
         _('price sold'),
@@ -413,6 +420,7 @@ class Invoice(models.Model):
         related_name='+',
         related_query_name='invoice',
         on_delete=models.PROTECT,
+        db_index=False,
         blank=True,
         null=True
     )
@@ -439,6 +447,7 @@ class FiscalPositionHasInvoiceTypeAllowed(models.Model):
         verbose_name=_('fiscal position issuer'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
         db_index=True
     )
     invoice_type = models.ForeignKey(
@@ -446,6 +455,7 @@ class FiscalPositionHasInvoiceTypeAllowed(models.Model):
         verbose_name=_('invoice type'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
         db_index=True
     )
     fiscal_position_receiver = models.ForeignKey(
@@ -453,6 +463,7 @@ class FiscalPositionHasInvoiceTypeAllowed(models.Model):
         verbose_name=_('fiscal position receiver'),
         related_name='+',
         related_query_name='+',
+        on_delete=models.PROTECT,
         db_index=True
     )
 

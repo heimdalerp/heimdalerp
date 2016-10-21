@@ -105,7 +105,9 @@ class PointOfSaleAR(models.Model):
         CompanyInvoiceAR,
         verbose_name=_('company'),
         related_name='point_of_sales_ar',
-        related_query_name='point_of_sale_ar'
+        related_query_name='point_of_sale_ar',
+        on_delete=models.PROTECT,
+        db_index=True
     )
     afip_id = models.PositiveSmallIntegerField(
         _('AFIP id')
@@ -248,7 +250,9 @@ class InvoiceARHasVATSubtotal(models.Model):
         VAT,
         verbose_name=_('VAT'),
         related_name='+',
-        related_query_name='+'
+        related_query_name='+',
+        on_delete=models.PROTECT,
+        db_index=False
     )
     subtotal = models.DecimalField(
         _('subtotal'),

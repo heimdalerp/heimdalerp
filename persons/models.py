@@ -39,6 +39,7 @@ class PhysicalAddress(models.Model):
         related_query_name='physical_address',
         verbose_name=_('locality'),
         on_delete=models.PROTECT,
+        db_index=True,
         blank=True,
         null=True
     )
