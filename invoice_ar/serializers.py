@@ -237,6 +237,8 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'invoice_company',
             'cuit',
             'iibb',
+            'key',
+            'cert',
             'invoices',
             'webservice_sessions'
         )
