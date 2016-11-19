@@ -346,6 +346,8 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
 
         instance.cuit = validated_data.get('cuit', instance.cuit)
         instance.iibb = validated_data.get('iibb', instance.iibb)
+        instance.key = validated_data.get('key', instance.key)
+        instance.cert = validated_data.get('cert', instance.cert)
         instance.save()
         return instance
 

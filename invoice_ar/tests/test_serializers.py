@@ -56,7 +56,9 @@ class CompanyInvoiceARTestCase(APITestCase):
                 'default_invoice_credit_account': ''
             },
             'cuit': '30111111118',
-            'iibb': '123456'
+            'iibb': '123456',
+            'key': 'aaa',
+            'cert': 'aaa'
         }
         self.response = self.client.post(url, data)
 
@@ -121,6 +123,14 @@ class CompanyInvoiceARTestCase(APITestCase):
             obj.iibb,
             '123456'
         )
+        self.assertEqual(
+            obj.key,
+            'aaa'
+        )
+        self.assertEqual(
+            obj.cert,
+            'aaa'
+        )
 
     def test_update(self):
         admin = User.objects.get(username='admin')
@@ -161,7 +171,9 @@ class CompanyInvoiceARTestCase(APITestCase):
                 'default_invoice_credit_account': ''
             },
             'cuit': '30222222229',
-            'iibb': '654321'
+            'iibb': '654321',
+            'key': 'aaa',
+            'cert': 'aaa',
         }
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -215,6 +227,14 @@ class CompanyInvoiceARTestCase(APITestCase):
         self.assertEqual(
             obj.iibb,
             '654321'
+        )
+        self.assertEqual(
+            obj.key,
+            'aaa'
+        )
+        self.assertEqual(
+            obj.cert,
+            'aaa'
         )
 
 
