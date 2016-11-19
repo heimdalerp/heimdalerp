@@ -74,6 +74,16 @@ class CompanyInvoiceAR(models.Model):
                     "code given by fiscal regulators of provinces'."
                     )
     )
+    key = models.TextField(
+        _('private key'),
+        default="",
+        blank=True
+    )
+    cert = models.TextField(
+        _('certificate'),
+        default="",
+        blank=True
+    )
 
     def __str__(self):
         return str(self.invoice_company)
@@ -81,6 +91,41 @@ class CompanyInvoiceAR(models.Model):
     class Meta:
         verbose_name = _('company')
         verbose_name_plural = _('companies')
+        default_permissions = ('view', 'add', 'change', 'delete')
+
+
+class WebServiceSession(models.Model):
+    """
+    """
+    invoicear_company = models.ForeignKey(
+        CompanyInvoiceAR,
+        verbose_name=_('company'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT,
+        db_index=True
+    )
+    begin = models.CharField(
+        _('expiration'),
+        max_length=50
+    )
+    expiration = models.CharField(
+        _('expiration'),
+        max_length=50
+    )
+    token = models.TextField(
+        _('token')
+    )
+    sign = models.TextField(
+        _('sign')
+    )
+
+    def __str__(self):
+        return self.generation + '-' + self.expiration
+
+    class Meta:
+        verbose_name = _('webservice session')
+        verbose_name_plural = _('webservice sessions')
         default_permissions = ('view', 'add', 'change', 'delete')
 
 

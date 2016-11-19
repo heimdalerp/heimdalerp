@@ -225,6 +225,9 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
     invoices = HyperlinkedIdentityField(
         view_name='api:invoice_ar:companyinvoicear-invoices'
     )
+    webservice_sessions = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:companyinvoicear-webservicesessions'
+    )
 
     class Meta:
         model = models.CompanyInvoiceAR
@@ -234,7 +237,8 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'invoice_company',
             'cuit',
             'iibb',
-            'invoices'
+            'invoices',
+            'webservice_sessions'
         )
         extra_kwargs = {
             'url': {
@@ -342,6 +346,29 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
         instance.iibb = validated_data.get('iibb', instance.iibb)
         instance.save()
         return instance
+
+
+class WebServiceSessionSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.WebServiceSession
+        fields = (
+            'url',
+            'id',
+            'invoicear_company',
+            'generation',
+            'expiration',
+            'token',
+            'sign'
+        )
+        extra_kwargs = {
+            'url': {
+                'view_name': 'api:invoice_ar:webservicesession-detail'
+            },
+            'invoicear_company': {
+                'view_name': 'api:invoice_ar:companyinvoicear-detail'
+            }
+        }
 
 
 class PointOfSaleARSerializer(HyperlinkedModelSerializer):

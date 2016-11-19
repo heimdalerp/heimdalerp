@@ -18,6 +18,11 @@ class CompanyInvoiceARViewSet(ModelViewSet):
     serializer_class = serializers.CompanyInvoiceARSerializer
 
 
+class WebServiceSessionViewSet(ModelViewSet):
+    queryset = models.WebServiceSession.objects.all()
+    serializer_class = serializers.WebServiceSessionSerializer
+
+
 class PointOfSaleARViewSet(ModelViewSet):
     queryset = models.PointOfSaleAR.objects.all()
     serializer_class = serializers.PointOfSaleARSerializer
@@ -86,6 +91,16 @@ class InvoicesByCompanyList(ListAPIView):
             queryset = queryset.filter(invoice_date__day=day)
 
         return queryset
+
+
+class WebServiceSessionsByCompanyList(ListAPIView):
+    serializer_class = serializers.WebServiceSessionSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return models.WebServiceSession.objects.filter(
+            invoicear_company=pk
+        )
 
 
 class InvoicesByPointOfSaleARList(ListAPIView):

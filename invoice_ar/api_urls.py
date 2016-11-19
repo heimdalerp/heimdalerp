@@ -6,6 +6,7 @@ from rest_framework_proxy.views import ProxyView
 router = DefaultRouter()
 router.register(r'contacts', views.ContactInvoiceARViewSet)
 router.register(r'companies', views.CompanyInvoiceARViewSet)
+router.register(r'webservicesessions', views.WebServiceSessionViewSet)
 router.register(r'pointsofsalear', views.PointOfSaleARViewSet)
 router.register(r'concepttypes', views.ConceptTypeViewSet)
 router.register(r'invoices', views.InvoiceARViewSet)
@@ -40,6 +41,11 @@ urlpatterns = [
         r'^companies/(?P<pk>\d+)/invoices/$',
         views.InvoicesByCompanyList.as_view(),
         name='companyinvoicear-invoices'
+    ),
+    url(
+        r'^companies/(?P<pk>\d+)/webservicesessions/$',
+        views.WebServiceSessionsByCompanyList.as_view(),
+        name='companyinvoicear-webservicesessions'
     ),
     url(
         r'^pointsofsalear/(?P<pk>\d+)/invoices/$',
