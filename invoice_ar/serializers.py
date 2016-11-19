@@ -40,8 +40,10 @@ class ContactInvoiceARSerializer(HyperlinkedModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):  # TODO: Use existing objects.
-        id_type = validated_data['id_type']
-        id_number = validated_data['id_number']
+        id_type = validated_data.get('id_type')
+        id_number = validated_data.get('id_number')
+        if id_type is None or id_number is None:
+            raise ValidationError(_("ID type or ID number not sent."))
         id_number = id_number.replace('.', '')
         id_number = id_number.replace(' ', '')
         id_number = id_number.replace('-', '')
