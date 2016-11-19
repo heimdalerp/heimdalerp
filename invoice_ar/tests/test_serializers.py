@@ -995,7 +995,7 @@ class InvoiceARTestCase(APITestCase):
         self.assertEqual(
             obj.invoicear_company,
             models.CompanyInvoiceAR.objects.get(
-                invoice_company__legal_name='Zanitti-Baragiola SH'
+                invoice_company__legal_name='Baragiola-Zanitti SH'
             )
         )
         self.assertEqual(

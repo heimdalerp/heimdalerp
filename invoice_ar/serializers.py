@@ -507,7 +507,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 'view_name': 'api:invoice_ar:invoicear-detail'
             },
             'invoicear_company': {
-                'view_name': 'api:invoice_ar:companyinvoicear-detail'
+                'view_name': 'api:invoice_ar:companyinvoicear-detail',
+                'read_only': True
             },
             'invoice_type': {
                 'view_name': 'api:invoice:invoicetype-detail'
@@ -544,6 +545,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        validated_data['invoicear_company'] = (
+            validated_data.get('point_of_sale_ar').invoicear_company
+        )
         validated_data['invoice_company'] = (
             validated_data.get('invoicear_company').invoice_company
         )
