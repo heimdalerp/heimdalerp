@@ -237,6 +237,100 @@ class CompanyInvoiceARTestCase(APITestCase):
             'aaa'
         )
 
+        data = {
+            'invoice_company': {
+                'persons_company': {
+                    'fantasy_name': 'ANORI',
+                    'slogan': 'when face the slogan no :^)'
+                },
+                'legal_name': 'Zanitti-Baragiola SH',
+                'initiated_activities': '2015-02-04',
+                'fiscal_position': reverse(
+                    'api:invoice:fiscalposition-detail',
+                    args=[FiscalPosition.objects.get(name='Do No Easy').pk]
+                ),
+                'fiscal_address': {
+                    'street_address': 'San Martín 1100',
+                    'floor_number': '1',
+                    'apartment_number': '2',
+                    'locality': reverse(
+                        'api:geo:locality-detail',
+                        args=[
+                            Locality.objects.get(default_name='Rosario').pk
+                        ]
+                    ),
+                    'postal_code': '2000'
+                },
+                'default_invoice_debit_account': '',
+                'default_invoice_credit_account': ''
+            },
+            'cuit': '30222222229',
+            'iibb': '654321',
+            'key': 'aaa',
+            'cert': 'aaa',
+        }
+        response = self.client.put(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        obj = models.CompanyInvoiceAR.objects.get(
+            invoice_company__legal_name='Zanitti-Baragiola SH'
+        )
+        self.assertEqual(
+            obj.invoice_company.persons_company.fantasy_name,
+            'ANORI'
+        )
+        self.assertEqual(
+            obj.invoice_company.legal_name,
+            'Zanitti-Baragiola SH'
+        )
+        self.assertEqual(
+            obj.invoice_company.persons_company.slogan,
+            'when face the slogan no :^)'
+        )
+        self.assertEqual(
+            obj.invoice_company.initiated_activities,
+            date(2015, 2, 4)
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_position,
+            FiscalPosition.objects.get(name='Do No Easy')
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_address.street_address,
+            'San Martín 1100'
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_address.floor_number,
+            '1'
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_address.apartment_number,
+            '2'
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_address.locality,
+            Locality.objects.get(pk=2)
+        )
+        self.assertEqual(
+            obj.invoice_company.fiscal_address.postal_code,
+            '2000'
+        )
+        self.assertEqual(
+            obj.cuit,
+            '30222222229'
+        )
+        self.assertEqual(
+            obj.iibb,
+            '654321'
+        )
+        self.assertEqual(
+            obj.key,
+            'aaa'
+        )
+        self.assertEqual(
+            obj.cert,
+            'aaa'
+        )
+
 
 class ContactInvoiceARTestCase(APITestCase):
     """

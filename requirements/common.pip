@@ -1,7 +1,7 @@
 django
 bcrypt
 psycopg2
-djangorestframework==3.4.7
+djangorestframework
 djangorestframework-jwt
 django-rest-framework-proxy
 django-filter

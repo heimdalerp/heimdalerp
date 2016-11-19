@@ -90,7 +90,7 @@ class RegionSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Region
-        read_only_fields = (
+        fields = (
             'url',
             'id',
             'default_name',
@@ -102,9 +102,17 @@ class RegionSerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:geo:region-detail',
+                'read_only': True
+            },
+            'default_name': {
+                'read_only': True
+            },
+            'codename': {
+                'read_only': True
             },
             'country': {
-                'view_name': 'api:geo:country-detail'
+                'view_name': 'api:geo:country-detail',
+                'read_only': True
             }
         }
 
@@ -120,7 +128,7 @@ class CountrySerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Country
-        read_only_fields = (
+        fields = (
             'url',
             'id',
             'default_name',
@@ -132,5 +140,11 @@ class CountrySerializer(HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {
                 'view_name': 'api:geo:country-detail'
+            },
+            'default_name': {
+                'read_only': True
+            },
+            'codename': {
+                'read_only': True
             }
         }

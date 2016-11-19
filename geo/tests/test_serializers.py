@@ -44,6 +44,7 @@ class CountryTestCase(APITestCase):
             status.HTTP_405_METHOD_NOT_ALLOWED
         )
 
+
 class RegionTestCase(APITestCase):
     """
     """

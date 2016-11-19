@@ -47,8 +47,7 @@ class CompanyInvoice(models.Model):
     )
     legal_name = models.CharField(
         _('legal name'),
-        max_length=300,
-        unique=True
+        max_length=300
     )
     initiated_activities = models.DateField(
         _('initiated activities'),

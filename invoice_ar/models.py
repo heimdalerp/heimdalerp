@@ -109,6 +109,10 @@ class WebServiceSession(models.Model):
         _('expiration'),
         max_length=50
     )
+    generation = models.CharField(
+        _('generation'),
+        max_length=50
+    )
     expiration = models.CharField(
         _('expiration'),
         max_length=50

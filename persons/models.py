@@ -65,8 +65,7 @@ class Company(models.Model):
     """
     fantasy_name = models.CharField(
         _('fantasy name'),
-        max_length=150,
-        unique=True
+        max_length=150
     )
     slogan = models.CharField(
         _('slogan'),
