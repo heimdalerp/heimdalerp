@@ -280,6 +280,17 @@ class InvoiceAR(Invoice):
         related_query_name='invoicear',
         blank=True
     )
+    cae = models.CharField(
+        _('CAE'),
+        max_length=12,
+        default="",
+        blank=True
+    )
+    cae_expires = models.DateField(
+        _('CAE expires'),
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return str(self.number)

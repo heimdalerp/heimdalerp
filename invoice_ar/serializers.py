@@ -533,7 +533,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'service_end',
             'concept_type',
             'vat_total',
-            'vat_subtotals'
+            'vat_subtotals',
+            'cae',
+            'cae_expires'
         )
         extra_kwargs = {
             'url': {
@@ -573,6 +575,12 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'vat_total': {
                 'read_only': True,
                 'coerce_to_string': False
+            },
+            'cae': {
+                'read_only': True
+            },
+            'cae_expires': {
+                'read_only': True
             }
         }
 

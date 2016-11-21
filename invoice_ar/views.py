@@ -43,12 +43,20 @@ class InvoicesByConceptTypeList(ListAPIView):
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
         day = self.request.query_params.get('day')
+        status = self.request.query_params.get('status')
+        pos_type = self.request.query_params.get('pos_type')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
         if day is not None:
             queryset = queryset.filter(invoice_date__day=day)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        if pos_type is not None:
+            queryset = queryset.filter(
+                point_of_sale_ar__point_of_sale_type=pos_type
+        ) 
 
         return queryset
 
@@ -63,12 +71,20 @@ class InvoicesByContactList(ListAPIView):
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
         day = self.request.query_params.get('day')
+        status = self.request.query_params.get('status')
+        pos_type = self.request.query_params.get('pos_type')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
         if day is not None:
             queryset = queryset.filter(invoice_date__day=day)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        if pos_type is not None:
+            queryset = queryset.filter(
+                point_of_sale_ar__point_of_sale_type=pos_type
+        ) 
 
         return queryset
 
@@ -83,12 +99,20 @@ class InvoicesByCompanyList(ListAPIView):
         year = self.request.query_params.get('year')
         month = self.request.query_params.get('month')
         day = self.request.query_params.get('day')
+        status = self.request.query_params.get('status')
+        pos_type = self.request.query_params.get('pos_type')
         if year is not None:
             queryset = queryset.filter(invoice_date__year=year)
         if month is not None:
             queryset = queryset.filter(invoice_date__month=month)
         if day is not None:
             queryset = queryset.filter(invoice_date__day=day)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        if pos_type is not None:
+            queryset = queryset.filter(
+                point_of_sale_ar__point_of_sale_type=pos_type
+        ) 
 
         return queryset
 
