@@ -56,7 +56,7 @@ class InvoicesByConceptTypeList(ListAPIView):
         if pos_type is not None:
             queryset = queryset.filter(
                 point_of_sale_ar__point_of_sale_type=pos_type
-        ) 
+            )
 
         return queryset
 
@@ -84,7 +84,7 @@ class InvoicesByContactList(ListAPIView):
         if pos_type is not None:
             queryset = queryset.filter(
                 point_of_sale_ar__point_of_sale_type=pos_type
-        ) 
+            )
 
         return queryset
 
@@ -112,7 +112,7 @@ class InvoicesByCompanyList(ListAPIView):
         if pos_type is not None:
             queryset = queryset.filter(
                 point_of_sale_ar__point_of_sale_type=pos_type
-        ) 
+            )
 
         return queryset
 
@@ -177,19 +177,24 @@ class InvoiceARViewSet(ModelViewSet):
 
         return Response({}, status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=['patch'])
     def authorize(self, request, pk=None):
-        invoicear = models.InvoiceAR.objects.get(pk=pk)
+        invoicear = self.get_object()
         pos_ar_type = invoicear.point_of_sale_ar.point_of_sale_type
+        cae = request.data.get('cae')
+        cae_expires = request.data.get('cae_expires')
         if invoicear.status == models.INVOICE_STATUSTYPE_ACCEPTED and (
             pos_ar_type == models.POINTOFSALE_TYPE_WEBSERVICE
         ):
-            invoicear.status = models.INVOICE_STATUSTYPE_AUTHORIZED
-            invoicear.save()
-            serializer = serializers.InvoiceARSerializer(
-                invoicear,
-                context={'request': request}
-            )
+            if cae is not None and cae_expires is not None:
+                invoicear.status = models.INVOICE_STATUSTYPE_AUTHORIZED
+                invoicear.cae = cae
+                invoicear.cae_expires = cae_expires
+                invoicear.save()
+                serializer = serializers.InvoiceARSerializer(
+                    invoicear,
+                    context={'request': request}
+                )
             return Response(serializer.data, status.HTTP_200_OK)
 
         return Response({}, status.HTTP_400_BAD_REQUEST)
