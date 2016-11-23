@@ -40,7 +40,7 @@ LOGIN_REDIRECT_URL = '/accounts/profile/'
 LOGIN_URL = '/accounts/login/'
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher'
 ]
 AUTH_PASSWORD_VALIDATORS = [
     {

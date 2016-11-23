@@ -362,6 +362,16 @@ class Invoice(models.Model):
         on_delete=models.PROTECT,
         db_index=True
     )
+    related_invoice = models.ForeignKey(
+        'self',
+        verbose_name=_('related invoice'),
+        related_name='+',
+        related_query_name='+',
+        on_delete=models.PROTECT,
+        db_index=False,
+        blank=True,
+        null=True
+    )
     number = models.BigIntegerField(
         _('number'),
         default=0,

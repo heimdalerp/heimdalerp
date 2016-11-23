@@ -417,6 +417,7 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             'id',
             'invoice_company',
             'invoice_contact',
+            'related_invoice',
             'number',
             'invoice_lines',
             'invoice_type',
@@ -429,6 +430,9 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             'url': {
+                'view_name': 'api:invoice:invoice-detail'
+            },
+            'related_invoice': {
                 'view_name': 'api:invoice:invoice-detail'
             },
             'invoice_type': {
@@ -514,6 +518,10 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
             instance.invoice_contact = validated_data.get(
                 'invoice_contact',
                 instance.invoice_contact
+            )
+            instance.related_invoice = validated_data.get(
+                'related_invoice',
+                instance.related_invoice
             )
             instance.invoice_date = validated_data.get(
                 'invoice_date',

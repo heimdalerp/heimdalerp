@@ -518,6 +518,7 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'id',
             'invoicear_company',
             'invoicear_contact',
+            'related_invoice',
             'number',
             'invoice_lines',
             'invoice_type',
@@ -544,6 +545,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'invoicear_company': {
                 'view_name': 'api:invoice_ar:companyinvoicear-detail',
                 'read_only': True
+            },
+            'related_invoice': {
+                'view_name': 'api:invoice_ar:invoicear-detail'
             },
             'invoice_type': {
                 'view_name': 'api:invoice:invoicetype-detail'
@@ -669,6 +673,10 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             instance.invoicear_contact = validated_data.get(
                 'invoicear_contact',
                 instance.invoicear_contact
+            )
+            instance.related_invoice = validated_data.get(
+                'related_invoice',
+                instance.related_invoice
             )
             instance.number = validated_data.get(
                 'number',

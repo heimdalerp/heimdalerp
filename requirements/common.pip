@@ -1,5 +1,4 @@
 django
-bcrypt
 psycopg2
 djangorestframework
 djangorestframework-jwt
