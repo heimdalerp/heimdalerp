@@ -659,6 +659,17 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             invoicear.subtotal = subtotal
             invoicear.total = total
             invoicear.vat_total = vat_total
+
+            related_invoice = validated_data.get('related_invoice')
+            if related_invoice is not None:
+                if subtotal > related_invoice.subtotal:
+                    raise ValidationError(_(
+                        "This invoice can't exceed related invoice's subtotal."
+                    ))
+                else:
+                    invoicear.total = subtotal
+                    invoicear.vat_total = Decimal('0.00')
+
             invoicear.save()
 
         return invoicear
@@ -765,6 +776,15 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
                 instance.subtotal = subtotal
                 instance.total = total
                 instance.vat_total = vat_total
+
+            if instance.related_invoice is not None:
+                if subtotal > instance.related_invoice.subtotal:
+                    raise ValidationError(_(
+                        "This invoice can't exceed related invoice's subtotal."
+                    ))
+                else:
+                    instance.total = subtotal
+                    instance.vat_total = Decimal('0.00')
 
             instance.save()
 

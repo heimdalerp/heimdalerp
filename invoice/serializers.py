@@ -3,11 +3,13 @@ from decimal import Decimal
 from contact.models import Contact
 from contact.serializers import ContactSerializer
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
 from invoice import models
 from persons.models import Company, PhysicalAddress
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer
 from rest_framework.serializers import (HyperlinkedIdentityField,
-                                        HyperlinkedModelSerializer)
+                                        HyperlinkedModelSerializer,
+                                        ValidationError)
 
 
 class FiscalPositionSerializer(HyperlinkedModelSerializer):
@@ -504,6 +506,16 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
 
             invoice.subtotal = subtotal
             invoice.total = total
+
+            related_invoice = validated_data.get('related_invoice')
+            if related_invoice is not None:
+                if subtotal > related_invoice.subtotal:
+                    raise ValidationError(_(
+                        "This invoice can't exceed related invoice's subtotal."
+                    ))
+                else:
+                    invoice.total = subtotal
+
             invoice.save()
 
         return invoice
@@ -568,6 +580,14 @@ class InvoiceSerializer(HyperlinkedModelSerializer):
 
                 instance.subtotal = subtotal
                 instance.total = total
+
+            if instance.related_invoice is not None:
+                if subtotal > instance.related_invoice.subtotal:
+                    raise ValidationError(_(
+                        "This invoice can't exceed related invoice's subtotal."
+                    ))
+                else:
+                    instance.total = subtotal
 
             instance.save()
 
