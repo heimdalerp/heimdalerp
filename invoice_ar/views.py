@@ -1,5 +1,6 @@
 from accounting.models import Transaction
 from django.db import transaction
+from invoice import models as invoice
 from invoice_ar import models, serializers
 from rest_framework import status
 from rest_framework.decorators import detail_route
@@ -156,7 +157,7 @@ class InvoiceARViewSet(ModelViewSet):
     def accept(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)
         invoicear_company = invoicear.invoicear_company
-        if invoicear.status == models.INVOICE_STATUSTYPE_DRAFT:
+        if invoicear.status == invoice.INVOICE_STATUSTYPE_DRAFT:
             debit_account = invoicear_company.default_invoice_debit_account
             credit_account = invoicear_company.default_invoice_credit_account
             transaction = Transaction.objects.create(
@@ -167,7 +168,7 @@ class InvoiceARViewSet(ModelViewSet):
                 credit_account_balance=credit_account.balance+invoicear.total,
             )
             invoicear.transaction = transaction
-            invoicear.status = models.INVOICE_STATUSTYPE_ACCEPTED
+            invoicear.status = invoice.INVOICE_STATUSTYPE_ACCEPTED
             invoicear.save()
             serializer = serializers.InvoiceARSerializer(
                 invoicear,
@@ -183,11 +184,11 @@ class InvoiceARViewSet(ModelViewSet):
         pos_ar_type = invoicear.point_of_sale_ar.point_of_sale_type
         cae = request.data.get('cae')
         cae_expires = request.data.get('cae_expires')
-        if invoicear.status == models.INVOICE_STATUSTYPE_ACCEPTED and (
+        if invoicear.status == invoice.INVOICE_STATUSTYPE_ACCEPTED and (
             pos_ar_type == models.POINTOFSALE_TYPE_WEBSERVICE
         ):
             if cae is not None and cae_expires is not None:
-                invoicear.status = models.INVOICE_STATUSTYPE_AUTHORIZED
+                invoicear.status = invoice.INVOICE_STATUSTYPE_AUTHORIZED
                 invoicear.cae = cae
                 invoicear.cae_expires = cae_expires
                 invoicear.save()
@@ -204,9 +205,9 @@ class InvoiceARViewSet(ModelViewSet):
     def cancel(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)
         invoicear_company = invoicear.invoicear_company
-        if invoicear.status == models.INVOICE_STATUSTYPE_DRAFT:
-            invoicear.status = models.INVOICE_STATUSTYPE_CANCELED
-        elif invoicear.status == models.INVOICE_STATUSTYPE_ACCEPTED:
+        if invoicear.status == invoice.INVOICE_STATUSTYPE_DRAFT:
+            invoicear.status = invoice.INVOICE_STATUSTYPE_CANCELED
+        elif invoicear.status == invoice.INVOICE_STATUSTYPE_ACCEPTED:
             debit_account = invoicear_company.default_invoice_debit_account
             credit_account = invoicear_company.default_invoice_credit_account
             transaction = Transaction.objects.create(
@@ -217,7 +218,7 @@ class InvoiceARViewSet(ModelViewSet):
                 credit_account_balance=credit_account.balance+invoicear.total,
             )
             invoicear.transaction = transaction
-            invoicear.status = models.INVOICE_STATUSTYPE_CANCELED
+            invoicear.status = invoice.INVOICE_STATUSTYPE_CANCELED
         else:
             return Response({}, status.HTTP_400_BAD_REQUEST)
 
