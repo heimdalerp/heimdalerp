@@ -157,9 +157,10 @@ class InvoiceARViewSet(ModelViewSet):
     def accept(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)
         invoicear_company = invoicear.invoicear_company
+        invoice_company = invoicear_company.invoice_company
         if invoicear.status == invoice.INVOICE_STATUSTYPE_DRAFT:
-            debit_account = invoicear_company.default_invoice_debit_account
-            credit_account = invoicear_company.default_invoice_credit_account
+            debit_account = invoice_company.default_invoice_debit_account
+            credit_account = invoice_company.default_invoice_credit_account
             transaction = Transaction.objects.create(
                 amount=invoicear.total,
                 debit_account=debit_account,
@@ -205,11 +206,12 @@ class InvoiceARViewSet(ModelViewSet):
     def cancel(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)
         invoicear_company = invoicear.invoicear_company
+        invoice_company = invoicear_company.invoice_company
         if invoicear.status == invoice.INVOICE_STATUSTYPE_DRAFT:
             invoicear.status = invoice.INVOICE_STATUSTYPE_CANCELED
         elif invoicear.status == invoice.INVOICE_STATUSTYPE_ACCEPTED:
-            debit_account = invoicear_company.default_invoice_debit_account
-            credit_account = invoicear_company.default_invoice_credit_account
+            debit_account = invoice_company.default_invoice_debit_account
+            credit_account = invoice_company.default_invoice_credit_account
             transaction = Transaction.objects.create(
                 amount=invoicear.total,
                 debit_account=debit_account,
