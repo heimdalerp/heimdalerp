@@ -185,6 +185,7 @@ class InvoiceARViewSet(ModelViewSet):
         pos_ar_type = invoicear.point_of_sale_ar.point_of_sale_type
         cae = request.data.get('cae')
         cae_expires = request.data.get('cae_expires')
+        number = request.data.get('number')
         if invoicear.status == invoice.INVOICE_STATUSTYPE_ACCEPTED and (
             pos_ar_type == models.POINTOFSALE_TYPE_WEBSERVICE
         ):
@@ -192,6 +193,7 @@ class InvoiceARViewSet(ModelViewSet):
                 invoicear.status = invoice.INVOICE_STATUSTYPE_AUTHORIZED
                 invoicear.cae = cae
                 invoicear.cae_expires = cae_expires
+                invoicear.number = number
                 invoicear.save()
                 serializer = serializers.InvoiceARSerializer(
                     invoicear,
