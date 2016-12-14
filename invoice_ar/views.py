@@ -118,6 +118,26 @@ class InvoicesByCompanyList(ListAPIView):
         return queryset
 
 
+class InvoicesByInvoiceTypeList(ListAPIView):
+    serializer_class = serializers.InvoiceARSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = models.InvoiceAR.objects.filter(invoice_type=pk)
+
+        year = self.request.query_params.get('year')
+        month = self.request.query_params.get('month')
+        day = self.request.query_params.get('day')
+        if year is not None:
+            queryset = queryset.filter(invoice_date__year=year)
+        if month is not None:
+            queryset = queryset.filter(invoice_date__month=month)
+        if day is not None:
+            queryset = queryset.filter(invoice_date__day=day)
+
+        return queryset
+
+
 class WebServiceSessionsByCompanyList(ListAPIView):
     serializer_class = serializers.WebServiceSessionSerializer
 

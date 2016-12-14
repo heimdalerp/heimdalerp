@@ -52,5 +52,10 @@ urlpatterns = [
         views.InvoicesByPointOfSaleARList.as_view(),
         name='pointofsalear-invoices'
     ),
+    url(
+        r'^invoicetypes/(?P<pk>\d+)/invoices$',
+        views.InvoicesByInvoiceTypeList.as_view(),
+        name='invoicetype-invoices'
+    ),
     url(r'^', include(router.urls)),
 ]
