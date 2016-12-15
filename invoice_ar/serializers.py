@@ -510,6 +510,9 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
         many=True,
         read_only=True
     )
+    related_invoices = HyperlinkedIdentityField(
+        view_name='api:invoice_ar:invoice-relatedinvoices'
+    )
 
     class Meta:
         model = models.InvoiceAR
@@ -536,7 +539,8 @@ class InvoiceARSerializer(HyperlinkedModelSerializer):
             'vat_total',
             'vat_subtotals',
             'cae',
-            'cae_expires'
+            'cae_expires',
+            'related_invoices'
         )
         extra_kwargs = {
             'url': {

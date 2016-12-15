@@ -33,6 +33,11 @@ urlpatterns = [
         name='concepttype-invoices'
     ),
     url(
+        r'^invoices/(?P<pk>\d+)/relatedinvoices/$',
+        views.InvoicesByRelatedInvoiceList.as_view(),
+        name='invoice-relatedinvoices'
+    ),
+    url(
         r'^contacts/(?P<pk>\d+)/invoices/$',
         views.InvoicesByContactList.as_view(),
         name='contactinvoicear-invoices'
