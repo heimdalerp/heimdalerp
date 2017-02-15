@@ -304,6 +304,18 @@ class CompanyInvoiceARSerializer(HyperlinkedModelSerializer):
             'fiscal_position',
             invoice_company.fiscal_position
         )
+        invoice_company.default_invoice_debit_account = (
+            invoice_company_data.get(
+                'default_invoice_debit_account',
+                invoice_company.default_invoice_debit_account
+            )
+        )
+        invoice_company.default_invoice_credit_account = (
+            invoice_company_data.get(
+                'default_invoice_credit_account',
+                invoice_company.default_invoice_credit_account
+            )
+        )
 
         fiscal_address_data = invoice_company_data.pop('fiscal_address')
         invoice_company.fiscal_address.street_address = (
