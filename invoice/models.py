@@ -3,7 +3,7 @@ from common.validators import date_is_present_or_past
 from contact.models import Contact
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from persons.models import Company, PhysicalAddress
 
 
@@ -43,7 +43,8 @@ class CompanyInvoice(models.Model):
     """
     persons_company = models.OneToOneField(
         Company,
-        verbose_name=_('company')
+        verbose_name=_('company'),
+        on_delete=models.CASCADE
     )
     legal_name = models.CharField(
         _('legal name'),
@@ -113,7 +114,8 @@ class ContactInvoice(models.Model):
     """
     contact_contact = models.OneToOneField(
         Contact,
-        verbose_name=_('contact')
+        verbose_name=_('contact'),
+        on_delete=models.CASCADE
     )
     legal_name = models.CharField(
         _('legal name'),

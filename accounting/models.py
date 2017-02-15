@@ -1,8 +1,8 @@
 from common.validators import date_is_present_or_past
 from contact.models import Contact
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext_noop as _noop
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _noop
 from persons.models import Company
 
 
@@ -160,7 +160,8 @@ class CompanyAccounting(models.Model):
     """
     persons_company = models.OneToOneField(
         Company,
-        verbose_name=_('company')
+        verbose_name=_('company'),
+        on_delete=models.CASCADE
     )
     default_debit_account_for_cash = models.ForeignKey(
         Account,
