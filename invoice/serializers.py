@@ -3,7 +3,7 @@ from decimal import Decimal
 from contact.models import Contact
 from contact.serializers import ContactSerializer
 from django.db import transaction
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from invoice import models
 from persons.models import Company, PhysicalAddress
 from persons.serializers import CompanySerializer, PhysicalAddressSerializer

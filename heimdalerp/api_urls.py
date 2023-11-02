@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 
 from contact import api_urls as contact_urls
 from hr import api_urls as hr_urls
@@ -10,32 +10,32 @@ from accounting import api_urls as accounting_urls
 
 
 urlpatterns = [
-    url(
-        r'^geo/',
+    path(
+        'geo/',
         include(geo_urls, namespace='geo')
     ),
-    url(
-        r'^persons/',
+    path(
+        'persons/',
         include(persons_urls, namespace='persons')
     ),
-    url(
-        r'contact/',
+    path(
+        'contact/',
         include(contact_urls, namespace='contact')
     ),
-    url(
-        r'^hr/',
+    path(
+        'hr/',
         include(hr_urls, namespace='hr')
     ),
-    url(
-        r'^invoice/',
+    path(
+        'invoice/',
         include(invoice_urls, namespace='invoice')
     ),
-    url(
-        r'^invoice_ar/',
+    path(
+        'invoice_ar/',
         include(invoicear_urls, namespace='invoice_ar')
     ),
-    url(
-        r'^accounting/',
+    path(
+        'accounting/',
         include(accounting_urls, namespace='accounting')
     ),
 ]

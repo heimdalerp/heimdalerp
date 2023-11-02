@@ -1,16 +1,16 @@
 from contact import views
-from django.conf.urls import include, url
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'contacts', views.ContactViewSet)
+router.register('contacts', views.ContactViewSet)
 
 app_name = 'contact'
 urlpatterns = [
-    url(
-        r'^companies/(?P<pk>\d+)/contacts/$',
+    path(
+        'companies/<pk>/contacts/',
         views.ContactsByCompanyList.as_view(),
         name='company-contacts'
     ),
-    url(r'^', include(router.urls)),
+    path('', include(router.urls)),
 ]

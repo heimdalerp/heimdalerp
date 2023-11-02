@@ -1,40 +1,40 @@
 from accounting import views
-from django.conf.urls import include, url
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'ledgers', views.LedgerViewSet)
-router.register(r'accounts', views.AccountViewSet)
-router.register(r'transactions', views.TransactionViewSet)
-router.register(r'payments', views.PaymentViewSet)
-router.register(r'companies', views.CompanyAccountingViewSet)
+router.register('ledgers', views.LedgerViewSet)
+router.register('accounts', views.AccountViewSet)
+router.register('transactions', views.TransactionViewSet)
+router.register('payments', views.PaymentViewSet)
+router.register('companies', views.CompanyAccountingViewSet)
 
 app_name = 'accounting'
 urlpatterns = [
-    url(
-        r'^contacts/(?P<pk>\d+)/payments/$',
+    path(
+        'contacts/<pk>/payments/',
         views.PaymentsByContactList.as_view(),
         name='contact-payments'
     ),
-    url(
-        r'^company/(?P<pk>\d+)/ledgers/$',
+    path(
+        'company/<pk>/ledgers/',
         views.LedgersByCompanyList.as_view(),
         name='company-ledgers'
     ),
-    url(
-        r'^company/(?P<pk>\d+)/payments/$',
+    path(
+        'company/(<pk>/payments/',
         views.PaymentsByCompanyList.as_view(),
         name='company-payments'
     ),
-    url(
-        r'^ledgers/(?P<pk>\d+)/accounts/$',
+    path(
+        'ledgers/<pk>/accounts/',
         views.AccountsByLedgerList.as_view(),
         name='ledger-accounts'
     ),
-    url(
-        r'^accounts/(?P<pk>\d+)/transactions/$',
+    path(
+        'accounts/<pk>/transactions/',
         views.TransactionsByAccountList.as_view(),
         name='account-transactions'
     ),
-    url(r'^', include(router.urls)),
+    path('', include(router.urls)),
 ]

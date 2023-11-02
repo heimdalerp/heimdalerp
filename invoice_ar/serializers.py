@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from contact.models import Contact
 from django.db import transaction
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from invoice.models import (INVOICE_STATUSTYPE_DRAFT, VAT, CompanyInvoice,
                             ContactInvoice, InvoiceLine)
 from invoice.serializers import (CompanyInvoiceSerializer,

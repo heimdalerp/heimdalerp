@@ -7,8 +7,9 @@
 import os
 from datetime import timedelta
 from django.utils.translation import gettext_lazy as _
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -117,9 +118,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'heimdalerp',
         'USER': 'heimdalerp',
-        'PASSWORD': None,
-        #'HOST': '127.0.0.1', # Uncomment to use TCP/IP
-        #'PORT': '5432', # Uncomment to use TCP/IP
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1', # Uncomment to use TCP/IP
+        'PORT': '5432', # Uncomment to use TCP/IP
         'ATOMIC_REQUESTS': False,
         'AUTOCOMMIT': True,
         'CONN_MAX_AGE': 0,
@@ -137,20 +138,22 @@ DATABASES = {
         },
     }
 }
+
 DATABASE_ROUTERS = []
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication', # Disable in production.
         'rest_framework.authentication.SessionAuthentication', # Disable in production.
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100000,
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
@@ -185,6 +188,7 @@ JWT_AUTH = {
 
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_CHARSET = 'utf-8'
 DEFAULT_CONTENT_TYPE = 'text/html'
@@ -252,14 +256,22 @@ INSTALLED_APPS = [
     'invoice_ar',
 ]
 
-MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
+MIDDLEWARE = [
+    # 'django.middleware.security.SecurityMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.gzip.GZipMiddleware',
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -284,7 +296,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'heimdalerp.wsgi.application'
+from .wsgi import application
+
+WSGI_APPLICATION = application
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

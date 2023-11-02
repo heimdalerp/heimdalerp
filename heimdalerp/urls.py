@@ -5,10 +5,10 @@ from rest_framework_jwt.views import obtain_jwt_token
 from heimdalerp import api_urls
 
 urlpatterns = [
-    path('admin/', admin.site.pathspath),
+    path('admin/', admin.site.urls),
     path(
         'api-token-auth/',
         obtain_jwt_token
     ),
-    path('api/', include(api_urls, namespace='api')),
+    path('api/', include(api_urls)),
 ]
