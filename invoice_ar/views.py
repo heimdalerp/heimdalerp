@@ -3,7 +3,7 @@ from django.db import transaction
 from invoice import models as invoice
 from invoice_ar import models, serializers
 from rest_framework import status
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -199,8 +199,7 @@ class InvoicesByPointOfSaleARList(ListAPIView):
 class InvoiceARViewSet(ModelViewSet):
     queryset = models.InvoiceAR.objects.all()
     serializer_class = serializers.InvoiceARSerializer
-
-    @detail_route(methods=['patch'])
+    @action(detail=True, methods=['patch'])
     @transaction.atomic
     def accept(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)
@@ -227,7 +226,7 @@ class InvoiceARViewSet(ModelViewSet):
 
         return Response({}, status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(methods=['patch'])
+    @action(detail=True, methods=['patch'])
     def authorize(self, request, pk=None):
         invoicear = self.get_object()
         pos_ar_type = invoicear.point_of_sale_ar.point_of_sale_type
@@ -251,7 +250,7 @@ class InvoiceARViewSet(ModelViewSet):
 
         return Response({}, status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(methods=['patch'])
+    @action(detail=True, methods=['patch'])
     @transaction.atomic
     def cancel(self, request, pk=None):
         invoicear = models.InvoiceAR.objects.get(pk=pk)

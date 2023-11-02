@@ -1,78 +1,79 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from invoice import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'fiscalpositions', views.FiscalPositionViewSet)
-router.register(r'contacts', views.ContactInvoiceViewSet)
-router.register(r'companies', views.CompanyInvoiceViewSet)
-router.register(r'vats', views.VATViewSet)
-router.register(r'products', views.ProductViewSet)
-router.register(r'invoicelines', views.InvoiceLineViewSet)
-router.register(r'invoicetypes', views.InvoiceTypeViewSet)
-router.register(r'invoices', views.InvoiceViewSet)
+router.register('fiscalpositions', views.FiscalPositionViewSet)
+router.register('contacts', views.ContactInvoiceViewSet)
+router.register('companies', views.CompanyInvoiceViewSet)
+router.register('vats', views.VATViewSet)
+router.register('products', views.ProductViewSet)
+router.register('invoicelines', views.InvoiceLineViewSet)
+router.register('invoicetypes', views.InvoiceTypeViewSet)
+router.register('invoices', views.InvoiceViewSet)
 router.register(
-    r'fiscalpositionshaveinvoicetypesallowed',
+    'fiscalpositionshaveinvoicetypesallowed',
     views.FiscalPositionHasInvoiceTypeAllowedViewSet,
-    base_name='fiscalpositionhasinvoicetypeallowed'
+    basename='fiscalpositionhasinvoicetypeallowed'
 )
+
 
 app_name = 'invoice'
 urlpatterns = [
-    url(
-        r'^companies/(?P<pk>\d+)/products/$',
+    path(
+        'companies/<pk>/products/',
         views.ProductsByCompanyList.as_view(),
         name='companyinvoice-products'
     ),
-    url(
-        r'^companies/(?P<pk>\d+)/invoices/$',
+    path(
+        'companies/<pk>/invoices/',
         views.InvoicesByCompanyList.as_view(),
         name='companyinvoice-invoices'
     ),
-    url(
-        r'^contacts/(?P<pk>\d+)/invoices/$',
+    path(
+        'contacts/<pk>/invoices/',
         views.InvoicesByContactList.as_view(),
         name='contactinvoice-invoices'
     ),
-    url(
-        r'^products/(?P<pk>\d+)/invoicelines/$',
+    path(
+        'products/<pk>/invoicelines/',
         views.InvoiceLinesByProductList.as_view(),
         name='product-invoicelines'
     ),
-    url(
-        r'^vats/(?P<pk>\d+)/products/$',
+    path(
+        'vats/<pk>/products/',
         views.ProductsByVATList.as_view(),
         name='vat-products'
     ),
-    url(
-        r'^fiscalpositions/(?P<pk>\d+)/companies/$',
+    path(
+        'fiscalpositions/<pk>/companies/',
         views.CompaniesByFiscalPositionList.as_view(),
         name='fiscalposition-companies'
     ),
-    url(
-        r'^fiscalpositions/(?P<pk>\d+)/contacts/$',
+    path(
+        'fiscalpositions/<pk>/contacts/',
         views.ContactsByFiscalPositionList.as_view(),
         name='fiscalposition-contacts'
     ),
-    url(
-        r'^invoicetypes/(?P<pk>\d+)/invoices$',
+    path(
+        'invoicetypes/<pk>/invoices',
         views.InvoicesByInvoiceTypeList.as_view(),
         name='invoicetype-invoices'
     ),
-    url(
-        r'^invoicetypes/bills/$',
+    path(
+        'invoicetypes/bills/',
         views.InvoiceTypesByBillClassList.as_view(),
         name='invoicetype-bills'
     ),
-    url(
-        r'^invoicetypes/debits/$',
+    path(
+        'invoicetypes/debits/',
         views.InvoiceTypesByDebitClassList.as_view(),
         name='invoicetype-debits'
     ),
-    url(
-        r'^invoicetypes/credits/$',
+    path(
+        'invoicetypes/credits/',
         views.InvoiceTypesByCreditClassList.as_view(),
         name='invoicetype-credits'
     ),
-    url(r'^', include(router.urls)),
+    path('', include(router.urls)),
 ]

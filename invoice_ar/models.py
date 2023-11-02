@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from invoice.models import VAT, CompanyInvoice, ContactInvoice, Invoice
 from persons.models import PhysicalAddress
 
@@ -20,7 +20,8 @@ class ContactInvoiceAR(models.Model):
     """
     invoice_contact = models.OneToOneField(
         ContactInvoice,
-        verbose_name=_('contact')
+        verbose_name=_('contact'),
+        on_delete=models.CASCADE
     )
     id_type = models.CharField(
         _('id type'),
@@ -52,7 +53,8 @@ class CompanyInvoiceAR(models.Model):
     """
     invoice_company = models.OneToOneField(
         CompanyInvoice,
-        verbose_name=_('company')
+        verbose_name=_('company'),
+        on_delete=models.CASCADE
     )
     cuit = models.CharField(
         _('CUIT'),

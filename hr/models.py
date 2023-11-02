@@ -1,8 +1,8 @@
 from common.validators import date_is_present_or_past
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext_noop as _noop
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _noop
 from persons.models import GENRE_TYPES, Company, PersonProfile
 
 
@@ -219,7 +219,8 @@ class Employee(PersonProfile):
     """
     user = models.OneToOneField(
         User,
-        verbose_name=_('user')
+        verbose_name=_('user'),
+        on_delete=models.CASCADE
     )
     genre = models.CharField(
         _('genre'),
